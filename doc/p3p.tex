@@ -1,0 +1,102 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+
+\begin{document}
+\title{Comments on the period three cycle}
+\author{Cheng Zhang}
+\maketitle
+
+In this note, we shall
+  find the bifurcation point of the period-3 cycle,
+  and show the orbit is real after the onset.
+
+\section{The bifurcation point}
+Due to heavier algebra, we shall work with simplified map
+\[
+x_{n+1} = f(x_n) = R - {x_n}^2,
+\]
+and $a$, $b$ and $c$ denote three successive points in the period-3 orbit,
+$b=f(a), c=f(b), a=f(c)$.
+For $X \equiv a + b + c$, we have
+\begin{align}
+X^2 - X + 2 - R = 0.
+\label{eq:xr}
+\end{align}
+%
+Now
+\begin{align}
+ Y \equiv a b + b c + c a
+= \frac{1}{2} [ (a + b + c)^2 - (a^2 + b^2 + c^2) ]
+= X - R - 1,
+\label{eq:y}
+\end{align}
+where we have used $(a^2 + b^2 + c^2) = 3R - (a+b+c)$ and \eqref{eq:xr}.
+
+Similarly, we express $Z \equiv abc$ in terms of $X$ by
+\begin{align}
+  a^3 + b^3 + c^3 - 3 a b c =
+ (a + b + c) (a^2 + b^2 + c^2 - a b - b c - c a)
+\label{eq:pow3}
+\end{align}
+For the left hand side, we have $a^2 = R - b$, so $a^3 = R a - ab$, and
+\begin{align}
+  a^3 +b^3 + c^3
+= R (a+b+c) - (ab+bc+ca)
+= (R - 1) X + R + 1.
+\label{eq:pow3a}
+\end{align}
+%
+For the right hand side,
+\begin{align}
+& (a + b + c) (a^2 + b^2 + c^2 - a b - b c - c a)
+= X [X^2 - 3(ab + bc + ca)] \notag\\
+=& X (-2X + 4R + 1)
+= (4R-1) X -2(R-2).
+\label{eq:pow3b}
+\end{align}
+Plugging \eqref{eq:pow3a} and \eqref{eq:pow3b} to \eqref{eq:pow3}, we have
+\begin{equation}
+Z \equiv abc = -RX + R - 1.
+\label{eq:abc}
+\end{equation}
+Solving \eqref{eq:abc} yields $X = 1 + (1+Z)/R$.
+Plugging it into \eqref{eq:xr} yields
+\begin{equation}
+  R^3 - 2R^2 + (1+Z)R + (1+Z)^2 = 0.
+\end{equation}
+
+At the onset point $(-2a)(-2b)(-2c) = 1$, or $Z = -1/8$, we have
+\[
+  (R-7/4) (R^2 - R/4 + 7/16) = 0.
+\]
+The only real solution is $R = 7/4$, so $r = 1+\sqrt{1+4R} = 1+ \sqrt 8$.
+
+At the bifurcation point $(-2a)(-2b)(-2c) = -1$, or $Z = 1/8$, we have
+\[
+  R^3 - 2 R^2 + 9R/8 - 81/64 = 0.
+\]
+The only real solution is
+$
+R = \frac{2}{3}
+  +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} + \frac{5}{2} \sqrt{201}}
+  +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} - \frac{5}{2} \sqrt{201}}.
+$
+
+\section{The existence of the real orbit}
+
+Next we show that the orbit is real after the onset, i.e., $R>7/4$.
+By definition $a$, $b$ and $c$ are solutions of
+\[
+  q^3 - X q^2 + Y q - Z = 0.
+\]
+The discriminant is
+\[
+\Delta = X^2 Y^2 - 4 Y^3 - 4 X^3 Z + 18 X Y Z - 27 Z^2
+  = (4X^2 - 6X + 9)^2,
+\]
+where we have used \eqref{eq:y} and \eqref{eq:abc},
+and eliminated $R$ by \eqref{eq:xr}.
+Thus as long as $X$ is real, $\Delta > 0$, which means there are always three
+real solutions.
+
+\end{document}

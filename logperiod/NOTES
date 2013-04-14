@@ -1,0 +1,20 @@
+The name of the project is logperiod
+3ki5tj@gmail.com
+
+To upload
+cd ~/software/google_appengine
+./appcfg.py update logperiod
+
+To test locally
+cd ~/software/google_appengine
+./dev_appserver.py logperiod
+
+Dashboard
+http://appengine.google.com/
+
+To get tutorial
+http://code.google.com/appengine/docs/python/gettingstarted/
+
+
+to synchronize
+rsync -avz ../logperiod /media/RII/logistic/

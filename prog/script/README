@@ -1,0 +1,4 @@
+These are script for deploying the programs on SUG@R, so 32 independent jobs can be run.
+logrep.py: logistic map
+cubrep.py: cubic map
+henrep.py: henon map

@@ -1,0 +1,17 @@
+Convert the matrix to magma format, calling the determinant routine there,
+  slower than Mathematica
+
+./mat2magma.py mats8.py > a.magma
+
+then in Magma
+> load a.magma;
+> f;
+
+
+numbthy.py
+    collects some basic number theory routines in Python
+    mat2magma.py uses numbthy.py
+
+
+magma8.py GroebnerBasis routines
+

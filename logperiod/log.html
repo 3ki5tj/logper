@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Cycles of the logistic map</title>
+<script type="text/javascript" src="js/main.js"></script>
+<link type="text/css" rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<h1>Cycles of the logistic map</h1>
+
+<h2>Introduction</h2>
+<p>The <a href="http://mathworld.wolfram.com/LogisticMap.html">logistic map</a> is defined as:
+<div class="eq">
+    <i>x</i><sub><i>k</i>+1</sub>
+    = <i>f</i> (<i>x<sub>k</sub></i>)
+    &equiv; <i>r x<sub>k</sub></i> (1 &minus; <i>x<sub>k</sub></i>).
+</div>
+
+<p>An <span class="eq"><i>n</i></span>-cycle means
+<div class="eq">
+    <i>x</i><sub> <i>n</i>+1</sub>
+    =  <i>x</i><sub>1</sub>.
+</div>
+
+<p>We ask at what <span class="eq"><i>r</i></span> values, an <span class="eq"><i>n</i></span>-cycle is possible and stable.
+
+<!--
+<p>
+The existence of the 3-cycle (<span class="eq"><i>n</i> = 3</span>) is of particular importance,
+as it means that all other cycles (with the same <span class="eq"><i>r</i></span> exist as well (although unstable),
+see Sharkovskii and Li &amp; Yorke.
+The onset value <span class="eq"><i>r</i></span> for the 3-cycle has been discussed in several papers (see the references).
+-->
+
+
+<p>We first transform the logistic map to an algebraically simpler form (as suggested by Saha and Strogatz)
+by a change of variables
+<div class="eq">
+    <i>x</i> &larr; <i>r</i> (<i>x</i> &minus; 1/2),
+    <i>R</i> &equiv; (<i>r</i><sup>2</sup> &minus; 2 <i>r</i>) / 4.
+</div>
+<p>to
+<div class="eq">
+    <i>x</i><sub><i>n</i>+1</sub>
+    =  <i>R</i> &minus; <i>x<sub>n</sub></i><sup>2</sup>.
+</div>
+<p>For later convenience, we further define
+<span class="eq">
+  <i>T</i> = <i>R</i>/4,
+</span>
+and
+<!--
+and
+<span class="eq">
+  <i>X</i> = <i>x</i><sub>1</sub> + ... + <i>x<sub>n</sub></i>.
+</span>
+for an <i>n</i>-cycle.
+-->
+
+<!--
+<p>For the 3-cycle, we can show that there is a relation between <i>X</i> and <i>R</i>
+<div class="eq">
+  <i>X</i><sup>2</sup> &minus; <i>X</i> + 2 &minus; <i>R</i> = 0.
+</div>
+<p>The discriminant of the above equation is
+<span class="eq">
+  &Delta; = 4<i>R</i> &minus; 7,
+</span>
+
+Thus, a period three cycle can only occur if
+<span class="eq">
+  <i>R</i> &ge; 7/4,
+</span>
+which determines the onset of period three
+(the equivalent condition for
+<span class="eq"><i>r</i></span>
+is
+<span class="eq"><i>r</i> &ge; 1 + &radic;8 = 3.828427... </span>
+or
+<span class="eq"><i>r</i> &le; 1 &minus; &radic;8 = &minus;1.828427...</span>
+).
+
+<p>The 3-cycle is stable until
+<span class="eq">[ <i>f</i> ( <i>f</i> ( <i>f</i> (<i>x</i>) ) ) ]&prime; = &minus;1</span>
+or
+<span class="eq">
+ <i>f</i> &prime;(<i>x</i><sub>1</sub>)
+ <i>f</i> &prime;(<i>x</i><sub>2</sub>)
+ <i>f</i> &prime;(<i>x</i><sub>3</sub>)
+= &minus;1</span> (the chain rule).
+For the logistic map, this condition translates to
+<div class="eq">
+  (&minus;2)<sup><i>3</i></sup>
+      <i>x</i><sub>1</sub>
+      <i>x</i><sub>2</sub>
+      <i>x</i><sub>3</sub> = &minus;1
+</div>
+<p>We thus have a condition for <span class="eq"><i>R</i></span>
+ that yields the bifurcation value.
+-->
+
+<div class="eq">
+  <i>d</i> &equiv;
+(&minus;2)<sup><i>n</i></sup>
+      <i>x</i><sub>1</sub>
+      <i>x</i><sub>2</sub> ...
+      <i>x</i><sub><i>n</i></sub>
+</div>
+<p>The cycle starts at <span class="eq"><i>d</i> = 1</span>,
+   and becomes unstable at <span class="eq"><i>d</i> = &minus;1</span>.
+<!--
+We also define
+<span class="eq">
+  <i>c</i> = 2<sup>n</sup> &minus; <i>d</i>,
+</span>
+which often makes formulas simpler.
+-->
+
+<h2><i>n</i>-cycle data</h2>
+
+<p>We list the polynomials of
+  <span class="eq"><i>T</i></span>
+  for the <i>n</i>-cycles of the logistic map
+  in the files labeled by "eq.".
+
+The numerical zeros are appended to the equation files.
+
+The equivalent <span class="eq"><i>r</i></span>
+  are listed in the files labeled by "r values".
+
+You can right-click each item and save.
+
+<table class="datatable">
+<tr>
+  <th>n</th><th>Onset</th><th>Bifurcation</th>
+</tr>
+<tr><td>1</td>
+  <td><a href="data/log/T1a.txt">eq.</a> and
+      <a href="data/log/r1a.txt">r values</a></td>
+  <td><a href="data/log/T1b.txt">eq.</a> and
+      <a href="data/log/r1b.txt">r values</a></td>
+</tr>
+<tr><td>2</td>
+  <td><a href="data/log/T2a.txt">eq.</a> and
+      <a href="data/log/r2a.txt">r values</a></td>
+  <td><a href="data/log/T2b.txt">eq.</a> and
+      <a href="data/log/r2b.txt">r values</a></td>
+</tr>
+<tr><td>3</td>
+  <td><a href="data/log/T3a.txt">eq.</a> and
+      <a href="data/log/r3a.txt">r values</a></td>
+  <td><a href="data/log/T3b.txt">eq.</a> and
+      <a href="data/log/r3b.txt">r values</a></td>
+</tr>
+<tr><td>4</td>
+  <td><a href="data/log/T4a.txt">eq.</a> and
+      <a href="data/log/r4a.txt">r values</a></td>
+  <td><a href="data/log/T4b.txt">eq.</a> and
+      <a href="data/log/r4b.txt">r values</a></td>
+</tr>
+<tr><td>5</td>
+  <td><a href="data/log/T5a.txt">eq.</a> and
+      <a href="data/log/r5a.txt">r values</a></td>
+  <td><a href="data/log/T5b.txt">eq.</a> and
+      <a href="data/log/r5b.txt">r values</a></td>
+</tr>
+<tr><td>6</td>
+  <td><a href="data/log/T6a.txt">eq.</a> and
+      <a href="data/log/r6a.txt">r values</a></td>
+  <td><a href="data/log/T6b.txt">eq.</a> and
+      <a href="data/log/r6b.txt">r values</a></td>
+</tr>
+<tr><td>7</td>
+  <td><a href="data/log/T7a.txt">eq.</a> and
+      <a href="data/log/r7a.txt">r values</a></td>
+  <td><a href="data/log/T7b.txt">eq.</a> and
+      <a href="data/log/r7b.txt">r values</a></td>
+</tr>
+<tr><td>8</td>
+  <td><a href="data/log/T8a.txt">eq.</a> and
+      <a href="data/log/r8a.txt">r values</a></td>
+  <td><a href="data/log/T8b.txt">eq.</a> and
+      <a href="data/log/r8b.txt">r values</a></td>
+</tr>
+<tr><td>9</td>
+  <td><a href="data/log/T9a.txt">eq.</a> and
+      <a href="data/log/r9a.txt">r values</a></td>
+  <td><a href="data/log/T9b.txt">eq.</a> and
+      <a href="data/log/r9b.txt">r values</a></td>
+</tr>
+<tr><td>10</td>
+  <td><a href="data/log/T10a.txt">eq.</a> and
+      <a href="data/log/r10a.txt">r values</a></td>
+  <td><a href="data/log/T10b.txt">eq.</a> and
+      <a href="data/log/r10b.txt">r values</a></td>
+</tr>
+<tr><td>11</td>
+  <td><a href="data/log/T11a.txt">eq.</a> and
+      <a href="data/log/r11a.txt">r values</a></td>
+  <td><a href="data/log/T11b.txt">eq.</a> and
+      <a href="data/log/r11b.txt">r values</a></td>
+</tr>
+<tr><td>12</td>
+  <td><a href="data/log/T12a.txt">eq.</a> and
+      <a href="data/log/r12a.txt">r values</a></td>
+  <td><a href="data/log/T12b.txt">eq.</a> and
+      <a href="data/log/r12b.txt">r values</a></td>
+</tr>
+<tr><td>13</td>
+  <td><a href="data/log/T13a.txt">eq.</a> and
+      <a href="data/log/r13a.txt">r values</a></td>
+  <td><a href="data/log/T13b.txt">eq.</a> and
+      <a href="data/log/r13b.txt">r values</a></td>
+</tr>
+</table>
+
+
+
+
+<h2>Programs</h2>
+
+<table class="progtable">
+<tr>
+  <th>Program</td>
+  <th>Discription</td>
+</tr>
+
+<tr>
+  <td><a href="prog/prd.ma">prd.ma</a></td>
+  <td>self-contained, computes the primitive factor.
+  </td>
+</tr>
+
+<tr>
+  <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
+  <td>computes the interpolation polynomial from the list of values.</td>
+</tr>
+
+<tr>
+  <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
+  <td>numerically solves the polynomial equation of <span class="eq"><i>r</i></span>.</td>
+</tr>
+</table>
+
+
+
+
+
+
+<h2>References</h2>
+
+<p>Logistic map is widely studied, here we can only list a few references that are most pertinent.
+
+{{ prim_ref }}
+
+<h3>General information</h3>
+<ul>
+<li> <a href="http://mathworld.wolfram.com/LogisticMap.html">MathWorld</a>
+<li> <a href="http://en.wikipedia.org/wiki/Logistic_map">Wikipedia</a>
+
+<li> Robert M. May,
+<i>Simple mathematical models with very complicated dynamics</i>,
+Nature <b>261</b> (1976) 459-467
+
+<li>Steven H. Strogatz,
+<a href="http://www.amazon.com/Nonlinear-Dynamics-And-Chaos-Applications/dp/0738204536"><i>
+Nonlinear Dynamics And Chaos: With Applications To Physics, Biology, Chemistry, And Engineering"
+</i></a>Westview Press, 2001
+
+<li>
+Bailin Hao,
+<a href="http://power.itp.ac.cn/~hao/"><i>
+  Elementary Symbolic Dynamics and Chaos in Dissipative Systems,
+</i></a> World Scientific, 1989
+
+</ul>
+
+<h3>Derivations of the period three cycle</h3>
+<ul>
+<li>
+Partha Saha and Steven H. Strogatz, <i>The Birth of Period Three</i>,
+  Mathematics Magazine <b>68</b> (1995) 42-47
+<li>
+John Bechhoefer, <i>The birth of period 3, revisited</i>,
+  Mathematics Magazine <b>69</b> (1996) 115-118
+<li>
+William B. Gordon, <i>Period three trajectories of the logistic map</i>,
+  Mathematics Magazine <b>69</b> (1996) 118-120
+<li>
+Jacqueline Burm and Paul Fishback, <i>Period-3 Orbits via Sylvester's Theorem and Resultants</i>,
+  Mathematics Magazine <b>74</b> (2001) 47-51
+<li>
+Cheng Zhang, <i>Period three begins</i>,
+  Mathematics Magazine <b>83</b> (2010) 295-297
+</ul>
+
+<h3>Period-3 implies chaos</h3>
+<ul>
+<li>
+Alexander N. Sharkovskii (Oleksandr Mikolaiovich Sharkovsky), <i>Co-existence of cycles of a continuous mapping of the line into itself</i>,
+Ukrainian Matematicheskii Zhurnal, <b>16</b> (1964) 61-71
+<li>Tien-Yien Li and James A. Yorke,
+<i>Period three implies chaos</i>
+The American Mathematical Monthly <b>82</b> (1975) 985-992
+</ul>
+
+<h3>Number of roots</h3>
+<ul>
+<li>
+Bailin Hao,
+<a href="http://power.itp.ac.cn/~hao/"><i>
+  Elementary Symbolic Dynamics and Chaos in Dissipative Systems,
+</i></a> World Scientific, 1989
+
+<li>
+Fa-geng Xie and Bai-lin Hao,
+<i>Counting the number of periods in one-dimensional maps with multiple critical points</i>,
+Physica A <b>202</b> (1994) 237-263
+
+<li>
+Bailin Hao,
+<i>Number of Periodic Orbits in Continuous Maps of the
+Interval—Complete Solution of the Counting Problem</i>,
+Annals of Combinatorics <b>4</b> (2000) 339-346
+
+</ul>
+
+{{ go_home }}
+{{ last_update }}
+
+<script type="text/javascript"> var sc_project=7808061; var sc_invisible=1; var sc_security="4ca30a12";
+</script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+</body>
+</html>

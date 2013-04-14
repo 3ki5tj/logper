@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Cycles of the cubic map</title>
+<script type="text/javascript" src="js/main.js"></script>
+<link type="text/css" rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<h1>Cycles of the cubic map</h1>
+
+<h2>Introduction</h2>
+<p>The cubic map is defined as:
+<div class="eq">
+    <i>x</i><sub><i>k</i>+1</sub>
+    = <i>f</i> (<i>x<sub>k</sub></i>)
+    &equiv; <i>r x<sub>k</sub></i> &minus; <i>x<sub>k</sub></i><sup>3</sup>.
+</div>
+<p>Note, the map is odd as
+<span class="eq">
+ <i>f</i> (&minus;<i>x</i>) = &minus;<i>f</i> (<i>x</i>)
+<span>.
+
+<h2><i>n</i>-cycle data</h2>
+
+<p>We list the polynomials involved in the <i>n</i>-cycles in the follows.
+The numerical zeros are appended after the files.
+
+<table class="datatable">
+<tr>
+  <th>n</th><th>Onset</th><th>Bifurcation</th>
+</tr>
+<tr><td>1</td>
+  <td><a href="data/cubic/cr1a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr1b.txt">eq.</a></td>
+</tr>
+<tr><td>2</td>
+  <td><a href="data/cubic/cr2a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr2b.txt">eq.</a></td>
+</tr>
+<tr><td>3</td>
+  <td><a href="data/cubic/cr3a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr3b.txt">eq.</a></td>
+</tr>
+<tr><td>4</td>
+  <td><a href="data/cubic/cr4a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr4b.txt">eq.</a></td>
+</tr>
+<tr><td>5</td>
+  <td><a href="data/cubic/cr5a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr5b.txt">eq.</a></td>
+</tr>
+<tr><td>6</td>
+  <td><a href="data/cubic/cr6a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr6b.txt">eq.</a></td>
+</tr>
+<tr><td>7</td>
+  <td><a href="data/cubic/cr7a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr7b.txt">eq.</a></td>
+</tr>
+<tr><td>8</td>
+  <td><a href="data/cubic/cr8a.txt">eq.</a></td>
+  <td><a href="data/cubic/cr8b.txt">eq.</a></td>
+</tr>
+</table>
+
+<h2>Programs</h2>
+
+<table class="progtable">
+<tr>
+  <th>Program</td>
+  <th>Discription</td>
+</tr>
+
+<tr>
+  <td><a href="prog/cub.ma">cub.ma</a></td>
+  <td>self-contained, computes the primitive factor,
+      for small <span class="eq"><i>n</i></span>.
+  </td>
+</tr>
+
+<tr>
+  <td><a href="prog/cub0.ma">cub0.ma</a></td>
+  <td>computes the determinant,
+  still has nonprimitive factors.</td>
+</tr>
+
+<tr>
+  <td><a href="prog/cub0d.ma">cub0d.ma</a></td>
+  <td>filters nonprimitive factors from the output of cub0.ma</td>
+</tr>
+
+<tr>
+  <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
+  <td>computes the interpolation polynomial from the list of values.</td>
+</tr>
+
+<tr>
+  <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
+  <td>numerically solves the polynomial equation of <span class="eq"><i>r</i></span>.</td>
+</tr>
+</table>
+
+<h2>References</h2>
+{{ prim_ref }}
+
+<h3>General information</h3>
+
+<ul>
+<li>Steven H. Strogatz,
+<a href="http://www.amazon.com/Nonlinear-Dynamics-And-Chaos-Applications/dp/0738204536"><i>
+Nonlinear Dynamics And Chaos: With Applications To Physics, Biology, Chemistry, And Engineering"
+</i></a>Westview Press, 2001
+
+<li>
+Bailin Hao,
+<a href="http://power.itp.ac.cn/~hao/"><i>
+  Elementary Symbolic Dynamics and Chaos in Dissipative Systems,
+</i></a> World Scientific, 1989
+
+</ul>
+
+{{ go_home }}
+{{ last_update }}
+
+
+<script type="text/javascript"> var sc_project=7808062; var sc_invisible=1; var sc_security="2a126605"; </script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+</body>
+</html>

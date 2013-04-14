@@ -1,0 +1,1 @@
+../../prog/cub0d.ma

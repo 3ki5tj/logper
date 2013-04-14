@@ -1,0 +1,7 @@
+bifurcation diagram
+
+bullet point
+f[r_, x_] := r x - x^3;
+Solve[f[r, f[r, Sqrt[r/3]]] - f[r, f[r, -Sqrt[r/3]]] == 0, r]
+r =  3 Sqrt[3]/2  = 2.5980
+
