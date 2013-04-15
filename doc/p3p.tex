@@ -1,77 +1,151 @@
-\documentclass[12pt]{article}
+%\documentclass[12pt]{article}
+\documentclass[twocolumn,prl]{revtex4-1}
 \usepackage{amsmath}
 
 \begin{document}
-\title{Comments on the period three cycle}
+\title{On the 3-cycle of the logistic map}
 \author{Cheng Zhang}
+\date{April 15, 2012}
+\begin{abstract}
+We review a simple derivation of 
+  the onset and bifurcation points the 3-cycle
+  of the logistic map.
+\end{abstract}
 \maketitle
 
-In this note, we shall
-  find the bifurcation point of the period-3 cycle,
-  and show the orbit is real after the onset.
 
-\section{The bifurcation point}
-Due to heavier algebra, we shall work with simplified map
+%\section{Introduction}
+The logistic map reads
 \[
-x_{n+1} = f(x_n) = R - {x_n}^2,
+  z_{n+1} = F(z_n) = r z_n (1 - z_n),
 \]
-and $a$, $b$ and $c$ denote three successive points in the period-3 orbit,
-$b=f(a), c=f(b), a=f(c)$.
-For $X \equiv a + b + c$, we have
-\begin{align}
-X^2 - X + 2 - R = 0.
-\label{eq:xr}
-\end{align}
+We want to find what $r$ values permit a \emph{stable} 3-cycle,
+i.e., a solution of $z_{n+3} = z_n$,
+which can sustain a small deviation in the initial $z_0$.
+The two boundary points $r_0$ and $r_1$ 
+  of the permissible window $(r_0, r_1)$
+  are called the \emph{onset} and \emph{bifurcation} points.
 %
-Now
-\begin{align}
- Y \equiv a b + b c + c a
-= \frac{1}{2} [ (a + b + c)^2 - (a^2 + b^2 + c^2) ]
-= X - R - 1,
-\label{eq:y}
-\end{align}
-where we have used $(a^2 + b^2 + c^2) = 3R - (a+b+c)$ and \eqref{eq:xr}.
-
-Similarly, we express $Z \equiv abc$ in terms of $X$ by
-\begin{align}
-  a^3 + b^3 + c^3 - 3 a b c =
- (a + b + c) (a^2 + b^2 + c^2 - a b - b c - c a)
-\label{eq:pow3}
-\end{align}
-For the left hand side, we have $a^2 = R - b$, so $a^3 = R a - ab$, and
-\begin{align}
-  a^3 +b^3 + c^3
-= R (a+b+c) - (ab+bc+ca)
-= (R - 1) X + R + 1.
-\label{eq:pow3a}
-\end{align}
-%
-For the right hand side,
-\begin{align}
-& (a + b + c) (a^2 + b^2 + c^2 - a b - b c - c a)
-= X [X^2 - 3(ab + bc + ca)] \notag\\
-=& X (-2X + 4R + 1)
-= (4R-1) X -2(R-2).
-\label{eq:pow3b}
-\end{align}
-Plugging \eqref{eq:pow3a} and \eqref{eq:pow3b} to \eqref{eq:pow3}, we have
+By a change of variables
 \begin{equation}
-Z \equiv abc = -RX + R - 1.
+  x_n = r (z_n - 1/2),
+  R = (2 r - r^2)/4,
+\label{eq:chvars}
+\end{equation}
+we get a simplified map
+\[
+x_{n+1} = f(x_n) = R - {x_n}^2.
+\]
+The onset and bifurcation points will be solved
+  in terms of $R$, and the corresponding $r$ values 
+  are obtained by \eqref{eq:chvars}.
+
+%\section{Cyclic polynomials}
+
+Let $a$, $b$ and $c$ be the three points in the 3-cycle:
+\begin{equation}
+  b=f(a), c=f(b), a=f(c).
 \label{eq:abc}
 \end{equation}
-Solving \eqref{eq:abc} yields $X = 1 + (1+Z)/R$.
-Plugging it into \eqref{eq:xr} yields
+We define the cyclic polynomials
+$X = a+b+c$,
+$X_k = a^k+b^k+c^k$ (for $k = 2,3$),
+$Y = ab+bc+ca$, and $Z = abc$.
+We will show that the equations of $X$, $Y$, and $Z$
+are more helpful in determining the two points of the 3-cycle.
+
+
+
+%\section{Onset point}
+
+For the onset point \cite{zhang},
+we obtain from $c - b = f(b) - f(a)$ that
+$c-b = -(b+a)(b-a)$;
+Similar,
+$a-c = -(c+b)(c-b)=(c+b)(b+a)(b-a)$.
+Now $(b-a) + (c-b) + (a-c) = 0$ means
+\[
+1 - (b+a) + (c+b)(b+a) = 0.
+\]
+Cycling variables
+$a\rightarrow b$,
+$b\rightarrow c$,
+$c\rightarrow a$,
+and adding up the three distinct versions yields
+\begin{equation}
+3 - 2X + X^2 + Y = 0.
+\label{eq:stair}
+\end{equation}
+%
+On the other hand, the sum of \eqref{eq:abc} gives
+$X = 3R - X_2$,
+and $X^2 = X_2 + 2 Y$;
+so
+\begin{equation}
+X = 3R - X^2 + 2Y.
+\label{eq:XY}
+\end{equation}
+%
+Eliminating $Y$ by \eqref{eq:stair} and \eqref{eq:XY}, we get
+\begin{equation}
+  X^2 - X + 2 - R = 0,
+\label{eq:XR}
+\end{equation}
+This equation has a real root only if $2 - R \le 1/4$.
+Thus, $R = 7/4$ (so $r = 1+\sqrt{1+4R} = 1+ \sqrt 8$)
+is the onset for the only real 3-cycle.
+
+
+
+%\section{Bifurcation point}
+
+Let us express cyclic polynomials as linear functions of $X$.
+Using \eqref{eq:stair} and \eqref{eq:XR}, we get
+\begin{align}
+  Y    &= X - R - 1, \notag \\
+  X_2  &= X^2 - 2Y = 3R-X,
+\label{eq:Y}
+\end{align}
+%
+For $X_3$,
+we have $a^3 = R a - ab$ from $b = f(a)$,
+summing over cyclic versions yields,
+\begin{equation}
+X_3 = R X - Y = (R-1) X + R + 1.
+\label{eq:X3}
+\end{equation}
+%
+By the identity
+$X_3 - 3 Z = X (X_2 - Y)$,
+\eqref{eq:X3}, \eqref{eq:Y}, and \eqref{eq:XR},
+we have
+\begin{equation}
+Z = -RX + R - 1.
+\label{eq:Z}
+\end{equation}
+Now \eqref{eq:XR} can be rewritten in terms of $Z$:
 \begin{equation}
   R^3 - 2R^2 + (1+Z)R + (1+Z)^2 = 0.
+\label{eq:RZ}
 \end{equation}
 
-At the onset point $(-2a)(-2b)(-2c) = 1$, or $Z = -1/8$, we have
+We now use the derivative condition:
+at the onset (bifurcation) point,
+$\frac{d}{da}f(f(f(a))) = +1$ ($-1$),
+which by the chain rule, gives
+$f'(c)f'(b)f'(a) = -8abc = \pm1$, or
+\begin{equation}
+  Z = \mp1/8.
+\label{eq:Zder}
+\end{equation}
+%
+At the onset point $Z = -1/8$, \eqref{eq:RZ} becomes
 \[
   (R-7/4) (R^2 - R/4 + 7/16) = 0.
 \]
-The only real solution is $R = 7/4$, so $r = 1+\sqrt{1+4R} = 1+ \sqrt 8$.
-
-At the bifurcation point $(-2a)(-2b)(-2c) = -1$, or $Z = 1/8$, we have
+The real solution $R = 7/4$ agrees with the previous solution.
+%
+At the bifurcation point $Z = 1/8$, we have
 \[
   R^3 - 2 R^2 + 9R/8 - 81/64 = 0.
 \]
@@ -82,21 +156,29 @@ R = \frac{2}{3}
   +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} - \frac{5}{2} \sqrt{201}}.
 $
 
-\section{The existence of the real orbit}
-
-Next we show that the orbit is real after the onset, i.e., $R>7/4$.
-By definition $a$, $b$ and $c$ are solutions of
+We can also show $a$, $b$, $c$ are real after the onset ($R\ge7/4$).
+By definition, $a$, $b$ and $c$ are the distinct roots of
 \[
-  q^3 - X q^2 + Y q - Z = 0.
+  x^3 - X x^2 + Y x - Z = 0.
 \]
 The discriminant is
 \[
 \Delta = X^2 Y^2 - 4 Y^3 - 4 X^3 Z + 18 X Y Z - 27 Z^2
   = (4X^2 - 6X + 9)^2,
 \]
-where we have used \eqref{eq:y} and \eqref{eq:abc},
-and eliminated $R$ by \eqref{eq:xr}.
+where we have used \eqref{eq:Y} and \eqref{eq:Z},
+and eliminated $R$ by \eqref{eq:XR}.
 Thus as long as $X$ is real, $\Delta > 0$, which means there are always three
 real solutions.
 
+\begin{thebibliography}{}
+\bibitem{zhang} C. Zhang,
+  Period three begins,
+  \textit{Mathematics Magazine}
+  \textbf{83},
+  295-297
+  (2010).
+\end{thebibliography}
+
 \end{document}
+
