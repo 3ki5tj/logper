@@ -632,10 +632,10 @@ To summarize, we have
 %\begin{remark}[1]
   For complex $R$ and $\vx$,
   $\lambda$ should be generalized from $\pm1$
-  to any $\lambda = \exp(i\phi)$,
-  where $\phi \in [0, 2\pi]$,
+  to any $\lambda = \exp(i\theta)$,
+  where $\theta \in [0, 2\pi]$,
   the algorithm still applies.
-  By increasing $\phi$ from 0 to $2\pi$,
+  By increasing $\theta$ from 0 to $2\pi$,
   we can trace a two-dimensional region of a complex $R$
   for stable cycles.
   These regions are bulbs in the Mandelbrot set,
@@ -1073,7 +1073,7 @@ $\begin{aligned}
 \hline
 \multicolumn{2}{p{\textwidth}}{
 $^\dagger$
-$\NB(n) = (1/n) \sum_{d|n} \phi(n/d) 2^d$ [\refeq{necklace}]
+$\NB(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^d$ [\refeq{necklace}]
 is the number of the square-free cyclic polynomials.
 %
 The change of variable $\lambda \rightarrow X$ and
@@ -1101,7 +1101,7 @@ in \reftab{Anlog} and \reftab{Pnlog}, respectively, for some small $n$.
 %
 For complex $R$, $\lambda$, and $\vx$,
 the method can also compute the region of stability for $R$,
-with $\lambda$ being $\exp(i\phi)$ \big[$\phi \in (0, 2\pi)$\big]
+with $\lambda$ being $\exp(i\theta)$ \big[$\theta \in (0, 2\pi)$\big]
   instead of $\pm1$;
 the results are shown in \reffig{logbulb}
 for $n$ up to $8$.
@@ -1562,7 +1562,7 @@ are struck out.
   \label{fig:logbulb}
   Stable regions of the $n$-cycles of the simplified logistic map \refeq{logmaps}
   with a complex $R$;
-  obtained from $P_n(R, e^{i\phi}) = 0$ with $\phi \in [0, 2\pi]$,
+  obtained from $P_n(R, e^{i\theta}) = 0$ with $\theta \in [0, 2\pi]$,
   cf. Fig. 3 in \cite{stephenson}.
 }
 \end{figure}
@@ -1652,7 +1652,7 @@ Two ways of counting the $N(4) = 6$ necklaces for $n = 4$.
 \hline
         & \multicolumn{2}{c|}{$m = 1$}
         & $m = 2$
-        & $m = 4$   & $2^d$ & $\phi(n/d)$ & $\phi(n/d) 2^d$\\
+        & $m = 4$   & $2^d$ & $\varphi(n/d)$ & $\varphi(n/d) 2^d$\\
 \hline
 $d = 1$ & \hspace{1mm} $\mathbf{0}_{\times4}$ \hspace{1mm}
         & \hspace{1mm} $\mathbf{1}_{\times4}$ \hspace{1mm} & & & $2 = 2$ & $2$ & 4 \\
@@ -1668,7 +1668,7 @@ $d = 2$ & $\mathbf{00}_{\times2}$ & $\mathbf{11}_{\times2}$
             & $\mathbf{1100} (1001, 0110, 0011)$ & $=16$ & $1$ & 16 \\
       & & & &   $\mathbf{1110} (1101, 1011, 0111)$ & &  \\
 \hline
-$m \sum_{m|d, d|n} \phi(\frac{n}{d})$
+$m \sum_{m|d, d|n} \varphi(\frac{n}{d})$
       & \multicolumn{2}{c|}{$1\cdot(2+1+1) = 4$}
       & $2\cdot(1+1) = 4$ & $4\cdot1 = 4$ &  \multicolumn{2}{c|}{} &  $\downarrow$\\
 \hline
@@ -1709,16 +1709,16 @@ The total is $2^d$,
   for we have enumerated all binary strings whose periods divide $d$.
 %and each period-$m$ necklace contributes $m$ cyclic versions.
 %
-We then weight them by the Euler's totient function $\phi(n/d)$.
+We then weight them by the Euler's totient function $\varphi(n/d)$.
 %
-Here, $\phi(m)$ gives the number of integers from 1 to $m$
+Here, $\varphi(m)$ gives the number of integers from 1 to $m$
   that are coprime to $m$,
   e.g.,
-  $\phi(1) = 1$,
-  $\phi(3) = 2$ for 1 and 2,
-  $\phi(6) = 2$ for 1 and 5.
+  $\varphi(1) = 1$,
+  $\varphi(3) = 2$ for 1 and 2,
+  $\varphi(6) = 2$ for 1 and 5.
 We repeat the process over other divisors $d$ of $n$,
-  and the resulting sum is $\sum_{d|n} \phi(n/d) 2^d$.
+  and the resulting sum is $\sum_{d|n} \varphi(n/d) 2^d$.
 %
 The process for a fixed $d$ is exemplified
   by a row in \reftab{countnecklace}.
@@ -1732,15 +1732,15 @@ We recall that a period-$m$ necklace always contributes
   and it does so for all multiples $d$ of $m$.
 So the total weighted contribution by this necklace is
 \begin{equation}
-m \sum_{m|d, d|n} \phi(n/d) =
- m \sum_{\frac{n}{d}|\frac{n}{m}} \phi(n/d) = m \,  \frac{n}{m}  = n,
+m \sum_{m|d, d|n} \varphi(n/d) =
+ m \sum_{\frac{n}{d}|\frac{n}{m}} \varphi(n/d) = m \,  \frac{n}{m}  = n,
 \label{eq:mphind}
 \end{equation}
-where we have used the identity $\sum_{d'|m'} \phi(d') = m'$,
+where we have used the identity $\sum_{d'|m'} \varphi(d') = m'$,
 with $d' = n/d$ and $m' = n/m$.
 %
 Summing over the necklaces yields $N(n) \, n$. Thus,
-$N(n) = (1/n) \sum_{d|n} \phi(n/d) 2^d$.
+$N(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^d$.
 The process for a fixed necklace is exemplified
   by a column in \reftab{countnecklace}.
 %
@@ -1771,7 +1771,7 @@ Thus,
 The number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$ ($p \in \Bset$)
   formed by $\vx = \{x_1, \ldots, x_n\}$ is
 \begin{equation}
-  \NB(n) = N(n) = (1/n) \sum_{d|n} \phi(n/d) 2^{\,d},
+  \NB(n) = N(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^{\,d},
 \label{eq:necklace}
 \end{equation}
 %
@@ -1893,11 +1893,11 @@ We can also show this by explicit computation:
   &= \sum_{d | n} (1/d) \sum_{c |  d} \mu(d/c) 2^{\,c}
    = (1/n) \sum_{c | n} 2^{\,c} \sum_{d'  |  (n/c)}
         \mu\left(\frac{n/c}{d'}\right) d' \\
-  &= (1/n) \sum_{c \, | \, n} 2^{\,c} \, \phi(n/c)
+  &= (1/n) \sum_{c \, | \, n} 2^{\,c} \, \varphi(n/c)
   = N(n),
 \end{align*}
-where we have used $\phi(m) = \sum_{d' | m} \mu(\frac{m}{d'}) \, d'$,
-which is the inversion of $m = \sum_{d' | m} \phi(d')$,
+where we have used $\varphi(m) = \sum_{d' | m} \mu(\frac{m}{d'}) \, d'$,
+which is the inversion of $m = \sum_{d' | m} \varphi(d')$,
 and \refeq{necklace}.
 %
 We will use \refeq{necklacelyndon} in proving the next theorem.
@@ -2254,9 +2254,9 @@ Dividing the factors from $P_n\RX$ yields \refthm{origfac}.
 The degrees in $R$ of $A_n\RX$, $P_n\RX$ and $S_n(R)$ are
 \begin{subequations}
 \begin{align}
-\deg_R A_n\RX &= \sum_{d|n} \phi(n/d) 2^{d-1}, \\
+\deg_R A_n\RX &= \sum_{d|n} \varphi(n/d) 2^{d-1}, \\
 \deg_R P_n\RX &= \sum_{d|n} \mu(n/d) 2^{d-1} \equiv \beta(n), \\
-\deg S_n(R) &= \beta(n) - \sum_{d | n, d < n} \beta(d) \, \phi(n/d).
+\deg S_n(R) &= \beta(n) - \sum_{d | n, d < n} \beta(d) \, \varphi(n/d).
 \end{align}
 \label{eq:degR}
 \end{subequations}
@@ -3059,7 +3059,7 @@ $^*$
   \label{fig:cubbulb}
   Stable regions of the $n$-cycles of the cubic map \refeq{cubic}
   with a complex $R$;
-  obtained from $P_n(R, e^{i\phi}) = 0$ with $\phi \in [0, 2\pi]$
+  obtained from $P_n(R, e^{i\theta}) = 0$ with $\theta \in [0, 2\pi]$
   cf. \reffig{logbulb}.
 }
 \end{figure}
@@ -3092,7 +3092,7 @@ This means that the sum of numbers (0, 1, or 2)
 %Now, the number of the cube-free cyclic polynomials
 %is now equal to that of total necklaces
 %\[
-%  N_3(n) = (1/n) \sum_{d|n} \phi(n/d) 3^d.
+%  N_3(n) = (1/n) \sum_{d|n} \varphi(n/d) 3^d.
 %\]
 %
 %The proof is similar to that in \refsec{degprimfac}.
@@ -3104,7 +3104,7 @@ The number of the even ternary necklaces
 or the cube-free cyclic polynomials for the cubic map of even degrees in $\vx$
 is given by
 \begin{equation}
-  N_e(n) = \frac{1}{n} \sum_{c d = n} \phi(c)
+  N_e(n) = \frac{1}{n} \sum_{c d = n} \varphi(c)
     \left[
       3^d - \odd(c) \frac{3^d-1}{2}
     \right],
@@ -3164,7 +3164,7 @@ Two ways of counting the $N_e(2) = 4$ ternary necklaces for $n = 2$.
         & $m = 2$
         & $c = n/d$
         & $T(d, c)$ $^\dagger$
-        & $\phi(c)$ & $\phi(n/d) T(d, c)$\\
+        & $\varphi(c)$ & $\varphi(n/d) T(d, c)$\\
 \hline
 $d = 1$ & \hspace{1mm} $\mathbf{0}_{\times2}$ \hspace{1mm}
         & \hspace{1mm} $\mathbf{1}_{\times2}$ \hspace{1mm}
@@ -3177,7 +3177,7 @@ $d = 2$ & $\mathbf{00}$
         & \hspace{1mm} $\mathbf{20} (02)$ $^\ddagger$ \hspace{1mm}
         & $1$ & $3+1\cdot2=5$ & $1$ & 5 \\
 \hline
-$m \sum_{m|d, d|n} \phi(\frac{n}{d})$
+$m \sum_{m|d, d|n} \varphi(\frac{n}{d})$
       & \multicolumn{3}{c|}{$1\cdot(1+1) = 2$}
       & $2\cdot1 = 2$ &    \multicolumn{3}{c|}{} &  $\downarrow$\\
 \hline
@@ -3231,12 +3231,12 @@ In the first way,
     whose first $d$ beads are even
     (because repeating an odd string an odd number times
     does not yield an even string);
-  in either case, we multiple the result by $\phi(c)$.
+  in either case, we multiple the result by $\varphi(c)$.
 %
 The process for a fixed $d$ corresponds to a row of \reftab{countcubnecklace}.
 %
 Repeating the process for all $d$ gives
-  $\sum_{cd = n} T(d, c) \, \phi(c)$,
+  $\sum_{cd = n} T(d, c) \, \varphi(c)$,
   where $T(d, c)$ is the total number $3^d$ of period-$d$ ternary strings if $c$ is even,
   or the number $(3^d+1)/2$ of even strings if $c$ is odd.
 
@@ -3244,7 +3244,7 @@ Repeating the process for all $d$ gives
 In the second way,
   we look at the contribution from each necklace to the above sum.
 An even period-$m$ necklace contributes a total of
-  $m \times \sum_{m|d, d|n} \phi(n/d) = n$
+  $m \times \sum_{m|d, d|n} \varphi(n/d) = n$
   \big[the multiplier $m$ is for the $m$ cyclic versions, cf. \refeq{mphind}\big],
   while an odd necklace contributes nothing.
 Thus, the sum equals $N_e(n)\cdot n$.
@@ -3255,7 +3255,7 @@ The process for a fixed necklace corresponds to
 
 So
 \[
-  N_e(n) \cdot n = \sum_{cd = n} T(d, c) \, \phi(c),
+  N_e(n) \cdot n = \sum_{cd = n} T(d, c) \, \varphi(c),
 \]
 which is \refeq{cublyndon}
 after we divide both sides by $n$.
@@ -3350,7 +3350,7 @@ $\mu(n)$    & $\zeta(s)^{-1}$ $^\dagger$ &
 \multicolumn{1}{|r}
 {$L_e(n)$}    & $G_L(s)$ $^\ddagger$
 \\
-$\phi(n)$   & $\zeta(s-1)/\zeta(s)$ $^\dagger$ &
+$\varphi(n)$   & $\zeta(s-1)/\zeta(s)$ $^\dagger$ &
 \multicolumn{1}{|r}
 {$nL_e(n)$}   & $G_L(s-1)$ $^\ddagger$
 \\
@@ -3361,7 +3361,7 @@ $\odd(n)$   & $\zeta(s) (1-2^{-s})$ &
 \cline{3-4}
 $\mu(n) \, \odd(n)$
   & $\Big[ \zeta(s) (1-2^{-s}) \Big]^{-1}$ &
-$\phi(n) \, \odd(n)$
+$\varphi(n) \, \odd(n)$
   & $\frac{\zeta(s-1)}{\zeta(s)} \frac{1-2^{-s+1}}{1-2^{-s}}$
 \\
 \hline
@@ -3457,17 +3457,17 @@ It follows that the generating function of $n \, \odd(n)$ is $G_\odd(s-1)$.
 
 
 
-The generating function $G_{\phi,\odd}(s)$
-of $\phi(n) \odd(n)$ can be computed by taking the generating function
+The generating function $G_{\varphi,\odd}(s)$
+of $\varphi(n) \odd(n)$ can be computed by taking the generating function
 of both sides of the identity
 \[
-  n \, \odd(n)  = \sum_{d|n} \phi(d) \, \odd(d) \; \odd(n/d),
+  n \, \odd(n)  = \sum_{d|n} \varphi(d) \, \odd(d) \; \odd(n/d),
 \]
 i.e., if $n$ is even, then both sides are 0;
-if odd, then $n = \sum_{d|n} \phi(d)$.
+if odd, then $n = \sum_{d|n} \varphi(d)$.
 So
 \[
-  G_{\phi,\odd}(s) = \frac{G_\odd(s-1)}{G_\odd(s)}
+  G_{\varphi,\odd}(s) = \frac{G_\odd(s-1)}{G_\odd(s)}
   = \frac{\zeta(s-1)}{\zeta(s)} \frac{1 - 2^{-s + 1}}{1 - 2^{-s}}.
 \]
 
@@ -3478,7 +3478,7 @@ and taking the generating function,
 we find that
 \begin{align*}
   G_N(s - 1)
-    = G_\phi(s) t(s)- G_{\phi, \odd}(s) \frac{t(s)-\zeta(s)}{2}
+    = G_\varphi(s) t(s)- G_{\varphi, \odd}(s) \frac{t(s)-\zeta(s)}{2}
     =
       \frac{\zeta(s-1) \Big[ t(s) + \zeta(s) \big( 1  - 2^{-s+1} \big) \Big]  }
            {2 \, \zeta(s) (1 - 2^{-s}) }
