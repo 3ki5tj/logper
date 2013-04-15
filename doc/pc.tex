@@ -292,17 +292,17 @@ can thus be improved by the following alternative.
 
 Instead of solving \refeqs{logmaps} for $x_k$,
   we will derive a set of \emph{homogeneous linear} equations
-  of cyclic polynomials of $x_k$
+  $\sum_j A_{ij} C_j = 0$
+  regarding cyclic polynomials $\{C_j\}$ of $x_k$
   (an example of a cyclic polynomial is $x_1 x_2 + x_2 x_3 + \dots + x_n x_1$).
 %
-%We know then that
-  Now the matrix formed by the coefficients of the homogeneous linear equations
+Now the matrix formed by the coefficients $A_{ij}$ of the equations
   must have a zero determinant,
-  for the cyclic polynomials are not zeros altogether.
+  for the cyclic polynomials $\{C_j\}$ are not zeros altogether.
 %
 %As the coefficients are polynomials of $R$ only,
-Thus, the zero-determinant condition gives
-  the needed polynomial equations of $R$,
+Thus, the zero-determinant condition $|\mathbf A| = 0$ gives
+  the needed polynomial equation of $R$,
 whose roots contain all fixed points of $f^n$.
 This completes the first step.
 %
