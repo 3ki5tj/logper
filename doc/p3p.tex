@@ -5,7 +5,7 @@
 \begin{document}
 \title{On the 3-cycle of the logistic map}
 \author{Cheng Zhang}
-\date{April 15, 2012}
+\date{April 17, 2013}
 \begin{abstract}
 We review a simple derivation of 
   the onset and bifurcation points the 3-cycle
@@ -15,21 +15,21 @@ We review a simple derivation of
 
 
 %\section{Introduction}
-The logistic map reads
+The logistic map is defined as
 \[
-  z_{n+1} = F(z_n) = r z_n (1 - z_n),
+  z_{n+1} = F(z_n) = r z_n (1 - z_n).
 \]
 We want to find what $r$ values permit a \emph{stable} 3-cycle,
 i.e., a solution of $z_{n+3} = z_n$,
 which can sustain a small deviation in the initial $z_0$.
-The two boundary points $r_0$ and $r_1$ 
-  of the permissible window $(r_0, r_1)$
-  are called the \emph{onset} and \emph{bifurcation} points.
+The two boundaries $r_0$ and $r_1$ 
+  of the stable window $(r_0, r_1)$
+  are called the \emph{onset} and \emph{bifurcation} points, respectively.
 %
 By a change of variables
 \begin{equation}
   x_n = r (z_n - 1/2),
-  R = (2 r - r^2)/4,
+  R = (r^2 - 2 r)/4,
 \label{eq:chvars}
 \end{equation}
 we get a simplified map
@@ -38,7 +38,7 @@ x_{n+1} = f(x_n) = R - {x_n}^2.
 \]
 The onset and bifurcation points will be solved
   in terms of $R$, and the corresponding $r$ values 
-  are obtained by \eqref{eq:chvars}.
+  are obtained by (\ref{eq:chvars}).
 
 %\section{Cyclic polynomials}
 
@@ -51,14 +51,15 @@ We define the cyclic polynomials
 $X = a+b+c$,
 $X_k = a^k+b^k+c^k$ (for $k = 2,3$),
 $Y = ab+bc+ca$, and $Z = abc$.
-We will show that the equations of $X$, $Y$, and $Z$
-are more helpful in determining the two points of the 3-cycle.
+We will show that the equations of $X$, $X_k$, $Y$, and $Z$
+are helpful in determining the two points of the 3-cycle.
 
 
 
 %\section{Onset point}
-
-For the onset point \cite{zhang},
+\textbf{Onset point.}
+%
+As in Ref. \cite{zhang},
 we obtain from $c - b = f(b) - f(a)$ that
 $c-b = -(b+a)(b-a)$;
 Similar,
@@ -77,73 +78,72 @@ and adding up the three distinct versions yields
 \label{eq:stair}
 \end{equation}
 %
-On the other hand, the sum of \eqref{eq:abc} gives
-$X = 3R - X_2$,
-and $X^2 = X_2 + 2 Y$;
-so
-\begin{equation}
-X = 3R - X^2 + 2Y.
-\label{eq:XY}
-\end{equation}
+On the other hand, the sum of (\ref{eq:abc}) gives
+$X = 3R - X_2 = 3R - X^2 + 2Y$ (for $X^2 = X_2 + 2 Y$).
 %
-Eliminating $Y$ by \eqref{eq:stair} and \eqref{eq:XY}, we get
+Using (\ref{eq:stair}) for $Y$ yields
 \begin{equation}
   X^2 - X + 2 - R = 0,
 \label{eq:XR}
 \end{equation}
 This equation has a real root only if $2 - R \le 1/4$.
 Thus, $R = 7/4$ (so $r = 1+\sqrt{1+4R} = 1+ \sqrt 8$)
-is the onset for the only real 3-cycle.
+is the onset point of the only real 3-cycle.
 
 
 
 %\section{Bifurcation point}
-
+\textbf{Bifurcation point.}
+%
 Let us express cyclic polynomials as linear functions of $X$.
-Using \eqref{eq:stair} and \eqref{eq:XR}, we get
-\begin{align}
-  Y    &= X - R - 1, \notag \\
-  X_2  &= X^2 - 2Y = 3R-X,
+Using (\ref{eq:stair}) and (\ref{eq:XR}), we get
+\begin{equation}
+  Y  = X - R - 1,
 \label{eq:Y}
-\end{align}
+\end{equation}
+and
+\begin{equation}
+  X_2  = X^2 - 2Y = 3R-X,
+\label{eq:X2}
+\end{equation}
 %
 For $X_3$,
 we have $a^3 = R a - ab$ from $b = f(a)$,
-summing over cyclic versions yields,
+summing over cyclic versions yields
 \begin{equation}
 X_3 = R X - Y = (R-1) X + R + 1.
 \label{eq:X3}
 \end{equation}
 %
-By the identity
-$X_3 - 3 Z = X (X_2 - Y)$,
-\eqref{eq:X3}, \eqref{eq:Y}, and \eqref{eq:XR},
+By 
+$X_3 - 3 Z = X (X_2 - Y)$ and
+(\ref{eq:XR})-(\ref{eq:X3}),
 we have
 \begin{equation}
 Z = -RX + R - 1.
 \label{eq:Z}
 \end{equation}
-Now \eqref{eq:XR} can be rewritten in terms of $Z$:
+Now (\ref{eq:XR}) can be rewritten in terms of $Z$:
 \begin{equation}
   R^3 - 2R^2 + (1+Z)R + (1+Z)^2 = 0.
 \label{eq:RZ}
 \end{equation}
 
-We now use the derivative condition:
-at the onset (bifurcation) point,
-$\frac{d}{da}f(f(f(a))) = +1$ ($-1$),
-which by the chain rule, gives
-$f'(c)f'(b)f'(a) = -8abc = \pm1$, or
+The composite map $f(f(f(x)))$ is marginally stable
+at the onset (bifurcation) point, so
+$\frac{d}{da}f(f(f(a))) = f'(c)f'(b)f'(a) = +1 (-1)$
+\cite{saha}.
+Since $f'(x) = -2x$, we have
 \begin{equation}
   Z = \mp1/8.
 \label{eq:Zder}
 \end{equation}
 %
-At the onset point $Z = -1/8$, \eqref{eq:RZ} becomes
+At the onset point $Z = -1/8$, (\ref{eq:RZ}) becomes
 \[
-  (R-7/4) (R^2 - R/4 + 7/16) = 0.
+  (R-7/4) (R^2 - R/4 + 7/16) = 0,
 \]
-The real solution $R = 7/4$ agrees with the previous solution.
+whose real solution $R = 7/4$ agrees with the previous solution.
 %
 At the bifurcation point $Z = 1/8$, we have
 \[
@@ -156,8 +156,7 @@ R = \frac{2}{3}
   +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} - \frac{5}{2} \sqrt{201}}.
 $
 
-We can also show $a$, $b$, $c$ are real after the onset ($R\ge7/4$).
-By definition, $a$, $b$ and $c$ are the distinct roots of
+Since $a$, $b$ and $c$ are the distinct roots of
 \[
   x^3 - X x^2 + Y x - Z = 0.
 \]
@@ -166,10 +165,11 @@ The discriminant is
 \Delta = X^2 Y^2 - 4 Y^3 - 4 X^3 Z + 18 X Y Z - 27 Z^2
   = (4X^2 - 6X + 9)^2,
 \]
-where we have used \eqref{eq:Y} and \eqref{eq:Z},
-and eliminated $R$ by \eqref{eq:XR}.
+where we have used (\ref{eq:Y}) and (\ref{eq:Z}),
+and eliminated $R$ by (\ref{eq:XR}).
 Thus as long as $X$ is real, $\Delta > 0$, which means there are always three
-real solutions.
+real roots after the onset $R \ge 7/4$
+(Thank Beiye Feng for correspondence on this point).
 
 \begin{thebibliography}{}
 \bibitem{zhang} C. Zhang,
@@ -178,6 +178,15 @@ real solutions.
   \textbf{83},
   295-297
   (2010).
+
+\bibitem{saha} P. Saha and S. H. Strogatz,
+  The birth of period three,
+  \textit{Mathematics Magazine}
+  \textbf{68},
+  42-47
+  (1995).
+
+
 \end{thebibliography}
 
 \end{document}

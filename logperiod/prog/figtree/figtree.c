@@ -1,23 +1,33 @@
-/* draw fig tree */
+/* draw a fig tree */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
-double rmin = 2.0;
-double rmax = 3.0;
-double delr = 0.002;
 int itermax = 100000000;
 int trajmax = 100;
 double dxtol = 1e-6;
-const char *fnout = "cub.fig";
 
 #ifndef xnew
 #define xnew(x, n) if ((x = calloc(n, sizeof(*(x)))) == NULL) { \
     fprintf(stderr, "no memory for %s x %u\n", #x, (unsigned) (n)); exit(1); }
 #endif
 
+/* logistic map parameters */
+double rmin_l = 2.8;
+double rmax_l = 4;
+double rdel_l = 0.002;
+int x0cnt_l = 1;
+double x0arr_l[1] = {0.1};
 /* logistic map */
 double logistic(double r, double x) { return r*x*(1 - x); }
 
+/* cubic map parameters */
+double rmin_c = 1.8;
+double rmax_c = 3.0;
+double rdel_c = 0.002;
+int x0cnt_c = 2;
+double x0arr_c[2] = {-0.1, 0.1};
 /* cubic map */
 double cubic(double r, double x) { 
   // return x*r*(1 - x*x);  // allows the negative part
@@ -47,45 +57,52 @@ int gettrj(double trj[], int trjmax,
     }
     if (j < trjmax) return j;
   }
-  fprintf(stderr, "failed to converge for r = %.8f\n", r);
+  fprintf(stderr, "failed to converge r %.8f, x0 %g, x %g\n", r, x0, x);
   return trjmax;
 }
 
 /* save the figure tree */
-int mkfigtree(double r0, double r1, double dr, 
+int mkfigtree(double (*func)(double, double), 
+    double r0, double r1, double dr,
+    int x0cnt, double x0arr[], 
     int trjmax, int itmax, double tol,
-    const char *fn)
+    FILE *fp)
 {
   int i, j, k, cnt, rcnt;
-  double r, *trj, x0;
-  FILE *fp;
+  double r, *trj;
 
   xnew(trj, trjmax + 1);
   rcnt = (int)((r1 - r0)/dr + .5);
   dr = (r1 - r0)/rcnt;
-  if ((fp = fopen(fn, "w")) == NULL) {
-    fprintf(stderr, "cannot open file %s\n", fn);
-    return - 1;
-  }
   for (i = 0; i <= rcnt; i++) {
     r = r0 + i * dr;
     /* because there are multiple stable period trajectories, 
      * we explore them by different initial values */
-    for (x0 = -0.1, k = 0; x0 < 0.2; x0 += 0.2, k++) {
-      cnt = gettrj(trj, trjmax, r, cubic, itmax, x0, tol);
+    for (k = 0; k < x0cnt; k++) {
+      cnt = gettrj(trj, trjmax, r, func, itmax, x0arr[k], tol);
       for (j = 0; j < cnt; j++)
         fprintf(fp, "%+.8f %+.8f %d %d %d\n", r, trj[j], j, cnt, k);
       fprintf(fp, "\n");
     }
   }
-  fclose(fp);
   free(trj);
   return 0;
 }
 
 
-int main(void)
+int main(int argc, char **argv)
 {
-  mkfigtree(rmin, rmax, delr, trajmax, itermax, dxtol, fnout);
+  int iscubic = 0;
+
+  if (argc > 1 && strcmp(argv[1], "-c") == 0)
+    iscubic = 1;
+
+  if (iscubic) {
+    mkfigtree(cubic, rmin_c, rmax_c, rdel_c, x0cnt_c, x0arr_c,
+        trajmax, itermax, dxtol, stdout);
+  } else {
+    mkfigtree(logistic, rmin_l, rmax_l, rdel_l, x0cnt_l, x0arr_l,
+        trajmax, itermax, dxtol, stdout);
+  }
   return 0;
 }

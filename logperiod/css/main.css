@@ -23,6 +23,7 @@ h3 { font: small-caps 120% "Calibri", sans-serif;
   display: table; padding: 0px 50px 4px 10px; margin-bottom: 5px;
   border-bottom: 1px dashed; border-left: 2px solid; border-color: #b0b0b0; }
 
+p, div.p { margin-bottom: 2.0em; }
 img.demo   { border: 3px ridge #C0C0C0; }  /* boxed image */
 img.float  { float: right; border: 3px ridge #a0a0f0; margin: 10px; }
 pre.code { font: 90% monospace;  padding: 10px; } /* code */
@@ -30,10 +31,10 @@ code { font-variant: normal; color: #440000; }
 a:visited { color: #808080; font-weight: normal; }
 a:link { color: #000080; text-decoration: none; }
 a:hover { color: #ffffff; background-color: #808080; }
-.eq { font-family: "Times New Roman", serif; font-variant: normal; }
+.eq { font-family: "Times", "Times New Roman", "Bitstream Charter", serif; font-variant: normal; }
 div.eq { text-align: center; font-size: 130% }
 span.eq { font-size: 110%; padding: 0px; }
-.eq sub { font-size: 70%; }
+.eq sub { font-size: 60%; }
 .eq sup { font-size: 60%; padding: 1px; }
 
 .linkenv { padding: 5px 0px; margin: 25px 0px; border-top: 1px dotted #a0a0a0; border-bottom: 1px dotted #a0a0a0;}

@@ -11,117 +11,303 @@
 <h1>Cycles of the logistic map</h1>
 
 <h2>Introduction</h2>
-<p>The <a href="http://mathworld.wolfram.com/LogisticMap.html">logistic map</a> is defined as:
+<div class="p">
+The <a href="http://mathworld.wolfram.com/LogisticMap.html">logistic map</a> is defined as:
 <div class="eq">
     <i>x</i><sub><i>k</i>+1</sub>
     = <i>f</i> (<i>x<sub>k</sub></i>)
     &equiv; <i>r x<sub>k</sub></i> (1 &minus; <i>x<sub>k</sub></i>).
 </div>
 
-<p>An <span class="eq"><i>n</i></span>-cycle means
+An <span class="eq"><i>n</i></span>-cycle means
 <div class="eq">
-    <i>x</i><sub> <i>n</i>+1</sub>
-    =  <i>x</i><sub>1</sub>.
+    <i>x</i><sub> <i>n</i></sub>
+    =  <i>x</i><sub>0</sub>.
+</div>
+The problem is to determine the <span class="eq"><i>r</i></span> values
+that allow stable <span class="eq"><i>n</i></span>-cycles.
 </div>
 
-<p>We ask at what <span class="eq"><i>r</i></span> values, an <span class="eq"><i>n</i></span>-cycle is possible and stable.
 
-<!--
-<p>
-The existence of the 3-cycle (<span class="eq"><i>n</i> = 3</span>) is of particular importance,
-as it means that all other cycles (with the same <span class="eq"><i>r</i></span> exist as well (although unstable),
-see Sharkovskii and Li &amp; Yorke.
-The onset value <span class="eq"><i>r</i></span> for the 3-cycle has been discussed in several papers (see the references).
--->
+<h3>Stable cycles</h3>
+
+<p>We should first define a <em>stable</em> cycle.
+In a stable cycle,
+a small error of <span class="eq"><i>x</i><sub>0</sub></span> from the exact periodic point
+is reduced in magnitude after <span class="eq"><i>n</i></span> iterations,
+i.e., <span class="eq"><i>x<sub>n</sub></i></span> is closer to the exact cycle point
+than <span class="eq"><i>x</i><sub>0</sub></span>.
+
+A stable cycle is generally more meaningful than an unstable one.
+If we start the iteration from a random
+<span class="eq"><i>x</i><sub>0</sub></span>
+it will be converged only to a stable cycle.
 
 
-<p>We first transform the logistic map to an algebraically simpler form (as suggested by Saha and Strogatz)
-by a change of variables
+<h3>Bifurcation diagram</h3>
+
+Stable cycles are often presented in a <em>bifurcation diagram</em> as shown below.
+Starting from a random <span class="eq"><i>x</i><sub>0</sub></span> (0.1 here),
+the final <span class="eq"><i>x<sub>k</sub></i></span> points 
+after a large number of iterations are plotted
+against the <span class="eq"><i>r</i></span> value.
+Obviously, all <span class="eq"><i>x<sub>k</sub></i></span> points shown in the plot
+belong to a stable cycle.
+
+<img src="img/logtree.png" width="600" alt="bifurcation diagram of the logistic map">
+
+<p>We further note that if 
+  <span class="eq"><i>x<sub>k</sub></i></span>
+  are allowed to be complex numbers,
+  a cycle always exists, for it's always possible to find complex roots 
+  of the algebraic equation
+<span class="eq">
+  <i>f</i><sup>(<i>n</i>)</sup>(<i>x</i>) = <i>x</i>.
+</span>
+
+
+
+<h3>Onset and bifurcation points</h3>
+
+<p>Our purpose is to determine the <i>r</i> values at which
+stable <span class="eq"><i>n</i></span>-cycles exist.
+As we usually are interested in the case where both 
+<span class="eq"><i>r</i></span>
+and
+<span class="eq"><i>x<sub>k</sub></i></span>
+are real, the <span class="eq"><i>r</i></span>
+values for stable cycles are arranged as
+windows on the real axis.
+For example, as shown in the above figure,
+the stable 2-cycle exists in the window
+<span class="eq">(3, 1 + &radic;6) = (3, 3.449...)</span>.
+We shall call the two bounds as the 
+<em>onset</em> and <em>bifurcation</em> points
+of the cycle.
+
+
+
+
+
+<h3>Derivative condition</h3>
+
+<div class="p">The onset and bifurcation points of the <span class="eq"><i>n</i></span>-cycle
+can be determined from the derivative of the composite map
+<span class="eq">[ <i>f</i> (&#x22ef;( <i>f</i> (<i>x</i>)&#x22ef;) ]&prime;</span>.
+
+Since a stable cycle must reduce the magnitude of 
+<span class="eq"><i>x</i></span>
+after 
+<span class="eq"><i>n</i></span>
+successive iterations,
+the magnitude of this derivative must be 1.0 at the two critical points.
+More precisely, +1 and &minus;1 are assigned to 
+the onset and bifurcation points, respectively.
+
+Thus by the chain rule, we have
+<div class="eq">
+ <i>f</i> &prime;(<i>x</i><sub>1</sub>)
+ &#x22ef;
+ <i>f</i> &prime;(<i>x</i><sub><i>n</i></sub>)
+ = &plusmn;1,
+</div>
+at the onset (+1) and bifurcation (&minus;1) points.
+</div>
+
+<p>The 
+<span class="eq">n</span>
+equations, 
+<span class="eq">
+    <i>x</i><sub><i>k</i>+1</sub>
+    = <i>f</i> (<i>x<sub>k</sub></i>)
+  </span>
+(with 
+<span class="eq">
+  <i>x</i><sub><i>n</i></sub> = <i>x</i><sub>0</sub></span>),
+along with the derivative condition,
+furnish 
+<span class="eq"><i>n</i> + 1</span> equations.
+
+Thus, we can eliminated the <span class="eq"><i>n</i></span> variables
+<span class="eq"><i>x</i><sub><i>k</i></sub></span>
+and obtain the desired equation of
+<span class="eq"><i>r</i></span>.
+
+
+
+
+<h3>Simplified logistic map</h3>
+
+
+<div class="p">To handle the logistic map more effectively,
+we change variables as (Saha and Strogatz) 
 <div class="eq">
     <i>x</i> &larr; <i>r</i> (<i>x</i> &minus; 1/2),
     <i>R</i> &equiv; (<i>r</i><sup>2</sup> &minus; 2 <i>r</i>) / 4.
 </div>
-<p>to
+such that the new map is
 <div class="eq">
-    <i>x</i><sub><i>n</i>+1</sub>
-    =  <i>R</i> &minus; <i>x<sub>n</sub></i><sup>2</sup>.
+  <i>x</i><sub><i>k</i>+1</sub>
+    = <i>f</i> (<i>x<sub>k</sub></i>)
+    =  <i>R</i> &minus; <i>x<sub>k</sub></i><sup>2</sup>.
 </div>
-<p>For later convenience, we further define
-<span class="eq">
-  <i>T</i> = <i>R</i>/4,
-</span>
-and
-<!--
-and
-<span class="eq">
-  <i>X</i> = <i>x</i><sub>1</sub> + ... + <i>x<sub>n</sub></i>.
-</span>
-for an <i>n</i>-cycle.
--->
-
-<!--
-<p>For the 3-cycle, we can show that there is a relation between <i>X</i> and <i>R</i>
-<div class="eq">
-  <i>X</i><sup>2</sup> &minus; <i>X</i> + 2 &minus; <i>R</i> = 0.
 </div>
-<p>The discriminant of the above equation is
+
+<div class="p">Since
 <span class="eq">
-  &Delta; = 4<i>R</i> &minus; 7,
+  <i>f</i> &prime;(<i>x</i>)
+  = &minus;2 <i>x</i>,
 </span>
-
-Thus, a period three cycle can only occur if
-<span class="eq">
-  <i>R</i> &ge; 7/4,
-</span>
-which determines the onset of period three
-(the equivalent condition for
-<span class="eq"><i>r</i></span>
-is
-<span class="eq"><i>r</i> &ge; 1 + &radic;8 = 3.828427... </span>
-or
-<span class="eq"><i>r</i> &le; 1 &minus; &radic;8 = &minus;1.828427...</span>
-).
-
-<p>The 3-cycle is stable until
-<span class="eq">[ <i>f</i> ( <i>f</i> ( <i>f</i> (<i>x</i>) ) ) ]&prime; = &minus;1</span>
-or
-<span class="eq">
- <i>f</i> &prime;(<i>x</i><sub>1</sub>)
- <i>f</i> &prime;(<i>x</i><sub>2</sub>)
- <i>f</i> &prime;(<i>x</i><sub>3</sub>)
-= &minus;1</span> (the chain rule).
-For the logistic map, this condition translates to
+the derivative condition becomes
 <div class="eq">
-  (&minus;2)<sup><i>3</i></sup>
-      <i>x</i><sub>1</sub>
-      <i>x</i><sub>2</sub>
-      <i>x</i><sub>3</sub> = &minus;1
-</div>
-<p>We thus have a condition for <span class="eq"><i>R</i></span>
- that yields the bifurcation value.
--->
-
-<div class="eq">
-  <i>d</i> &equiv;
 (&minus;2)<sup><i>n</i></sup>
       <i>x</i><sub>1</sub>
-      <i>x</i><sub>2</sub> ...
-      <i>x</i><sub><i>n</i></sub>
+      <i>x</i><sub>2</sub> &#x22ef;
+      <i>x</i><sub><i>n</i></sub> = <i>d</i>
 </div>
-<p>The cycle starts at <span class="eq"><i>d</i> = 1</span>,
-   and becomes unstable at <span class="eq"><i>d</i> = &minus;1</span>.
-<!--
-We also define
+where
 <span class="eq">
-  <i>c</i> = 2<sup>n</sup> &minus; <i>d</i>,
+  <i>d</i> = +1 (&minus;1)
 </span>
-which often makes formulas simpler.
--->
+at the onset (bifurcation) points, respectively.
+</div>
+
+If we further allow complex 
+<span class="eq"> <i>R</i> </span>
+and
+<span class="eq"> <i>x</i><sub><i>k</i></sub> </span>,
+then we may allow 
+<span class="eq">
+  <i>d</i> = exp(<i>i &theta;</i>)
+</span>
+with 
+<span class="eq"><i>&theta;</i></span>
+running continuously from 0 to 
+<span class="eq">2<i>&pi;</i></span>.
+Doing so allows us to obtain continuous curves of 
+<span class="eq"><i>R</i></span> (instead of just two points)
+on the complex plane, which enclose regions of 
+<span class="eq"><i>R</i></span> 
+that contain complex stable cycles.
+
+<img src="img/logbulb.png" width="600" alt="bulbs of the logistic map">
+
+This figure is in fact the inverted 
+<a href="http://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot set</a>.
+With 
+<span class="eq">
+  <i>z</i><sub><i>k</i></sub>
+  = &minus;<i>x</i><sub><i>k</i></sub>
+</span>
+and
+<span class="eq">
+  <i>c</i> = &minus;<i>R</i>
+</span>
+The modified logistic map 
+  becomes the quadratic map 
+<span class="eq">
+  <i>z</i><sub><i>k</i>+1</sub>
+  = <i>z</i><sub><i>k</i></sub><sup>2</sup> + <i>c</i>.
+</span>
+
+
+
+<h3>3-cycle</h3>
+<p>While the 1-cycle 
+(fixed point,
+<span class="eq">&minus;1/4 &lt; <i>R</i> &le; 3/4</span>
+or  
+<span class="eq">1 &lt;  <i>r</i> &le; 3</span>)
+and
+2-cycle 
+(<span class="eq">3/4 &lt; <i>R</i> &le; 7/4</span>
+or  
+<span class="eq">3 &lt; <i>r</i> &le; 1+&radic;6</span>)
+are generally 
+easy to obtain (Strogatz),
+the 3-cycle (<span class="eq"><i>n</i> = 3</span>)
+is not quite obvious.
+The onset values 
+<span class="eq"><i>R</i> = 7/4</span>
+or
+  <span class="eq"><i>r</i> = 1 + &radic;8</span>
+  of the 3-cycle is nonetheless quite simple,
+  and hence has been derived in several papers
+  by different methods (see the references).
+</p>
+
+<p>A brief and self-contained derivation 
+of the onset and bifurcation points of the real 3-cycle 
+is presented in the note 
+(<a href="doc/p3p.pdf">PDF</a>, <a href="doc/p3p.html">HTML</a>).
+
+
+
+<p>As a side note,  
+the existence of the 3-cycle in a general map is quite important, 
+as it implies the existence of cycles of all other lengths, thus chaos,
+Sharkovskii and Li &amp; Yorke.
+
+
+<h3><i>n</i>-cycles</h3>
+
+<p>For longer cycles, it's generally impossible to write down
+  the exact critical <span class="eq"><i>R</i></span> as radical expression. 
+  Still it is possible to identify the <span class="eq"><i>R</i></span> value(s)
+  as the root(s) of a polynomial with integral coefficients.
+
+<p>The main objective of this web page and the reference paper (Zhang, 2012)
+is to describe a computational method to find the polynomials.
+The method takes advantage of the fact that 
+the cyclic polynomials of the <span class="eq"><i>n</i></span>-cycle points
+are linearly related with one another.
+(An example of a cyclic polynomial is
+<span class="eq">
+  <i>x</i><sub>1</sub> <i>x</i><sub>2</sub>
++ <i>x</i><sub>2</sub> <i>x</i><sub>3</sub>
++ &#x22ef;
++ <i>x</i><sub><i>n</i> &minus; 1</sub> <i>x</i><sub><i>n</i></sub>
++ <i>x</i><sub><i>n</i></sub> <i>x</i><sub>1</sub></span>;
+another example is
+<span class="eq">
+  <i>x</i><sub>1</sub>
+ <i>x</i><sub>2</sub>
+ &#x22ef;
+ <i>x</i><sub><i>n</i></sub>,
+</span>
+which is used in the derivative condition.
+But note that it is not necessarily a symmetric polynomial.)
+Thus, we can write down a set of homogeneous linear equations
+regarding the cyclic polynomials.
+Since the cyclic polynomials are not zero altogether,
+the determinant of the matrix must be zero.
+This condition thus furnishes the desired result.
+</p>
+
+<p>The key of the above method to 
+establish a set of linear relations among cyclic polynomials.
+Note, however, the linear relations are based on the derivative condition,
+and are therefore different at the onset and bifurcation points.
+Thus, two different polynomials of <span class="eq"><i>R</i></span>
+are obtained at the two points.
+
+
+
+
+
+
+
+
+
+
+
 
 <h2><i>n</i>-cycle data</h2>
 
 <p>We list the polynomials of
-  <span class="eq"><i>T</i></span>
+  <span class="eq"><i>T</i> = 4 <i>R</i></span>
+  (so that <span class="eq"><i>r</i> = 1 + &radic;{1+<i>T</i>} 
+      = 1 + &radic;{1+4<i>R</i>}</span>)
   for the <i>n</i>-cycles of the logistic map
   in the files labeled by "eq.".
 
@@ -251,7 +437,9 @@ You can right-click each item and save.
 
 <h2>References</h2>
 
+<!--
 <p>Logistic map is widely studied, here we can only list a few references that are most pertinent.
+-->
 
 {{ prim_ref }}
 
@@ -293,7 +481,9 @@ Jacqueline Burm and Paul Fishback, <i>Period-3 Orbits via Sylvester's Theorem an
   Mathematics Magazine <b>74</b> (2001) 47-51
 <li>
 Cheng Zhang, <i>Period three begins</i>,
-  Mathematics Magazine <b>83</b> (2010) 295-297
+  Mathematics Magazine <b>83</b> (2010) 295-297;
+  see also this note
+  (<a href="doc/p3p.pdf">PDF</a>, <a href="doc/p3p.html">HTML</a>).
 </ul>
 
 <h3>Period-3 implies chaos</h3>

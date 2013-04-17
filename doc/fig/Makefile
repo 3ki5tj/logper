@@ -2,16 +2,20 @@
 PS = $(patsubst %.gp,%.ps, $(wildcard *.gp))
 PDF = $(patsubst %.gp,%.pdf, $(wildcard *.gp))
 PNG = $(patsubst %.gp,%.png, $(wildcard *.gp))
+deps = Makefile
 
 all: $(PDF) $(PNG)
 
-$(PNG) : %.png : %.pdf
-	convert $< $@
+$(PNG) : %.png : %.pdf $(deps)
+	convert -rotate 90 -density 144 $< $@
 
-$(PDF) : %.pdf : %.ps
+# the converted PNG is kind of small, so we set the density 144 dots per inch
+# see more in http://www.imagemagick.org/script/command-line-options.php
+
+$(PDF) : %.pdf : %.ps $(deps)
 	epstopdf $<
 
-$(PS) : %.ps : %.gp
+$(PS) : %.ps : %.gp $(deps)
 	gpload $<
 
 clean:
