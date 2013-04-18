@@ -7,7 +7,7 @@
 \author{Cheng Zhang}
 \date{April 17, 2013}
 \begin{abstract}
-We review a simple derivation of 
+We review a simple derivation of
   the onset and bifurcation points the 3-cycle
   of the logistic map.
 \end{abstract}
@@ -22,7 +22,7 @@ The logistic map is defined as
 We want to find what $r$ values permit a \emph{stable} 3-cycle,
 i.e., a solution of $z_{n+3} = z_n$,
 which can sustain a small deviation in the initial $z_0$.
-The two boundaries $r_0$ and $r_1$ 
+The two boundaries $r_0$ and $r_1$
   of the stable window $(r_0, r_1)$
   are called the \emph{onset} and \emph{bifurcation} points, respectively.
 %
@@ -37,7 +37,7 @@ we get a simplified map
 x_{n+1} = f(x_n) = R - {x_n}^2.
 \]
 The onset and bifurcation points will be solved
-  in terms of $R$, and the corresponding $r$ values 
+  in terms of $R$, and the corresponding $r$ values
   are obtained by (\ref{eq:chvars}).
 
 %\section{Cyclic polynomials}
@@ -59,10 +59,10 @@ are helpful in determining the two points of the 3-cycle.
 %\section{Onset point}
 \textbf{Onset point.}
 %
-As in Ref. \cite{zhang},
-we obtain from $c - b = f(b) - f(a)$ that
-$c-b = -(b+a)(b-a)$;
-Similar,
+%As in Ref. \cite{zhang},
+From (\ref{eq:abc}), we have
+$c-b = f(b) - f(a) = -(b+a)(b-a)$;
+similar,
 $a-c = -(c+b)(c-b)=(c+b)(b+a)(b-a)$.
 Now $(b-a) + (c-b) + (a-c) = 0$ means
 \[
@@ -71,8 +71,9 @@ Now $(b-a) + (c-b) + (a-c) = 0$ means
 Cycling variables
 $a\rightarrow b$,
 $b\rightarrow c$,
-$c\rightarrow a$,
-and adding up the three distinct versions yields
+$c\rightarrow a$
+twice,
+and adding up the three versions yields
 \begin{equation}
 3 - 2X + X^2 + Y = 0.
 \label{eq:stair}
@@ -88,7 +89,8 @@ Using (\ref{eq:stair}) for $Y$ yields
 \end{equation}
 This equation has a real root only if $2 - R \le 1/4$.
 Thus, $R = 7/4$ (so $r = 1+\sqrt{1+4R} = 1+ \sqrt 8$)
-is the onset point of the only real 3-cycle.
+is the onset point of the only real 3-cycle
+\cite{saha, bechhoefer, gordon, burm, zhang}.
 
 
 
@@ -115,7 +117,7 @@ X_3 = R X - Y = (R-1) X + R + 1.
 \label{eq:X3}
 \end{equation}
 %
-By 
+By
 $X_3 - 3 Z = X (X_2 - Y)$ and
 (\ref{eq:XR})-(\ref{eq:X3}),
 we have
@@ -133,9 +135,9 @@ The composite map $f(f(f(x)))$ is marginally stable
 at the onset (bifurcation) point, so
 $\frac{d}{da}f(f(f(a))) = f'(c)f'(b)f'(a) = +1 (-1)$
 \cite{saha}.
-Since $f'(x) = -2x$, we have
+As $f'(x) = -2x$, we get
 \begin{equation}
-  Z = \mp1/8.
+  Z = a b c = \mp1/8.
 \label{eq:Zder}
 \end{equation}
 %
@@ -143,41 +145,35 @@ At the onset point $Z = -1/8$, (\ref{eq:RZ}) becomes
 \[
   (R-7/4) (R^2 - R/4 + 7/16) = 0,
 \]
-whose real solution $R = 7/4$ agrees with the previous solution.
+whose real solution $R = 7/4$ agrees with the previous result.
 %
 At the bifurcation point $Z = 1/8$, we have
 \[
   R^3 - 2 R^2 + 9R/8 - 81/64 = 0.
 \]
 The only real solution is
-$
-R = \frac{2}{3}
+$R = \frac{2}{3}
   +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} + \frac{5}{2} \sqrt{201}}
-  +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} - \frac{5}{2} \sqrt{201}}.
-$
+  +\frac{1}{4} \sqrt[3]{ \frac{1915}{54} - \frac{5}{2} \sqrt{201}}$
+\cite{gordon, burm}.
 
 Since $a$, $b$ and $c$ are the distinct roots of
 \[
   x^3 - X x^2 + Y x - Z = 0.
 \]
-The discriminant is
+The discriminant $\Delta$ is a square:
 \[
-\Delta = X^2 Y^2 - 4 Y^3 - 4 X^3 Z + 18 X Y Z - 27 Z^2
+X^2 Y^2 - 4 Y^3 - 4 X^3 Z + 18 X Y Z - 27 Z^2
   = (4X^2 - 6X + 9)^2,
 \]
 where we have used (\ref{eq:Y}) and (\ref{eq:Z}),
 and eliminated $R$ by (\ref{eq:XR}).
-Thus as long as $X$ is real, $\Delta > 0$, which means there are always three
-real roots after the onset $R \ge 7/4$
-(Thank Beiye Feng for correspondence on this point).
+Thus, as long as $X$ is real
+[which is true after the onset $R \ge 7/4$ by (\ref{eq:XR})],
+we have $\Delta > 0$, and the cycle points are real.
+(Thank Beiye Feng for suggesting this point).
 
 \begin{thebibliography}{}
-\bibitem{zhang} C. Zhang,
-  Period three begins,
-  \textit{Mathematics Magazine}
-  \textbf{83},
-  295-297
-  (2010).
 
 \bibitem{saha} P. Saha and S. H. Strogatz,
   The birth of period three,
@@ -186,6 +182,33 @@ real roots after the onset $R \ge 7/4$
   42-47
   (1995).
 
+\bibitem{bechhoefer} J. Bechhoefer,
+  The birth of period 3, revisited,
+  \textit{Mathematics Magazine}
+  \textbf{69},
+  115-118
+  (1996).
+
+\bibitem{gordon} W. B. Gordon,
+  Period three trajectories of the logistic map,
+  \textit{Mathematics Magazine}
+  \textbf{69},
+  118-120
+  (1996).
+
+\bibitem{burm} J. Burm, P. Fishback,
+  Period-3 Orbits via Sylvester's Theorem and Resultants,
+  \textit{Mathematics Magazine}
+  \textbf{74},
+  47-51
+  (2001).
+
+\bibitem{zhang} C. Zhang,
+  Period three begins,
+  \textit{Mathematics Magazine}
+  \textbf{83},
+  295-297
+  (2010).
 
 \end{thebibliography}
 
