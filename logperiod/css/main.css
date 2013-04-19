@@ -24,8 +24,6 @@ h3 { font: small-caps 120% "Calibri", sans-serif;
   border-bottom: 1px dashed; border-left: 2px solid; border-color: #b0b0b0; }
 
 p, div.p { margin-bottom: 2.0em; }
-img.demo   { border: 3px ridge #C0C0C0; }  /* boxed image */
-img.float  { float: right; border: 3px ridge #a0a0f0; margin: 10px; }
 pre.code { font: 90% monospace;  padding: 10px; } /* code */
 code { font-variant: normal; color: #440000; }
 a:visited { color: #808080; font-weight: normal; }
@@ -71,3 +69,7 @@ table.progtable th {
   background-color: #606060;
   color: #ffffff;
 }
+
+div.fig { margin: 3px; }
+img.demo   { border: 3px ridge #C0C0C0; }  /* boxed image */
+img.float  { float: right; border: 3px ridge #a0a0f0; margin: 10px; }

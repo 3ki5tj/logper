@@ -1,10 +1,12 @@
 
 #PDF = $(patsubst %.tex,%.pdf, $(wildcard *.tex))
 PDF = pc.pdf pc-ijbc.pdf p3p.pdf
+figpng = $(wildcard *.png)
+figpdf = $(patsubst %.png,%.pdf, $(figpng))
 
 all: $(PDF) p3p.html
 
-$(PDF) : %.pdf : %.tex  Makefile
+$(PDF) : %.pdf : %.tex Makefile $(figpdf)
 	pdflatex $<
 
 %.mobi: %.html Makefile
@@ -14,7 +16,7 @@ $(PDF) : %.pdf : %.tex  Makefile
 # -i to make mathematical symbols italic
 # tth needs to know the base file name, which is furnished by the `stem' as -L$*
 # -w2 to write XHTML header
-%.html: %.tex %.pdf Makefile
+%.html: %.tex %.pdf Makefile $(figpng)
 	tth -a -i -w2 -e2 -L$* -w2 -e2 < $< > $@
 
 clean:
