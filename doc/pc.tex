@@ -76,7 +76,7 @@ Rice Univeristy, Houston, TX 77005}
 The onset and bifurcation points of the $n$-cycles of
   a polynomial map are located
   through a characteristic equation
-  connecting cyclic polynomials formed by periodic orbit points.
+  connecting the cyclic polynomials of the periodic orbit points.
 The minimal polynomials of the critical parameters
   of the logistic, H\'enon, and cubic maps are obtained
   for $n$ up to 13, 9, and 8,
@@ -100,17 +100,14 @@ Consider the logistic map \cite{may, strogatz}:
 \label{eq:logmap}
 \end{equation}
 %
-If we iterate \refeq{logmap} from $k = 0$,
-what does the resulting sequence $x_0$,
-  $x_1 = f(x_0)$,
-  $x_2 = f(x_1)$, $\ldots$ look like?
+If we iterate \refeq{logmap} from $k = 1$,
+the resulting sequence $x_1$,
+  $x_2 = f(x_1)$,
+  $x_3 = f(x_2)$, $\ldots$
+can be conveniently visualized on the cobweb plot,
+  as shown in \reffig{cobweb}.
 %
-%
-%
-We can visualize the sequence on the cobweb plot,
-  see \reffig{cobweb} for examples.
-%
-Starting from $(x_0, x_0)$ on the diagonal,
+Starting from $(x_1, x_1)$ on the diagonal,
   each vertical arrow takes $(x_k, x_k)$ to $(x_k, y)$,
   where $y = f(x_k) = x_{k+1}$;
 the next horizontal arrow then reflects $(x_k, y)$ to
@@ -126,9 +123,9 @@ the next horizontal arrow then reflects $(x_k, y)$ to
   \caption{\label{fig:cobweb}
   Cobweb plot of the logistic map.}
 \end{figure}
-
-
-Three outcomes are possible:
+%
+%
+After many iterations, there are three ultimate patterns:
   (i) a \emph{fixed point},
       which is a constant (including infinity),
       e.g., \reffig{cobweb}(a);
@@ -144,9 +141,9 @@ We will focus on the first two cases here.
 
 A fixed point is a solution of $x^* = f(x^*)$.
 %
-If $x_0$ deviates slightly from $x^*$
+If $x_1$ deviates slightly from $x^*$
   and the sequence still converges to $x^*$,
-  we call it \emph{stable}.
+  then it is \emph{stable}.
 %
 For a differentiable $f$,
   a stable fixed point requires $|f'(x^*)| \le 1$
@@ -159,13 +156,13 @@ In an $n$-cycle, $n$ is the smallest positive integer
   e.g., $f^3(x) = f(f(f(x)))$.
 Thus, any $x_k$ in an $n$-cycle of $f$ must be a fixed point of $f^n$
 %
-\big[the reverse is, however, untrue, for a fixed point of $f^n$
+\big[the converse is, however, untrue, for a fixed point of $f^n$
   can also be a fixed point of $f^d$ as long as $d|n$:
-  if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big].
+  if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big],
 %
 %
-We can therefore classify a cycle as stable or unstable
-  by the corresponding fixed point of $f^n$:
+and a cycle can be classified as stable or unstable
+  according to the corresponding fixed point of $f^n$:
   a stable cycle requires
   $\big| \frac {d} {dx} f^n(x_1) \big| \le 1$,
   or by the chain rule,
@@ -173,7 +170,7 @@ We can therefore classify a cycle as stable or unstable
 %
 %
 \begin{equation}
-  \Big| f'(x_1) \dots f'(x_n) \Big| \le 1,
+  \Big| f'(x_1) \cdots f'(x_n) \Big| \le 1,
 \label{eq:der}
 \end{equation}
 where $x_1. \ldots, x_n$ are the $n$ points within the cycle, or the orbit.
@@ -185,16 +182,10 @@ Further, the onset and bifurcation points
 %
 %
 
-
-
-The outcome of the iterated sequence of course
-  depends on the parameter $r$.
+The orbit and cycle stability depend on the parameter $r$.
 %
 Below we will present an algorithm to identify
   all regions of $r$ that allow stable $n$-cycles.
-%We ask,
-%  by which $r$ values can a stable $n$-cycle exist?
-%
 
 
 
@@ -228,8 +219,8 @@ To simplify the calculation, we first change variables \cite{saha} by
 %
 %\begin{equation}
 \[
-    x^{\mathrm{new}} \leftarrow r(x^{\mathrm{old}} - 1/2),
-    \quad R \leftarrow r(r-2)/4,
+    x^{\mathrm{new}} \equiv r(x^{\mathrm{old}} - 1/2),
+    \quad R \equiv r(r-2)/4,
 \]
 %\label{eq:chvars}
 %\end{equation}
@@ -244,7 +235,7 @@ and rewrite the map, in terms of $x^{\mathrm{new}}$, as
 %
 %\refeq{logmaps} simplifies \refeq{logmap} as $x_k$ now only occurs once.
 %
-We will solve the cycle boundaries as zeros of the polynomials of $R$,
+We will solve the cycle boundaries as zeros of some polynomials of $R$,
 and the corresponding polynomials for $r$ can be obtained by $R \rightarrow r(r-2)/4$.
 %
 %the numerical $r$ values can always be obtained from $r = 1 + \sqrt{1 + 4R}$.
@@ -257,37 +248,42 @@ and the corresponding polynomials for $r$ can be obtained by $R \rightarrow r(r-
 
 \subsection{Overall plan}
 
-We solve the problem in two steps.
+%We solve the problem in two steps.
 Since the $n$-cycles form a subset of the fixed points of $f^n$,
 we will first find
   the polynomials at the stability boundaries of
   the fixed points of $f^n$
-  (\refsecs{cyclic} to \ref{sec:examples}),
-then remove contributions from shorter $d$-cycles ($d|n$)
+  (\refsecs{cyclic} to \ref{sec:examples}).
+The contributions from shorter $d$-cycles ($d|n$)
+  are lower-degree factors of the polynomials,
+  and can be readily removed
   (\refsecs{primfac} and \ref{sec:degprimfac}).
 
-Let us consider the first step of finding the fixed points of $f^n$.
-At the first glance, the problem can be tackled by brute force:
-  we can solve
-  %the $n$ equations
+%Let us consider the first step of finding the fixed points of $f^n$.
+At the first glance, the polynomials of the fixed points of $f^n$
+  can be obtained by brute force.
+We can solve
   \refeqs{logmaps} and express $x_1, \ldots, x_n$
   in terms of $R$,
   and then plug the solution into \req{der}.
-The result contains $R$ only (no $x_k$),
+The result would contain $R$ only,
   and is therefore the answer.
 But since \refeqs{logmaps} are nonlinear,
-  it quickly becomes impossible for $n > 2$,
-  as the degree of polynomials grows exponentially;
-  thus it is nontrivial to reduce the final equation of $R$
-  into a polynomial one.
+  it is nontrivial to reduce the final equation of $R$
+  into a polynomial form.
 Nonetheless, on a computer, one can
-  construct a Gr\"obner basis \cite{kk1}
-  to automate the reduction.
+  construct a (polynomial) Gr\"obner basis \cite{kk1}
+  that gradually eliminates $x_k$ out of the $n+1$ equations.
+As a special case, if $x_2, \dots, x_n$ are eliminated first,
+  the final elimination of $x_1$ can be accomplished
+  by setting the resultant of $f^n(x_1) = x_1$ and
+  \refeq{der} or $\frac{d}{dx}f^n (x_1) = \pm 1$
+  to zero \cite{burm},
+  which furnishes the needed polynomial equation of $R$.
 %
-The approach, albeit straightforward, does not
+These approaches, however, do not
   exploit the cyclic structure of \refeqs{logmaps},
-can thus be improved by the following alternative.
-
+  and can thus be improved by the following alternative.
 
 
 Instead of solving \refeqs{logmaps} for $x_k$,
@@ -330,8 +326,8 @@ A polynomial is cyclic if it is invariant
   \ldots, x_n \rightarrow x_1$,
   e.g., $a(\vx) = x_1 x_2 + x_2 x_3 + x_3 x_4 + x_4 x_1$
   and $b(\vx) = x_1 x_3 + x_2 x_4$,
-  for $n = 4$, where $\vx \equiv \{x_1, \ldots, x_n\}$.
-Note that a cyclic polynomial is different from a symmetric polynomial,
+  where $\vx \equiv \{x_1, \ldots, x_n\}$ and $n = 4$.
+Note that a cyclic polynomial is not necessarily from a symmetric one,
   which is invariant under the exchange of any two $x_k$ and $x_{j}$ ($j \ne k$);
   e.g., $a(\vx)$ and $b(\vx)$ are not symmetric,
   but $a(\vx) + b(\vx)$ is.
@@ -353,29 +349,27 @@ note that the coefficient before $x_1 x_3$
 
 
 
-We now consider cyclic polynomials
-  generated from a monomial of unit coefficient,
-  such as $a(\vx)$ and $b(\vx)$, but not $a(\vx) + b(\vx)$.
-They can be systematically labeled as follows.
-We pick the monomial generator,
-  which can be written as
+Cyclic polynomials
+  generated from monomials of unit coefficient
+  [such as $a(\vx)$ and $b(\vx)$, but not $a(\vx) + b(\vx)$]
+  can be labeled as follows.
+We first write the monomial generator as
   ${x_1}^{e_1} {x_2}^{e_2} \dots {x_n}^{e_n}$,
-  then form a sequence $p$ of indices with
-  $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s;
-  the corresponding cyclic polynomial is denoted by $C_p(\vx)$,
-e.g.,
+  then the sequence $p$ of indices with
+  $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s
+  serves as the label of the cyclic polynomial $C_p(\vx)$.
+For example,
   $C_{12}(\vx)  = x_1 x_2 + x_2 x_3 + \dots + x_n x_1$ and
   $C_{112}(\vx) = {x_1}^2 x_2 + {x_2}^2 x_3 + \dots + {x_n}^2 x_1$.
-We omit the length $n$ in this notation,
-  for we will mostly work with a fixed $n$ at a time.
-Since a cyclic polynomial can have multiple generators,
-  e.g., both $x_1 x_2$ and $x_2 x_3$ are generators of $C_{12}(\vx)$
-   (assuming $n \ge 3$),
-  we pick the one that corresponds to
-  the smallest $p$
+The cycle length $n$ is omitted for convenience.
+%  for we will mostly work with a fixed $n$ at a time.
+In case the cyclic polynomial has several generators,
+%  e.g., both $x_1 x_2$ and $x_2 x_3$ are generators of $C_{12}(\vx)$
+%   (assuming $n \ge 3$),
+  we pick the one with the smallest $p$
   in the sense of lexicographic order,
-  e.g., we choose $x_1 x_2$ instead of $x_2 x_3$ for $C_{12}(\vx)$,
-  because $12 < 23$.
+  e.g., we choose $x_1 x_2$ instead of $x_2 x_3$ for $C_{12}(\vx)$
+  because $12 < 23$ ($n \ge 3$).
 Finally, we add $C_0(\vx) \equiv 1$ for completeness.
 %
 %
@@ -383,18 +377,18 @@ Finally, we add $C_0(\vx) \equiv 1$ for completeness.
 
 
 
-\subsection{Square-free cyclic polynomials}
+\subsection{Square-free reduction}
 
 
 
 
-We further restrict ourselves to
-  a subset of square-free cyclic polynomials,
+We now consider
+  a subset of \emph{square-free} cyclic polynomials,
   which have no square or higher powers of any $x_k$,
-  e.g., $C_{12}(\vx) = x_1 x_2 + \dots$ is square-free,
-  $C_{112}(\vx) = {x_1}^2 x_2 + \dots$ is not,
+  e.g., $C_{12}(\vx) = x_1 x_2 + \cdots$ is square-free,
+  $C_{112}(\vx) = {x_1}^2 x_2 + \cdots$ is not,
   see \reftab{sqrfreepoly} for more examples.
-Obviously, the label $p$ of a square-free polynomial
+The label $p$ of a square-free polynomial
   has no repeated index.
 We denote the set of all square-free $p$ by
 $\Bset = \{0, 1, 12, 13, \ldots, 123, 124, \ldots, 12\dots n\}$
@@ -473,34 +467,34 @@ the square-free cyclic polynomials $C_p(\vx)$:
 \[
   K(\vx) = \sum_{p \in \Bset} f_p(R) \, C_p(\vx),
 \]
-  where $\Bset = \{0, 1, 12, 13, \ldots, 12\dots n\}$ is
-  the set of indices of all square-free cyclic polynomials,
+  where $\Bset$ % = \{0, 1, 12, 13, \ldots, 12\dots n\}$ is
+  is the set of indices of all square-free cyclic polynomials,
   and $f_p(R)$ are polynomials of $R$.
   \label{thm:sqrfree}
 \end{theorem}
 
 
 \begin{proof}
-We show the theorem by the following square-free reduction.
+Consider the following square-free reduction.
 %
 Given a cyclic polynomial $K(\vx)$,
   we recursively apply \refeq{logmaps} as
   $x_k^2 \rightarrow R - x_{k+1}$,
   until all squares or higher powers of $x_k$ are eliminated.
 The process will not last indefinitely
-  for each substitution reduces the degree in $x_k$ (no matter which $k$)
+  for each substitution reduces the degree in $x_k$ %(no matter which $k$)
   by one.
 Since the original polynomial is cyclic,
-  so is the reduced one.
+  so is the reduced one, which is also square-free.
 All terms that involve no $x_k$
-  are collected to serve as the coefficient before $C_0(\vx)$, which is 1.
-Since no square or higher powers of $x_k$
-  can survive the reduction,
-  all cyclic polynomials in the final result
-  are square-free.
-The coefficients are polynomials of $R$,
+  are collected to serve as the coefficient before $C_0(\vx) \equiv 1$.
+%Since no square or higher powers of $x_k$
+%  can survive the reduction,
+%  the final cyclic polynomials are square-free;
+The coefficients $f_p$ are polynomials of $R$,
   for $R$ is the only variable introduced by the substitutions.
 \end{proof}
+
 
 
 For example, for $n = 2$, the cyclic polynomial
@@ -518,7 +512,7 @@ ${x_2}^2 \, x_1 = R \, x_1 - R + x_2$.
   which serve as a basis.
 Below we show that at the onset and bifurcation points,
   the square-free cyclic polynomials $C_p(\vx)$ are themselves
-  linearly connected by an $\NB \times \NB$ matrix equation.
+  linearly connected by $\NB$ homogeneous equations.
 The determinant of the matrix must vanish,
   and this condition yields the solution of the problem.
 
@@ -589,9 +583,9 @@ Since a set of homogeneous linear equations
   A_n\RX \equiv \Big| \lambda \, \vct I - \vct T(R) \Big| = 0.
 \label{eq:xr}
 \end{equation}
-Here we have defined $A_n\RX$ as a polynomial of $R$ and $\lambda$,
-  and we have also attached the subscript $n$,
-  for later use with $A_d\RX$, where $d$ are divisors of $n$.
+Here, $A_n\RX$ is a polynomial of $R$ and $\lambda$,
+  and the subscript $n$ is attached such that 
+  it can be used later with $A_d\RX$ of divisors $d$ of $n$.
 \refeq{xr} is a necessary condition
   since $C_p(\vx)$ cannot vanish altogether;
 and since it involves $R$ only,
@@ -606,7 +600,7 @@ To summarize, we have
   the square-free cyclic polynomials $C_p(\vx)$
   are linear related by \refeq{xcp}, with
   $\lambda$ being $+1$ and $-1$, respectively,
-  and $T_{pq}(R)$ the coefficients
+  and $T_{pq}(R)$ are the coefficients
   from the square-free reduction of $\Lambda(\vx) \, C_p(\vx)$
   with $\Lambda(\vx)$ specified by \refeq{logder}.
   Thus, $R$ at the two points are the roots of the
@@ -2649,8 +2643,8 @@ but not
 
 %An interesting feature of the cubic map
 %is that it is odd:
-%for a trajectory $x_0, x_1, x_2, \ldots$
-%the mirror $-x_0, -x_1, -x_2, \ldots$
+%for a trajectory $x_1, x_2, \ldots$
+%the mirror $-x_1, -x_2, \ldots$
 %also satisfies the map.
 %
 %As a result,
@@ -3723,6 +3717,13 @@ which is \refeq{cublyndon}
   2417-2423
   (2004).
 
+\bibitem{burm} J. Burm, P. Fishback,
+  Period-3 Orbits via Sylvester's Theorem and Resultants,
+  \textit{Mathematics Magazine}
+  \textbf{74},
+  47-51
+  (2001).
+
 \bibitem{stephenson} J. Stephenson,
   Formulae for cycles in the Mandelbrot set III,
   \textit{Physica A}
@@ -3743,13 +3744,6 @@ which is \refeq{cublyndon}
   \textbf{69},
   118-120
   (1996).
-
-\bibitem{burm} J. Burm, P. Fishback,
-  Period-3 Orbits via Sylvester's Theorem and Resultants,
-  \textit{Mathematics Magazine}
-  \textbf{74},
-  47-51
-  (2001).
 
 \bibitem{zhang} C. Zhang,
   Period three begins,
