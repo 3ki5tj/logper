@@ -107,8 +107,8 @@ set object 12 circle at x2, x3 size 0.020 front fc rgb "#ff0000" fs solid
 set object 13 circle at x3, x2 size 0.020 front fc rgb "#ff0000" fs solid
 
 
-set arrow 1 from x0, x0 to x0, x1 as 1
-set arrow 2 from x0, x1 to x1, x1 as 1
+#set arrow 1 from x0, x0 to x0, x1 as 1
+#set arrow 2 from x0, x1 to x1, x1 as 1
 set arrow 3 from x1, x1 to x1, x2 as 1
 set arrow 4 from x1, x2 to x2, x2 as 1
 set arrow 5 from x2, x2 to x2, x3 as 1
@@ -182,8 +182,8 @@ set object 14 circle at x3, x4 size 0.020 front fc rgb "#ff0000" fs solid
 set object 15 circle at x4, x5 size 0.020 front fc rgb "#ff0000" fs solid
 
 
-set arrow  1 from x0, x0 to x0, x1 as 1
-set arrow  2 from x0, x1 to x1, x1 as 1
+#set arrow  1 from x0, x0 to x0, x1 as 1
+#set arrow  2 from x0, x1 to x1, x1 as 1
 set arrow  3 from x1, x1 to x1, x2 as 1
 set arrow  4 from x1, x2 to x2, x2 as 1
 set arrow  5 from x2, x2 to x2, x3 as 1
