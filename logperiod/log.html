@@ -48,7 +48,7 @@ it will be converged only to a stable cycle.
 
 <p>Stable cycles are often presented in a <em>bifurcation diagram</em> as shown below.
 Starting from a random <span class="eq"><i>x</i><sub>0</sub></span> (0.1 here),
-the final <span class="eq"><i>x<sub>k</sub></i></span> points 
+the final <span class="eq"><i>x<sub>k</sub></i></span> points
 after a large number of iterations are plotted
 against the <span class="eq"><i>r</i></span> value.
 Obviously, all <span class="eq"><i>x<sub>k</sub></i></span> points shown in the plot
@@ -58,10 +58,10 @@ belong to a stable cycle.
 <img src="img/logtree.png" width="600" alt="bifurcation diagram of the logistic map">
 </div>
 
-<p>We further note that if 
+<p>We further note that if
   <span class="eq"><i>x<sub>k</sub></i></span>
   are allowed to be complex numbers,
-  a cycle always exists, for it's always possible to find complex roots 
+  a cycle always exists, for it's always possible to find complex roots
   of the algebraic equation
 <span class="eq">
   <i>f</i><sup>(<i>n</i>)</sup>(<i>x</i>) = <i>x</i>.
@@ -73,7 +73,7 @@ belong to a stable cycle.
 
 <p>Our purpose is to determine the <i>r</i> values at which
 stable <span class="eq"><i>n</i></span>-cycles exist.
-As we usually are interested in real 
+As we usually are interested in real
 <span class="eq"><i>r</i></span>
 and
 <span class="eq"><i>x<sub>k</sub></i></span>,
@@ -83,7 +83,7 @@ windows on the real axis.
 For example, as shown in the above figure,
 the stable 2-cycle exists in the window
 <span class="eq">(3, 1 + &radic;6) = (3, 3.449...)</span>.
-We shall call the two bounds as the 
+We shall call the two bounds as the
 <em>onset</em> and <em>bifurcation</em> points
 of the cycle.
 
@@ -97,13 +97,13 @@ of the cycle.
 can be determined from the derivative of the composite map
 <span class="eq">[ <i>f</i> (&#x22ef;( <i>f</i> (<i>x</i>)&#x22ef;) ]&prime;</span>.
 
-Since a stable cycle must reduce the magnitude of 
+Since a stable cycle must reduce the magnitude of
 <span class="eq"><i>x</i></span>
-after 
+after
 <span class="eq"><i>n</i></span>
 successive iterations,
 the magnitude of this derivative must be 1.0 at the two critical points.
-More precisely, +1 and &minus;1 are assigned to 
+More precisely, +1 and &minus;1 are assigned to
 the onset and bifurcation points, respectively.
 
 Thus by the chain rule, we have
@@ -116,18 +116,18 @@ Thus by the chain rule, we have
 at the onset (+1) and bifurcation (&minus;1) points.
 </div>
 
-<p>The 
+<p>The
 <span class="eq"><i>n</i></span>
-equations, 
+equations,
 <span class="eq">
     <i>x</i><sub><i>k</i>+1</sub>
     = <i>f</i> (<i>x<sub>k</sub></i>)
   </span>
-(with 
+(with
 <span class="eq">
   <i>x</i><sub><i>n</i></sub> = <i>x</i><sub>0</sub></span>),
 along with the derivative condition,
-furnish 
+furnish
 <span class="eq"><i>n</i> + 1</span> equations.
 
 Thus, we can eliminated the <span class="eq"><i>n</i></span> variables
@@ -142,7 +142,7 @@ and obtain the desired equation of
 
 
 <div class="p">To handle the logistic map more effectively,
-we change variables as (Saha and Strogatz) 
+we change variables as (Saha and Strogatz)
 <div class="eq">
     <i>x</i> &larr; <i>r</i> (<i>x</i> &minus; 1/2),
     <i>R</i> &equiv; (<i>r</i><sup>2</sup> &minus; 2 <i>r</i>) / 4.
@@ -174,31 +174,31 @@ where
 at the onset (bifurcation) points, respectively.
 </div>
 
-<p>If we further allow complex 
+<p>If we further allow complex
 <span class="eq"> <i>R</i> </span>
 and
 <span class="eq"> <i>x</i><sub><i>k</i></sub> </span>,
-then we may allow 
+then we may allow
 <span class="eq">
   <i>d</i> = exp(<i>i &theta;</i>)
 </span>
-with 
+with
 <span class="eq"><i>&theta;</i></span>
-running continuously from 0 to 
+running continuously from 0 to
 <span class="eq">2<i>&pi;</i></span>.
-Doing so allows us to obtain continuous curves of 
+Doing so allows us to obtain continuous curves of
 <span class="eq"><i>R</i></span> (instead of just two points)
-on the complex plane, which enclose regions of 
-<span class="eq"><i>R</i></span> 
+on the complex plane, which enclose regions of
+<span class="eq"><i>R</i></span>
 that contain complex stable cycles.
 
 <div class="fig">
 <img src="img/logbulb.png" width="600" alt="bulbs of the logistic map">
 </div>
 
-<p>This figure is in fact the inverted 
+<p>This figure is in fact the inverted
 <a href="http://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot set</a>.
-With 
+With
 <span class="eq">
   <i>z</i><sub><i>k</i></sub>
   = &minus;<i>x</i><sub><i>k</i></sub>
@@ -207,8 +207,8 @@ and
 <span class="eq">
   <i>c</i> = &minus;<i>R</i>
 </span>
-The modified logistic map 
-  becomes the quadratic map 
+The modified logistic map
+  becomes the quadratic map
 <span class="eq">
   <i>z</i><sub><i>k</i>+1</sub>
   = <i>z</i><sub><i>k</i></sub><sup>2</sup> + <i>c</i>.
@@ -217,21 +217,21 @@ The modified logistic map
 
 
 <h3>3-cycle</h3>
-<p>While the 1-cycle 
+<p>While the 1-cycle
 (fixed point,
 <span class="eq">&minus;1/4 &lt; <i>R</i> &le; 3/4</span>
-or  
+or
 <span class="eq">1 &lt;  <i>r</i> &le; 3</span>)
 and
-2-cycle 
+2-cycle
 (<span class="eq">3/4 &lt; <i>R</i> &le; 7/4</span>
-or  
+or
 <span class="eq">3 &lt; <i>r</i> &le; 1+&radic;6</span>)
-are generally 
+are generally
 easy to obtain (Strogatz),
 the 3-cycle (<span class="eq"><i>n</i> = 3</span>)
 is not quite obvious.
-The onset values 
+The onset values
 <span class="eq"><i>R</i> = 7/4</span>
 or
   <span class="eq"><i>r</i> = 1 + &radic;8</span>
@@ -240,15 +240,15 @@ or
   by different methods (see the references).
 </p>
 
-<p>A brief and self-contained derivation 
-of the onset and bifurcation points of the real 3-cycle 
-is presented in the note 
+<p>A brief and self-contained derivation
+of the onset and bifurcation points of the real 3-cycle
+is presented in the note
 (<a href="doc/p3p.pdf">PDF</a>, <a href="doc/p3p.html">HTML</a>).
 
 
 
-<p>As a side note,  
-the existence of the 3-cycle in a general map is quite important, 
+<p>As a side note,
+the existence of the 3-cycle in a general map is quite important,
 as it implies the existence of cycles of all other lengths, thus chaos,
 Sharkovskii and Li &amp; Yorke.
 
@@ -256,13 +256,13 @@ Sharkovskii and Li &amp; Yorke.
 <h3><i>n</i>-cycles</h3>
 
 <p>For longer cycles, it's generally impossible to write down
-  the exact critical <span class="eq"><i>R</i></span> as radical expression. 
+  the exact critical <span class="eq"><i>R</i></span> as radical expression.
   Still it is possible to identify the <span class="eq"><i>R</i></span> value(s)
   as the root(s) of a polynomial with integral coefficients.
 
 <p>The main objective of this web page and the reference paper (Zhang, 2012)
 is to describe a computational method to find the polynomials.
-The method takes advantage of the fact that 
+The method takes advantage of the fact that
 the cyclic polynomials of the <span class="eq"><i>n</i></span>-cycle points
 are linearly related with one another.
 (An example of a cyclic polynomial is
@@ -288,7 +288,7 @@ the determinant of the matrix must be zero.
 This condition thus furnishes the desired result.
 </p>
 
-<p>The key of the above method to 
+<p>The key of the above method to
 establish a set of linear relations among cyclic polynomials.
 Note, however, the linear relations are based on the derivative condition,
 and are therefore different at the onset and bifurcation points.
@@ -310,7 +310,7 @@ are obtained at the two points.
 
 <p>We list the polynomials of
   <span class="eq"><i>T</i> = 4 <i>R</i></span>
-  (so that <span class="eq"><i>r</i> = 1 + &radic;{1+<i>T</i>} 
+  (so that <span class="eq"><i>r</i> = 1 + &radic;{1+<i>T</i>}
       = 1 + &radic;{1+4<i>R</i>}</span>)
   for the <i>n</i>-cycles of the logistic map
   in the files labeled by "eq.".

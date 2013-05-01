@@ -14,7 +14,7 @@ set ytics 0.2
 set mytics 2
 
 plot [2.8:4.0][:] "logtree.dat" u 1:2 w d not
-  
+
 unset output
 set terminal wxt
 reset

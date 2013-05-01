@@ -9,7 +9,7 @@ class MainPage(webapp2.RequestHandler):
     self.response.headers['Content-Type'] = 'text/html'
 
     template = JINJA_ENVIRONMENT.get_template(fnhtml)
-    
+
     template_values = {
         'prim_ref': '''<h3>Primary reference</h3>
 <ul>

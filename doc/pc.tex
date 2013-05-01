@@ -100,8 +100,7 @@ Consider the logistic map \cite{may, strogatz}:
 \label{eq:logmap}
 \end{equation}
 %
-If we iterate \refeq{logmap} from $k = 1$,
-the resulting sequence $x_1$,
+The iterated \refeq{logmap} sequence $x_1$,
   $x_2 = f(x_1)$,
   $x_3 = f(x_2)$, $\ldots$
 can be conveniently visualized on the cobweb plot,
@@ -125,18 +124,16 @@ the next horizontal arrow then reflects $(x_k, y)$ to
 \end{figure}
 %
 %
-After many iterations, there are three ultimate patterns:
-  (i) a \emph{fixed point},
-      which is a constant (including infinity),
+After many iterations, there can be three ultimate patterns:
+  (i) a \emph{fixed point} or a constant (including infinity),
       e.g., \reffig{cobweb}(a);
-  (ii) a periodic \emph{cycle},
-      which is a self-repeating pattern,
+  (ii) a periodic \emph{cycle} or a self-repeating loop,
       e.g., \reffigs{cobweb}(b)-(e);
-%On the cobweb plot, an $n$-cycle is a loop of $2n$ segments.
 or
   (iii) a chaotic trajectory,
       e.g., \reffig{cobweb}(f).
 We will focus on the first two cases here.
+
 
 
 A fixed point is a solution of $x^* = f(x^*)$.
@@ -157,7 +154,7 @@ In an $n$-cycle, $n$ is the smallest positive integer
 Thus, any $x_k$ in an $n$-cycle of $f$ must be a fixed point of $f^n$
 %
 \big[the converse is, however, untrue, for a fixed point of $f^n$
-  can also be a fixed point of $f^d$ as long as $d|n$:
+  can also be a fixed point of $f^d$ of a divisor $d$ of $dn$:
   if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big],
 %
 %
@@ -173,8 +170,9 @@ and a cycle can be classified as stable or unstable
   \Big| f'(x_1) \cdots f'(x_n) \Big| \le 1,
 \label{eq:der}
 \end{equation}
-where $x_1. \ldots, x_n$ are the $n$ points within the cycle, or the orbit.
-Further, the onset and bifurcation points
+The set of the $n$ points within the cycle $x_1. \ldots, x_n$
+   is called the \emph{orbit}.
+The onset and bifurcation points
   are defined at the loci
   where $\frac {d} {dx} f^n(x_1)$ reaches $+1$ and $-1$,
   respectively \cite{strogatz}.
@@ -584,7 +582,7 @@ Since a set of homogeneous linear equations
 \label{eq:xr}
 \end{equation}
 Here, $A_n\RX$ is a polynomial of $R$ and $\lambda$,
-  and the subscript $n$ is attached such that 
+  and the subscript $n$ is attached such that
   it can be used later with $A_d\RX$ of divisors $d$ of $n$.
 \refeq{xr} is a necessary condition
   since $C_p(\vx)$ cannot vanish altogether;

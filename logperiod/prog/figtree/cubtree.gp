@@ -15,7 +15,7 @@ set mytics 5
 
 plot [1.8:3.0][:] "cubtree.dat" u 1:($5 == 0 ? $2 : 1/0) w d lc rgb "#ff0000" not, \
   "" u 1:($5 == 1 ? $2 : 1/0) w d lc rgb "#0000ff" not
-  
+
 unset output
 set terminal wxt
 reset

@@ -15,7 +15,7 @@ dx = 0.015
 dy = 0.025
 lbfont = "Times, 20"
 
-set label "(a)" at screen dx, 1.0-dy           font lbfont   
+set label "(a)" at screen dx, 1.0-dy           font lbfont
 set label "(b)" at screen .3333 + dx, 1.0-dy   font lbfont
 set label "(c)" at screen .6667 + dx, 1.0-dy   font lbfont
 set label "(d)" at screen dx, 0.5-dy
@@ -58,7 +58,7 @@ xf = 1 - 1/r;
 set title 'Fixed point, {/Times-Italic r} = 2.8' offset 0, -0.5 font titlefont
 
 
-# a circle at the fixed point         
+# a circle at the fixed point
 set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs solid
 
 set arrow  1 from x0, x0 to x0, x1 as 1
@@ -107,7 +107,7 @@ set object 12 circle at x2, x3 size 0.020 front fc rgb "#ff0000" fs solid
 set object 13 circle at x3, x2 size 0.020 front fc rgb "#ff0000" fs solid
 
 
-set arrow 1 from x0, x0 to x0, x1 as 1 
+set arrow 1 from x0, x0 to x0, x1 as 1
 set arrow 2 from x0, x1 to x1, x1 as 1
 set arrow 3 from x1, x1 to x1, x2 as 1
 set arrow 4 from x1, x2 to x2, x2 as 1
@@ -222,7 +222,7 @@ set object 14 circle at x3, x4 size 0.020 front fc rgb "#ff0000" fs solid
 set object 15 circle at x4, x5 size 0.020 front fc rgb "#ff0000" fs solid
 
 
-set arrow 1 from x0, x0 to x0, x1 as 1 
+set arrow 1 from x0, x0 to x0, x1 as 1
 set arrow 2 from x0, x1 to x1, x1 as 1
 set arrow 3 from x1, x1 to x1, x2 as 1
 set arrow 4 from x1, x2 to x2, x2 as 1
@@ -260,8 +260,8 @@ set title "Chaos, {/Times-Italic r} = 3.57" offset 0, -0.5 font titlefont
 
 set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs empty lw 1.5
 
-set arrow  1 from x0,  x0  to x0,  x1  as 1 
-set arrow  2 from x0,  x1  to x1,  x1  as 1    
+set arrow  1 from x0,  x0  to x0,  x1  as 1
+set arrow  2 from x0,  x1  to x1,  x1  as 1
 set arrow  3 from x1,  x1  to x1,  x2  as 1
 set arrow  4 from x1,  x2  to x2,  x2  as 1
 set arrow  5 from x2,  x2  to x2,  x3  as 1

@@ -25,7 +25,7 @@ plot [-3.:3.][-1.6:1.6] \
   -2 not
 
 
-  
+
 unset output
 set terminal wxt
 reset

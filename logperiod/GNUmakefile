@@ -16,4 +16,5 @@ usb::
 
 clean:
 	rm -f *~ data/*~
+	rstrip.py -R *.tex *.html *.[ch] *.py *.ma *.gp *akefile
 

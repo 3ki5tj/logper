@@ -89,7 +89,7 @@ def modifypbs(ch, n):
   print "%s solutions to do" % tot
 
 def submit(ch, n):
-  c = raw_input("will now submit jobs?").strip().lower()  
+  c = raw_input("will now submit jobs?").strip().lower()
   for i in range(1, 33):
     dir = "%s%s%s" % (n, ch, i)
     os.chdir(dir)

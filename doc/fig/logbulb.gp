@@ -22,7 +22,7 @@ plot [-0.6:2][-1.3:1.3] \
   "logp6.txt" u ($1/4):($2/4) w filledcurves ls 1 lw 0. lc rgb "#505050" t "{/Times-Italic n} = 6", \
   "logp7.txt" u ($1/4):($2/4) w filledcurves ls 1 lw 0. lc rgb "#00ffff" t "{/Times-Italic n} = 7", \
   -2 not
-  
+
 unset output
 set terminal wxt
 reset

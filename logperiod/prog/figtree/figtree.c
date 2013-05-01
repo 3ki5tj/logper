@@ -29,16 +29,16 @@ double rdel_c = 0.002;
 int x0cnt_c = 2;
 double x0arr_c[2] = {-0.1, 0.1};
 /* cubic map */
-double cubic(double r, double x) { 
+double cubic(double r, double x) {
   // return x*r*(1 - x*x);  // allows the negative part
-  return x*(r - x*x); 
+  return x*(r - x*x);
 }
 
 /* get period trajectories
  * trj[]: trajectories, trjmax is its size
  * itmax: maximal number of iterations  */
-int gettrj(double trj[], int trjmax, 
-    double r, double (*f)(double, double), int itmax, 
+int gettrj(double trj[], int trjmax,
+    double r, double (*f)(double, double), int itmax,
     double x0, double tol)
 {
   int i, j;
@@ -62,9 +62,9 @@ int gettrj(double trj[], int trjmax,
 }
 
 /* save the figure tree */
-int mkfigtree(double (*func)(double, double), 
+int mkfigtree(double (*func)(double, double),
     double r0, double r1, double dr,
-    int x0cnt, double x0arr[], 
+    int x0cnt, double x0arr[],
     int trjmax, int itmax, double tol,
     FILE *fp)
 {
@@ -76,7 +76,7 @@ int mkfigtree(double (*func)(double, double),
   dr = (r1 - r0)/rcnt;
   for (i = 0; i <= rcnt; i++) {
     r = r0 + i * dr;
-    /* because there are multiple stable period trajectories, 
+    /* because there are multiple stable period trajectories,
      * we explore them by different initial values */
     for (k = 0; k < x0cnt; k++) {
       cnt = gettrj(trj, trjmax, r, func, itmax, x0arr[k], tol);

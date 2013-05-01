@@ -19,7 +19,11 @@ $(PDF) : %.pdf : %.tex Makefile $(figpdf)
 %.html: %.tex %.pdf Makefile $(figpng)
 	tth -a -i -w2 -e2 -L$* -w2 -e2 < $< > $@
 
+usb::
+	$(MAKE) -C .. $@
+
 clean:
 	rm -f $(PDF) *.aux *.log *.bib *.out *~ pc.mobi pc.html
+	rstrip.py -R *.tex *.html *.[ch] *.py *.ma *.gp *akefile
 
 
