@@ -26,6 +26,7 @@
 
 
 \newcommand{\vx}{\vct x}
+\newcommand{\Tr}{\mathrm{Tr}}
 % basis set of cyclic polynomials
 \newcommand{\Pset}{\mathcal P}
 \newcommand{\NB}{N_\Pset}
@@ -1630,7 +1631,7 @@ The first few values of $\deg_R A_n\Rlam$,
 
 
 
-A natural two-dimensional extension of the logistic map
+A simple two-dimensional extension of the logistic map
   is the H\'enon map \cite{henon}:
 \begin{equation}
   x_{k+1} = 1 + y_k - a \, {x_k}^2, \quad
@@ -1638,7 +1639,10 @@ A natural two-dimensional extension of the logistic map
 \label{eq:henon}
 \end{equation}
 %
-We change variable $x_k \leftarrow a x_k$, $y_k \leftarrow a y_k$, and
+By a change of variables
+  $x_k^\mathrm{new} \equiv a \, x_k^\mathrm{old},
+   y_k^\mathrm{new} \equiv a \, y_k^\mathrm{old}$,
+we have, in terms of the new variables,
 \begin{equation}
   x_{k+1} = a + y_k - {x_k}^2, \quad
   y_{k+1} = b \, x_k.
@@ -1646,69 +1650,76 @@ We change variable $x_k \leftarrow a x_k$, $y_k \leftarrow a y_k$, and
 \label{eq:henons}
 \end{equation}
 %
-Since neither $a$ nor $b$ is changed during the transformation,
+%Since neither $a$ nor $b$ is changed during the transformation,
 \refeq{henon} and \refeq{henons} share the
 same onset and bifurcation points
 in terms of $a$ and $b$.
 %
-We also see that if $b \rightarrow 0$ and $a \rightarrow R$,
+With $b \rightarrow 0$ and $a \rightarrow R$,
 \refeq{henons} is reduced to the logistic map \refeq{logmaps}.
 
 
-Since $y_k = b \, x_{k-1}$, we can ignore $y_k$ and work with
-  cyclic polynomials of $x_k$ only,
-the square free reduction is now
-${x_k}^2 \rightarrow a + b x_{k-1} - x_{k+1}$.
+The second equation of \refeq{henons}
+allows us to replace $y_k$ by $b \, x_{k-1}$,
+  such that we can work with the cyclic polynomials of $x_k$ only.
+The square-free reduction is now
+  ${x_k}^2 \rightarrow a + b x_{k-1} - x_{k+1}$.
 
 
 
-The stability of \refeq{henons} can be found from the Jacobian matrix
+The counterpart of \refeq{der}
+  can be found from the Jacobian of $n$th iterate of \refeq{henons}
 \[
-  \vct J_b(x_k)
-  \equiv \left(
-    \begin{array}{ccc}
-      \partial x_{k+1}/\partial x_k & \partial x_{k+1}/\partial y_k \\
-      \partial y_{k+1}/\partial x_k & \partial y_{k+1}/\partial y_k \\
-    \end{array}
-  \right)
-  =
+  \vct J^n
+  \equiv
   \left(
     \begin{array}{ccc}
+      \partial x_{n+1}/\partial x_1 & \partial x_{n+1}/\partial y_1 \\
+      \partial y_{n+1}/\partial x_1 & \partial y_{n+1}/\partial y_1 \\
+    \end{array}
+  \right),
+\]
+and the magnitude of both eigenvalues of the matrix must be less than 1.
+By the chain rule, we have
+  $\vct J^n (x_1) = \vct J^1(x_1) \cdots \vct J^1(x_n)$,
+  where
+$\vct J^1(x_k)
+  =
+  \left(
+    \begin{array}{cc}
       -2 x_k & 1 \\
       b & 0
     \end{array}
-  \right).
-\]
-The eigenvalue $\lambda$ of the composite Jacobian
-$\vct J_b(x_1) \cdots \vct J_b(x_n)$ can be computed from
+  \right)$.
+Thus, the eigenvalues $\lambda$ of $\vct J^n$ can be found from
 %
 \begin{equation}
-\big|\, \lambda \, \vct I - \vct J_b(x_1) \cdots \vct J_b(x_n) \,\big|
+\big|\, \lambda \, \vct I - \vct J^n(x_1) \,\big|
   = \lambda^2 - \Theta(\vx) \,\lambda +(-b)^n = 0,
 %\tag{$\ref{eq:der}'$}
 \label{eq:henonder}
 \end{equation}
 %
 where $\Theta(\vx)$ and $(-b)^n$
-are the trace and determinant of
-the product matrix $\vct J_b(x_1) \cdots \vct J_b(x_n)$,
-respectively \cite{hitzl}.
-In a stable cycle, the magnitude of $\lambda$
-cannot exceed 1; and $\lambda = +1$ or $-1$
-in \refeq{henonder} corresponds to
-the onset or bifurcation point, respectively.
-\refeq{henonder} is the counterpart of \refeq{der}.
+  are the trace and determinant of $\vct J^n(x_1)$,
+  respectively \cite{hitzl}.
+The onset and bifurcation points
+  correspond to $\lambda = +1$ and $-1$, respectively
 
 
 
-Since the trace of the product of two matrices is
-  independent of the order,
-$\Theta(\vx)$ must a cyclic polynomial of $\vx = \{ x_k \}$.
+Using the matrix identity $\Tr( \vct A \vct B) = \Tr(\vct B \vct A)$,
+  we have
+    $\Tr \, \vct J^n(x_1) = \cdots = \Tr \, \vct J^n(x_n)$,
+i.e., $\Theta(\vx)$ is a cyclic polynomial of $\vx = \{ x_k \}$.
+%e.g., %$\Theta(\vx) = 4 x_1 x_2 + 2 \, b$ for $n = 2$ and
+%$\Theta(\vx) = -8 x_1 x_2 x_3 - 2 \, b (x_1+ x_2+ x_3)$ for $n = 3$.
 %
-Thus, we can use $\Theta(\vx)$ to list \refeqs{xcp}
-and then replace $\Theta(\vx)$ by $\lambda + (-b)^n/\lambda$
-or $\pm\big[ 1 + (-b)^n \big]$
-in \refeq{xr} to complete the solution.
+Thus, we can expand $\Theta(\vx) \, C_p(\vx)$
+  in terms of square-free cyclic polynomials,
+  and then replace $\Theta(\vx)$ by $\lambda + (-b)^n/\lambda$
+  in the final characteristic equation to obtain the desired polynomials
+  (the procedure is similar to that in \refsec{algo} for the logistic map).
 %
 %
 %
@@ -1758,7 +1769,7 @@ This is because \refeq{cubreplace} contains only linear and cubic terms,
 and a cyclic polynomial with an odd (even) degree in $\vx$
 can never be reduced to one with an even (odd) degree.
 %
-%Thus we only need polynomials of even degrees.
+%Thus, we only need polynomials of even degrees.
 %
 %We therefore have a theorem similar to \refthm{sqrfree}.
 %%
