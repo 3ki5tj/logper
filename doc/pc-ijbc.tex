@@ -99,7 +99,7 @@ The minimal polynomials of the critical parameters
 
 %\maketitle
 
-
+\twocolumn
 %
 %
 \section{Introduction}
@@ -113,7 +113,7 @@ Consider the logistic map \cite{may, strogatz}:
 \label{eq:logmap}
 \end{equation}
 %
-The iterated \refeq{logmap} sequence $x_1$,
+The iterated sequence $x_1$,
   $x_2 = f(x_1)$,
   $x_3 = f(x_2)$, $\ldots$
 can be conveniently visualized on the cobweb plot,
@@ -129,7 +129,7 @@ the next horizontal arrow then reflects $(x_k, y)$ to
 %
 \begin{figure}[h]
   \begin{center}
-  \begin{minipage}{0.5 \linewidth}
+  \begin{minipage}{\linewidth}
         \includegraphics[angle=-90, width=\linewidth]{cobweb.pdf}
   \end{minipage}%
   \end{center}
@@ -1663,7 +1663,7 @@ The second equation of \refeq{henons}
 allows us to replace $y_k$ by $b \, x_{k-1}$,
   such that we can work with the cyclic polynomials of $x_k$ only.
 The square-free reduction is now
-  ${x_k}^2 \rightarrow a + b x_{k-1} - x_{k+1}$.
+  ${x_k}^2 \rightarrow a + b \, x_{k-1} - x_{k+1}$.
 
 
 
@@ -1981,7 +1981,7 @@ are $n N_e(n)$ and $n L_e(n)$, respectively.
 %
 \begin{figure}[h]
   \begin{center}
-  \begin{minipage}{0.5 \linewidth}
+  \begin{minipage}{\linewidth}
         \includegraphics[angle=-90, width=\linewidth]{oddcycle.pdf}
   \end{minipage}%
   \end{center}

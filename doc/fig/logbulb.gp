@@ -1,13 +1,18 @@
 unset multiplot
 reset
-set terminal postscript enhanced size 7, 7 "Times, 14"
+set terminal postscript enhanced size 7, 7 "Times, 20"
 set output "logbulb.ps"
 
-set xlabel "Re {/Times-Italic R}" offset 1.0, 0.0
+# make `-' longer
+set encoding iso_8859_1
+
+lbfont = "Times, 24"
+
+set xlabel "Re {/Times-Italic R}" offset 1.0, 0.0 font lbfont
 set xtics 0.5
 set mxtics 5
 
-set ylabel "Im {/Times-Italic R}" offset 1.5, 0.0
+set ylabel "Im {/Times-Italic R}" offset 2.0, 0.0 font lbfont
 set ytics 0.5
 set mytics 5
 

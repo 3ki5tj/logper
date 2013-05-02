@@ -1,15 +1,19 @@
 unset multiplot
 reset
-set terminal postscript enhanced size 7, 4 font "Times, 12"
+set terminal postscript enhanced size 7, 4 font "Times, 14"
 set output "cubbulb.ps"
+
+set encoding iso_8859_1
 
 set size ratio 1.6/3.0
 
-set xlabel "Re {/Times-Italic r}" offset .0, 0.0
+lbfont = "Times, 20"
+
+set xlabel "Re {/Times-Italic r}" offset .0, 0.0 font lbfont
 set xtics 1.0
 set mxtics 5
 
-set ylabel "Im {/Times-Italic r}" offset 1.0, 0.0
+set ylabel "Im {/Times-Italic r}" offset 1.0, 0.0 font lbfont
 set ytics 1.0
 set mytics 5
 
