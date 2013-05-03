@@ -79,7 +79,7 @@ Rice Univeristy, Houston, TX 77005}
 The onset and bifurcation points of the $n$-cycles of
   a polynomial map are located
   through a characteristic equation
-  connecting the cyclic polynomials of the periodic orbit points.
+  connecting the cyclic polynomials of the cycle points.
 The minimal polynomials of the critical parameters
   of the logistic, H\'enon, and cubic maps are obtained
   for $n$ up to 13, 9, and 8,
@@ -141,27 +141,27 @@ We will focus on the first two cases here.
 
 A fixed point is a solution of $x^* = f(x^*)$.
 %
-If $x_1$ deviates slightly from $x^*$
-  and the sequence still converges to $x^*$,
-  then it is \emph{stable}.
+It is stable if $x_1$ deviates slightly from $x^*$
+  and the sequence still converges to $x^*$.
 %
 For a differentiable $f$,
   a stable fixed point requires $|f'(x^*)| \le 1$
   to reduce deviations in successive iterations \cite{strogatz}.
 
 
-In an $n$-cycle, $n$ is the smallest positive integer
-  that allows $x_1 = x_{n+1} = f^n(x_1)$,
+An $n$-cycle is a sequence $x_1, \dots, x_n$,
+  such that $n$ is the smallest positive integer
+  that satisfies $x_1 = x_{n+1} = f^n(x_1)$,
   where $f^n$ is the $n$th iterate of $f$,
   e.g., $f^3(x) = f(f(f(x)))$.
-Thus, any $x_k$ in an $n$-cycle of $f$ must be a fixed point of $f^n$
+Obviously, any $x_k$ in an $n$-cycle of $f$ is a fixed point of $f^n$
 %
-\big[the converse is, however, untrue, for a fixed point of $f^n$
+\big[but the converse is untrue, for a fixed point of $f^n$
   can also be a fixed point of $f^d$ for a divisor $d$ of $n$:
-  if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big],
+  if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big].
 %
 %
-and a cycle can be classified as stable or unstable
+Thus, a cycle can be classified as stable or unstable
   according to the corresponding fixed point of $f^n$:
   a stable cycle requires
   $\big| \frac {d} {dx} f^n(x_1) \big| \le 1$,
@@ -173,8 +173,10 @@ and a cycle can be classified as stable or unstable
   \Big| f'(x_1) \cdots f'(x_n) \Big| \le 1,
 \label{eq:der}
 \end{equation}
-The set of the $n$ points within the cycle $x_1. \ldots, x_n$
-   is called the \emph{orbit}.
+%
+%
+%The set of the $n$ points within the cycle $x_1. \ldots, x_n$
+%   is called the \emph{orbit}.
 The onset and bifurcation points
   are defined at the loci
   where $\frac {d} {dx} f^n(x_1)$ reaches $+1$ and $-1$,
@@ -185,7 +187,7 @@ The onset and bifurcation points
 
 The orbit and cycle stability depend on the parameter $r$.
 %
-Below we will present an algorithm to identify
+Our purpose is to present an algorithm to identify
   all regions of $r$ that allow stable $n$-cycles.
 
 
@@ -1110,7 +1112,7 @@ This is equivalent to the inverted Mandelbrot set:
   >{\hsize=0.5\hsize\centering\arraybackslash}X
   >{\hsize=1.6\hsize}X
   >{\hsize=1.6\hsize}X
-  >{\hsize=0.3\hsize\raggedright\arraybackslash}X 
+  >{\hsize=0.3\hsize\raggedright\arraybackslash}X
 }
 \hline
   $n^\dagger$

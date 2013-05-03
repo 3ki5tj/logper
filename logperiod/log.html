@@ -18,55 +18,118 @@ The <a href="http://mathworld.wolfram.com/LogisticMap.html">logistic map</a> is 
     = <i>f</i> (<i>x<sub>k</sub></i>)
     &equiv; <i>r x<sub>k</sub></i> (1 &minus; <i>x<sub>k</sub></i>).
 </div>
+</div>
 
-An <span class="eq"><i>n</i></span>-cycle means
+
+
+<h3>Cycles and fixed points</h3>
+
+<div class="p">
+An <span class="eq"><i>n</i></span>-<em>cycle</em> is
+a sequence
+<span class="eq">
+    <i>x</i><sub>0</sub>,
+    <i>x</i><sub>1</sub>,
+    ...
+    <i>x</i><sub><i>n</i></sub>,
+</span>
+such that
 <div class="eq">
     <i>x</i><sub> <i>n</i></sub>
     =  <i>x</i><sub>0</sub>.
 </div>
-The problem is to determine the <span class="eq"><i>r</i></span> values
-that allow stable <span class="eq"><i>n</i></span>-cycles.
+More precisely, <span class="eq"><i>n</i></span> has to be the
+<em>smallest</em> positive integer that satisfies the relation.
+It follows that in <span class="eq"><i>n</i></span>-<em>cycle</em>,
+<span class="eq">
+    <i>x</i><sub> <i>n+k</i></sub>
+    =  <i>x</i><sub>k</sub>,
+</span>
+holds for any <span class="eq"><i>k</i></span>.
 </div>
+
+
+<div class="p">
+Particularly, a 1-cycle
+  is called a <em>fixed point</em>, that is the solution of
+<div class="eq">
+  <i>f</i> (<i>x</i><sub>0</sub>)
+    =  <i>x</i><sub>0</sub>.
+</div>
+On the other hand, any
+  <span class="eq"><i>x</i><sub><i>k</i></sub></span>
+  in the <span class="eq"><i>n</i></span>-cycle
+  is also be a fixed point of
+  <span class="eq"><i>f<sup> n</sup></i></span>,
+  the <span class="eq"><i>n</i></span>th iterate of <span class="eq"><i>f</i></span>, for
+<div class="eq">
+  <i>x</i><sub><i>n+k</i></sub>
+  = <i>f<sup> n</sup></i>(<i>x</i><sub><i>k</i> </sub>)
+  = <i>x</i><sub><i>k</i></sub>.
+</div>
+
+</div>
+
 
 
 <h3>Stable cycles</h3>
 
-<p>We should first define a <em>stable</em> cycle.
+<div class="p">
+A cycle can be <em>stable</em> or unstable.
 In a stable cycle,
-a small error of <span class="eq"><i>x</i><sub>0</sub></span> from the exact periodic point
-is reduced in magnitude after <span class="eq"><i>n</i></span> iterations,
+a small deviation of <span class="eq"><i>x</i><sub>0</sub></span>
+  from the exact cycle point
+get reduced in magnitude after <span class="eq"><i>n</i></span> iterations,
 i.e., <span class="eq"><i>x<sub>n</sub></i></span> is closer to the exact cycle point
 than <span class="eq"><i>x</i><sub>0</sub></span>.
+In other words, a stable cycle is attractive in the neighborhood of its cycle points.
+</div>
 
+
+<div class="p">
 A stable cycle is generally more meaningful than an unstable one.
 If we start the iteration from a random
 <span class="eq"><i>x</i><sub>0</sub></span>
 it will be converged only to a stable cycle.
 
+We further note that if
+  <span class="eq"><i>x<sub>k</sub></i></span>
+  are complex numbers,
+  a cycle always exists, for we can always find complex roots
+  of the algebraic equation
+<span class="eq">
+  <i>f</i><sup> <i>n</i></sup>(<i>x</i>) = <i>x</i>.
+</span>
+</div>
+
+
+<h3>Statement of the problem</h3>
+
+<div class="p">
+The stability of a cycle depends on the parameter
+<span class="eq"><i>r</i></span>.
+
+The problem we are trying to tackle here is
+<span style="color:#000077">
+to determine the
+<span class="eq"><i>r</i></span> values
+that allow stable <span class="eq"><i>n</i></span>-cycles</span>.
+</div>
+
 
 <h3>Bifurcation diagram</h3>
 
-<p>Stable cycles are often presented in a <em>bifurcation diagram</em> as shown below.
+<p>Stable cycles can be visualized in a <em>bifurcation diagram</em> as shown below.
 Starting from a random <span class="eq"><i>x</i><sub>0</sub></span> (0.1 here),
 the final <span class="eq"><i>x<sub>k</sub></i></span> points
 after a large number of iterations are plotted
 against the <span class="eq"><i>r</i></span> value.
 Obviously, all <span class="eq"><i>x<sub>k</sub></i></span> points shown in the plot
-belong to a stable cycle.
+belong to a stable or attractive cycle.
 
 <div class="fig">
 <img src="img/logtree.png" width="600" alt="bifurcation diagram of the logistic map">
 </div>
-
-<p>We further note that if
-  <span class="eq"><i>x<sub>k</sub></i></span>
-  are allowed to be complex numbers,
-  a cycle always exists, for it's always possible to find complex roots
-  of the algebraic equation
-<span class="eq">
-  <i>f</i><sup>(<i>n</i>)</sup>(<i>x</i>) = <i>x</i>.
-</span>
-
 
 
 <h3>Onset and bifurcation points</h3>
@@ -95,7 +158,10 @@ of the cycle.
 
 <div class="p">The onset and bifurcation points of the <span class="eq"><i>n</i></span>-cycle
 can be determined from the derivative of the composite map
-<span class="eq">[ <i>f</i> (&#x22ef;( <i>f</i> (<i>x</i>)&#x22ef;) ]&prime;</span>.
+<span class="eq">
+  [ <i>f<sup> n</sup></i>(<i>x</i>) ]&prime;
+  = [ <i>f</i> (&#x22ef;( <i>f</i> (<i>x</i>)&#x22ef;) ]&prime;
+</span>.
 
 Since a stable cycle must reduce the magnitude of
 <span class="eq"><i>x</i></span>
