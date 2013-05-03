@@ -353,14 +353,14 @@ Cyclic polynomials
   generated from monomials of unit coefficient
   (such as $a$ and $b$, but not $a + b$ in the above example)
   can be labeled as follows.
-We first write the monomial generator as
+We write the monomial generator as
   ${x_1}^{e_1} {x_2}^{e_2} \dots {x_n}^{e_n}$,
-  then the sequence $p$ of indices with
-  $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s
-  serves as the label of the cyclic polynomial $C_p(\vxn{n})$,
-  where $\vxn{n} \equiv \{x_1, \ldots, x_n\}$.
-We will, however, drop the superscript ``$^{(n)}$'' or
-  even the argument ``$(\vxn{n})$'' entirely when it is clear.
+  and form a sequence $p$ of indices with
+  $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s.
+The sequence $p$ serves as the label of the cyclic polynomial $C_p(\vxn{n})$,
+  where $\vxn{n} \equiv \{x_1, \ldots, x_n\}$
+(we will, however, drop the superscript ``$^{(n)}$'' or
+  even the argument ``$(\vxn{n})$'' entirely when it is clear).
 For example,
   $C_{12}(\vx)  = x_1 x_2 + x_2 x_3 + \dots + x_n x_1$ and
   $C_{112}(\vx) = {x_1}^2 x_2 + {x_2}^2 x_3 + \dots + {x_n}^2 x_1$.
@@ -682,12 +682,10 @@ The characteristic equation \refeq{xr} reads
 %
 %
 The first factor is responsible for the 2-cycle,
-  while the second factor is for unstable fixed points (see later).
-Setting the former to zero yields $R = 1 - \lambda/4$.
-So
-$\lambda = +1$ gives the onset value $R_a = 3/4$ ($r_a = 3$)
-while
-$\lambda = -1$ gives the bifurcation value $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
+  while the second factor is for unstable fixed points. % (see later).
+Setting the former to zero yields $R = 1 - \lambda/4$;
+so the onset ($\lambda = +1$) value is $R_a = 3/4$ ($r_a = 3$)
+and the bifurcation ($\lambda = -1$) value is $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
 %
 %Note that the onset point of the 2-cycle
 %  is located at $R = 3/4$,
@@ -697,7 +695,7 @@ $\lambda = -1$ gives the bifurcation value $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
 
 
 
-The $n = 3$ case has sparked several different
+The $n = 3$ case is nontrivial and has sparked several different
   elementary derivations \cite{saha, bechhoefer, gordon, burm, zhang}.
 For the current algorithm,
 the cyclic polynomials are
@@ -1146,7 +1144,7 @@ which gives the number of integers from 1 to $m$
   $\varphi(3) = 2$ for 1 and 2,
   $\varphi(6) = 2$ for 1 and 5.
 The first few values of $N_\Pset(n)$ are 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188, 352, 632, \ldots,
-  starting from $n = 1$.
+  from $n = 1$.
 
 
 
@@ -1186,7 +1184,7 @@ Incidentally, $L(n)$ is also the number of aperiodic necklaces of length $n$.
   but $0000$, $1111$, and $0101$ are not
   owing to the shorter periods 1, 2, and 2, respectively.
 %
-Since an $n$-necklace is either aperiodic or
+Since an $n$-necklace is either aperiodic itself or
   a repeated aperiodic $d$-necklace (with $d|n$),
   we have
 \begin{equation}
@@ -1617,6 +1615,7 @@ $(-1)^s \prod_{p} \big[\lambda \, \delta_{p q} - T_{pq}(R)\big]$,
 where $p$ runs through rows of the matrix
   and $\{q\}$ is a permutation of $\{p\}$,
   with $(-1)^s$ being the proper sign.
+%
 Summing over rows under this condition yields
 \begin{align*}
   \deg_R A_n\Rlam

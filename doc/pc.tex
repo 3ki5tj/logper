@@ -185,7 +185,7 @@ The onset and bifurcation points
 %
 %
 
-The orbit and cycle stability depend on the parameter $r$.
+The cycle and its stability depend on the parameter $r$.
 %
 Our purpose is to present an algorithm to identify
   all regions of $r$ that allow stable $n$-cycles.
@@ -1579,133 +1579,33 @@ By comparing the degrees,
 
 \subsubsection{Number of the square-free cyclic polynomials}
 
-To count the square-free cyclic polynomials,
-  we establish a one-to-one mapping
-  between the square-free cyclic polynomials
-  and the binary necklaces (defined below).
-The task is then to count the latter.
 
-A binary necklace
+From \refeq{xr}, it is clear that $\deg_\lambda A_n\Rlam$
+  is equal to the number of square cyclic polynomials $N_\Pset$.
+We show below that the latter
+  is equal to the number of binary necklaces (defined below),
+  which can be readily counted (\refapd{bnecklace}).
+
+A binary \emph{necklace}
   is a nonequivalent binary $0$-$1$ string.
 %
-Two strings are equivalent if they differ only by a circular shift.
+Two strings are \emph{equivalent} if they differ only by a circular shift.
 %
-For example, for $n = 3$, there are $2^3 = 8$ binary strings,
-but only four necklaces: 000, 001, 011 and 111,
+For example, among the eight $n=3$ binary strings,
+the four 000, 001, 011 and 111 are necklaces,
 since 010 and 100 are equivalent to 001,
 so are 110 and 101 to 011.
 %
-The period of a necklace, or a binary string,
+The \emph{period} of a necklace, or a binary string,
   is the length of the shortest non-repeating sub-sequence,
   e.g., the periods of $1111$, $0101$ and $0001$
         are 1, 2, and 4, respectively.
 %
 Obviously, the period $m$ divides $n$;
   and a period-$m$ necklace
-  encompasses $m$ binary strings
-  differed by circular shifts,
-  e.g., $0101$ represents
-  both $0101$ and $1010$.
-
-
-\begin{table*}[t]\footnotesize
-\caption{Two ways of counting the $N(4) = 6$ necklaces for $n = 4$.
-}
-\begin{center}
-\begin{tabularx}{\textwidth}{c | c  c | c | c | c | c | c }
-\hline
-        & \multicolumn{2}{c|}{$m = 1$}
-        & $m = 2$
-        & $m = 4$   & $2^d$ & $\varphi(n/d)$ & $\varphi(n/d) 2^d$\\
-\hline
-$d = 1$ & \hspace{1mm} $\mathbf{0}_{\times4}$ \hspace{1mm}
-        & \hspace{1mm} $\mathbf{1}_{\times4}$ \hspace{1mm} & & & $2 = 2$ & $2$ & 4 \\
-\hline
-$d = 2$ & $\mathbf{00}_{\times2}$ & $\mathbf{11}_{\times2}$
-        & \hspace{1mm} $\mathbf{10}_{\times2} (01_{\times2})$
-          \hspace{1mm} & & $2 + 2 =4$ & $1$ & 4 \\
-\hline
-\multirow{3}{*}{$d = 4$}
-      & & & & \hspace{1mm} $\mathbf{1000} (0100, 0010, 0001)$
-              \hspace{1mm} & $2 + 2 + 12$& \\
-      & $\mathbf{0000}$ & $\mathbf{1111}$ & $\mathbf{1010} (0101)$
-            & $\mathbf{1100} (1001, 0110, 0011)$ & $=16$ & $1$ & 16 \\
-      & & & &   $\mathbf{1110} (1101, 1011, 0111)$ & &  \\
-\hline
-$m \sum_{m|d, d|n} \varphi(\frac{n}{d})$
-      & \multicolumn{2}{c|}{$1\cdot(2+1+1) = 4$}
-      & $2\cdot(1+1) = 4$ & $4\cdot1 = 4$ &  \multicolumn{2}{c|}{} &  $\downarrow$\\
-\hline
-$N(n)\cdot n$ & \multicolumn{2}{c|}{$2 \cdot 4$} & $1 \cdot 4$ & $3 \cdot 4$ &
-  \multicolumn{2}{c|}{$\rightarrow$} & $6\cdot4 = 24$ \\
-\hline
-\multicolumn{8}{p{\linewidth}}{
-  Bold strings are necklaces; others are their cyclic versions.
-}
-\\
-\multicolumn{8}{p{\linewidth}}{
-The subscript of a binary string means the number of repeats;
-e.g.,
-$\mathbf{0}_{\times4}$ means $\mathbf{0}$ repeated four times, or $\mathbf{0000}$;
-$\mathbf{10}_{\times2}$ means $\mathbf{10}$ repeated twice, or $\mathbf{1010}$, etc.
-}
-\\
-\hline
-\end{tabularx}
-\end{center}
-\label{tab:countnecklace}
-\end{table*}
-
-
-
-
-To compute the number of the binary necklaces $N(n)$,
-we construct a sum for the length-$n$ binary strings and count it in two ways.
-\reftab{countnecklace} shows the example for the $n=4$ case.
-%
-For each divisor $d$ of $n$, we collect
-  all length-$n$ binary strings
-  whose periods $m$ divide $d$.
-%
-The total is $2^d$,
-  for we have enumerated all binary strings whose periods divide $d$.
-%and each period-$m$ necklace contributes $m$ cyclic versions.
-%
-We then weight them by Euler's totient function $\varphi(n/d)$.
-%
-Here, $\varphi(m)$ gives the number of integers from 1 to $m$
-  that are coprime to $m$,
-  e.g.,
-  $\varphi(1) = 1$,
-  $\varphi(3) = 2$ for 1 and 2,
-  $\varphi(6) = 2$ for 1 and 5.
-We repeat the process over other divisors $d$ of $n$,
-  and the resulting sum is $\sum_{d|n} \varphi(n/d) 2^d$.
-%
-The process for a fixed $d$ is exemplified
-  by a row in \reftab{countnecklace}.
-
-%
-
-
-We can count the above sum in another way.
-We recall that a period-$m$ necklace always contributes
-  $m$ strings in the above process for a fixed $d$,
-  and it does so for all multiples $d$ of $m$.
-So the total weighted contribution by this necklace is
-\begin{equation}
-m \sum_{m|d, d|n} \varphi(n/d) =
- m \sum_{\frac{n}{d}|\frac{n}{m}} \varphi(n/d) = m \,  \frac{n}{m}  = n,
-\label{eq:mphind}
-\end{equation}
-where we have used the identity $\sum_{d'|m'} \varphi(d') = m'$,
-with $d' = n/d$ and $m' = n/m$.
-%
-Summing over the necklaces yields $N(n) \, n$. Thus,
-$N(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^d$.
-The process for a fixed necklace is exemplified
-  by a column in \reftab{countnecklace}.
-%
+  represents $m$ equivalent binary strings
+  differed only by circular shifts.
+  %e.g., $0101$ represents both $0101$ and $1010$.
 
 
 Back to our problem, there is
@@ -1728,12 +1628,12 @@ For example, if $n = 3$,
 \reftab{sqrfreepoly} shows a few more examples.
 %
 Thus,
-
+%
 \begin{theorem}
 The number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$ ($p \in \Pset$)
   formed by $\vx = \{x_1, \ldots, x_n\}$ is
 \begin{equation}
-  \NB(n) = N(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^{\,d},
+  \NB(n) = N(n) = (1/n) \textstyle\sum_{d|n} \varphi(n/d) 2^{\,d},
 \label{eq:necklace}
 \end{equation}
 %
@@ -1741,7 +1641,15 @@ which is also equal to $\deg_\lambda A_n\Rlam$.
 \label{thm:necklace}
 \end{theorem}
 %
-$N(n)$ = 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188, 352, 632, \ldots, starting from $n = 1$.
+Here, $\varphi(m)$ is Euler's totient function,
+which gives the number of integers from 1 to $m$
+  that are coprime to $m$,
+  e.g.,
+  $\varphi(1) = 1$,
+  $\varphi(3) = 2$ for 1 and 2,
+  $\varphi(6) = 2$ for 1 and 5.
+The first few values of $N_\Pset(n)$ are 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188, 352, 632, \ldots,
+  from $n = 1$.
 
 
 
@@ -1818,7 +1726,7 @@ In this case,
 
 
 \begin{remark}[2]
-$L(n)$ is also the number of aperiodic (i.e., period equal to $n$)
+Incidentally, $L(n)$ is also the number of aperiodic (i.e., period equal to $n$)
   necklaces of length $n$,
   e.g., for $n = 4$,
   out of the six necklaces, $0001$, $0011$, and $0111$ are aperiodic;
@@ -1832,15 +1740,16 @@ we can count the $2^n$ binary strings of length $n$ as
 The M\"obius inversion leads to the same result of \refeq{lyndon}.
 \end{remark}
 
-
+For the first few values,
 $L(n)$ =
 2, 1, 2, 3, 6, 9, 18, 30, 56, 99, 186, 335, 630, \ldots,
-starting from $n = 1$.
+from $n = 1$.
 
 
 
-Since the period $d$ of a length-$n$ necklace always divides $n$,
-we have
+Since an $n$-necklace is either aperiodic itself or
+  a repeated aperiodic $d$-necklace (with $d|n$),
+  we have
 \begin{equation}
 N(n) = \sum_{d|n} L(d).
 \label{eq:necklacelyndon}
@@ -1972,8 +1881,7 @@ for $Q_{n, 1}\Rlam = P_n\Rlam$.
 
 
 
-\subsection{\label{sec:origfac}Intersection of cycles
-  and further factorization at the onset point}
+\subsection{\label{sec:origfac}Factorization at the onset point}
 
 
 \reftab{Pnlog} shows that
@@ -3477,9 +3385,103 @@ which is the same as the sextic factor of \refeq{xr4}
 
 
 
+\section{\label{apd:bnecklace}Number of binary necklaces}
 
 
 
+
+To count the number of the binary necklaces $N(n)$,
+we construct a sum for the length-$n$ binary strings and count it in two ways.
+\reftab{countnecklace} shows the example for the $n=4$ case.
+%
+For each divisor $d$ of $n$, we collect
+  all length-$n$ binary strings
+  that can be formed by repeating
+  length-$d$ binary strings over $n/d$ times.
+%
+The total is equal to $2^d$, the number of length-$d$ binary strings.
+%
+We then weight them by the totient function $\varphi(n/d)$
+%
+and repeat the process over other divisors $d$ of $n$.
+%
+The resulting sum is $\sum_{d|n} \varphi(n/d) 2^d$.
+%
+The process for a fixed $d$ is exemplified
+  by a row in \reftab{countnecklace}.
+%
+
+
+We can count the above sum in another way.
+We recall that a period-$m$ necklace always contributes
+  $m$ strings in the above process for a fixed $d$,
+  and it does so for all multiples $d$ of $m$.
+So the total weighted contribution by this necklace is
+\begin{equation}
+m \sum_{m|d, d|n} \varphi(n/d) =
+ m \sum_{\frac{n}{d}|\frac{n}{m}} \varphi(n/d) = m \,  \frac{n}{m}  = n,
+\label{eq:mphind}
+\end{equation}
+where we have used the identity $\sum_{d'|m'} \varphi(d') = m'$,
+with $d' = n/d$ and $m' = n/m$.
+%
+In other words, the overall contribution from a period-$m$ necklace
+  to the above sum is a constant, $n$.
+% 
+Summing over the necklaces yields $N(n) \, n$. Thus,
+$N(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^d$.
+The process for a fixed necklace is exemplified
+  by a column in \reftab{countnecklace}.
+%
+
+
+\begin{table*}[t]\footnotesize
+\caption{Two ways of counting the $N(4) = 6$ necklaces for $n = 4$.
+}
+\begin{center}
+\begin{tabularx}{0.82 \textwidth}{c | c  c | c | c | c | c | c }
+\hline
+        & \multicolumn{2}{c|}{$m = 1$}
+        & $m = 2$
+        & $m = 4$   & $2^d$ & $\varphi(n/d)$ & $\varphi(n/d) 2^d$\\
+\hline
+$d = 1$ & \hspace{1mm} $\mathbf{0}_{\times4}$ \hspace{1mm}
+        & \hspace{1mm} $\mathbf{1}_{\times4}$ \hspace{1mm} & & & $2 = 2$ & $2$ & 4 \\
+\hline
+$d = 2$ & $\mathbf{00}_{\times2}$ & $\mathbf{11}_{\times2}$
+        & \hspace{1mm} $\mathbf{10}_{\times2} (01_{\times2})$
+          \hspace{1mm} & & $2 + 2 =4$ & $1$ & 4 \\
+\hline
+\multirow{3}{*}{$d = 4$}
+      & & & & \hspace{1mm} $\mathbf{1000} (0100, 0010, 0001)$
+              \hspace{1mm} & $2 + 2 + 12$& \\
+      & $\mathbf{0000}$ & $\mathbf{1111}$ & $\mathbf{1010} (0101)$
+            & $\mathbf{1100} (1001, 0110, 0011)$ & $=16$ & $1$ & 16 \\
+      & & & &   $\mathbf{1110} (1101, 1011, 0111)$ & &  \\
+\hline
+$m \sum_{m|d, d|n} \varphi(\frac{n}{d})$
+      & \multicolumn{2}{c|}{$1\cdot(2+1+1) = 4$}
+      & $2\cdot(1+1) = 4$ & $4\cdot1 = 4$ &  \multicolumn{2}{c|}{} &  $\downarrow$\\
+\hline
+$N(n)\cdot n$ & \multicolumn{2}{c|}{$2 \cdot 4$} & $1 \cdot 4$ & $3 \cdot 4$ &
+  \multicolumn{2}{c|}{$\rightarrow$} & $6\cdot4 = 24$ \\
+\hline
+\multicolumn{8}{p{.82 \linewidth}}{
+  Bold strings are necklaces; others are their cyclic versions.
+}
+\\
+\multicolumn{8}{p{.82 \linewidth}}{
+The subscript of a binary string means the number of repeats;
+e.g.,
+$\mathbf{0}_{\times4}$ means $\mathbf{0}$ repeated four times, or $\mathbf{0000}$;
+$\mathbf{10}_{\times2}$ means $\mathbf{10}$ repeated twice, or $\mathbf{1010}$, etc.
+}
+\\
+\hline
+\end{tabularx}
+\end{center}
+\label{tab:countnecklace}
+\end{table*}
 
 
 
