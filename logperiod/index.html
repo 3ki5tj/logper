@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<title>Cycles of the logistic map and other polynomial maps</title>
+<title>Cycles of polynomial maps</title>
 <script type="text/javascript" src="js/main.js"></script>
 <link type="text/css" rel="stylesheet" href="/css/main.css">
 </head>
@@ -10,12 +10,246 @@
 
 
 <h1><i>n</i>-cycles</h1>
-<p>This page is about computing exact <span class="eq"><i>n</i></span>-cycles of some polynomials maps.
+<div class="p">
+  This page is about computing exact
+  <span class="eq"><i>n</i></span>-cycles of some polynomials maps.
+</div>
 
-Individual maps has separate pages.
+
+
+<h2>Introduction</h2>
+<div class="p">
+  Consider a one dimensional map, as an iteration sequence:
+  <div class="eq">
+    <i>x</i><sub><i>k</i>+1</sub>
+    = <i>f</i> (<i>x<sub>k</sub></i>),
+  </div>
+  where <span class="eq"><i>f</i>(<i>x</i>)</span> is some function,
+  which we assume to be polynomial.
+</div>
+
+
+
+<h3>Cycles and fixed points</h3>
+
+
+<div class="p">
+  An <span class="eq"><i>n</i></span>-<em>cycle</em> is a sequence
+  <span class="eq">
+    <i>x</i><sub>0</sub>,
+    <i>x</i><sub>1</sub>,
+    ...
+    <i>x</i><sub><i>n</i></sub>,
+  </span>
+  such that
+  <div class="eq">
+    <i>x</i><sub> <i>n</i></sub>
+    =  <i>x</i><sub>0</sub>.
+  </div>
+  More strictly, <span class="eq"><i>n</i></span> has to be the
+  <em>smallest</em> positive integer that satisfies the relation.
+  It follows that in an <span class="eq"><i>n</i></span>-<em>cycle</em>,
+  <div class="eq">
+    <i>x</i><sub> <i>n+k</i></sub>
+    =  <i>x</i><sub>k</sub>
+  </div>
+  holds for any <span class="eq"><i>k</i></span>.
+</div>
+
+
+
+<div class="p">
+  Particularly, a 1-cycle
+  is called a <em>fixed point</em>, that is, the solution of
+  <div class="eq">
+  <i>f</i> (<i>x</i><sub>0</sub>)
+    =  <i>x</i><sub>0</sub>.
+  </div>
+
+  On the other hand, any
+  <span class="eq"><i>x</i><sub><i>k</i></sub></span>
+  in the <span class="eq"><i>n</i></span>-cycle
+  is also be a fixed point of
+  <span class="eq"><i>f<sup> n</sup></i></span>,
+  the <span class="eq"><i>n</i></span>th iterate of <span class="eq"><i>f</i></span>, for
+  <div class="eq">
+  <i>x</i><sub><i>n+k</i></sub>
+  = <i>f<sup> n</sup></i>(<i>x</i><sub><i>k</i> </sub>)
+  = <i>x</i><sub><i>k</i></sub>.
+  </div>
+</div>
+
+
+
+<h3>Stable cycles</h3>
+
+<div class="p">
+  A cycle can be <em>stable</em> or unstable.
+  In a stable cycle,
+  a small deviation of <span class="eq"><i>x</i><sub>0</sub></span>
+  from the exact cycle point
+  gets reduced in magnitude after <span class="eq"><i>n</i></span> iterations,
+  such that <span class="eq"><i>x<sub>n</sub></i></span> is closer to the exact cycle point
+  than <span class="eq"><i>x</i><sub>0</sub></span>.
+  In other words, a stable cycle is attractive in the neighborhood of its cycle points.
+</div>
+
+
+<div class="p">
+  A stable cycle is generally more meaningful than an unstable one.
+  If we start the iteration from a random
+  <span class="eq"><i>x</i><sub>0</sub></span>
+  it will be converged only to a stable cycle.
+
+  We further note that if
+  <span class="eq"><i>x<sub>k</sub></i></span>
+  are complex numbers,
+  a cycle always exists, for we can always find complex roots
+  of the algebraic equation
+  <span class="eq">
+    <i>f</i><sup> <i>n</i></sup>(<i>x</i>) = <i>x</i>.
+  </span>
+</div>
+
+
+<h3>Statement of the problem</h3>
+
+<div class="p">
+  Now let us say the map
+  <span class="eq"><i>f</i></span>
+  depends on a parameter
+  <span class="eq"><i>r</i></span>.
+
+  For example, in the logistic map,
+  <div class="eq">
+    <i>f</i> (<i>x</i>)
+    &equiv; <i>r x</i> (1 &minus; <i>x</i>).
+  </div>
+
+  Both the cycle points and the cycle stability of a cycle depend on the parameter
+  <span class="eq"><i>r</i></span>.
+
+  The problem we are trying to tackle here is
+  <span style="color:#000077">
+  to determine the
+  <span class="eq"><i>r</i></span> values
+  that allow stable <span class="eq"><i>n</i></span>-cycles</span>.
+</div>
+
+
+<h3>Bifurcation diagram</h3>
+
+<div class="p">
+  Stable cycles can be visualized in a <em>bifurcation diagram</em>
+  as shown below (for the logistic map).
+  Starting from a random <span class="eq"><i>x</i><sub>0</sub></span> (0.1 here),
+  the final <span class="eq"><i>x<sub>k</sub></i></span> points
+  after a large number of iterations are plotted
+  against the value of the parameter <span class="eq"><i>r</i></span>.
+  Obviously, all <span class="eq"><i>x<sub>k</sub></i></span> points shown in the plot
+  belong to a stable or attractive cycle.
+
+  <div class="fig">
+  <img src="img/logtree.png" width="600" alt="bifurcation diagram of the logistic map">
+  </div>
+</div>
+
+
+
+<h3>Onset and bifurcation points</h3>
+
+<div class="p">
+  Our purpose is to determine the <i>r</i> values at which
+  stable <span class="eq"><i>n</i></span>-cycles exist.
+  As we usually are interested in real
+    <span class="eq"><i>r</i></span>
+  and
+    <span class="eq"><i>x<sub>k</sub></i></span>,
+  the <span class="eq"><i>r</i></span>
+  values for stable cycles are arranged as
+  windows on the real axis.
+  For example, as shown in the above figure (logistic map),
+  the stable 2-cycle exists in the window
+  <span class="eq">(3, 1 + &radic;6) = (3, 3.449...)</span>.
+  We shall call the two bounds as the
+  <em>onset</em> and <em>bifurcation</em> points
+  of the cycle.
+</div>
+
+
+
+<div class="p">
+  For a polynomial map,
+  the <span class="eq"><i>r</i></span> values at the onset and bifurcation points
+  are algebraic numbers,
+  i.e., they are zeros of some polynomials of integral coefficients.
+  Our problem is, therefore, to find one polynomial
+  that encompasses all onset <span class="eq"><i>r</i></span> values as the zeros,
+  and the other polynomial for all bifurcation <span class="eq"><i>r</i></span> values.
+</div>
+
+
+
+<h3>Derivative condition</h3>
+
+<div class="p">
+  The onset and bifurcation points of the <span class="eq"><i>n</i></span>-cycle
+  can be determined from the derivative of the composite map
+  <span class="eq">
+    [ <i>f<sup> n</sup></i>(<i>x</i>) ]&prime;
+    = [ <i>f</i> (&#x22ef;( <i>f</i> (<i>x</i>)&#x22ef;) ]&prime;
+  </span>.
+
+  Since a stable cycle must reduce the magnitude of
+  <span class="eq"><i>x</i></span>
+  after
+  <span class="eq"><i>n</i></span>
+  successive iterations,
+  the magnitude of this derivative must be 1.0 at the two critical points.
+  More precisely, +1 and &minus;1 are assigned to
+  the onset and bifurcation points, respectively.
+
+  Thus by the chain rule, we have
+  <div class="eq">
+   <i>f</i> &prime;(<i>x</i><sub>1</sub>)
+   &#x22ef;
+   <i>f</i> &prime;(<i>x</i><sub><i>n</i></sub>)
+   = &plusmn;1,
+  </div>
+  at the onset (+1) and bifurcation (&minus;1) points.
+</div>
+
+<div class="p">
+  The
+  <span class="eq"><i>n</i></span>
+  equations,
+  <span class="eq">
+      <i>x</i><sub><i>k</i>+1</sub>
+      = <i>f</i> (<i>x<sub>k</sub></i>)
+    </span>
+  (with
+  <span class="eq">
+    <i>x</i><sub><i>n</i></sub> = <i>x</i><sub>0</sub></span>),
+  along with the derivative condition,
+  furnish
+  <span class="eq"><i>n</i> + 1</span> equations.
+
+  Thus, we can eliminate the <span class="eq"><i>n</i></span> variables
+  <span class="eq"><i>x</i><sub><i>k</i></sub></span>
+  and obtain the desired equation of
+  <span class="eq"><i>r</i></span>.
+</div>
+
+
+
+
+<h2>Individual maps</h2>
+
+<p>Individual maps has separate pages.
+The onset and bifurcation polynomials can be found there.
 
 <ul>
-<li>The <a href="/log">Logistic map</a></li>
+<li>The <a href="/log">logistic map</a></li>
 <li>The <a href="/cubic">cubic map</a></li>
 <li>The <a href="/henon">Henon map</a></li>
 </ul>
@@ -32,7 +266,7 @@ Individual maps has separate pages.
 
 <tr>
   <td><a href="prog/prd.ma">prd.ma</a></td>
-  <td>the Logistic map</td>
+  <td>the logistic map</td>
 </tr>
 
 <tr>
@@ -63,6 +297,27 @@ Individual maps has separate pages.
 
 
 <h2>References</h2>
+
+<h3>General</h3>
+<ul>
+<li> Robert M. May,
+<i>Simple mathematical models with very complicated dynamics</i>,
+Nature <b>261</b> (1976) 459-467.
+
+<li>Steven H. Strogatz,
+<a href="http://www.amazon.com/Nonlinear-Dynamics-And-Chaos-Applications/dp/0738204536"><i>
+Nonlinear Dynamics And Chaos: With Applications To Physics, Biology, Chemistry, And Engineering"
+</i></a>Westview Press, 2001.
+
+<li>
+Bailin Hao,
+<a href="http://power.itp.ac.cn/~hao/"><i>
+  Elementary Symbolic Dynamics and Chaos in Dissipative Systems,
+</i></a> World Scientific, 1989.
+
+</ul>
+
+
 {{ prim_ref }}
 
 {{ go_home }}

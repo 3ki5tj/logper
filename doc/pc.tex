@@ -218,7 +218,7 @@ but all onset points satisfy the same polynomial equation,
 Our goal is thus to find the two polynomials for a given $n$.
 
 
-To simplify the calculation, we first change variables \cite{saha} as
+To simplify the calculation, we first change variables \cite{mandelbrot, brown1, saha} as
 %
 %\begin{equation}
 \[
@@ -614,11 +614,10 @@ To summarize, we have
   By increasing $\theta$ from 0 to $2\pi$,
   we can trace a two-dimensional region of a complex $R$
   for stable cycles.
-  These regions are bulbs in the Mandelbrot set,
-  %(however, we need the replacement
-  %$x_k \rightarrow -z_k$
-  %and
-  %$R \rightarrow -c$)
+  These regions are bulbs in the Mandelbrot set
+  (the correspondence follows from the transformation $z_k = -x_k, c = -R$, which
+  reduces \refeq{logmaps} to the quadratic map $z_{k+1} = c + {z_k}^2$
+  used in the Mandelbrot set \cite{mandelbrot}),
   see ref. \cite{stephenson} and \reffig{logbulb}.
 
   Further, with $\lambda = 0$,
@@ -757,7 +756,7 @@ Note that the onset point of the only 2-cycle
 
 
 
-For $n = 3$ \cite{saha, bechhoefer, gordon, burm, zhang},
+For $n = 3$ \cite{brown1, saha, bechhoefer, gordon, burm, zhang},
 we have
 $C_0 = 1$,
 $C_1 = x_1 + x_2 + x_3$,
@@ -770,7 +769,7 @@ The square-free reduction yields
 %
 %
 %
-\footnotesize
+\begin{footnotesize}
 \begin{align*}
 \lambda
 \left( \begin{array}{c}
@@ -793,7 +792,7 @@ The square-free reduction yields
   C_{123}
 \end{array} \right),
 \end{align*}
-\normalsize
+\end{footnotesize}
 %
 %
 %
@@ -844,7 +843,7 @@ is identical to that in ref. \cite{gordon, burm}.
 
 
 
-For $n = 4$ \cite{stephenson, bailey1, kk1, bailey2, lewis},
+For $n = 4$ \cite{brown1, stephenson, bailey, kk1, lewis},
 the cyclic polynomials are
 $C_0 = 1$,
 $C_1 = x_1 + x_2 + x_3 + x_4$,
@@ -858,7 +857,7 @@ $\Lambda = 16 x_1 x_2 x_3 x_4$.
 \refeq{xr} reads
 %
 \begin{widetext}
-%\footnotesize
+\begin{small}
 \begin{align}
 0 & = \left|
 \begin{array}{cccccc}
@@ -881,7 +880,7 @@ $\Lambda = 16 x_1 x_2 x_3 x_4$.
   \tag{\ref{eq:xr}-4}
 \label{eq:xr4}
 \end{align}
-%\normalsize
+\end{small}
 \end{widetext}
 %
 %
@@ -915,7 +914,7 @@ $4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
   + 8432 R^2 + 4913 = 0$,
 which upon $R \rightarrow r(r-2)/4$ yields the same polynomial
 obtained previously
-\cite{bailey1, kk1, bailey2, lewis}.
+\cite{bailey, kk1, lewis}.
 %
 %
 %
@@ -2557,6 +2556,7 @@ We now study the following cubic map \cite{strogatz}
   x_{k + 1} = f(x_k) = r \, x_k - {x_k}^3.
 \label{eq:cubic}
 \end{equation}
+This map is closely related to the one studied by Brown \cite{brown3}.
 Since the new replacement rule
 \begin{equation}
   {x_k}^3 \rightarrow r \, x_k - x_{k+1}
@@ -2967,7 +2967,7 @@ This means that the sum of numbers (0, 1, or 2)
 %For even necklaces, we have
 
 
-\begin{theorem}
+%\begin{theorem}
 The number of the even ternary necklaces
 or the cube-free cyclic polynomials for the cubic map of even degrees in $\vx$
 is given by
@@ -2980,8 +2980,8 @@ is given by
 \end{equation}
 where
 $\odd(c) \equiv \big[1 - (-1)^c\big]/2$ is 1 if $c$ is odd or 0 if even.
-\label{thm:cubnecklace}
-\end{theorem}
+%\label{thm:cubnecklace}
+%\end{theorem}
 %
 The proof is presented in \refapd{tnecklace}.
 The first few values $N_e(n)$ are
@@ -2998,12 +2998,17 @@ The minimal polynomial for the $n$-cycles can be obtained
   \big[$R\rightarrow r$,
     $A_n(R, \lambda) \rightarrow A_n(r, \lambda)$,
     etc.\big]
-The degree of the polynomial is given by
 
 
-\begin{theorem}
 The degree in $\lambda$ of
-the minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles is
+the minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles
+satisfies a similar relation to \refeq{necklacelyndon},
+%$N_e(n) = \sum_{d|n} L_e(d)$,
+%
+whose M\"obius inversion
+%  $L_e(n) = \sum_{d|n} \mu(n/d) \, N_e(n)$,
+after some algebra (\refapd{cublyndon}) yields
+%\begin{theorem}
 \begin{equation}
   L_e(n) = \frac{1}{n} \sum_{cd = n} \mu(c)
     \left[
@@ -3014,18 +3019,18 @@ the minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles is
 where $\odd(n) = [1 - (-1)^n]/2$
 is $1$ for an odd $n$,
 but $0$ for an even $n$.
-\label{thm:cublyndon}
-\end{theorem}
-
-\refeq{cublyndon} follows from the inversion
-  $L_e(n) = \sum_{d|n} \mu(n/d) \, N_e(n)$,
-after some algebra, as shown in \refapd{cublyndon}.
+%\label{thm:cublyndon}
+%\end{theorem}
 %
-$L_e(n)$ = 2, 2, 4, 10, 24, 60, 156, 410, \ldots, starting from $n = 1$.
+%
+$L_e(n)$ = 2, 2, 4, 10, 24, 60, 156, 410, \ldots, from $n = 1$.
 %
 This is also the number of the $n$-cycles \cite{hao}.
-Note that, for $n>1$, half of the cycles have negative $r$,
-and the $x_k$ are imaginary.
+
+
+
+Note that, for $n>1$, $x_k$ in half of the cycles with negative $r$
+are imaginary.
 However, in a transformed map,
 \[
 z_{k+1} = r \, z_k \, (1 - {z_k}^2),
@@ -3139,7 +3144,7 @@ We therefore save the polynomials and programs of the three maps on the web site
 http://logperiod.appspot.com.
 
 
-%Compared with other approaches \cite{hitzl, gordon, bailey1, kk1, hao}
+%Compared with other approaches \cite{hitzl, gordon, bailey, kk1, hao}
 %it appeared to be simpler and more transparent,
 %as it only requires the computation of a determinant.
 
@@ -3168,10 +3173,10 @@ We first list the explicit equations:
 \begin{subequations}
 \label{eq:x4}
 \begin{align}
-  x_2 &= R - x_1^2, \\
-  x_3 &= R - x_2^2, \\
-  x_4 &= R - x_3^2, \\
-  x_1 &= R - x_4^2,
+  x_2 &= R - {x_1}^2, \\
+  x_3 &= R - {x_2}^2, \\
+  x_4 &= R - {x_3}^2, \\
+  x_1 &= R - {x_4}^2,
 \end{align}
 \end{subequations}
 %
@@ -3191,8 +3196,8 @@ we have
 \begin{subequations}
 \begin{align}
 y_1 y_2       &= -1 \\
-y_1^2 + y_2^2 & = (y_1 + y_2)^2 - 2 y_1 y_2 = z^2 + 2 \\
-y_1^3 + y_2^3 & = (y_1 + y_2)^3 - 3 y_1 y_2 (y_1 + y_2) = z^3 + 3 z.
+{y_1}^2 + {y_2}^2 & = (y_1 + y_2)^2 - 2 y_1 y_2 = z^2 + 2 \\
+{y_1}^3 + {y_2}^3 & = (y_1 + y_2)^3 - 3 y_1 y_2 (y_1 + y_2) = z^3 + 3 z.
 \end{align}
 \label{eq:ypow4}
 \end{subequations}
@@ -3202,7 +3207,7 @@ Multiplying \refeqsub{x4}{a} by $x_1$ or $x_3$,
 then summing over cyclic versions yields
 \begin{subequations}
 \begin{align}
-y_1 y_2 &= R z - \big[(x_1^3 + x_3^3) + (x_2^3 + x_4^3)\big],\\
+y_1 y_2 &= R z - \big[({x_1}^3 + {x_3}^3) + ({x_2}^3 + {x_4}^3)\big],\\
 y_1 y_2 &= R z - \big[x_1 x_3 (x_1 + x_3) + x_2 x_4 (x_2 + x_4)\big].
 \end{align}
 \label{eq:p4q}
@@ -3211,7 +3216,7 @@ y_1 y_2 &= R z - \big[x_1 x_3 (x_1 + x_3) + x_2 x_4 (x_2 + x_4)\big].
 From
 $\mathrm{\refeqsub{p4q}{a}} + 3 \times \mathrm{\refeqsub{p4q}{b}}$,
 we have
-$4 \, y_1 y_2 = 4 R z - (y_1^3 + y_2^3)$,
+$4 \, y_1 y_2 = 4 R z - ({y_1}^3 + {y_2}^3)$,
 %
 and by \refeqs{ypow4},
 \begin{equation}
@@ -3220,8 +3225,8 @@ and by \refeqs{ypow4},
 \end{equation}
 %
 %
-Since $2 x_1 x_3 = y_1^2 - (x_1^2 + x_3^2) = y_1^2 - 2 R + y_2$,
-and $2 x_2 x_4 = y_2^2 - 2 R + y_1$,
+Since $2 x_1 x_3 = {y_1}^2 - ({x_1}^2 + {x_3}^2) = {y_1}^2 - 2 R + y_2$,
+and $2 x_2 x_4 = {y_2}^2 - 2 R + y_1$,
 %
 %Using \refeqs{ypow4} to simplify the right hand side, we find
 \begin{equation}
@@ -3286,7 +3291,7 @@ with $d' = n/d$ and $m' = n/m$.
 %
 In other words, the overall contribution from a period-$m$ necklace
   to the above sum is a constant, $n$.
-% 
+%
 Summing over the necklaces yields $N(n) \, n$. Thus,
 $N(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^d$.
 The process for a fixed necklace is exemplified
@@ -3386,11 +3391,11 @@ as exemplified in \reftab{countcubnecklace}.
 %
 In the first way,
   for a fixed $d$ ($d|n$),
-  we count all ternary strings 
+  we count all ternary strings
     that can be formed by repeating period-$d$ ternary string
     for $n/d$ times;
   further, $c\equiv n/d$ is odd,
-    we impose a constraint that 
+    we impose a constraint that
     the sub-string of the first $d$ beads must be even
     (because repeating an odd string an odd number times
     does not yield an even string);
@@ -3425,7 +3430,7 @@ So
 \[
   N_e(n) \cdot n = \sum_{cd = n} T(d, c) \, \varphi(c),
 \]
-which is \refeq{cublyndon}
+which is \refeq{cubnecklace}
 after we divide both sides by $n$.
 
 
@@ -3494,10 +3499,9 @@ The odd binary strings $\mathbf{10}$, $01$, $\mathbf{21}$, and $12$
 
 
 
-\section{\label{apd:cublyndon}Proof of \refthm{cublyndon}}
+\section{\label{apd:cublyndon}Proof of \refeq{cublyndon}}
 
-Here we prove \refthm{cublyndon} \big[or \refeq{cublyndon}\big]
-  for the cubic map.
+Here we prove \refeq{cublyndon} for the cubic map.
 %
 Similar to the logistic map case \refeq{necklacelyndon},
   we have, for the cubic map,
@@ -3615,14 +3619,14 @@ $G_{\mu, \odd}(s) = \sum_{n \text{ odd}} \mu(n)/n^s$
 with the only difference being that all multiples $n$ of 2
 are absent. So
 %
-\footnotesize
+\begin{small}
 \[
   G_{\mu, \odd}(s)
   = \sum_{n=1}^{\infty} \frac{\mu(n) \, \odd(n)}{n^s}
   = \sum_{n \text{ odd}} \frac{\mu(n)}{n^s}
   = \prod_{p \ge 3} \left( 1 - \frac{1}{p^s} \right).
 \]
-\normalsize
+\end{small}
 Comparing the two formulas yields
 \[
   G_{\mu, \odd}(s)
@@ -3717,86 +3721,131 @@ which is \refeq{cublyndon}
 \begin{thebibliography}{50}
 
 
-\bibitem{strogatz} S. H. Strogatz,
+\bibitem{strogatz}
+  S. H. Strogatz,
   \textit{Nonlinear Dynamics and Chaos}
   (Addison-Wesley. Reading, MA, 1994).
 
-\bibitem{may} R. M. May,
+\bibitem{may}
+  R. M. May,
   Simple mathematical models with very complicated dynamics,
   \textit{Nature}
   \textbf{261},
-  459-467
+  459--467
   (1976).
 
-\bibitem{saha} P. Saha and S. H. Strogatz,
+\bibitem{mandelbrot}
+  B. B. Mandelbrot,
+  Fractal aspects of the iteration of $z \rightarrow \lambda z(1-z)$
+      for complex $\lambda$ and $z$,
+  \textit{Ann. NY Acad. Sci.}
+  \textbf{357},
+  249--259
+  (1980).
+
+\bibitem{brown1}
+  A. Brown,
+  Equations for periodic solutions of a logistic difference equation,
+  \textit{J. Austral. Math. Soc. Ser. B}
+  \textbf{23},
+  78--94
+  (1981);
+%\bibitem{brown2} A. Brown,
+  Solutions of period seven for a logistic difference equation,
+  \textit{Bull. Austral. Math. Soc.}
+  \textbf{26},
+  263--284
+  (1982).
+
+\bibitem{saha}
+  P. Saha and S. H. Strogatz,
   The birth of period three,
   \textit{Mathematics Magazine}
   \textbf{68},
-  42-47
+  42--47
   (1995).
 
-\bibitem{kk1} I. S. Kotsireas and K. Karamanos,
+\bibitem{kk1}
+  I. S. Kotsireas and K. Karamanos,
   Exact computation of the bifurcation point $B_4$ of the logistic map and
     the Bailey-Broadhurst conjectures,
   \textit{International Journal of Bifurcation and Chaos}
   \textbf{14},
-  2417-2423
+  2417--2423
   (2004).
 
-\bibitem{burm} J. Burm, P. Fishback,
-  Period-3 Orbits via Sylvester's Theorem and Resultants,
+\bibitem{burm}
+  J. Burm, P. Fishback,
+  Period-3 orbits via Sylvester's theorem and resultants,
   \textit{Mathematics Magazine}
   \textbf{74},
-  47-51
+  47--51
   (2001).
 
-\bibitem{stephenson} J. Stephenson,
-  Formulae for cycles in the Mandelbrot set III,
+\bibitem{stephenson}
+  J. Stephenson,
+  Formulae for cycles in the Mandelbrot set,
   \textit{Physica A}
+  \textbf{177},
+  416-420
+  (1991);
+  Formulae for cycles in the Mandelbrot set II,
+  \textit{ibid.}
   \textbf{190},
-  117-129
+  104--116
+  (1992);
+  Formulae for cycles in the Mandelbrot set III,
+  \textit{ibid.}
+  \textbf{190},
+  117--129
   (1992).
 
-\bibitem{bechhoefer} J. Bechhoefer,
+\bibitem{bechhoefer}
+  J. Bechhoefer,
   The birth of period 3, revisited,
   \textit{Mathematics Magazine}
   \textbf{69},
-  115-118
+  115--118
   (1996).
 
-\bibitem{gordon} W. B. Gordon,
+\bibitem{gordon}
+  W. B. Gordon,
   Period three trajectories of the logistic map,
   \textit{Mathematics Magazine}
   \textbf{69},
-  118-120
+  118--120
   (1996).
 
-\bibitem{zhang} C. Zhang,
+\bibitem{zhang}
+  C. Zhang,
   Period three begins,
   \textit{Mathematics Magazine}
   \textbf{83},
-  295-297
+  295--297
   (2010).
 
-\bibitem{bailey1} D. H. Bailey and D. J. Broadhurst,
-  Parallel integer relation detection: techniques and applications,
-  \textit{Mathematics of Computation}
-  \textbf{70},
-  1719-1736
-  (2000).
 
-\bibitem{bailey2} D. H. Bailey, J. M. Borwein, V. Kapour and E. W. Weisstein,
+%\bibitem{bailey1} D. H. Bailey and D. J. Broadhurst,
+%  Parallel integer relation detection: techniques and applications,
+%  \textit{Mathematics of Computation}
+%  \textbf{70},
+%  1719--1736
+%  (2000).
+%
+\bibitem{bailey}
+  D. H. Bailey, J. M. Borwein, V. Kapour and E. W. Weisstein,
   Ten problems in experimental mathematics,
   \textit{The American Mathematical Monthly}
   \textbf{113},
-  481-509
+  481--509
   (2006).
 
-\bibitem{lewis} R. H. Lewis,
+\bibitem{lewis}
+  R. H. Lewis,
   Heuristics to accelerate the Dixon resultant,
   \textit{Mathematics and Computers in Simulation}
   \textbf{77},
-  400-407
+  400--407
   (2008).
 
 \bibitem{hardy} G. H. Hardy,
@@ -3810,14 +3859,14 @@ which is \refeq{cublyndon}
     the interval complete solution of the counting problem,
   \textit{Annals of Combinatorics}
   \textbf{4},
-  339-346
+  339--346
   (2000).
 
 \bibitem{lutzky} M. Lutzky,
   Counting stable cycles in unimodal iterations,
   \textit{Physics Letters A}
   \textbf{131},
-  248-250
+  248--250
   (1988).
 
 \bibitem{mira}
@@ -3828,29 +3877,47 @@ which is \refeq{cublyndon}
   Formulae for cycles in the Mandelbrot set,
   \textit{Physica A}
   \textbf{177},
-  416-420
+  416--420
   (1991).
 
-\bibitem{blackhurst} J. Blackhurst,
+\bibitem{blackhurst}
+  J. Blackhurst
   Polynomials of the bifurcation points of the logistic map,
   \textit{International Journal of Bifurcation and Chaos}
   \textbf{21},
-  1869-1877
+  1869--1877
   (2011).
 
-\bibitem{henon} M. H\'enon,
+\bibitem{henon}
+  M. H\'enon,
   A two-dimensional mapping with a strange attractor,
   \textit{Communications in Mathematical Physics}
   \textbf{50},
-  69-77
+  69--77
   (1976).
 
-\bibitem{hitzl} D. L. Hitzl and F. Zele,
+\bibitem{hitzl}
+  D. L. Hitzl and F. Zele,
   An exploration of the H\'enon quadratic map,
   \textit{Physica D}
   \textbf{14},
-  305-326
+  305--326
   (1985).
+
+\bibitem{brown3}
+  A. Brown,
+  Solutions of period three for a non-linear difference equation,
+  \textit{J. Austral. Math. Soc. Ser. B}
+  \textbf{25},
+  451--462
+  (1984);
+%\bibitem{brown4} A. Brown,
+  Solutions of period four for a non-linear difference equation,
+  %\textit{J. Austral. Math. Soc. Ser. B}
+  \textit{ibid.}
+  \textbf{26},
+  146--164
+  (1984).
 
 \end{thebibliography}
 

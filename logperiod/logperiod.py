@@ -4,6 +4,7 @@ import webapp2, jinja2
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+
 class MainPage(webapp2.RequestHandler):
   def get(self, fnhtml="index.html"):
     self.response.headers['Content-Type'] = 'text/html'
@@ -30,21 +31,25 @@ class MainPage(webapp2.RequestHandler):
         </ul></div>''',
 
         'last_update':
-        '<p>Last updated on April. 17th, 2013.',
+        '<p>Last updated on May. 7th, 2013.',
     }
     self.response.write(template.render(template_values))
+
 
 class LogPage(MainPage):
   def get(self):
     MainPage.get(self, "log.html")
 
+
 class CubicPage(MainPage):
   def get(self):
     MainPage.get(self, "cubic.html")
 
+
 class HenonPage(MainPage):
   def get(self):
     MainPage.get(self, "henon.html")
+
 
 class AboutPage(webapp2.RequestHandler):
   def get(self):

@@ -226,7 +226,7 @@ There are generally multiple such windows for a single $n$,
 Our goal is thus to find the two polynomials for a given $n$.
 
 
-To simplify the calculation, we first change variables \cite{saha} as
+To simplify the calculation, we first change variables \cite{mandelbrot, brown1, brown2, saha} as
 %
 %\begin{equation}
 \[
@@ -321,14 +321,14 @@ whose roots contain all fixed points of $f^n$.
 \subsection{\label{sec:cyclic}Cyclic polynomials}
 
 
-A polynomial is cyclic if it is invariant
+A cyclic polynomial is an invariant
   under the cycling of variables
   $x_1 \rightarrow x_2, x_2 \rightarrow x_3,
   \ldots, x_n \rightarrow x_1$,
   e.g., $a = x_1 x_2 + x_2 x_3 + x_3 x_4 + x_4 x_1$
   and $b = x_1 x_3 + x_2 x_4$ (for $n = 4$).
 %
-Note that a cyclic polynomial is not necessarily symmetric
+It is, however, not necessarily symmetric
   (i.e., invariant under the exchange of any two $x_k$ and $x_{j}$),
   e.g., $a$ and $b$ are not symmetric,
   but $a + b$ is.
@@ -359,8 +359,8 @@ We write the monomial generator as
   $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s.
 The sequence $p$ serves as the label of the cyclic polynomial $C_p(\vxn{n})$,
   where $\vxn{n} \equiv \{x_1, \ldots, x_n\}$
-(we will, however, drop the superscript ``$^{(n)}$'' or
-  even the argument ``$(\vxn{n})$'' entirely when it is clear).
+[we will, however, drop the superscript ``$^{(n)}$'' or
+  even the argument ``$(\vxn{n})$'' entirely when it is clear].
 For example,
   $C_{12}(\vx)  = x_1 x_2 + x_2 x_3 + \dots + x_n x_1$ and
   $C_{112}(\vx) = {x_1}^2 x_2 + {x_2}^2 x_3 + \dots + {x_n}^2 x_1$.
@@ -557,13 +557,14 @@ To summarize, we have
 \begin{remark}
   Generally, the algorithm can trace a contour of marginal stability of $R$
   in the complex plane
-  for complex cycles (i.e., complex $R$ and $\vx$)
+  for complex cycles $\vx$
   if $\lambda$ is set to $\exp(i\theta)$ with $\theta \in [0, 2\pi]$.
-  The region enclosed by the contour corresponds to a bulb in the inverted Mandelbrot set
+  The region enclosed by the contour corresponds to
+    a bulb in the inverted Mandelbrot set
   (the correspondence follows from the transformation $z_k = -x_k, c = -R$, which
   reduces \refeq{logmaps} to the quadratic map $z_{k+1} = c + {z_k}^2$
-  used in the Mandelbrot set),
-  see ref. \cite{stephenson}. % and \reffig{logbulb}.
+  used in the Mandelbrot set \cite{mandelbrot}),
+  see ref. \cite{stephenson2, stephenson3}. % and \reffig{logbulb}.
 \end{remark}
 
 
@@ -595,13 +596,12 @@ It is still helpful to have a mathematical software
 
 
 
-For $n = 1$, we have two square-free cyclic polynomials
-  $C_0 = 1$ and $C_1 = x_1$;
-  and $\Lambda = -2 \, x_1$
-Thus,
-$\Lambda \, C_0 = -2 \, x_1$,
-$\Lambda \, C_1 = -2 \, x_1^2 = -2 \, R + 2  \, x_1$,
-and
+For $n = 1$, we have
+  $C_0 = 1$, $C_1 = x_1$, $\Lambda = -2 \, x_1$, and
+%Thus,
+%$\Lambda \, C_0 = -2 \, x_1$,
+%$\Lambda \, C_1 = -2 \, x_1^2 = -2 \, R + 2  \, x_1$,
+%and
 \[
   \Lambda
   \left( \begin{array}{c}
@@ -696,19 +696,19 @@ and the bifurcation ($\lambda = -1$) value is $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
 
 
 The $n = 3$ case is nontrivial and has sparked several different
-  elementary derivations \cite{saha, bechhoefer, gordon, burm, zhang}.
+  elementary derivations \cite{brown1, saha, bechhoefer, gordon, burm, zhang}.
 For the current algorithm,
-the cyclic polynomials are
-$C_0 = 1$,
-$C_1 = x_1 + x_2 + x_3$,
-$C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$,
-$C_{123} = x_1 x_2 x_3$,
-and
-$\Lambda = -8 \, C_{123}$.
+%the cyclic polynomials are
+%$C_0 = 1$,
+%$C_1 = x_1 + x_2 + x_3$,
+%$C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$,
+%$C_{123} = x_1 x_2 x_3$,
+%and
+$\Lambda = -8 \, C_{123}$,
 %
-The square-free reduction yields
+and the square-free reduction yields
 %
-\footnotesize
+\begin{small}
 \begin{align*}
 \Lambda
 \left( \begin{array}{c}
@@ -731,7 +731,7 @@ The square-free reduction yields
   C_{123}
 \end{array} \right),
 \end{align*}
-\normalsize
+\end{small}
 %
 %
 %
@@ -775,9 +775,8 @@ is identical to that in ref. \cite{gordon, burm}.
 
 
 
-The $n = 4$ case was previously used
-as a test of several algorithms
-\cite{stephenson, bailey1, kk1, bailey2, lewis}.
+For the $n = 4$ case
+\cite{brown1, stephenson1, stephenson3, bailey, kk1, lewis},
 %$C_0 = 1$,
 %$C_1 = x_1 + \cdots + x_4$,
 %$C_{12} = x_1 x_2 + \cdots + x_4 x_1$,
@@ -787,10 +786,10 @@ as a test of several algorithms
 %and
 %$\Lambda = 16 \, C_{1234}$.
 %
-Here, we only list the final characteristic equation \eqref{eq:xr}
+we only list the final characteristic equation \eqref{eq:xr}
 after the square reduction (with six square-free cyclic polynomials):
 %
-\footnotesize
+\begin{small}
 \begin{align}
 0
 %& = \left|
@@ -815,7 +814,7 @@ after the square reduction (with six square-free cyclic polynomials):
   \tag{\ref{eq:xr}-4}
 \label{eq:xr4}
 \end{align}
-\normalsize
+\end{small}
 %
 %
 %
@@ -849,16 +848,16 @@ $4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
   + 8432 R^2 + 4913 = 0$,
 which upon $R \rightarrow r(r-2)/4$ yields the same polynomial
 obtained previously
-\cite{bailey1, kk1, bailey2, lewis}.
+\cite{bailey, kk1, lewis}.
 %
 The only two positive roots $r_b \approx 3.9608$
 and $r_b' \approx 3.5441$ of the sextic equation
 correspond to $r_a$ and $r_a'$ respectively.
 %
-Since the 4-cycle problem were tackled mainly on computers
-  in the previous studies,
-  we also supply a compact elementary derivation
-  in the Appendix.
+%Since the 4-cycle problem were tackled mainly on computers
+%  in the previous studies,
+%  we also supply a compact elementary derivation
+%  in the Appendix.
 
 
 
@@ -875,12 +874,10 @@ The representative $r$ values are listed in \reftab{rval}.
 
 
 \begin{table}[h]\footnotesize
-  %\caption{
   \tbl{
   Smallest positive $r$ at the onset and bifurcation points
   of the $n$-cycles of the logistic map.
   }
-%\begin{center}
 {
 \begin{tabular}{llll}
 %\begin{tabularx}{\linewidth}{
@@ -936,7 +933,6 @@ $^*$
 \end{tabular}
 \label{tab:rval}
 }
-%\end{center}
 \end{table}
 
 
@@ -950,7 +946,7 @@ $^*$
 
 The characteristic polynomial $A_n\Rlam$ in \refeq{xr}
   is derived for the fixed points of $f^n$.
-Thus, it encompasses not only the $n$-cycles,
+Thus, it represents not only the $n$-cycles,
   but also cycles of shorter periods $d$ ($d|n$).
 %
 We can remove the contributions from the shorter cycles by the following theorem.
@@ -978,11 +974,12 @@ where
 The M\"obius function $\mu(n)$ is $(-1)^k$
   if $n$ is the product of $k$ distinct primes,
   or 0 if $n$ is divisible by a square of a prime.
-Thus, $\mu(n)$ = 1, $-1$, $-1$, 0, $-1$, 1, \ldots,
-  from $n = 1$.
-The $\mu(n)$ is useful for inversion:
-$g(n) = \sum_{d|n} \mu(n/d) \, h(d)$
-if and only if $h(n) = \sum_{d|n} g(d)$
+%Thus,
+$\mu(n)$ = 1, $-1$, $-1$, 0, $-1$, 1, \ldots,
+  from $n = 1$%.
+%The $\mu(n)$ is useful for inversion:
+%$g(n) = \sum_{d|n} \mu(n/d) \, h(d)$
+%if and only if $h(n) = \sum_{d|n} g(d)$
 \cite{hardy}.
 \end{remark}
 %
@@ -1275,17 +1272,17 @@ So the multiple is one, hence \refeq{prod}.
 
 
 \refthm{primfac} is a corollary of \refthm{prod},
-%\footnotesize
+\begin{small}
 \begin{align*}
  B_{n, m} (\lambda)
- & = \prod_{l = 1}^{m} A_n(e^{2l\pi i/m} \lambda^{1/m}) \\
+% & = \prod_{l = 1}^{m} A_n(e^{2l\pi i/m} \lambda^{1/m}) \\
  & = \prod_{c | n} \prod_{l=1}^m \prod_{k=1}^c
     P_{n/c}(e^{\frac{2k\pi i}{c} + \frac{2l\pi i}{m c}} \lambda^{1/(m c)}) \\
  & = \prod_{c | n} \prod_{k'=1}^{m c}
     P_{n/c}(e^{2k'\pi i/(m c)} \lambda^{1/(m c)}) \\
  & = \prod_{c | n} Q_{n /c, m c}(\lambda).
 \end{align*}
-%\normalsize
+\end{small}
 The M\"obious inversion yields
 \begin{equation}
   Q_{n, m}\Rlam
@@ -1482,18 +1479,18 @@ The two cycles are compared in \reffigs{cobweb}(d) and (e).
 
 
 
-\begin{theorem}
+%\begin{theorem}
 The degrees in $R$ of $A_n\Rlam$, $P_n\Rlam$ and $S_n(R)$ are
-\begin{subequations}
+\begin{subequations}\small
 \begin{align}
 \deg_R A_n\Rlam &= \sum_{d|n} \varphi(n/d) 2^{d-1}, \\
-\deg_R P_n\Rlam &= \sum_{d|n} \mu(n/d) 2^{d-1}, \\
-\deg S_n(R) &= \deg_R R_n\Rlam - \sum_{d | n, d < n} \deg_R R_d\Rlam \, \varphi(n/d).
+\deg_R P_n\Rlam &\equiv \beta(n) = \sum_{d|n} \mu(n/d) 2^{d-1}, \\
+\deg S_n(R) &= \beta(n) - \sum_{d | n, d < n} \beta(d) \, \varphi(n/d).
 \end{align}
 \label{eq:degR}
 \end{subequations}
-\label{thm:degR}
-\end{theorem}
+%\label{thm:degR}
+%\end{theorem}
 %
 %
 %
@@ -1629,8 +1626,7 @@ By \refeq{necklace} we have \refeqsub{degR}{a}.
 
 \refeqsub{degR}{b} and (c) follow from taking taking the degree in $R$ of
   \refeq{prod} and \refeq{origfac}.
-\refeqsub{degR}{b} was long known \cite{mira, stephenson2},
-and \reqsub{degR}{c} was recently derived \cite{blackhurst}.
+\refeqsub{degR}{b} and (\ref{degR}c) were known \cite{mira, stephenson1, blackhurst}.
 %
 \end{proof}
 %
@@ -1759,6 +1755,7 @@ For higher-order one-dimensional maps, we consider the following cubic map \cite
   x_{k + 1} = f(x_k) = r \, x_k - {x_k}^3.
 \label{eq:cubic}
 \end{equation}
+This map is closely related to the one studied by Brown \cite{brown3, brown4}.
 %
 Unlike the logistic map, this map has a clear parity,
   that is, $f(-x) = -f(x)$.
@@ -1900,13 +1897,13 @@ $^*$
 Similar to the logistic-map case,
 the number of the even cube-free cyclic polynomials
 is equal to the number of even \emph{ternary} necklaces,
-in which each bead of the string can assume
+in which each bead can assume
 0, 1, or 2, with the total being even.
 %
 The number of ternary necklaces is
-$N_3(n) = \frac{1}{n} \sum_{c d = n} \varphi(c) 3^d$,
+$N_3(n) = \frac{1}{n} \sum_{d|n} \varphi(n/d) 3^d$,
 %\begin{theorem}
-while that of the even ones is
+while the even ones sum to
 %or the cube-free cyclic polynomials for the cubic map of even degrees in $\vx$
 %is given by
 \begin{equation}
@@ -1922,9 +1919,10 @@ is 1 if $c$ is odd or 0 if even.
 %\label{thm:cubnecklace}
 %\end{theorem}
 %
-Since $N_e \approx N_3/2$, using the parity saves about half of the equations.
+Since $N_e \approx N_3/2$, using the parity saves about half of the equations
+  in computation.
 %
-For the first few values, $N_e(n)$ = 2, 4, 6, 14, 26, 68, 158, 424, \dots, starting from $n = 1$.
+$N_e(n) = $ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
 %
 
 
@@ -1967,15 +1965,15 @@ For the first few values,
   $L_e(n)$ = 2, 2, 4, 10, 24, 60, 156, 410, \ldots, starting from $n = 1$.
 %
 This is also the number of the $n$-cycles \cite{hao, hao2}.
-Note that, for $n>1$, half of the cycles have negative $r$,
-and the $x_k$ are imaginary.
+Note that, for $n>1$, $x_k$ in half of the cycles
+  with negative $r$ are imaginary.
 However, in a closely-related map
 $z_{k+1} = r \, z_k \, (1 - {z_k}^2)$,
 which differs from \refeq{cubic} by $x_k = \sqrt{r} z_k$,
 $z_k$ in the negative-$r$ cycles are real.
 %
 %
-Following a similar proof to \refthm{degR},
+Following similar steps in \refsec{degR},
 we find the corresponding degrees in $r$
 of the characteristic polynomial $A_n(r, \lambda)$
   and minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles
@@ -2097,7 +2095,7 @@ We therefore save the polynomials and programs of the three maps on the web site
 http://logperiod.appspot.com.
 
 
-%Compared with other approaches \cite{hitzl, gordon, bailey1, kk1, hao, hao2}
+%Compared with other approaches \cite{hitzl, gordon, bailey, kk1, hao, hao2}
 %it appeared to be simpler and more transparent,
 %as it only requires the computation of a determinant.
 
@@ -2111,7 +2109,7 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
 
 %\appendix{}
 
-% ws-ijbc dislike the following
+% ws-ijbc dislikes the following
 %\appendix
 
 
@@ -2119,92 +2117,94 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
 
 
 
-\appendix{\label{apd:per4}Derivation of the 4-cycles}
-
-
-
-The polynomials for the 4-cycles permits a short derivation.
-We first list the explicit equations:
+%\appendix{\label{apd:per4}Derivation of the 4-cycles}
 %
 %
 %
-\begin{subequations}
-\label{eq:x4}
-\begin{align}
-  x_2 &= R - x_1^2, \\
-  x_3 &= R - x_2^2, \\
-  x_4 &= R - x_3^2, \\
-  x_1 &= R - x_4^2,
-\end{align}
-\end{subequations}
+%The polynomials for the 4-cycles has a compact derivation.
+%We first list the explicit equations:
+%%
+%%
+%%
+%\begin{subequations}
+%\label{eq:x4}
+%\begin{align}
+%  x_2 &= R - {x_1}^2, \\
+%  x_3 &= R - {x_2}^2, \\
+%  x_4 &= R - {x_3}^2, \\
+%  x_1 &= R - {x_4}^2,
+%\end{align}
+%\end{subequations}
+%%
+%$\big[\mathrm{\refeqsub{x4}{a}} - \mathrm{\refeqsub{x4}{c}}\big]
+%\times
+%\big[\mathrm{\refeqsub{x4}{b}} - \mathrm{\refeqsub{x4}{d}}\big]$
+%yields $1 + (x_1 + x_3) (x_2 + x_4) = 0$,
+%since $x_1 \ne x_3, x_2 \ne x_4$.
+%%
+%Hence, with
+%$y_1 \equiv x_1 + x_3$, $y_2 \equiv x_2 + x_4$,
+%$z \equiv y_1 + y_2$,
+%we have
+%%
+%%
+%%
+%\begin{subequations}
+%\begin{align}
+%y_1 y_2           &= -1, \\
+%{y_1}^2 + {y_2}^2 &= z^2 - 2 \, y_1 y_2 = z^2 + 2, \\
+%{y_1}^3 + {y_2}^3 &= z^3 - 3 \, y_1 y_2 \, z = z^3 + 3 z.
+%\end{align}
+%\label{eq:ypow4}
+%\end{subequations}
+%%
+%%
+%Multiplying \refeqsub{x4}{a} by $x_1$ or $x_3$,
+%then summing over cyclic versions yields
+%\begin{subequations}
+%\begin{align}
+%y_1 y_2 &= R z - \big[({x_1}^3 + {x_3}^3) + ({x_2}^3 + {x_4}^3)\big],\\
+%y_1 y_2 &= R z - \big[x_1 x_3 \, y_1 + x_2 x_4 \, y_2\big].
+%\end{align}
+%\label{eq:p4q}
+%\end{subequations}
+%%
+%From
+%$\mathrm{\refeqsub{p4q}{a}} + 3 \times \mathrm{\refeqsub{p4q}{b}}$,
+%we have
+%$4 \, y_1 y_2 = 4 R z - ({y_1}^3 + {y_2}^3)$,
+%%
+%and by \refeqs{ypow4},
+%\begin{equation}
+%  z^3 - (4 R - 3) z - 4 = 0.
+%  \label{eq:xr4s}
+%\end{equation}
+%%
+%%
+%Since
+%$2 x_1 x_3 = {y_1}^2 - ({x_1}^2 + {x_3}^2)
+%= {y_1}^2 - 2 R + y_2$,
+%and $2 x_2 x_4 = {y_2}^2 - 2 R + y_1$,
+%%
+%%Using \refeqs{ypow4} to simplify the right hand side, we find
+%\begin{equation}
+%  X \equiv x_1 x_2 x_3 x_4 = \tfrac{1}{2} R z(1 - z) + (R^2 - R + 1),
+%\label{eq:der4}
+%\end{equation}
+%where we have used \refeqs{ypow4} and \req{xr4s} to simplify the result.
+%%$X=1/16$ and $-1/16$ at the onset and bifurcation points, respectively.
+%%
+%Dividing the polynomial in \refeq{xr4s} by that in \refeq{der4}
+%yields $z = (R^2-3R-X+1)/(R^2-R+X-1)$,
+%and plugging it back to \refeq{der4} gives
+%   $R^6 -3 R^5
+%  + (3 + X) (R^4 - R^3)
+%  + (1 - X) (2 + X) R^2
+%  + (1 - X)^3 = 0$,
+%which is the same as the sextic factor of \refeq{xr4}
+%  with $X = \lambda/16$.
 %
-$\big[\mathrm{\refeqsub{x4}{a}} - \mathrm{\refeqsub{x4}{c}}\big]
-\times
-\big[\mathrm{\refeqsub{x4}{b}} - \mathrm{\refeqsub{x4}{d}}\big]$
-yields $1 + (x_1 + x_3) (x_2 + x_4) = 0$,
-since $x_1 \ne x_3, x_2 \ne x_4$.
 %
-Hence, with
-$y_1 \equiv x_1 + x_3$, $y_2 \equiv x_2 + x_4$,
-$z \equiv y_1 + y_2$,
-we have
-%
-%
-%
-\begin{subequations}
-\begin{align}
-y_1 y_2       &= -1 \\
-y_1^2 + y_2^2 & = (y_1 + y_2)^2 - 2 y_1 y_2 = z^2 + 2 \\
-y_1^3 + y_2^3 & = (y_1 + y_2)^3 - 3 y_1 y_2 (y_1 + y_2) = z^3 + 3 z.
-\end{align}
-\label{eq:ypow4}
-\end{subequations}
-%
-%
-Multiplying \refeqsub{x4}{a} by $x_1$ or $x_3$,
-then summing over cyclic versions yields
-\begin{subequations}
-\begin{align}
-y_1 y_2 &= R z - \big[(x_1^3 + x_3^3) + (x_2^3 + x_4^3)\big],\\
-y_1 y_2 &= R z - \big[x_1 x_3 (x_1 + x_3) + x_2 x_4 (x_2 + x_4)\big].
-\end{align}
-\label{eq:p4q}
-\end{subequations}
-%
-From
-$\mathrm{\refeqsub{p4q}{a}} + 3 \times \mathrm{\refeqsub{p4q}{b}}$,
-we have
-$4 \, y_1 y_2 = 4 R z - (y_1^3 + y_2^3)$,
-%
-and by \refeqs{ypow4},
-\begin{equation}
-  z^3 - (4 R - 3) z - 4 = 0.
-  \label{eq:xr4s}
-\end{equation}
-%
-%
-Since $2 x_1 x_3 = y_1^2 - (x_1^2 + x_3^2) = y_1^2 - 2 R + y_2$,
-and $2 x_2 x_4 = y_2^2 - 2 R + y_1$,
-%
-%Using \refeqs{ypow4} to simplify the right hand side, we find
-\begin{equation}
-  X \equiv x_1 x_2 x_3 x_4 = \frac{1}{2} R z(1 - z) + (R^2 - R + 1),
-\label{eq:der4}
-\end{equation}
-where we have used \refeqs{ypow4} and \req{xr4s} to simplify the result.
-%$X=1/16$ and $-1/16$ at the onset and bifurcation points, respectively.
-%
-Dividing the polynomial in \refeq{xr4s} by that in \refeq{der4}
-yields $z = (R^2-3R-X+1)/(R^2-R+X-1)$,
-and plugging it back to \refeq{der4} gives
-   $R^6 -3 R^5
-  + (3 + X) (R^4 - R^3)
-  + (1 - X) (2 + X) R^2
-  + (1 - X)^3 = 0$,
-which is the same as the sextic factor of \refeq{xr4}
-  with $X = \lambda/16$.
-
-
 
 
 
@@ -2241,6 +2241,29 @@ which is the same as the sextic factor of \refeq{xr4}
   {\it Nonlinear Dynamics and Chaos}
   (Addison-Wesley. Reading, MA).
 
+\bibitem[Mandelbrot(1980)]{mandelbrot}
+  Mandelbrot, B. B. [1980]
+  ``Fractal aspects of the iteration of $z \rightarrow \lambda z(1-z)$
+      for complex $\lambda$ and $z$,''
+  {\it Ann. NY Acad. Sci.}
+  \textbf{357},
+  249--259.
+
+\bibitem[Brown(1981)]{brown1}
+  Brown, A. [1981]
+  ``Equations for periodic solutions of a logistic difference equation,''
+  {\it J. Austral. Math. Soc. Ser. B}
+  \textbf{23},
+  78--94
+  (1981).
+
+\bibitem[Brown(1982)]{brown2}
+  Brown, A. [1982]
+  ``Solutions of period seven for a logistic difference equation,''
+  {\it Bull. Austral. Math. Soc.}
+  \textbf{26},
+  263--284.
+
 \bibitem[Saha \& Strogatz(1995)]{saha}
   Saha, P. \& Strogatz, S. H. [1995]
   ``The birth of period three,''
@@ -2258,12 +2281,26 @@ which is the same as the sextic factor of \refeq{xr4}
 
 \bibitem[Burm \& Fishback(2001)]{burm}
   Burm, J. \& Fishback, P. [2001]
-  ``Period-3 Orbits via Sylvester's Theorem and Resultants,''
+  ``Period-3 orbits via Sylvester's theorem and resultants,''
   {\it Mathematics Magazine}
   \textbf{74},
   47--51.
 
-\bibitem[Stephenson(1992)]{stephenson}
+\bibitem[Stephenson(1991)]{stephenson1}
+  Stephenson, J. [1991]
+  ``Formulae for cycles in the Mandelbrot set,''
+  {\it Physica A}
+  \textbf{177},
+  416--420.
+
+\bibitem[Stephenson(1992)]{stephenson2}
+  Stephenson, J. [1992]
+  ``Formulae for cycles in the Mandelbrot set II,''
+  {\it Physica A}
+  \textbf{190},
+  104--116.
+
+\bibitem[Stephenson(1992)]{stephenson3}
   Stephenson, J. [1992]
   ``Formulae for cycles in the Mandelbrot set III,''
   {\it Physica A}
@@ -2291,14 +2328,14 @@ which is the same as the sextic factor of \refeq{xr4}
   \textbf{83},
   295--297.
 
-\bibitem[Bailey \& Broadhurst(2000)]{bailey1}
-  Bailey, D. H. \& Broadhurst, D. J. [2000]
-  ``Parallel integer relation detection: techniques and applications,''
-  {\it Mathematics of Computation}
-  \textbf{70},
-  1719--1736.
+%\bibitem[Bailey \& Broadhurst(2000)]{bailey1}
+%  Bailey, D. H. \& Broadhurst, D. J. [2000]
+%  ``Parallel integer relation detection: techniques and applications,''
+%  {\it Mathematics of Computation}
+%  \textbf{70},
+%  1719--1736.
 
-\bibitem[Bailey {\it et al.}(2006)]{bailey2}
+\bibitem[Bailey {\it et al.}(2006)]{bailey}
   Bailey, D. H., Borwein, J. M., Kapour, V. \& Weisstein, E. W. [2006]
   ``Ten problems in experimental mathematics,''
   {\it The American Mathematical Monthly}
@@ -2342,13 +2379,6 @@ which is the same as the sextic factor of \refeq{xr4}
   {\it Chaotic Dynamics}
   (World Scientific, Singapore).
 
-\bibitem[Stephenson(1991)]{stephenson2}
-  Stephenson, J. [1991]
-  ``Formulae for cycles in the Mandelbrot set,''
-  {\it Physica A}
-  \textbf{177},
-  416--420.
-
 \bibitem[Blackhurst(2011)]{blackhurst}
   Blackhurst, J. [2011]
   ``Polynomials of the bifurcation points of the logistic map,''
@@ -2369,6 +2399,21 @@ which is the same as the sextic factor of \refeq{xr4}
   {\it Physica D}
   \textbf{14},
   305--326.
+
+\bibitem[Brown(1984a)]{brown3}
+  Brown, A. [1984a]
+  ``Solutions of period three for a non-linear difference equation,''
+  {\it J. Austral. Math. Soc. Ser. B}
+  \textbf{25},
+  451--462.
+
+\bibitem[Brown(1984b)]{brown4}
+  Brown, A. [1984b]
+  ``Solutions of period four for a non-linear difference equation,''
+  {\it J. Austral. Math. Soc. Ser. B}
+  \textbf{26},
+  146--164.
+
 
 \end{thebibliography}
 
