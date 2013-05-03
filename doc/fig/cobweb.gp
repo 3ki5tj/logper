@@ -185,7 +185,7 @@ unset arrow
 set size wrt, ht1
 set origin wlft, top2
 set lmargin hormargin
-set bmargin vrtmargin 
+set bmargin vrtmargin
 unset ylabel
 unset xlabel
 set format y ""

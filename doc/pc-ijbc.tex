@@ -167,7 +167,7 @@ In an $n$-cycle, $n$ is the smallest positive integer
 Thus, any $x_k$ in an $n$-cycle of $f$ must be a fixed point of $f^n$
 %
 \big[the converse is, however, untrue, for a fixed point of $f^n$
-  can also be a fixed point of $f^d$ for a divisor $d$ of $dn$:
+  can also be a fixed point of $f^d$ for a divisor $d$ of $n$:
   if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big],
 %
 %
@@ -265,8 +265,7 @@ we will first find
   (\refsecs{cyclic} to \ref{sec:examples}).
 The contributions from shorter $d$-cycles ($d|n$)
   are lower-degree factors of the polynomials,
-  and can be readily removed
-  (\refsecs{primfac} and \ref{sec:degprimfac}).
+  and can be readily removed (\refsec{primfac}).
 
 
 At the first glance, the polynomials of the fixed points of $f^n$
@@ -458,7 +457,7 @@ The matrix of the connecting coefficients then must have a zero determinant,
   which yields the desired polynomial.
 
 
-\subsection{\label{sec:algo}Algorithm for fixed points of $f^n$}
+\subsection{\label{sec:algo}Fixed points of $f^n$}
 
 
 We first observe that the derivative of $f^n$
@@ -467,16 +466,15 @@ is a cyclic polynomial:
 %
 \begin{equation}
   \Lambda(\vx)
-   = \frac{d}{dx}f^{n}(x_1)
-   = f'(x_n) \dots f'(x_1)
+   = f'(x_1) \dots f'(x_n)
    = (-2)^n x_1 \dots x_n.
 \label{eq:logder}
 \end{equation}
 %
 %
 Since $C_p(\vx)$ is also cyclic,
-  so is the product $\Lambda(\vx) \, C_p(\vx)$,
-  which can be expanded by \refthm{sqrfree} as
+  so is $\Lambda(\vx) \, C_p(\vx)$,
+The latter can be expanded by \refthm{sqrfree} as
 \begin{equation}
   \Lambda(\vx) \, C_p(\vx) = \sum_{q \in \Pset} T_{pq}(R) \, C_q(\vx),
 \label{eq:xcp0}
@@ -486,9 +484,10 @@ and $p, q \in \Pset$.
 
 
 
-By \refeq{der}, at the onset or bifurcation point,
-  $\Lambda(\vx)$ is equal to a number
-  $\lambda = +1$ or $-1$, respectively;
+By \refeq{der},
+  $\Lambda(\vx)$ equals to $\lambda = +1$ or $-1$
+  at the onset or bifurcation point,
+  respectively;
   so \refeq{xcp0}
   becomes a homogeneous linear equation of
   $C_p(\vx)$:
@@ -584,7 +583,7 @@ To summarize, we have
 
 
 
-We illustrate the above algorithm by several small-$n$ cases.
+We illustrate the above algorithm on several small-$n$ cases.
 %
 It is still helpful to have a mathematical software
   in order to verify certain steps
@@ -596,11 +595,12 @@ For $n = 1$, we have two square-free cyclic polynomials
 \big[omitting ``$(\vx)$''\big]
   $C_0 = 1$ and $C_1 = x_1$;
   and $\Lambda = -2 \, x_1$
-Thus, $\Lambda \, C_0 = -2 \, C_1$,
-$\Lambda \, C_1 = -2 \, x_1^2 = -2 \, R + 2 x_1 = -2 \, R \, C_0 + 2 \, C_1$,
-or
+Thus,
+$\Lambda \, C_0 = -2 \, x_1$,
+$\Lambda \, C_1 = -2 \, x_1^2 = -2 \, R + 2  \, x_1$,
+and
 \[
-  \lambda
+  \Lambda
   \left( \begin{array}{c}
   C_0 \\
   C_1
@@ -613,9 +613,9 @@ or
   \left( \begin{array}{c}
   C_0 \\
   C_1
-  \end{array} \right),
+  \end{array} \right).
 \]
-and the characteristic equation (\ref{eq:xr}) reads
+With $\Lambda \rightarrow \lambda$, the characteristic equation (\ref{eq:xr}) reads
 \begin{equation}
 0=  \left| \begin{array}{cc}
   \lambda     & 2          \\
@@ -624,7 +624,8 @@ and the characteristic equation (\ref{eq:xr}) reads
   \tag{\ref{eq:xr}-1}
 \label{eq:xr1}
 \end{equation}
-Thus, the fixed point begins at $R_a = -1/4$ ($\lambda = +1$),
+Thus, $R = (\lambda^2 -2\lambda)/4$;
+  and the fixed point begins at $R_a = -1/4$ ($\lambda = +1$),
   and becomes unstable at $R_b = 3/4$ ($\lambda = -1$).
 
 
@@ -634,19 +635,17 @@ For $n = 2$, the cyclic polynomials
 $C_0 = 1$,
 $C_1 = x_1 + x_2$,
 $C_{12} = x_1 x_2$;
-and $\Lambda = 4 x_1 x_2$.
+and $\Lambda = 4 \, x_1 x_2$.
 Thus,
 $\Lambda \, C_0 = 4 \, C_{12}$,
 $\Lambda \, C_1 = 4 \, {x_1}^2 \, x_2 + 4 \, x_1 \, {x_2}^2
-  = 4 \, R \, (x_1 + x_2) - 4 ({x_1}^2 + {x_2}^2)
-  = 4 \, R \, (x_1 + x_2) - 8 \, R + 4 \, (x_1 + x_2)
-  = 4 \, (R + 1) \, C_1 - 8 \, R \, C_0$,
+  = -8 \, R \, C_0 + 4 \, (R + 1) \, C_1$
+(see the example after \refthm{sqrfree}),
 $\Lambda \, C_{12}
-  = 4 \, (R-x_2)\, (R-x_1)
-  = 4\, R^2  \, C_0 - 4 \, R \, C_1 + 4 \, C_{12}$,
-or
+  = 4 \, (R - x_2) (R - x_1)$,
+and
 \[
-\lambda
+\Lambda
   \left( \begin{array}{c}
   C_0 \\
   C_1 \\
@@ -662,12 +661,12 @@ or
   C_0 \\
   C_1 \\
   C_{12}
-  \end{array} \right),
+  \end{array} \right).
 \]
 %
 %
 %
-and \refeq{xr} reads
+The characteristic equation \refeq{xr} reads
 %
 %
 %
@@ -679,9 +678,10 @@ and \refeq{xr} reads
 %
 %
 %
-Setting the first factor (which is responsible for the 2-cycle,
-  while the second factor is for unstable fixed points, see later)
-  to zero yields $R = 1 - \lambda/4$;
+The first factor is responsible for the 2-cycle,
+  while the second factor is for unstable fixed points (see later).
+Setting the former to zero yields $R = 1 - \lambda/4$.
+So
 $\lambda = +1$ gives the onset value $R_a = 3/4$ ($r_a = 3$)
 while
 $\lambda = -1$ gives the bifurcation value $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
@@ -694,8 +694,9 @@ $\lambda = -1$ gives the bifurcation value $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
 
 
 
-For $n = 3$ \cite{saha, bechhoefer, gordon, burm, zhang},
-%we have
+The $n = 3$ case has sparked several different 
+  elementary derivations \cite{saha, bechhoefer, gordon, burm, zhang}.
+For the current algorithm,
 the cyclic polynomials are
 $C_0 = 1$,
 $C_1 = x_1 + x_2 + x_3$,
@@ -706,10 +707,9 @@ $\Lambda = -8 \, C_{123}$.
 %
 The square-free reduction yields
 %
-%
-%
+\footnotesize
 \begin{align*}
-\lambda
+\Lambda
 \left( \begin{array}{c}
   C_0 \\
   C_1 \\
@@ -730,15 +730,17 @@ The square-free reduction yields
   C_{123}
 \end{array} \right),
 \end{align*}
+\normalsize
 %
 %
 %
 and \refeq{xr} reads:
 \begin{align}
   0
-= -\big[
+&= -\big[
   64R^3 - 128 R^2 - 8 (\lambda - 8) R - (\lambda -8)^2
-  \big]
+  \big] \notag \\
+&\qquad
   \big(
   \lambda^2 - 8\lambda - 24 R\lambda - 64 R^3
   \big).
@@ -772,8 +774,9 @@ is identical to that in ref. \cite{gordon, burm}.
 
 
 
-For $n = 4$ \cite{stephenson, bailey1, kk1, bailey2, lewis},
-we have six cyclic polynomials, and
+The $n = 4$ case was previously used
+as a test of several algorithms
+\cite{stephenson, bailey1, kk1, bailey2, lewis}.
 %$C_0 = 1$,
 %$C_1 = x_1 + \cdots + x_4$,
 %$C_{12} = x_1 x_2 + \cdots + x_4 x_1$,
@@ -783,8 +786,10 @@ we have six cyclic polynomials, and
 %and
 %$\Lambda = 16 \, C_{1234}$.
 %
-\refeq{xr} reads
+Here, we only list the final characteristic equation \eqref{eq:xr}
+after the square reduction (with six square-free cyclic polynomials):
 %
+\footnotesize
 \begin{align}
 0
 %& = \left|
@@ -799,19 +804,22 @@ we have six cyclic polynomials, and
 %\right | \nonumber  \\
 & =
     \big[
-    4096 R^6-12288 R^5 + 256 (\lambda + 48) (R^4- R^3)
-      -16 (\lambda + 32)(\lambda - 16) R^2
-      -(\lambda - 16)^3 \big]  \nonumber \\
+    4096 R^6-12288 R^5 + 256 (\lambda + 48) (R^4- R^3) \notag \\
+& \quad
+    -16 (\lambda + 32)(\lambda - 16) R^2
+      -(\lambda - 16)^3 \big] \notag \\
 & \quad
     \big[ 16 (R-1)^2 - \lambda \big]
  \, \big[(16 R^2 + \lambda)^2 - 16 (2R+1)^2 \lambda \big],
   \tag{\ref{eq:xr}-4}
 \label{eq:xr4}
 \end{align}
+\normalsize
 %
 %
 %
-From the first factor, we have
+The first (sextic) factor, responsible for the 4-cycle,
+can be factorized as
 $ (
     4R - 5
   )
@@ -835,21 +843,21 @@ $R_a = (3+\sqrt[3]{108})/4$
 \big($r_a = 1+\sqrt{4+\sqrt[3]{108}} \approx 3.9601$\big)
 for an original cycle \big[\reffig{cobweb}(e)\big].
 %
-At the bifurcation point, $\lambda = -1$, and
+At the bifurcation point ($\lambda = -1$), we have
 $4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
   + 8432 R^2 + 4913 = 0$,
 which upon $R \rightarrow r(r-2)/4$ yields the same polynomial
 obtained previously
 \cite{bailey1, kk1, bailey2, lewis}.
 %
-%
-%
 The only two positive roots $r_b \approx 3.9608$
-and $r_b' \approx 3.5441$
+and $r_b' \approx 3.5441$ of the sextic equation
 correspond to $r_a$ and $r_a'$ respectively.
 %
-A simple elementary derivation of the 4-cycle is
-presented in the Appendix.
+Since the 4-cycle problem were tackled mainly on computers
+  in the previous studies,
+  we also supply a compact elementary derivation
+  in the Appendix.
 
 
 
@@ -864,6 +872,7 @@ The representative $r$ values are listed in \reftab{rval}.
 
 
 
+
 \begin{table}[h]\footnotesize
   %\caption{
   \tbl{
@@ -872,61 +881,52 @@ The representative $r$ values are listed in \reftab{rval}.
   }
 %\begin{center}
 {
-\begin{tabular}{llllllll}
-%\begin{tabularx}{\textwidth}{
+\begin{tabular}{llll}
+%\begin{tabularx}{\linewidth}{
 %  >{\hsize=0.5\hsize\centering\arraybackslash}X
 %  >{\hsize=1.6\hsize}X
 %  >{\hsize=1.6\hsize}X
-%  >{\hsize=0.3\hsize\raggedright\arraybackslash}X |
-%  >{\hsize=0.5\hsize\centering\arraybackslash}X
-%  >{\hsize=1.6\hsize}X
-%  >{\hsize=1.6\hsize}X
-%  >{\hsize=0.3\hsize\raggedright\arraybackslash}X
+%  >{\hsize=0.3\hsize\raggedright\arraybackslash}X 
 %}
 \hline
   $n^\dagger$
 & Onset$^\ddagger$
 & Bifurcation$^\ddagger$
-& \#$^*$
-&
-  $n^\dagger$
-& Onset$^\ddagger$
-& Bifurcation$^\ddagger$
 & \#$^*$ \\
 \hline
-$1$     & $1.0000000000_1$      &  $3.0000000000_1$       & 1   &
+$1$     & $1.0000000000_1$      &  $3.0000000000_1$       & 1   \\
+$2'$    & $3.0000000000_1$      &  $3.4494897428_1$       & 1   \\
+$3$     & $3.8284271247_1$      &  $3.8414990075_3$       & 1   \\
+$4$     & $3.9601018827_3$      &  $3.9607686524_6$       & 1   \\
+$4''$   & $3.4494897428_1$      &  $3.5440903596_6$       & 1   \\
+$5$     & $3.7381723753_{11}$   &  $3.7411207566_{15}$    & 3   \\
+$6$     & $3.6265531617_{20}$   &  $3.6303887000_{27}$    & 4   \\
+$6'$    & $3.8414990075_{3}$    &  $3.8476106612_{27}$    & 1   \\
+$7$     & $3.7016407642_{57}$   &  $3.7021549282_{63}$    & 9   \\
+$8$     & $3.6621089132_{108}$  &  $3.6624407072_{120}$   & 14  \\
 $8'$    & $3.9607686524_{6}$    &  $3.9610986335_{120}$   & 1   \\
-$2'$    & $3.0000000000_1$      &  $3.4494897428_1$       & 1   &
 $8'''$  & $3.5440903596_{6}$    &  $3.5644072661_{120}$   & 1   \\
-$3$     & $3.8284271247_1$      &  $3.8414990075_3$       & 1   &
 $9$     & $3.6871968733_{240}$  &  $3.6872742105_{252}$   & 28  \\
-$4$     & $3.9601018827_3$      &  $3.9607686524_6$       & 1   &
 $10$    & $3.6052080669_{472}$  &  $3.6059169323_{495}$   & 48  \\
-$4''$   & $3.4494897428_1$      &  $3.5440903596_6$       & 1   &
 $10'$   & $3.7411207566_{15}$   &  $3.7425706462_{495}$   & 3   \\
-$5$     & $3.7381723753_{11}$   &  $3.7411207566_{15}$    & 3   &
 $11$    & $3.6817160194_{1013}$ &  $3.6817266457_{1023}$  & 93  \\
-$6$     & $3.6265531617_{20}$   &  $3.6303887000_{27}$    & 4   &
 $12$    & $3.5820230011_{1959}$ &  $3.5828117795_{2010}$  & 165 \\
-$6'$    & $3.8414990075_{3}$    &  $3.8476106612_{27}$    & 1   &
 $12'$   & $3.6303887000_{27}$   &  $3.6321857392_{2010}$  & 4   \\
-$7$     & $3.7016407642_{57}$   &  $3.7021549282_{63}$    & 9   &
 $12''$  & $3.8476106612_{27}$   &  $3.8490363152_{2010}$  & 1   \\
-$8$     & $3.6621089132_{108}$  &  $3.6624407072_{120}$   & 14  &
 $13$    & $3.6797024578_{4083}$ &  $3.6797038498_{4095}$  & 315 \\
 \hline
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^\dagger$
   $\,'$, $\,''$, or $\,'''$ means
-    a cycle undergoing
+    that the cycle is undergoing
     the first, second, or third successive period-doubling, respectively.
 } \\
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^\ddagger$
   The subscripts are the degrees of the corresponding minimal polynomial
     of $R = r(r-2)/4$.
 } \\
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^*$
   The number of similar cycles.
 } \\
@@ -944,21 +944,20 @@ $^*$
 
 
 
+\subsection{\label{sec:primfac}Minimal polynomial of the $n$-cycles}
 
-\subsection{\label{sec:primfac}Minimal polynomial for the $n$-cycles}
 
-
-The polynomial $A_n\Rlam$
-  of the characteristic equation \refeq{xr}
-  is derived for the fixed points of $f^n$,
-  and thus encompasses cycles of shorter periods $d$ ($d|n$) as well.
+The characteristic polynomial $A_n\Rlam$ in \refeq{xr}
+  is derived for the fixed points of $f^n$.
+Thus, it encompasses not only the $n$-cycles,
+  but also cycles of shorter periods $d$ ($d|n$).
 %
 We can remove the contributions from the shorter cycles by the following theorem.
 
 
 \begin{theorem}
   The minimal polynomial $P_n\Rlam$ of all $n$-cycles
-  is a factor of $A_n\Rlam$ [defined in \refeq{xr}],
+  is a factor of the characteristic polynomial $A_n\Rlam$,
   and can be computed as
   \begin{equation}
     P_n\Rlam
@@ -971,86 +970,94 @@ where
   and $\mu(c)$ is the M\"obius function.
   \label{thm:primfac}
 \end{theorem}
-
-
+%
+%
 %\begin{remark}[1]
 \begin{remark}
 The M\"obius function $\mu(n)$ is $(-1)^k$
   if $n$ is the product of $k$ distinct primes,
   or 0 if $n$ is divisible by a square of a prime.
-$\mu(n)$ = 1, $-1$, $-1$, 0, $-1$, 1, \ldots,
-  starting from $n = 1$.
+Thus, $\mu(n)$ = 1, $-1$, $-1$, 0, $-1$, 1, \ldots,
+  from $n = 1$.
 The $\mu(n)$ is useful for inversion:
 $g(n) = \sum_{d|n} \mu(n/d) \, h(d)$
 if and only if $h(n) = \sum_{d|n} g(d)$
 \cite{hardy}.
 \end{remark}
-
+%
+%
 %\begin{remark}[2]
 \begin{remark}
-$B_{d,c}\Rlam$ is a polynomial of $\lambda$.
+%$B_{d,c}\Rlam$ is a polynomial of $\lambda$.
 Despite the argument $\lambda^{1/c}$,
-  the product $\prod_{k=1}^c A_d(R, e^{2k\pi i/c} \lambda^{1/c})$
+  the product $\prod_{k=1}^c A_d(R, e^{2k\pi i/c} \lambda^{1/c})$,
+  hence $B_{d,c}\Rlam$,
   is free from radicals of powers of $\lambda^{1/c}$,
-  for it is invariant under $\lambda \rightarrow e^{2\pi i} \lambda$;
+  for it is invariant under $\lambda \rightarrow e^{2\pi i} \lambda$.
+Thus, $B_{d, c}\Rlam$ is a polynomial of $\lambda$,
 and $\deg_\lambda B_{d,c}\Rlam = \deg_\lambda A_d\Rlam$.
 Particularly, $B_{n,1}\Rlam = A_n\Rlam$.
 \end{remark}
-
-
+%
+%
 %We will refer to $P_n\Rlam$ as the \emph{primitive factor} below.
-
-
-Let us see some examples.
+%
+%
+Let us apply \refeq{primfac}
+to some examples in \refsec{examples}.
+We will omit the argument $R$ below for convenience.
 %%
 For $n = 1$,
 %there is no irrelevant factor in \refeq{xr1} and
-$P_1\Rlam = B_{1,1}\Rlam = A_1\Rlam = \lambda^2 - 2\lambda - 4R$.
+$P_1(\lambda) = B_{1,1}(\lambda) = A_1(\lambda)
+  = \lambda^2 - 2\,\lambda - 4\,R$.
 %
 %
 %
 For $n = 2$, since
-$B_{1,2}\Rlam
+$B_{1,2}(\lambda)
 =
-(\lambda +2\sqrt{\lambda} - 4R)
-\,
-(\lambda -2\sqrt{\lambda} - 4R)
-=(4R-\lambda)^2 -4\lambda$,
+A_1(\sqrt{\lambda})
+A_1(-\sqrt{\lambda})
+=
+(4R-\lambda)^2 -4\lambda$,
 %
-$P_2\Rlam = A_2\Rlam \, B_{1,2}\Rlam^{-1} = 4R - 4 + \lambda$.
+$P_2(\lambda) = A_2(\lambda) \, B_{1,2}(\lambda)^{-1} = 4R - 4 + \lambda$.
 %
 %
 For $n = 4$,
-we have
-$16 (R-1)^2 - \lambda
-= (4R - 4 + \sqrt{\lambda})(4R - 4 - \sqrt{\lambda})$
-and
-$
-(16 R^2 + \lambda)^2 - 16 (2R+1)^2 \lambda
-=
-\big[(4R - \sqrt{\lambda})^2  - 4\sqrt{\lambda}\,\big]
-\big[(4R + \sqrt{\lambda})^2  + 4\sqrt{\lambda}\,\big]$.
-Thus, the last two factors of \refeq{xr4}
+%we have
+%$16 (R-1)^2 - \lambda
+%= (4R - 4 + \sqrt{\lambda})(4R - 4 - \sqrt{\lambda})$
+%and
+%$
+%(16 R^2 + \lambda)^2 - 16 (2R+1)^2 \lambda
+%=
+%\big[(4R - \sqrt{\lambda})^2  - 4\sqrt{\lambda}\,\big]
+%\big[(4R + \sqrt{\lambda})^2  + 4\sqrt{\lambda}\,\big]$.
+%Thus, 
+we can show that
+the last two factors of \refeq{xr4}
 can be written as
-$B_{2,2}\Rlam = \prod_{k=1}^2 A_2(R, e^{k \pi i} \sqrt{\lambda})$,
+$B_{2,2}(\lambda) = A_2(\sqrt{\lambda}) A_2(-\sqrt{\lambda})$,
 and
 %
-$P_4\Rlam
-    = A_4\Rlam \, B_{2,2}\Rlam^{-1}
-    = 4096 R^6-12288 R^5+ 256 (\lambda + 48) (R^4- R^3)
-    -16(\lambda + 32)(\lambda - 16) R^2 - (\lambda-16)^3$.
-Note, $B_{1,4}\Rlam$ is unused for $\mu(4) = 0$.
+$P_4(\lambda)
+    = A_4(\lambda) \, B_{2,2}(\lambda)^{-1}$
+indeed the yields the sextic factor.
+%$    = 4096 R^6-12288 R^5+ 256 (\lambda + 48) (R^4- R^3)
+%    -16(\lambda + 32)(\lambda - 16) R^2 - (\lambda-16)^3$.
+Note, $B_{1,4}(\lambda)$ is unused for $\mu(4) = 0$.
 
 
 
 
 
 
-\refthm{primfac} is not always necessary.
 For $n \ge 4$,
-  $P_n\Rlam$ is readily recognized as
-  the factor
-  of $A_n\Rlam$
+  $P_n\Rlam$ can be easily recognized,
+  without using \refthm{primfac},
+  as the factor of $A_n\Rlam$
   with the highest degree in $R$.
   %see \reftab{Anlog} and \refsec{degR}.
 It can be, however, problematic,
@@ -1083,6 +1090,8 @@ By comparing the degrees,
   and the inversion of the relation
   yields \refthm{primfac}.
 
+
+
 \subsubsection{Number of the square-free cyclic polynomials}
 
 To count the square-free cyclic polynomials,
@@ -1102,13 +1111,15 @@ so are 110 and 101 to 011.
 %
 If the generator of the cyclic polynomial contains $x_k$,
   the $k$th character from the left of the necklace is 1,
-  otherwise 0.
-For example, if $n = 3$,
- the square-free polynomials for $000$, $100$, $110$ and $111$ are
-  $C_0 = 1$ (generator: 1),
-  $C_1 = x_1 + x_2 + x_3$ (generator: $x_1$),
-  $C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$ (generator: $x_1 x_2$)
-  and $C_{123} = x_1 x_2 x_3$ (generator: $x_1 x_2 x_3$), respectively.
+  otherwise 0,
+e.g. the above four necklaces correspond to
+  $C_0$, $C_1$, $C_{12}$ and $C_{123}$, respectively.
+%For example, if $n = 3$,
+% the square-free polynomials for $000$, $100$, $110$ and $111$ are
+%  $C_0 = 1$ (generator: 1),
+%  $C_1 = x_1 + x_2 + x_3$ (generator: $x_1$),
+%  $C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$ (generator: $x_1 x_2$)
+%  and $C_{123} = x_1 x_2 x_3$ (generator: $x_1 x_2 x_3$), respectively.
 Thus,
 
 \begin{theorem}
@@ -1116,7 +1127,8 @@ The number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$
   formed by the orbit points $\vx = \{x_1, \ldots, x_n\}$,
   which is also $\deg_\lambda A_n\Rlam$, is given by
 \begin{equation}
-  \deg_\lambda A_n\Rlam = \NB(n) = N(n) = (1/n) \textstyle\sum_{d|n} \varphi(n/d) 2^{\,d}.
+  %\deg_\lambda A_n\Rlam = 
+  \NB(n) = N(n) = (1/n) \textstyle\sum_{d|n} \varphi(n/d) 2^{\,d}.
 \label{eq:necklace}
 \end{equation}
 %
@@ -1141,9 +1153,10 @@ The first few values of $N_\Pset(n)$ are 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188
 \begin{theorem}
 The degree in $\lambda$ of the minimal polynomial $P_n\Rlam$ of all $n$-cycles
   is equal to the number of the $n$-cycles,
-  and is given by
+  which is given by
 \begin{equation}
-  \deg_\lambda P_n\Rlam = L(n) = (1/n)\textstyle\sum_{d | n} \mu(n/d) 2^{\,d}.
+  %\deg_\lambda P_n\Rlam = 
+  L(n) = (1/n)\textstyle\sum_{d | n} \mu(n/d) 2^{\,d}.
 \label{eq:lyndon}
 \end{equation}
 \label{thm:lyndon}
@@ -1151,18 +1164,18 @@ The degree in $\lambda$ of the minimal polynomial $P_n\Rlam$ of all $n$-cycles
 %
 %
 \begin{proof}
-The number $L(n)$ of $n$-cycles is known \cite{hao, hao2, lutzky}.
-Denote by $\lambda_c$ the value $\Lambda(\vx^c)$
-  evaluated at the $c$th cycle points,
-  then the minimal polynomial $P_n\Rlam$
-  takes the form of $\prod_c (\lambda - \lambda_c)$.
-Thus, $\deg_\lambda P_n\Rlam$ must be the same as $L(n)$.
+Let $\lambda_c$ be the value of $\Lambda(\vx^c)$
+  evaluated at the $c$th orbit points $\vx^c$.
+The minimal polynomial $P_n\Rlam$
+  can be written as $\prod_c (\lambda - \lambda_c)$,
+  and $\deg_\lambda P_n\Rlam$ is the same as
+  the number $L(n)$ of $n$-cycles, which is known \cite{hao, hao2, lutzky}.
 \end{proof}
 %
 %
-For the first few values, we have $L(n)$ =
+The first few values of $L(n)$ are
 2, 1, 2, 3, 6, 9, 18, 30, 56, 99, 186, 335, 630, \ldots,
-starting from $n = 1$.
+from $n = 1$.
 %
 Incidentally, $L(n)$ is also the number of aperiodic necklaces of length $n$.
   In the $n = 4$ case,
@@ -1181,7 +1194,7 @@ Since an $n$-necklace is either aperiodic or
 
 
 
-\subsubsection{Relation between $P_n\Rlam$ and $A_n\Rlam$}
+\subsubsection{Relation between $P_n$ and $A_n$}
 
 
 
@@ -1261,13 +1274,17 @@ So the multiple is one, hence \refeq{prod}.
 
 
 \refthm{primfac} is a corollary of \refthm{prod},
+%\footnotesize
 \begin{align*}
- B_{n, m} \Rlam
- & = \prod_{l = 1}^{m} A_n(R, e^{2l\pi i/m} \lambda^{1/m}) \\
- & = \prod_{c | n} \prod_{l=1}^m \prod_{k=1}^c P_{n/c}(R, e^{2k\pi i/c + 2l\pi i/(m c)} \lambda^{1/(m c)}) \\
- & = \prod_{c | n} \prod_{k'=1}^{m c} P_{n/c}(R, e^{2k'\pi i/(m c)} \lambda^{1/(m c)})
-  = \prod_{c | n} Q_{n /c, m c}\Rlam.
+ B_{n, m} (\lambda)
+ & = \prod_{l = 1}^{m} A_n(e^{2l\pi i/m} \lambda^{1/m}) \\
+ & = \prod_{c | n} \prod_{l=1}^m \prod_{k=1}^c 
+    P_{n/c}(e^{\frac{2k\pi i}{c} + \frac{2l\pi i}{m c}} \lambda^{1/(m c)}) \\
+ & = \prod_{c | n} \prod_{k'=1}^{m c}
+    P_{n/c}(e^{2k'\pi i/(m c)} \lambda^{1/(m c)}) \\
+ & = \prod_{c | n} Q_{n /c, m c}(\lambda).
 \end{align*}
+%\normalsize
 The M\"obious inversion yields
 \begin{equation}
   Q_{n, m}\Rlam
@@ -1285,8 +1302,8 @@ for $Q_{n, 1}\Rlam = P_n\Rlam$.
 
 
 
-\subsection{\label{sec:origfac}Intersection of cycles
-  and further factorization at the onset point}
+\subsection{\label{sec:origfac}%Intersection of cycles and
+  Factors at the onset point}
 
 
 The onset polynomial
@@ -1827,12 +1844,8 @@ The representative $r$ values are listed in \reftab{crval}.
   }
 %\begin{center}
 {
-\begin{tabular}{l l l l l l l l}
+\begin{tabular}{l l l l}
 %\begin{tabularx}{\textwidth}{
-%  >{\hsize=0.5\hsize\centering\arraybackslash}X
-%  >{\hsize=1.6\hsize}X
-%  >{\hsize=1.6\hsize}X
-%  >{\hsize=0.3\hsize\raggedright\arraybackslash}X |
 %  >{\hsize=0.5\hsize\centering\arraybackslash}X
 %  >{\hsize=1.6\hsize}X
 %  >{\hsize=1.6\hsize}X
@@ -1843,38 +1856,31 @@ The representative $r$ values are listed in \reftab{crval}.
   $n^\dagger$
 & Onset$^\ddagger$
 & Bifurcation$^\ddagger$
-& \#$^*$
-&
-%\hspace{2mm} & $\hspace{2mm}$ &
-  $n^\dagger$
-& Onset$^\ddagger$
-& Bifurcation$^\ddagger$
 & \#$^*$ \\
 \hline
-$1$     & $1.0000000000_1$      &  $2.0000000000_1$       & 2   &
+$1$     & $1.0000000000_1$      &  $2.0000000000_1$       & 2   \\
+$2'$    & $2.0000000000_1$      &  $2.2360679775_2$       & 2   \\
+$3$     & $2.4504409645_{8}$    &  $2.4608286739_{12}$    & 4   \\
+$4$     & $2.5478350393_{22}$   &  $2.5488312193_{32}$    & 8   \\
+$4''$   & $2.2360679775_{2}$    &  $2.2880317545_{32}$    & 2   \\
+$5$     & $2.3939250274_{112}$  &  $2.3957922744_{120}$   & 24  \\
 $6$     & $2.3334877526_{304}$  &  $2.3355337580_{336}$   & 56  \\
-$2'$    & $2.0000000000_1$      &  $2.2360679775_2$       & 2   &
 $6'$    & $2.4608286739_{12}$   &  $2.4657090579_{336}$   & 4   \\
-$3$     & $2.4504409645_{8}$    &  $2.4608286739_{12}$    & 4   &
 $7$     & $2.3729872678_{1080}$ &  $2.3732727868_{1092}$  & 156 \\
-$4$     & $2.5478350393_{22}$   &  $2.5488312193_{32}$    & 8   &
 $8$     & $2.3525990555_{3108}$ &  $2.3527637793_{3200}$  & 400 \\
-$4''$   & $2.2360679775_{2}$    &  $2.2880317545_{32}$    & 2   &
 $8'$    & $2.5488312193_{32}$   &  $2.5493247379_{3200}$  & 8   \\
-$5$     & $2.3939250274_{112}$  &  $2.3957922744_{120}$   & 24  &
 $8'''$  & $2.2880317545_{32}$   &  $2.2992279397_{3200}$  & 2   \\
 \hline
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^\dagger$
-  $\,'$, $\,''$, or $\,'''$ means
-    a cycle under
+  $\,'$, $\,''$, or $\,'''$ means that the cycle is undergoing
     the first, second, or third successive period-doubling, respectively.
 } \\
-\multicolumn{8}{l}{
+\multicolumn{4}{p{\linewidth}}{
 $^\ddagger$
   The subscripts are the degrees of the corresponding minimal polynomial.
 } \\
-\multicolumn{8}{l}{
+\multicolumn{4}{p{\linewidth}}{
 $^*$
   The number of similar cycles
     (for $n > 1$, only half of them have positive $r$).
@@ -2111,7 +2117,7 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
 
 
 
-\appendix{\label{apd:per4}Simple derivation of 4-cycles}
+\appendix{\label{apd:per4}Derivation of the 4-cycles}
 
 
 
@@ -2193,7 +2199,7 @@ and plugging it back to \refeq{der4} gives
   + (3 + X) (R^4 - R^3)
   + (1 - X) (2 + X) R^2
   + (1 - X)^3 = 0$,
-which is the same as the first factor of \refeq{xr4}
+which is the same as the sextic factor of \refeq{xr4}
   with $X = \lambda/16$.
 
 

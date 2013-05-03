@@ -157,7 +157,7 @@ In an $n$-cycle, $n$ is the smallest positive integer
 Thus, any $x_k$ in an $n$-cycle of $f$ must be a fixed point of $f^n$
 %
 \big[the converse is, however, untrue, for a fixed point of $f^n$
-  can also be a fixed point of $f^d$ for a divisor $d$ of $dn$:
+  can also be a fixed point of $f^d$ for a divisor $d$ of $n$:
   if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big],
 %
 %
@@ -1098,74 +1098,68 @@ This is equivalent to the inverted Mandelbrot set:
 
 
 
-\begin{table*}[t]\footnotesize
+
+\begin{table}[h]\footnotesize
   \caption{
   Smallest positive $r$ at the onset and bifurcation points
   of the $n$-cycles of the logistic map.
   }
 \begin{center}
-\begin{tabularx}{\textwidth}{
+%\begin{tabular}{llll}
+\begin{tabularx}{\linewidth}{
   >{\hsize=0.5\hsize\centering\arraybackslash}X
   >{\hsize=1.6\hsize}X
   >{\hsize=1.6\hsize}X
-  >{\hsize=0.3\hsize\raggedright\arraybackslash}X |
-  >{\hsize=0.5\hsize\centering\arraybackslash}X
-  >{\hsize=1.6\hsize}X
-  >{\hsize=1.6\hsize}X
-  >{\hsize=0.3\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.3\hsize\raggedright\arraybackslash}X 
 }
 \hline
   $n^\dagger$
 & Onset$^\ddagger$
 & Bifurcation$^\ddagger$
-& \#$^*$
-&
-  $n^\dagger$
-& Onset$^\ddagger$
-& Bifurcation$^\ddagger$
 & \#$^*$ \\
 \hline
-$1$     & $1.0000000000_1$      &  $3.0000000000_1$       & 1   &
+$1$     & $1.0000000000_1$      &  $3.0000000000_1$       & 1   \\
+$2'$    & $3.0000000000_1$      &  $3.4494897428_1$       & 1   \\
+$3$     & $3.8284271247_1$      &  $3.8414990075_3$       & 1   \\
+$4$     & $3.9601018827_3$      &  $3.9607686524_6$       & 1   \\
+$4''$   & $3.4494897428_1$      &  $3.5440903596_6$       & 1   \\
+$5$     & $3.7381723753_{11}$   &  $3.7411207566_{15}$    & 3   \\
+$6$     & $3.6265531617_{20}$   &  $3.6303887000_{27}$    & 4   \\
+$6'$    & $3.8414990075_{3}$    &  $3.8476106612_{27}$    & 1   \\
+$7$     & $3.7016407642_{57}$   &  $3.7021549282_{63}$    & 9   \\
+$8$     & $3.6621089132_{108}$  &  $3.6624407072_{120}$   & 14  \\
 $8'$    & $3.9607686524_{6}$    &  $3.9610986335_{120}$   & 1   \\
-$2'$    & $3.0000000000_1$      &  $3.4494897428_1$       & 1   &
 $8'''$  & $3.5440903596_{6}$    &  $3.5644072661_{120}$   & 1   \\
-$3$     & $3.8284271247_1$      &  $3.8414990075_3$       & 1   &
 $9$     & $3.6871968733_{240}$  &  $3.6872742105_{252}$   & 28  \\
-$4$     & $3.9601018827_3$      &  $3.9607686524_6$       & 1   &
 $10$    & $3.6052080669_{472}$  &  $3.6059169323_{495}$   & 48  \\
-$4''$   & $3.4494897428_1$      &  $3.5440903596_6$       & 1   &
 $10'$   & $3.7411207566_{15}$   &  $3.7425706462_{495}$   & 3   \\
-$5$     & $3.7381723753_{11}$   &  $3.7411207566_{15}$    & 3   &
 $11$    & $3.6817160194_{1013}$ &  $3.6817266457_{1023}$  & 93  \\
-$6$     & $3.6265531617_{20}$   &  $3.6303887000_{27}$    & 4   &
 $12$    & $3.5820230011_{1959}$ &  $3.5828117795_{2010}$  & 165 \\
-$6'$    & $3.8414990075_{3}$    &  $3.8476106612_{27}$    & 1   &
 $12'$   & $3.6303887000_{27}$   &  $3.6321857392_{2010}$  & 4   \\
-$7$     & $3.7016407642_{57}$   &  $3.7021549282_{63}$    & 9   &
 $12''$  & $3.8476106612_{27}$   &  $3.8490363152_{2010}$  & 1   \\
-$8$     & $3.6621089132_{108}$  &  $3.6624407072_{120}$   & 14  &
 $13$    & $3.6797024578_{4083}$ &  $3.6797038498_{4095}$  & 315 \\
 \hline
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^\dagger$
   $\,'$, $\,''$, or $\,'''$ means
-    a cycle undergoing
+    that the cycle is undergoing
     the first, second, or third successive period-doubling, respectively.
 } \\
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^\ddagger$
   The subscripts are the degrees of the corresponding minimal polynomial
     of $R = r(r-2)/4$.
 } \\
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^*$
   The number of similar cycles.
 } \\
 \hline
 \end{tabularx}
+%\end{tabular}
 \end{center}
 \label{tab:rval}
-\end{table*}
+\end{table}
 
 
 
@@ -1546,13 +1540,12 @@ are struck out.
 
 
 
-\refthm{primfac} is not always necessary.
 For $n \ge 4$,
-  $P_n\Rlam$ is readily recognized as
-  the factor
-  of $A_n\Rlam$
+  $P_n\Rlam$ can be easily recognized as
+  the factor of $A_n\Rlam$
   with the highest degree in $R$,
-  see \reftab{Anlog} and \refsec{degR}.
+  see \reftab{Anlog} and \refsec{degR},
+  without using \refthm{primfac}.
 It can be, however, problematic,
    if $P_n(R, \lambda)$ is solved for $\lambda = 1$
    instead of a general $\lambda$,
@@ -2955,17 +2948,14 @@ it may contain a pre-factor (e.g., $-2$ in the $n=2, \lambda=+1$ case).
 
 
 
-\begin{table*}[t]\footnotesize
-  \caption{
+\begin{table}[h]\footnotesize
+\caption{
   Smallest positive $r$ at the onset and bifurcation points
   of the $n$-cycles of the cubic map.
   }
 \begin{center}
-\begin{tabularx}{\textwidth}{
-  >{\hsize=0.5\hsize\centering\arraybackslash}X
-  >{\hsize=1.6\hsize}X
-  >{\hsize=1.6\hsize}X
-  >{\hsize=0.3\hsize\raggedright\arraybackslash}X |
+%\begin{tabular}{l l l l}
+\begin{tabularx}{\linewidth}{
   >{\hsize=0.5\hsize\centering\arraybackslash}X
   >{\hsize=1.6\hsize}X
   >{\hsize=1.6\hsize}X
@@ -2976,48 +2966,43 @@ it may contain a pre-factor (e.g., $-2$ in the $n=2, \lambda=+1$ case).
   $n^\dagger$
 & Onset$^\ddagger$
 & Bifurcation$^\ddagger$
-& \#$^*$
-&
-%\hspace{2mm} & $\hspace{2mm}$ &
-  $n^\dagger$
-& Onset$^\ddagger$
-& Bifurcation$^\ddagger$
 & \#$^*$ \\
 \hline
-$1$     & $1.0000000000_1$      &  $2.0000000000_1$       & 2   &
+$1$     & $1.0000000000_1$      &  $2.0000000000_1$       & 2   \\
+$2'$    & $2.0000000000_1$      &  $2.2360679775_2$       & 2   \\
+$3$     & $2.4504409645_{8}$    &  $2.4608286739_{12}$    & 4   \\
+$4$     & $2.5478350393_{22}$   &  $2.5488312193_{32}$    & 8   \\
+$4''$   & $2.2360679775_{2}$    &  $2.2880317545_{32}$    & 2   \\
+$5$     & $2.3939250274_{112}$  &  $2.3957922744_{120}$   & 24  \\
 $6$     & $2.3334877526_{304}$  &  $2.3355337580_{336}$   & 56  \\
-$2'$    & $2.0000000000_1$      &  $2.2360679775_2$       & 2   &
 $6'$    & $2.4608286739_{12}$   &  $2.4657090579_{336}$   & 4   \\
-$3$     & $2.4504409645_{8}$    &  $2.4608286739_{12}$    & 4   &
 $7$     & $2.3729872678_{1080}$ &  $2.3732727868_{1092}$  & 156 \\
-$4$     & $2.5478350393_{22}$   &  $2.5488312193_{32}$    & 8   &
 $8$     & $2.3525990555_{3108}$ &  $2.3527637793_{3200}$  & 400 \\
-$4''$   & $2.2360679775_{2}$    &  $2.2880317545_{32}$    & 2   &
 $8'$    & $2.5488312193_{32}$   &  $2.5493247379_{3200}$  & 8   \\
-$5$     & $2.3939250274_{112}$  &  $2.3957922744_{120}$   & 24  &
 $8'''$  & $2.2880317545_{32}$   &  $2.2992279397_{3200}$  & 2   \\
 \hline
-\multicolumn{8}{p{\textwidth}}{
+\multicolumn{4}{p{\linewidth}}{
 $^\dagger$
-  $\,'$, $\,''$, or $\,'''$ means
-    a cycle under
+  $\,'$, $\,''$, or $\,'''$ means that the cycle is undergoing
     the first, second, or third successive period-doubling, respectively.
 } \\
-\multicolumn{8}{l}{
+\multicolumn{4}{p{\linewidth}}{
 $^\ddagger$
   The subscripts are the degrees of the corresponding minimal polynomial.
 } \\
-\multicolumn{8}{l}{
+\multicolumn{4}{p{\linewidth}}{
 $^*$
   The number of similar cycles
     (for $n > 1$, only half of them have positive $r$).
 } \\
 \hline
+%\end{tabular}
 \end{tabularx}
 %\end{tabular*}
 \end{center}
 \label{tab:crval}
-\end{table*}
+\end{table}
+
 
 
 
@@ -3484,7 +3469,7 @@ and plugging it back to \refeq{der4} gives
   + (3 + X) (R^4 - R^3)
   + (1 - X) (2 + X) R^2
   + (1 - X)^3 = 0$,
-which is the same as the first factor of \refeq{xr4}
+which is the same as the sextic factor of \refeq{xr4}
   with $X = \lambda/16$.
 
 
@@ -3525,7 +3510,7 @@ and define a few new ones for $N_e(n)$ and $L_e(n)$, etc..
 
 
 \begin{table}[h]\footnotesize
-  \caption{Dirichlet generating functions for ternary necklaces.}
+  \caption{Dirichlet generating functions.}
 \begin{center}
 \begin{tabular}{ll}
 \hline
@@ -3539,9 +3524,9 @@ $\alpha(n)$   &   $G_\alpha(s) = \sum_{n} \alpha(n)/n^{s}$
 \\
 $\delta_{n,1}$         & $1$ $^\dagger$
 \\
-$\mu(n)$    & $\zeta(s)^{-1}$ $^\dagger$ 
+$\mu(n)$    & $\zeta(s)^{-1}$ $^\dagger$
 \\
-$\varphi(n)$   & $\zeta(s-1)/\zeta(s)$ $^\dagger$ 
+$\varphi(n)$   & $\zeta(s-1)/\zeta(s)$ $^\dagger$
 \\
 $\mu(n) \, \odd(n)$
   & $\Big[ \zeta(s) (1-2^{-s}) \Big]^{-1}$
@@ -3549,7 +3534,7 @@ $\mu(n) \, \odd(n)$
 $\varphi(n) \, \odd(n)$
   & $\frac{\zeta(s-1)}{\zeta(s)} \frac{1-2^{-s+1}}{1-2^{-s}}$
 \\
-$\odd(n)$   & $\zeta(s) (1-2^{-s})$ 
+$\odd(n)$   & $\zeta(s) (1-2^{-s})$
 \\
 {$3^n$}       & $t(s)$ $^\ddagger$
 \\
