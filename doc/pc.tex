@@ -2943,11 +2943,12 @@ in which each bead of the string is assigned a number
 For example, the necklace $\mathbf{212001\cdots}$
 corresponds to $C_{112336}(\vx)$,
 whose generator is
-${x_1}^2 \, {x_2} \, {x_3}^2 \, x_6$:
-the first bead is \textbf{2} for ${x_1}^\mathbf{2}$,
- the second is \textbf{1} for ${x_2}^\mathbf{1}$,
- the third is \textbf{2} for ${x_3}^\mathbf{2}$,
- and the sixth is \textbf{1} for ${x_6}^\mathbf{1}$.
+${x_1}^\mathbf{2} \,
+ {x_2}^\mathbf{1} \,
+ {x_3}^\mathbf{2} \,
+ {x_4}^\mathbf{0} \,
+ {x_5}^\mathbf{0} \,
+ {x_6}^\mathbf{1}$.
 %
 A necklace is even,
 if the corresponding cyclic polynomial has an even degree in $\vx$.
@@ -2981,154 +2982,12 @@ where
 $\odd(c) \equiv \big[1 - (-1)^c\big]/2$ is 1 if $c$ is odd or 0 if even.
 \label{thm:cubnecklace}
 \end{theorem}
-
-
-\begin{proof}
-
-We first show that the number of even ternary strings is $(3^n + 1)/2$.
 %
-Consider the generating function
-\[
-  Z\big(\{x_1, x_2,\dots, x_n\}\big) = \prod_{i=1}^n (1+x_i+{x_i}^2),
-\]
-where $1$, $x_i$, and $x_i^2$ correspond to the states that bead $i$
-taking the number $0$, $1$, and $2$, respectively;
-and the product over $n$ sums over states of independent beads.
+The proof is presented in \refapd{tnecklace}.
+The first few values $N_e(n)$ are
+  2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
 %
-In the expansion of $Z(\vx)$,
- each term (which takes the form
-  ${x_1}^{e_1} {x_2}^{e_2} \dots {x_n}^{e_n}$,
-  with $e_i = 0, 1, 2$)
-represents a unique ternary string $e_1 e_2 \dots e_n$,
-which is even, if $e_1 + e_2 + \dots + e_n$ is so.
 %
-By setting $x_1 = x_2 = \dots = x_n = 1$,
-$Z=3^n$ equals the total number of ternary strings.
-%
-By setting $x_1 = x_2 = \dots = x_n = -1$,
-a term representing an even (odd) ternary string
-  is $+1$ ($-1$);
-and $Z=(1-1+1)^n=1$
-equals the difference between the number of even strings
-  and that of odd strings.
-%
-Thus, the average $(3^n+1)/2$
-gives the number of even ternary strings.
-
-
-
-
-\begin{table*}[t]\footnotesize
-\caption{Two ways of counting the $N_e(2) = 4$ ternary necklaces for $n = 2$.
-}
-\begin{center}
-\begin{tabularx}{\textwidth}{c | c  c c | c  | c | c | c | c }
-\hline
-        & \multicolumn{3}{c|}{$m = 1$}
-        & $m = 2$
-        & $c = n/d$
-        & $T(d, c)$ $^\dagger$
-        & $\varphi(c)$ & $\varphi(n/d) T(d, c)$\\
-\hline
-$d = 1$ & \hspace{1mm} $\mathbf{0}_{\times2}$ \hspace{1mm}
-        & \hspace{1mm} $\mathbf{1}_{\times2}$ \hspace{1mm}
-        & \hspace{1mm} $\mathbf{2}_{\times2}$ \hspace{1mm}
-        & & $2$ & $3$ & $1$ & 3 \\
-\hline
-$d = 2$ & $\mathbf{00}$
-        & $\mathbf{11}$
-        & $\mathbf{22}$
-        & \hspace{1mm} $\mathbf{20} (02)$ $^\ddagger$ \hspace{1mm}
-        & $1$ & $3+1\cdot2=5$ & $1$ & 5 \\
-\hline
-$m \sum_{m|d, d|n} \varphi(\frac{n}{d})$
-      & \multicolumn{3}{c|}{$1\cdot(1+1) = 2$}
-      & $2\cdot1 = 2$ &    \multicolumn{3}{c|}{} &  $\downarrow$\\
-\hline
-$N_e(n)\cdot n$
-    & \multicolumn{3}{c|}{$3 \cdot 2$} & $1 \cdot 2$ &
-  \multicolumn{3}{c|}{$\rightarrow$} & $4\cdot2 = 3 + 5$ \\
-\hline
-\multicolumn{9}{p{\linewidth}}{
-  Bold strings are necklaces; others are their cyclic versions.
-}
-\\
-\multicolumn{9}{p{\linewidth}}{
-The subscript of a string means the number of repeats;
-e.g.,
-$\mathbf{1}_{\times2}$ means $\mathbf{1}$ repeated twice, or $\mathbf{11}$;
-}
-\\
-\multicolumn{9}{p{\linewidth}}{
-$^\dagger$ $T(d, c) \equiv 3^d - \odd(c)(3^d-1)/2$,
-which is $3^d$ if $c$ is even,
-or $(3^d+1)/2$ if $c$ is odd.
-}
-\\
-\multicolumn{9}{p{\linewidth}}{
-$^\ddagger$
-The odd binary strings $\mathbf{10}$, $01$, $\mathbf{21}$, and $12$
-  do not contribute to the sum, and are excluded from $T(d, c)$.
-}
-\\
-\hline
-\end{tabularx}
-\end{center}
-\label{tab:countcubnecklace}
-\end{table*}
-
-
-
-
-
-The rest counting process is similar to that in \refsec{degprimfac}:
-%
-we construct the sum $n N_e(n)$ by two ways, as exemplified in \reftab{countcubnecklace}.
-%
-In the first way,
-  for a fixed $d$ ($d|n$),
-  if $c\equiv n/d$ is even,
-    we count all ternary strings whose period $m$ divide $d$,
-  but if $c$ is odd, we count only ternary strings
-    whose first $d$ beads are even
-    (because repeating an odd string an odd number times
-    does not yield an even string);
-  in either case, we multiple the result by $\varphi(c)$.
-%
-The process for a fixed $d$ corresponds to a row of \reftab{countcubnecklace}.
-%
-Repeating the process for all $d$ gives
-  $\sum_{cd = n} T(d, c) \, \varphi(c)$,
-  where $T(d, c)$ is the total number $3^d$ of period-$d$ ternary strings if $c$ is even,
-  or the number $(3^d+1)/2$ of even strings if $c$ is odd.
-
-
-In the second way,
-  we look at the contribution from each necklace to the above sum.
-An even period-$m$ necklace contributes a total of
-  $m \times \sum_{m|d, d|n} \varphi(n/d) = n$
-  \big[the multiplier $m$ is for the $m$ cyclic versions, cf. \refeq{mphind}\big],
-  while an odd necklace contributes nothing.
-Thus, the sum equals $N_e(n)\cdot n$.
-%
-The process for a fixed necklace corresponds to
-  a column of \reftab{countcubnecklace}.
-
-
-So
-\[
-  N_e(n) \cdot n = \sum_{cd = n} T(d, c) \, \varphi(c),
-\]
-which is \refeq{cublyndon}
-after we divide both sides by $n$.
-\end{proof}
-
-%
-$N_e(n)$ = 2, 4, 6, 14, 26, 68, 158, 424, \dots, starting from $n = 1$.
-%
-
-
-
 The characteristic polynomial $A_n(r, \lambda)$
   from the determinant equation
   has a degree $N_e(n)$ in $\lambda$.
@@ -3436,7 +3295,7 @@ The process for a fixed necklace is exemplified
 
 
 \begin{table*}[t]\footnotesize
-\caption{Two ways of counting the $N(4) = 6$ necklaces for $n = 4$.
+\caption{Two ways of counting the $N(4) = 6$ binary necklaces for $n = 4$.
 }
 \begin{center}
 \begin{tabularx}{0.82 \textwidth}{c | c  c | c | c | c | c | c }
@@ -3482,6 +3341,156 @@ $\mathbf{10}_{\times2}$ means $\mathbf{10}$ repeated twice, or $\mathbf{1010}$, 
 \end{center}
 \label{tab:countnecklace}
 \end{table*}
+
+
+
+
+
+
+\section{\label{apd:tnecklace}Number of even ternary necklaces}
+
+We first show that the number of even ternary strings is $(3^n + 1)/2$.
+%
+Consider the generating function
+\[
+  Z\big(\{x_1, x_2,\dots, x_n\}\big) = \prod_{i=1}^n (1+x_i+{x_i}^2),
+\]
+where $1$, $x_i$, and $x_i^2$ correspond to the states that bead $i$
+taking the number $0$, $1$, and $2$, respectively;
+and the product over $n$ sums over states of independent beads.
+%
+In the expansion of $Z(\vx)$,
+ each term (which takes the form
+  ${x_1}^{e_1} {x_2}^{e_2} \dots {x_n}^{e_n}$,
+  with $e_i = 0, 1, 2$)
+represents a unique ternary string $e_1 e_2 \dots e_n$,
+which is even, if $e_1 + e_2 + \dots + e_n$ is so.
+%
+By setting $x_1 = x_2 = \dots = x_n = 1$,
+$Z=3^n$ equals the total number of ternary strings.
+%
+By setting $x_1 = x_2 = \dots = x_n = -1$,
+a term representing an even (odd) ternary string
+  is $+1$ ($-1$);
+and $Z=(1-1+1)^n=1$
+equals the difference between the number of even strings
+  and that of odd strings.
+%
+Thus, the average $(3^n+1)/2$
+gives the number of even ternary strings.
+
+
+To count the number of even cubic necklaces,
+we construct a sum that is equal to $n N_e(n)$ in two ways,
+as exemplified in \reftab{countcubnecklace}.
+%
+In the first way,
+  for a fixed $d$ ($d|n$),
+  we count all ternary strings 
+    that can be formed by repeating period-$d$ ternary string
+    for $n/d$ times;
+  further, $c\equiv n/d$ is odd,
+    we impose a constraint that 
+    the sub-string of the first $d$ beads must be even
+    (because repeating an odd string an odd number times
+    does not yield an even string);
+  in either case, we multiple the result by $\varphi(c)$.
+%
+The process for a fixed $d$ corresponds to a row of \reftab{countcubnecklace}.
+%
+Repeating the process for all $d$ gives
+  $\sum_{cd = n} T(d, c) \, \varphi(c)$,
+  where $T(d, c)$ is the total number $3^d$ of period-$d$ ternary strings if $c$ is even,
+  or the number $(3^d+1)/2$ of even strings if $c$ is odd:
+%
+\begin{align*}
+  T(d, c) &= [1 - \odd(c)] \, 3^d + \odd(c) \, \tfrac{3^d + 1}{2} \\
+          &= 3^d + \odd(c) \, \tfrac{3^d - 1}{2}.
+\end{align*}
+
+
+In the second way,
+  we look at the contribution from each necklace to the above sum.
+An even period-$m$ necklace contributes a total of
+  $m \times \sum_{m|d, d|n} \varphi(n/d) = n$
+  \big[the multiplier $m$ is for the $m$ cyclic versions, cf. \refeq{mphind}\big],
+  while an odd necklace contributes nothing.
+Thus, the sum equals $N_e(n)\cdot n$.
+%
+The process for a fixed necklace corresponds to
+  a column of \reftab{countcubnecklace}.
+%
+%
+So
+\[
+  N_e(n) \cdot n = \sum_{cd = n} T(d, c) \, \varphi(c),
+\]
+which is \refeq{cublyndon}
+after we divide both sides by $n$.
+
+
+\begin{table*}[t]\footnotesize
+\caption{Two ways of counting the $N_e(2) = 4$ ternary necklaces for $n = 2$.
+}
+\begin{center}
+\begin{tabularx}{.8 \linewidth}{c | c  c c | c  | c | c | c | c }
+\hline
+        & \multicolumn{3}{c|}{$m = 1$}
+        & $m = 2$
+        & $c = n/d$
+        & $T(d, c)$ $^\dagger$
+        & $\varphi(c)$ & $\varphi(n/d) T(d, c)$\\
+\hline
+$d = 1$ & \hspace{1mm} $\mathbf{0}_{\times2}$ \hspace{1mm}
+        & \hspace{1mm} $\mathbf{1}_{\times2}$ \hspace{1mm}
+        & \hspace{1mm} $\mathbf{2}_{\times2}$ \hspace{1mm}
+        & & $2$ & $3$ & $1$ & 3 \\
+\hline
+$d = 2$ & $\mathbf{00}$
+        & $\mathbf{11}$
+        & $\mathbf{22}$
+        & \hspace{1mm} $\mathbf{20} (02)$ $^\ddagger$ \hspace{1mm}
+        & $1$ & $3+1\cdot2=5$ & $1$ & 5 \\
+\hline
+$m \sum_{m|d, d|n} \varphi(\frac{n}{d})$
+      & \multicolumn{3}{c|}{$1\cdot(1+1) = 2$}
+      & $2\cdot1 = 2$ &    \multicolumn{3}{c|}{} &  $\downarrow$\\
+\hline
+$N_e(n)\cdot n$
+    & \multicolumn{3}{c|}{$3 \cdot 2$} & $1 \cdot 2$ &
+  \multicolumn{3}{c|}{$\rightarrow$} & $4\cdot2 = 3 + 5$ \\
+\hline
+\multicolumn{9}{p{.8 \linewidth}}{
+  Bold strings are necklaces; others are their cyclic versions.
+}
+\\
+\multicolumn{9}{p{.8 \linewidth}}{
+The subscript of a string means the number of repeats;
+e.g.,
+$\mathbf{1}_{\times2}$ means $\mathbf{1}$ repeated twice, or $\mathbf{11}$;
+}
+\\
+\multicolumn{9}{p{.8 \linewidth}}{
+$^\dagger$ $T(d, c) \equiv 3^d - \odd(c)(3^d-1)/2$,
+which is $3^d$ if $c$ is even,
+or $(3^d+1)/2$ if $c$ is odd.
+}
+\\
+\multicolumn{9}{p{.8 \linewidth}}{
+$^\ddagger$
+The odd binary strings $\mathbf{10}$, $01$, $\mathbf{21}$, and $12$
+  do not contribute to the sum, and are excluded from $T(d, c)$.
+}
+\\
+\hline
+\end{tabularx}
+\end{center}
+\label{tab:countcubnecklace}
+\end{table*}
+
+
+
+
 
 
 
