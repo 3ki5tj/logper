@@ -1,0 +1,4 @@
+Q:=RationalField(); P<x1,x2,x3,x4,a,b>:=PolynomialRing(Q,6);
+I:=ideal< P|x2-a-b*x4+x1*x1,x3-a-b*x1+x2*x2,x4-a-b*x2+x3*x3,x1-a-b*x3+x4*x4,1+b^4+2*(b^2+2*b*(x1+x3)*(x2+x4)+8*x1*x2*x3*x4)>;
+time B := GroebnerBasis(I);
+print Factorization(B[#B]);
