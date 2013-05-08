@@ -4,6 +4,7 @@
    where
    `n' is the cycle period
    `ch' is `a' (onset), `b' (bifurcation) or `c' (general solution)
+   `kmin' and `kmax' can go from -(degR/2+1) to degR/2
 *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
@@ -205,7 +206,8 @@ numsolv1[n_, mats_, frac_, Rv_] :=
 (* evaluate a few R values *)
 numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_: None, xy0_:{}, dR_:1/4] :=
     Module[{k, xy = xy0, Rv, Pv, good, deg = degRp[n], kmin = k0, kmax = k1},
-  If[kmin === None || kmax === None, kmin = -Round[deg/2+1]; kmax = -kmin + 10000];
+  If[kmin === None || kmax === None,
+    kmin = -Round[deg/2+1]; kmax = -kmin + 10000];
   For[k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; Rv = k dR;
     {Pv, good} = numsolv1[n, mats, frac, Rv];
@@ -309,15 +311,18 @@ If[FileType[fnmats] === File,
 
 (* 3. compute the determinant of the matrix *)
 If[frac == 0, (* do symbolic calculation for a general boundary polynomial *)
-  (* caution, we use the numerical version, the last parameter is True *)
+  
+  (* directly compute the determinant. Note: we use the numerical version
+     the last parameter of `symprimfac' is `True' *)
   tm = Timing[poly = symprimfac[n, mats, R, X, True];];
   Print["time ", tm];
-  xsave["RX"<>ToString[n]<>".txt", poly];
-  ,
+  xsave["RX"<>ToString[n]<>".txt", poly],
+  
   (* otherwise do numerical calculation for the onset or bifurcation point *)
   If[kmin < kmax || kmax == None,
     fnls = If[n > 8, "ls"<>ToString[n]<>ch<>".txt", None];
-    If[kmin == None && !(fnls == None), Close[OpenWrite[fnls]]]; (* clear the list *)
+    If[kmin == None && !(fnls == None),
+      Close[OpenWrite[fnls]]]; (* clear the list *)
     tm = Timing[ xy = numsolv2pt[n,mats,frac,kmin,kmax,fnls]; ][[1]];
     Print["computing det: ", tm];
     If[Length[xy] >= degRp[n] + 1,

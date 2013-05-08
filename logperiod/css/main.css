@@ -1,6 +1,7 @@
 /* Copyright (c) Cheng Zhang 2010-2013 */
 body { 
-  font: 90% "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma', 'Calibri', sans-serif;
+  font: 90% "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma',
+    sans-serif;
   width: 640px; margin: auto;
 }
 
@@ -21,23 +22,35 @@ div#toctitle { font: bold small-caps 120% serif; }
 ul.toclinks { padding: 0px; margin: 0px; }
 ul.toclinks li { display: inline; padding: 0px 3px; text-decoration: underline; }
 
-h1 { font: small-caps 160% "Constantia", "Times New Roman", serif; }
-h2 { font: 140% "Palatino Linotype", "Bood Antiqua", "Bitstream Charter", "Times New Roman", serif;
+h1 {
+  font: small-caps 180% "Palatino Linotype", "Palatino", serif; 
+}
+h2 {
+  font: 150% "Book Antiqua", "Bookman", serif;
   padding: 20px 2px 5px 2px; margin: 30px 0px 0px 0px;
-  border-top: 1px dotted;  font-weight: bold; }
-h3 { font: small-caps 120% "Calibri", sans-serif;
+  border-top: 1px dotted;  font-weight: bold; 
+}
+h3 { 
+  font: small-caps 130% "Verdana", "Arial", sans-serif;
   display: table; padding: 0px 50px 4px 10px; margin-bottom: 5px;
-  border-bottom: 1px dashed; border-left: 2px solid; border-color: #b0b0b0; }
+  border-bottom: 1px dashed; border-left: 2px solid; border-color: #b0b0b0;
+}
 
-p, div.p { margin-bottom: 2.0em; }
+p, div.p {
+  margin-bottom: 2.0em;
+  line-height: 150%;
+}
 pre.code, div.code, span.code { font: 90% monospace; }
 pre.code, div.code { padding: 10px 20px 10px 20px; }
 code { font-variant: normal; color: #440000; }
 a:visited { color: #808080; font-weight: normal; }
 a:link { color: #000080; text-decoration: none; }
 a:hover { color: #ffffff; background-color: #808080; }
-.eq { font-family: "Times", "Times New Roman", "Bitstream Charter", serif; font-variant: normal; }
-div.eq { text-align: center; font-size: 130% }
+.eq {
+  font-family: "Times", "Times New Roman", serif; 
+  font-variant: normal;
+}
+div.eq { text-align: center; font-size: 120% }
 span.eq { font-size: 110%; padding: 0px; }
 .eq sub { font-size: 60%; }
 .eq sup { font-size: 60%; padding: 1px; }
@@ -53,14 +66,15 @@ li.linkhead { font: small-caps 120% sans-serif;}
 table.datatable {
   background-color: #ffffff; border-collapse: collapse;
   margin-left: auto; margin-right: auto;
-  font-family: "Palatino Linotype", "Bitstream Carter", serif;
 }
 table.datatable td, th {
   border: 1px 0px solid #d0d0d0;
   border-width: 1px 0px;
+  text-align: center;
   padding: 7px 20px;
 }
 table.datatable th {
+  font: bold 120% "Book Antiqua", "Bookman", serif;
   background-color: #f0f0f0;
   border-style: outset;
   border-width: 2px 0px;
@@ -69,13 +83,13 @@ table.datatable th {
 table.progtable {
   background-color: #ffffff; border-collapse: collapse;
   margin-left: auto; margin-right: auto;
-  font-family: "Palatino Linotype", "Bitstream Carter", serif;
 }
 table.progtable td, th {
   border: 1px solid #a0a0a0;
   padding: 5px 25px;
 }
 table.progtable th {
+  font: bold 120% "Book Antiqua", "Bookman", serif;
   background-color: #606060;
   color: #ffffff;
 }

@@ -1,7 +1,7 @@
 (* Copyright 2012 Cheng Zhang *)
 (* remove trivial divisors from the output of cub0.ma,
    e.g., input: cr6b0.ma, output: cr6b.ma
-   math < cub0.ma 6 b *)
+   math < cub0d.ma 6 b *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
 b = 3; (* order of the map *)
@@ -167,10 +167,7 @@ numsolv2d[n_, mats_, frac_, dr_: drdef] := Module[{xy},
   interp[xy, r]];
 (*Factor[numsolv2d[6, getmatcycsd[6,r,X], 1/2]]*)
 
-(* USAGE
-  math < cub0b.ma n ch
-  n is the cycle period
-  ch is a or b for onset or bifurcation *)
+(* ********************* main function starts here ********************* *)
 
 (* handling input arguments *)
 n = 3;

@@ -11,7 +11,7 @@ if len(sys.argv) <= 1:
   print "require an argument"
   exit(1)
 
-input = sys.argv[1]
+fninp = sys.argv[1]
 
 kmin = kmax = None
 argid = 2
@@ -28,7 +28,7 @@ argid += 1
 print kmin, kmax
 
 
-s = open(input).read().strip("{} \n\r")
+s = open(fninp).read().strip("{} \n\r")
 s = [a.strip(" \n{").split(", ") for a in s.split("}")]
 n = len(s)
 print "list contains", n, "items"
@@ -133,13 +133,13 @@ If[kmin === None && kmax === None,
 """
 
 src = ls + xsave
-if input.startswith("hls"):
+if fninp.startswith("hls"):
   print "write code for Henon map"
-  if input.find("b.txt") >= 0:
+  if fninp.find("b.txt") >= 0:
     src += fit_henon % (kmin, kmax, "")
   else:
     src += fit_henon % (kmin, kmax, "p = Factor[p];")
-elif input.startswith("cls"):
+elif fninp.startswith("cls"):
   print "write code for cubic map"
   src += fit_cubic
 else:

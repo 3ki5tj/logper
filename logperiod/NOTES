@@ -16,5 +16,5 @@ To get tutorial
 http://code.google.com/appengine/docs/python/gettingstarted/
 
 
-to synchronize
-rsync -avz ../logperiod /media/RII/logistic/
+To synchronize
+rsync -avz ../logperiod /media/C3/logper/

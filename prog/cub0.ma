@@ -1,6 +1,6 @@
 (* Copyright 2012-2013 Cheng Zhang *)
 (* A variant of cub.ma for cycles of the cubic map
-   This version does not attempt to remove spurious factors *)
+   This version does not attempt to remove factors from shorter cycles *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
 b = 3; (* order of the map *)

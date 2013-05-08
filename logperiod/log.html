@@ -15,8 +15,8 @@
   The <a href="http://mathworld.wolfram.com/LogisticMap.html">logistic map</a> is defined as:
   <div class="eq">
       <i>x</i><sub><i>k</i>+1</sub>
-      = <i>f</i> (<i>x<sub>k</sub></i>)
-      &equiv; <i>r x<sub>k</sub></i> (1 &minus; <i>x<sub>k</sub></i>).
+      = <i>f</i> (<i>x<sub>k </sub></i>)
+      &equiv; <i>r x<sub>k</sub></i> (1 &minus; <i>x<sub>k </sub></i>).
   </div>
 </div>
 
@@ -188,46 +188,89 @@ Sharkovskii and Li &amp; Yorke.
 
 <h3><i>n</i>-cycles</h3>
 
-<p>For longer cycles, it's generally impossible to write down
-  the exact critical <span class="eq"><i>R</i></span> as radical expression.
-  Still it is possible to identify the <span class="eq"><i>R</i></span> value(s)
-  as the root(s) of a polynomial with integral coefficients.
+<div class="p">
+  For longer cycles, it is generally impossible to write
+  the exact onset or bifurcation
+  <span class="eq"><i>R</i></span> values as radical expressions.
+  Still it is possible to identify the <span class="eq"><i>R</i></span> values
+  as the roots of a polynomial with integral coefficients
+  (i.e., they are still algebraic numbers).
+</div>
 
-<p>The main objective of this web page and the reference paper (Zhang 2012)
-is to describe a computational method to find the polynomials.
-The method takes advantage of the fact that
-the cyclic polynomials of the <span class="eq"><i>n</i></span>-cycle points
-are linearly related with one another.
-(An example of a cyclic polynomial is
-<span class="eq">
-  <i>x</i><sub>1</sub> <i>x</i><sub>2</sub>
-+ <i>x</i><sub>2</sub> <i>x</i><sub>3</sub>
-+ &#x22ef;
-+ <i>x</i><sub><i>n</i> &minus; 1</sub> <i>x</i><sub><i>n</i></sub>
-+ <i>x</i><sub><i>n</i></sub> <i>x</i><sub>1</sub></span>;
-another example is
-<span class="eq">
-  <i>x</i><sub>1</sub>
- <i>x</i><sub>2</sub>
- &#x22ef;
- <i>x</i><sub><i>n</i></sub>,
-</span>
-which is used in the derivative condition.
-But note that it is not necessarily a symmetric polynomial.)
-Thus, we can write down a set of homogeneous linear equations
-regarding the cyclic polynomials.
-Since the cyclic polynomials are not zero altogether,
-the determinant of the matrix must be zero.
-This condition thus furnishes the desired result.
-</p>
+<div class="p">
+  The main objective of this web page and the reference paper (Zhang 2012)
+  is to describe a computational method to find the polynomials.
+  The method takes advantage of the fact that
+  the cyclic polynomials of the <span class="eq"><i>n</i></span>-cycle points
+  are linearly related with one another.
 
-<p>The key of the above method to
-establish a set of linear relations among cyclic polynomials.
-Note, however, the linear relations are based on the derivative condition,
-and are therefore different at the onset and bifurcation points.
-Thus, two different polynomials of <span class="eq"><i>R</i></span>
-are obtained at the two points.
+  An example of a cyclic polynomial is
+  <span class="eq">
+    <i>x</i><sub>1</sub> <i>x</i><sub>2</sub>
+  + <i>x</i><sub>2</sub> <i>x</i><sub>3</sub>
+  + &#x22ef;
+  + <i>x</i><sub><i>n</i> &minus; 1</sub> <i>x</i><sub><i>n</i></sub>
+  + <i>x</i><sub><i>n</i></sub> <i>x</i><sub>1</sub></span>.
 
+  Another example is
+  <span class="eq">
+    <i>x</i><sub>1</sub>
+   <i>x</i><sub>2</sub>
+   &#x22ef;
+   <i>x</i><sub><i>n</i></sub>,
+  </span>
+  which is just the derivative
+  <span class="eq"><i>d</i> = [ <i>f<sup> n</sup></i>(<i>x</i>) ]&prime;</span>
+  of the iterated map.
+
+  But note that it is not necessarily a symmetric polynomial.
+  Thus, we can write down a set of <em>homogeneous linear</em> equations
+  regarding the cyclic polynomials.
+
+  These equations can be compactly written as
+  <div class="eq">
+    <b>A C </b> = <b>0</b>,
+  </div>
+  where
+    <span class="eq"><b>C</b></span>
+  is a column vector of cyclic polynomials,
+  and
+    <span class="eq"><b>A</b></span>
+  is the matrix of connecting coefficients.
+
+
+  Since the cyclic polynomials vector
+    <span class="eq"><b>C</b></span>
+    is not zero altogether,
+    the determinant of the matrix
+    <span class="eq"><b>A</b></span>
+    must be zero.
+  This condition
+  <div class="eq">
+    | <b> A </b> | = 0,
+  </div>
+  thus furnishes the desired result.
+</div>
+
+<div class="p">
+  The key of the above method to
+  establish a set of linear relations
+  among cyclic polynomials.
+
+  These relations can be systematically established
+  from recursively applying the equation
+  <span class="eq">
+    <i>x</i><sub><i>k</i></sub><sup>2</sup> &rarr;
+    <i>R</i> &minus; <i>x</i><sub><i>k</i>+1</sub>,
+  </span>
+  which connect high-order cyclic polynomials to low-order ones.
+
+  Since the linear relations are based on the derivative condition,
+  they will manifest slightly differently at the onset and bifurcation points.
+
+  Thus, two different polynomials of <span class="eq"><i>R</i></span>
+  are obtained at the two points.
+</div>
 
 
 
@@ -379,15 +422,18 @@ are obtained at the two points.
     <td>A self-contained Mathematica script that computes the onset, bifurcation
       and general boundary polynomials of <span class="eq"><i>R</i></span>
       for the <span class="eq"><i>n</i></span>-cycles.
-      For the onset polynomial of the 8-cycle, type
+
+      For the onset polynomial of the 9-cycles, type
       <div class="code">
-        math &lt; log.ma 8 a
+        math &lt; log.ma 9 a
       </div>
-      For the bifurcation polynomial of the 9-cycle, type
+
+      For the bifurcation polynomial of the 8-cycles, type
       <div class="code">
-        math &lt; log.ma 9 b
+        math &lt; log.ma 8 b
       </div>
-      For the general boundary polynomial of the 7-cycle, type
+
+      For the general boundary polynomial of the 7-cycles, type
       <div class="code">
         math &lt; log.ma 7 c
       </div>
@@ -395,13 +441,64 @@ are obtained at the two points.
   </tr>
 
   <tr>
-    <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
-    <td>Python script that computes the interpolation polynomial from the list of values.</td>
+    <a name="mkinterp"></a>
+    <td>
+      <a href="prog/mkinterp.py">mkinterp.py</a>
+    </td>
+    <td>A Python script that computes the interpolation polynomial
+      from the list of values.
+      This script is intended for parallelization, which should be invoked
+      only if the computing time is limited.
+      For small <span class="eq"><i>n</i></span>,
+      a simple call to <span class="code">log.ma</span> will save
+      much trouble.
+      <br>
+
+      To parallelize the calculation of the bifurcation polynomial
+      for the 8-cycles,
+      we can compute the first 60
+      <span class="eq"><i>R</i></span> values
+      (the degree in <span class="eq"><i>R</i></span> is 120,
+      and
+      <span class="eq"><i>R</i></span> runs from &minus;60/4 to &minus;1/4)
+      <div class="code">
+        math &lt; log.ma 8 b -60 0
+      </div>
+      This will create a file called
+      <span class="code">ls8b.txt</span>.
+
+      On another computer node, we do it again for the other half
+      (such that <span class="eq"><i>R</i></span> runs from 0/4 to 60/4)
+      <div class="code">
+        math &lt; log.ma 8 b 0 61
+      </div>
+      This will create another
+      <span class="code">ls8b.txt</span>.
+      (If the two commands are run under the same directory,
+      but at different times, the latter will simply append data
+      to the existing <span class="code">ls8b.txt</span>.)
+      We should now combine the contents in the two files.
+
+      We now type
+      <div class="code">
+        python mkinterp.py ls8b.txt
+      </div>
+      which will generate a Mathematica script
+      <span class="code">fit.ma</span>.
+
+      Finally, the interpolated polynomial from the values in
+      <span class="code">ls8b.txt</span>
+        can be obtained from
+      <div class="code">
+        math &lt; fit.ma
+      </div>
+
+    </td>
   </tr>
 
   <tr>
     <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
-    <td>Python script that numerically solves the polynomial equation of
+    <td>A Python script that numerically solves the polynomial equation of
       <span class="eq"><i>r</i></span>.</td>
   </tr>
 </table>
@@ -499,7 +596,7 @@ William B. Gordon,
   Mathematics Magazine <b>69</b> (1996) 118-120.
 <li>
 Jacqueline Burm and Paul Fishback,
-  <i>Period-3 orbits via Sylvester's theorem and resultants</i>,
+  <i>Period-3 orbits via Sylvester&rsquo;s theorem and resultants</i>,
   Mathematics Magazine <b>74</b> (2001) 47-51.
 <li>
 Cheng Zhang, <i>Period three begins</i>,

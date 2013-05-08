@@ -1,7 +1,8 @@
 Convert the matrix to magma format, calling the determinant routine there,
   slower than Mathematica
+The matsX.dat file is generated as a byproduct of, e.g., log.ma
 
-./mat2magma.py mats8.py > a.magma
+./mat2magma.py mats8.dat > a.magma
 
 then in Magma
 > load a.magma;
@@ -13,5 +14,5 @@ numbthy.py
     mat2magma.py uses numbthy.py
 
 
-magma8.py GroebnerBasis routines
+magma8.txt GroebnerBasis routines for Magma
 

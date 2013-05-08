@@ -21,7 +21,7 @@
   </div>
   This map is also related to that studied by Brown (Brown 1984a,b).
 
-  The map is quite similar to the <a href="/log">logistic map</a>;
+  The map is quite similar to the <a href="/logistic">logistic map</a>;
   and the basic concepts about cycles are applicable here.
   A distinct feature of the map is that it has an odd parity:
   <span class="eq">
@@ -129,35 +129,53 @@
   <tr>
     <td><a href="prog/cub.ma">cub.ma</a></td>
     <td>
-      A self-contained Mathematica script that computes the onset and bifurcation polynomials
+      A self-contained Mathematica script that computes
+      the onset and bifurcation polynomials
       of <span class="eq">r</span>
       for the <span class="eq"><i>n</i></span>-cycles.
-      For the onset polynomial of the 7-cycle, type
+
+      For the onset polynomial of the 7-cycles, type
       <div class="code">math &lt; cub.ma 7 a</div>
-      For the bifurcation polynomial of the 6-cycle, type
+
+      For the bifurcation polynomial of the 6-cycles, type
       <div class="code">math &lt; cub.ma 6 b</div>
     </td>
   </tr>
 
   <tr>
     <td><a href="prog/cub0.ma">cub0.ma</a></td>
-    <td>A Mathematica script that computes the determinant,
-    still has nonprimitive factors.</td>
+    <td>
+      A Mathematica script that computes the determinant,
+      without filtering out shorter-cycle contributions
+    </td>
   </tr>
 
   <tr>
     <td><a href="prog/cub0d.ma">cub0d.ma</a></td>
-    <td>A Mathematica script that filters nonprimitive factors from the output of cub0.ma</td>
+    <td>
+      A Mathematica script that filters out
+      the shorter-cycle contributions
+      from the output of cub0.ma
+    </td>
   </tr>
 
   <tr>
     <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
-    <td>A mathematica script that computes the interpolation polynomial from the list of values.</td>
+    <td>
+      A Python script that computes
+      the interpolation polynomial from a list of
+      <span class="eq"><i>r</i></span> values.
+      This is used in parallel runs,
+      see <a href="logistic#mkinterp">here</a> for details.
+    </td>
   </tr>
 
   <tr>
     <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
-    <td>numerically solves the polynomial equation of <span class="eq"><i>r</i></span>.</td>
+    <td>
+      A Python script that numerically solves the polynomial equation of
+      <span class="eq"><i>r</i></span>.
+    </td>
   </tr>
 </table>
 

@@ -1,0 +1,17 @@
+Set up .ma file for vim
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Edit 
+  $HOME/.vim/filetype.vim
+
+or for windows
+
+  VIMHOME/vimfiles/filetype.vim
+
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufRead,BufNewFile *.ma  setfiletype mma
+augroup END
+
