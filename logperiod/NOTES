@@ -1,11 +1,11 @@
-The name of the project is logperiod
+The name of the project is `logperiod'
 3ki5tj@gmail.com
 
-To upload
+To upload (make upload)
 cd ~/software/google_appengine
 ./appcfg.py update logperiod
 
-To test locally
+To test locally (make local)
 cd ~/software/google_appengine
 ./dev_appserver.py logperiod
 

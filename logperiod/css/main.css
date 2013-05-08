@@ -1,10 +1,16 @@
-/* Copyright (c) Cheng Zhang 2010-2012 */
-body { font: 90% "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma', 'Calibri', sans-serif; width: 640px; margin: auto; }
+/* Copyright (c) Cheng Zhang 2010-2013 */
+body { 
+  font: 90% "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma', 'Calibri', sans-serif;
+  width: 640px; margin: auto;
+}
 
+/* Table-of-contents sidebar
+ * `width' is to be adjusted by the javascript */
 div#tocbox {
-  position: fixed; top: 50px; left: 0px; width: 160px;
+  position: fixed; top: 50px; left: 0px; width: 200px;
   background-color: #ffffff; font: 80%/120% sans-serif;
-  margin: 0px; padding: 15px 35px 15px 5px; border: 1px solid #d0d0d0; border-width: 1px 20px 1px 0px;
+  margin: 0px; padding: 15px 35px 15px 5px;
+  border: 1px solid #d0d0d0; border-width: 1px 20px 1px 0px;
 }
 
 div#toctitle { font: bold small-caps 120% serif; }
@@ -24,7 +30,8 @@ h3 { font: small-caps 120% "Calibri", sans-serif;
   border-bottom: 1px dashed; border-left: 2px solid; border-color: #b0b0b0; }
 
 p, div.p { margin-bottom: 2.0em; }
-pre.code { font: 90% monospace;  padding: 10px; } /* code */
+pre.code, div.code, span.code { font: 90% monospace; }
+pre.code, div.code { padding: 10px 20px 10px 20px; }
 code { font-variant: normal; color: #440000; }
 a:visited { color: #808080; font-weight: normal; }
 a:link { color: #000080; text-decoration: none; }
@@ -35,7 +42,10 @@ span.eq { font-size: 110%; padding: 0px; }
 .eq sub { font-size: 60%; }
 .eq sup { font-size: 60%; padding: 1px; }
 
-.linkenv { padding: 5px 0px; margin: 25px 0px; border-top: 1px dotted #a0a0a0; border-bottom: 1px dotted #a0a0a0;}
+.linkenv {
+  padding: 5px 0px; margin: 25px 0px;
+  border-top: 1px dotted #a0a0a0; border-bottom: 1px dotted #a0a0a0;
+}
 ul.links { padding: 0px; margin: 0px; }
 ul.links li { display: inline; padding: 0px 0px 0px 0px; }
 li.linkhead { font: small-caps 120% sans-serif;}

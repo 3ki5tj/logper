@@ -1,4 +1,8 @@
-(* Copyright 2012 Cheng Zhang *)
+(* Copyright 2012-2013 Cheng Zhang *)
+(* USAGE
+    math < cub.ma n ch kmin kmax
+  `n' is the cycle period
+  `ch': `a' for the onset point, `b' for the bifurcation point *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
 b = 3; (* order of the map *)
@@ -203,11 +207,6 @@ interp[xy_, r_] := Together[InterpolatingPolynomial[xy, r]];
 numsolv2[n_, mats_, frac_, dr_: drdef] := Module[{xy},
   xy = numsolv2pt[n, mats, frac, None, None, None, {}, dr];
   If[MemberQ[{4, 8}, n], xy = mksym[xy]]; interp[xy, r]];
-
-(* USAGE
-  math < cub.ma n ch kmin kmax
-  n is the cycle period
-  ch is a or b for onset or bifurcation *)
 
 (* handling input arguments *)
 n = 3;

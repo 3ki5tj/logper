@@ -239,7 +239,7 @@ trigsimplify[p_, vars_, usen_: False] := Module[{p1, p2, prec = 10},
     p2 = Collect[Expand[N[p, prec]], vars, Round];
     If[p2 === p1, Break[]];];
   p1];
- 
+
 (* compute the cyclic product: prod_{k=0..n-1} poly[X^(1/k) e^(2*pi*i*k/n)] *)
 mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
   If[n == 1, Return[poly]];

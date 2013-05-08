@@ -1,4 +1,8 @@
-(* Copyright 2012 Cheng Zhang *)
+(* Copyright 2012-2013 Cheng Zhang *)
+(* USAGE
+  math < prd.ma n ch kmin kmax
+  `n' is the cycle period
+  `ch' is `a' or `b' for onset or bifurcation *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
 (* make subscript expression *)
@@ -187,10 +191,6 @@ Timing[sol = interp[ls, a, b, A];][[1]]*)
 symsolv2[n_, mats_, Xv_, da_:1] :=
   interp[symsolv2pt[n, mats, Xv, None, None, None, None, da], a, b, A];
 
-(* USAGE
-  math < prd.ma n ch kmin kmax
-  n is the cycle period
-  ch is a or b for onset or bifurcation *)
 n = 6;
 If[Length[$CommandLine] >= 2, n = ToExpression[$CommandLine[[2]]]];
 ch = "a";

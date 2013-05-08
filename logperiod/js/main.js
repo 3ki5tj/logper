@@ -10,7 +10,8 @@ function init()
   makeimgslinks(); // add links to the page
 }
 
-function toc_init() // create a table of content
+// create a table-of-content sidebar
+function toc_init()
 {
   var nodes = document.getElementsByTagName("h2");
   for (s = "", i = 0; i < nodes.length; i++) {
@@ -38,21 +39,27 @@ function toc_init() // create a table of content
     + '<div class="toclinkhead">Links:</div>'
     + '<ul class="toclinks">'
     + '<li><a href="/">Home</a>'
-    + '<li><a href="/log">Logistic</a>'
+    + '<li><a href="/logistic">Logistic</a>'
     + '<li><a href="/cubic">Cubic</a>'
     + '<li><a href="/henon">H&eacute;non</a>';
     '</ul>';
   env.appendChild(links);
 
-  env.onmouseover = function () { tocshow(1); };
-  env.onmouseout = function () { tocshow(0); };
+  env.onmouseover = function () { toc_show(1); };
+  env.onmouseout = function () { toc_show(0); };
 
   nodes[0].parentNode.insertBefore(env, nodes[0]);
-  tocshow(0);
+  toc_show(0);
 }
 
-function tocshow(open)
-  { document.getElementById("tocbox").style.left = (open ? "0px" : "-200px"); }
+// show or hide the table-of-contents sidebar
+function toc_show(open)
+{
+  var box = document.getElementById("tocbox");
+  var width = 200;
+  box.style.width = "" + width  + "px";
+  box.style.left =  (open ? "0px" : "" + (-width-40) + "px");
+}
 
 
 var dtbox;
@@ -60,8 +67,10 @@ function dtbox_init() // create a date/time box
 {
   dtbox = document.createElement("div");
   dtbox.id = "dtbox";
-  dtbox.setAttribute("style", "font: small-caps 100% sans-serif; position: fixed;"
-      + "bottom: 0; left: 0; right: 0; height: 20px; padding: 2px; text-align: center;")
+  dtbox.setAttribute("style",
+      "font: small-caps 100% sans-serif; position: fixed;"
+    + "bottom: 0; left: 0; right: 0; height: 20px; "
+    + "padding: 2px; text-align: center;")
   dtbox.onmouseover = function() { dtbox_update(true); };
   dtbox.onmouseout = function() { dtbox_update(false); };
   document.body.appendChild(dtbox);
@@ -73,8 +82,11 @@ function dtbox_update(open)
   dtbox.innerHTML = open ? new Date().toLocaleString() : "";
 }
 
-function makeimgslinks() { // make all demo images links
+// add links to all `style="demo"' `img' elements
+function makeimgslinks()
+{
   var imgs = document.getElementsByTagName("img");
+
   for (var i = 0; i < imgs.length; i++)
     if (imgs[i].className == "demo") {
       pr = imgs[i].parentNode;
@@ -86,4 +98,7 @@ function makeimgslinks() { // make all demo images links
     }
 }
 
-function appendspaces() { document.body.innerHTML += "<p>&nbsp;<p>&nbsp;"; }
+function appendspaces()
+{
+  document.body.innerHTML += "<p>&nbsp;</p><p>&nbsp;</p>";
+}

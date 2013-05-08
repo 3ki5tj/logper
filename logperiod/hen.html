@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Cycles of the Henon map</title>
+<script type="text/javascript" src="js/main.js"></script>
+<link type="text/css" rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<h1>Cycles of the H&eacute;non map</h1>
+
+<h2>Introduction</h2>
+
+
+<div class="p">
+  The H&eacute;non map is a simple two-dimensional extension
+  of the logistic map.  It is defined as:
+  <div class="eq">
+      <i>x</i><sub><i>k</i>+1</sub>
+      =
+      1 + <i>y<sub>k</sub></i> &minus; <i>a x<sub>k</sub></i><sup>2</sup>,
+  </div>
+  <div class="eq">
+      <i>y</i><sub><i>k</i>+1</sub>
+      =
+      <i>b x<sub>k</sub></i>.
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  </div>
+</div>
+
+<div class="p">
+  We however shall transform the variables as
+  <span class="eq">
+      <i>x<sub>k</sub></i>
+      &rarr; <i>x<sub>k</sub></i> / <i>a</i>.
+  </span>
+  So the new map is
+  <div class="eq">
+      <i>x</i><sub><i>k</i>+1</sub>
+      =
+      <i>a + y<sub>k</sub></i> &minus; <i>x<sub>k</sub></i><sup>2</sup>,
+  </div>
+  <div class="eq">
+      <i>y</i><sub><i>k</i>+1</sub>
+      =
+      <i>b x<sub>k</sub></i>,
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  </div>
+  which is reduced to
+  <a href="/log">the logistic map</a> when
+  <span class="eq"><i>b</i> = 0</span>.
+</div>
+
+
+
+<h2>Cycle polynomials</h2>
+
+<div class="p">
+  Since the map has two parameters,
+  the onset (bifurcation) points,
+  correspond to a polynomial equation of
+  <span class="eq"><i>a</i></span>
+  and
+  <span class="eq"><i>b</i></span>,
+  instead of a single value.
+
+  Below we list the polynomials of
+  <span class="eq"><i>A</i> = 4 <i>a</i></span>
+  and
+  <span class="eq"><i>b</i></span>
+  at the onset and bifurcation points
+  of the <i>n</i>-cycles below.
+</div>
+
+<table class="datatable">
+<tr>
+  <th>n</th><th>Onset</th><th>Bifurcation</th>
+</tr>
+<tr><td>1</td>
+  <td><a href="data/hen/ab1a.txt">eq.</a></td>
+  <td><a href="data/hen/ab1b.txt">eq.</a></td>
+</tr>
+<tr><td>2</td>
+  <td><a href="data/hen/ab2a.txt">eq.</a></td>
+  <td><a href="data/hen/ab2b.txt">eq.</a></td>
+</tr>
+<tr><td>3</td>
+  <td><a href="data/hen/ab3a.txt">eq.</a></td>
+  <td><a href="data/hen/ab3b.txt">eq.</a></td>
+</tr>
+<tr><td>4</td>
+  <td><a href="data/hen/ab4a.txt">eq.</a></td>
+  <td><a href="data/hen/ab4b.txt">eq.</a></td>
+</tr>
+<tr><td>5</td>
+  <td><a href="data/hen/ab5a.txt">eq.</a></td>
+  <td><a href="data/hen/ab5b.txt">eq.</a></td>
+</tr>
+<tr><td>6</td>
+  <td><a href="data/hen/ab6a.txt">eq.</a></td>
+  <td><a href="data/hen/ab6b.txt">eq.</a></td>
+</tr>
+<tr><td>7</td>
+  <td><a href="data/hen/ab7a.txt">eq.</a></td>
+  <td><a href="data/hen/ab7b.txt">eq.</a></td>
+</tr>
+<tr><td>8</td>
+  <td><a href="data/hen/ab8a.txt">eq.</a></td>
+  <td><a href="data/hen/ab8b.txt">eq.</a></td>
+</tr>
+</table>
+
+
+
+
+<h2>Programs</h2>
+
+<table class="progtable">
+  <tr>
+    <th>Program</th>
+    <th>Discription</th>
+  </tr>
+
+  <tr>
+    <td><a href="prog/hen.ma">hen.ma</a></td>
+    <td>A self-contained Mathematica script that computes the onset, bifurcation
+      and general boundary polynomials of
+      <span class="eq"><i>a</i></span>
+      and
+      <span class="eq"><i>b</i></span>
+      for the
+      <span class="eq"><i>n</i></span>-cycles.
+      For the onset polynomial of the 6-cycle, type
+      <div class="code">
+        math &lt; hen.ma 6 a
+      </div>
+      For the bifurcation polynomial of the 5-cycle, type
+      <div class="code">
+        math &lt; hen.ma 5 b
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
+    <td>computes the interpolation polynomial from the list of values.</td>
+  </tr>
+
+</table>
+
+<div class="p">
+  See <a href="/index#mafiles">this note</a> about the Mathematica scripts
+  <span class="code">.ma</span> files.
+</div>
+
+<h2>References</h2>
+{{ prim_ref }}
+
+<h3>General information</h3>
+
+<ul>
+<li>Steven H. Strogatz,
+<a href="http://www.amazon.com/Nonlinear-Dynamics-And-Chaos-Applications/dp/0738204536"><i>
+Nonlinear Dynamics And Chaos: With Applications To Physics, Biology, Chemistry, And Engineering"
+</i></a>Westview Press, 2001
+
+<li>
+Bailin Hao,
+<a href="http://power.itp.ac.cn/~hao/"><i>
+  Elementary Symbolic Dynamics and Chaos in Dissipative Systems,
+</i></a> World Scientific, 1989
+</ul>
+
+<h3>H&eacute;non map</h3>
+
+<ul>
+<li>M. H&eacute;non,
+<i>A two-dimensional mapping with a strange attractor</i>,
+Communications in Mathematical Physics <b>50</b> (1976) 6977.
+
+<li>D. L. Hitzl and F. Zele,
+<i>An exploration of the H&eacute;non quadratic map</i>,
+Physica D <b>14</b> (1985) 305-326.
+</ul>
+
+{{ go_home }}
+{{ last_update }}
+
+<script type="text/javascript"> var sc_project=7808066; var sc_invisible=1; var sc_security="c48b0b56"; </script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+</body>
+</html>

@@ -122,7 +122,8 @@ that contain complex stable cycles.
 
 <div class="fig">
 <img src="img/logbulb.png" width="600" alt="bulbs of the logistic map">
-  <div>Other versions:
+  <div class="center">
+    Other versions:
     <a href="img/logbulb.ps">PS</a>,
     <a href="img/logbulb.pdf">PDF</a>.
   </div>
@@ -240,26 +241,34 @@ are obtained at the two points.
 
 <h2><i>n</i>-cycle data</h2>
 
-<p>We list the polynomials of
+<div class="p">
+  We list the polynomials of
   <span class="eq"><i>T</i> = 4 <i>R</i></span>
   (so that <span class="eq"><i>r</i> = 1 + &radic;{1+<i>T</i>}
       = 1 + &radic;{1+4<i>R</i>}</span>)
   for the <i>n</i>-cycles of the logistic map
   in the files labeled by &ldquo;eq.&rdquo;.
 
-The numerical zeros are appended to the equation files.
+  The numerical zeros are appended to the equation files.
 
-The equivalent <span class="eq"><i>r</i></span>
-  are listed in the files labeled by &ldquo;r values&rdquo;.
+  The equivalent <span class="eq"><i>r</i></span>
+    are listed in the files labeled by &ldquo;r values&rdquo;.
 
-For a general boundary polynomial, we also defined 
-  <span class="eq">
-    <i>X</i> = <i>x</i><sub>1</sub>
-   &#x22ef;
-   <i>x</i><sub><i>n</i></sub>
-   = <i>d</i>/(-2)<sup><i>n</i></sup>.
-  </span>
-You can right-click each item and save.
+  For the general boundary polynomial of
+    <span class="eq"><i>n</i></span>-cycles, we defined
+    <span class="eq">
+      <i>X</i> = <i>x</i><sub>1</sub>
+     &#x22ef;
+     <i>x</i><sub><i>n</i></sub>
+     = <i>d</i>/(-2)<sup><i>n</i></sup>,
+   </span>
+   and list the equation of
+    <span class="eq"><i>R</i></span>
+   versus
+    <span class="eq"><i>X</i></span>
+   (as shown as &ldquo;R-X&rdquo;).
+  You can right-click each item and save.
+</div>
 
 <table class="datatable">
 <tr>
@@ -326,6 +335,7 @@ You can right-click each item and save.
       <a href="data/log/r9a.txt">r values</a></td>
   <td><a href="data/log/T9b.txt">eq.</a> and
       <a href="data/log/r9b.txt">r values</a></td>
+  <td><a href="data/log/RX9.txt">R-X</a></td>
 </tr>
 <tr><td>10</td>
   <td><a href="data/log/T10a.txt">eq.</a> and
@@ -359,29 +369,47 @@ You can right-click each item and save.
 <h2>Programs</h2>
 
 <table class="progtable">
-<tr>
-  <th>Program</th>
-  <th>Discription</th>
-</tr>
+  <tr>
+    <th>Program</th>
+    <th>Discription</th>
+  </tr>
 
-<tr>
-  <td><a href="prog/prd.ma">prd.ma</a></td>
-  <td>self-contained, computes the primitive factor.
-  </td>
-</tr>
+  <tr>
+    <td><a href="prog/log.ma">log.ma</a></td>
+    <td>A self-contained Mathematica script that computes the onset, bifurcation
+      and general boundary polynomials of <span class="eq"><i>R</i></span>
+      for the <span class="eq"><i>n</i></span>-cycles.
+      For the onset polynomial of the 8-cycle, type
+      <div class="code">
+        math &lt; log.ma 8 a
+      </div>
+      For the bifurcation polynomial of the 9-cycle, type
+      <div class="code">
+        math &lt; log.ma 9 b
+      </div>
+      For the general boundary polynomial of the 7-cycle, type
+      <div class="code">
+        math &lt; log.ma 7 c
+      </div>
+    </td>
+  </tr>
 
-<tr>
-  <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
-  <td>computes the interpolation polynomial from the list of values.</td>
-</tr>
+  <tr>
+    <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
+    <td>Python script that computes the interpolation polynomial from the list of values.</td>
+  </tr>
 
-<tr>
-  <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
-  <td>numerically solves the polynomial equation of <span class="eq"><i>r</i></span>.</td>
-</tr>
+  <tr>
+    <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
+    <td>Python script that numerically solves the polynomial equation of
+      <span class="eq"><i>r</i></span>.</td>
+  </tr>
 </table>
 
-
+<div class="p">
+  See <a href="/index#mafiles">this note</a> about the Mathematica scripts
+  <span class="code">.ma</span> files.
+</div>
 
 
 

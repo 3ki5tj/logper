@@ -9,15 +9,18 @@
 <body>
 
 
-<h1><i>n</i>-cycles</h1>
+<h1><i>n</i>-cycles of polynomial maps</h1>
+
 <div class="p">
-  This page is about computing exact
+  This page is about an algorithm of computing exact
   <span class="eq"><i>n</i></span>-cycles of some polynomials maps.
 </div>
 
 
 
+
 <h2>Introduction</h2>
+
 <div class="p">
   Consider a one dimensional map, as an iteration sequence:
   <div class="eq">
@@ -249,13 +252,17 @@
 The onset and bifurcation polynomials can be found there.
 
 <ul>
-<li>The <a href="/log">logistic map</a></li>
+<li>The <a href="/logistic">logistic map</a></li>
 <li>The <a href="/cubic">cubic map</a></li>
-<li>The <a href="/henon">Henon map</a></li>
+<li>The <a href="/henon">H&eacute;non map</a></li>
 </ul>
 
 <h2>Programs</h2>
-<p>For convenience, we list a few programs here.
+
+<div class="p">
+  For convenience, we list a few main programs here.
+</div>
+
 
 
 <table class="progtable">
@@ -265,13 +272,13 @@ The onset and bifurcation polynomials can be found there.
 </tr>
 
 <tr>
-  <td><a href="prog/prd.ma">prd.ma</a></td>
-  <td>the logistic map</td>
+  <td><a href="prog/log.ma">log.ma</a></td>
+  <td>Mathematica script for cycle polynomials of the logistic map</td>
 </tr>
 
 <tr>
   <td><a href="prog/cub.ma">cub.ma</a></td>
-  <td>the cubic map,
+  <td>Mathematica script for cycle polynomials of the cubic map,
   alternatively
   <a href="prog/cub0.ma">cub0.ma</a>
   and <a href="prog/cub0d.ma">cub0d.ma</a>
@@ -280,9 +287,10 @@ The onset and bifurcation polynomials can be found there.
 
 <tr>
   <td><a href="prog/hen.ma">hen.ma</a></td>
-  <td>the H&eacute;non map</td>
+  <td>Mathematica script for cycle polynomials of the H&eacute;non map</td>
 </tr>
 
+<!--
 <tr>
   <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
   <td>computes the interpolation polynomial from the list of values.</td>
@@ -292,7 +300,43 @@ The onset and bifurcation polynomials can be found there.
   <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
   <td>numerically solves the polynomial equation of <span class="eq"><i>r</i></span>.</td>
 </tr>
+-->
 </table>
+
+
+<h3><a name="mafiles"></a>
+  Notes on the Mathematica scripts
+  (<span class="code">.ma</span> files)
+</h3>
+
+<div class="p">
+  The &ldquo;<span class="code">.ma</span>&rdquo; file are plain-text Mathematica scripts.
+  Unlike the Mathematica notebooks
+    (<span class="code">.nb</span> files),
+    they do not contain formatting information
+    and can be edited by any text editor (e.g.,
+    <span class="code">Vim</span>,
+    <span class="code">Emacs</span>,
+    and
+    <span class="code">UltraEdit</span>,
+    not just the default Mathematica GUI editor).
+  To run such a script
+    (say <span class="code">myprog.ma</span>), type in the command-line
+  <div class="code">
+    math &lt; myprog.ma argument1 argument2 ...
+  </div>
+  Here,
+  <span class="code">math</span>
+  (or <span class="code">math.exe</span> in Windows)
+  is file name of Mathematica's main command-line driver,
+  which should be installed under same directory
+  as the GUI interface
+  <span class="code">mathematica</span>
+  (or <span class="code">Mathematica.exe</span> in Windows).
+  If this directory is not added in the environment variable
+  <span class="code">PATH</span>,
+  the full path of the program should be used in the command line.
+</div>
 
 
 
