@@ -162,8 +162,8 @@
   <tr>
     <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
     <td>
-      A Python script that computes
-      the interpolation polynomial from a list of
+      A Python script that generates a Mathematica script,
+      which computes the interpolation polynomial from a list of
       <span class="eq"><i>r</i></span> values.
       This is used in parallel runs,
       see <a href="logistic#mkinterp">here</a> for details.
@@ -173,10 +173,34 @@
   <tr>
     <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
     <td>
-      A Python script that numerically solves the polynomial equation of
+      A Python script that generates a Mathematica script,
+      which numerically solves the polynomial equation of
       <span class="eq"><i>r</i></span>.
     </td>
   </tr>
+
+  <tr>
+    <td><a href="prog/mkgb.py">mkgb.py</a></td>
+    <td>A Python script that generates a
+      <a href="http://magma.maths.usyd.edu.au/magma/">magma</a>
+      script,
+      which solves the boundary polynomial
+      by constructing a Gr&ouml;bner basis.
+
+      For example, to compute the bifurcation polynomial
+      of the 5-cycle for the cubic logistic map, type
+      <div class="code">python mkgb.py 5 b &gt; c5b.magma</div>
+      Then call magma
+      <div class="code">magma &lt; c5b.magma</div>
+
+      To compute the onset polynomial, type
+      <div class="code">
+        python mkgb.py -c 5 a &gt; c5a.magma<br>
+        magma &lt; c5a.magma
+      </div>
+    </td>
+  </tr>
+
 </table>
 
 <div class="p">

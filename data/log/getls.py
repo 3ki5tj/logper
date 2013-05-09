@@ -22,7 +22,6 @@ for k in range(len(sa)):
     id = int(s[0].strip())
     if len(ls) != id:
       print "Index mismatch: %s vs %s" % (id, len(ls))
-    #print s[0].strip(), item
   except:
     print "error occured %s" % s
     raise Exception

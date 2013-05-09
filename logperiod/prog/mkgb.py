@@ -1,0 +1,1 @@
+../../prog/magma/mkgb.py

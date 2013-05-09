@@ -4,15 +4,32 @@ Magma programs
 Groebner Basis
 --------------
 
-log*.magma are scripts Groebner basis routines for Magma
-  
-To run it 
+log*.magma are prewritten scripts Groebner basis routines for Magma
+
+To run it
   magma < log8b.magma
+
+Other scripts for the logistic map and cubic map can be generated
+  from the Python script mkgb.py
+
+For the general 8-cycle of the simplified logistic map:
+  python mkgb.py -R 8 c > R8c.magma
+Then call magma
+  magma < R8c.magma
+
+For the bifurcation 7-cycle of the original logistic map:
+  python mkgb.py -r 7 b
+
+For the onset 5-cycle of the cubic map:
+  python mkgb.py -c 5 a
+
 
 
 
 Determinant routines
 --------------------
+
+Magma is not very efficient in computing the determinant.
 
 Convert the matrix to magma format, calling the determinant routine there,
   slower than Mathematica

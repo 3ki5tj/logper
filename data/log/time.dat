@@ -10,12 +10,12 @@
 # lsmat(prd):  time to write the matrix
 # GB(magma):   Using magma bifurcation point
 # GB:          the bifurcation point by Grobner basis (Mathematica)
-#n\task     onset         bifurcation       general       lsmat     GB(magma)  GB
-6        0.89 / 0.75      0.54 / 0.43     0.45 / 0.35      0.06     1.4        37.8
-7        0.83 / 0.56      0.82 / 0.56     5.4  / 3.8       0.16     31         1193
-8        2.56 / 1.49      2.46 / 1.49     318  / 197       0.52     822       71280
-9        24.6 / 15.2      24.4 / 14.8   17016  /           1.54     18348
-10        273 / 156        275 / 159                       5.18
-11       n/a  / n/a        n/a / n/a
-12       n/a  / n/a        n/a / n/a
-13       n/a  / n/a        n/a / n/a
+#n\task    onset       bifurcation      general    lsmat     GB(magma)  GB
+6        0.89 0.75      0.54 0.43       0.5 0.4     0.06     1.4        37.8
+7        0.83 0.56      0.82 0.56       5.4 3.8     0.16     31         1193
+8        2.56 1.49      2.46 1.49       318 200     0.52     822       71280
+9        24.6 15.2      24.4 14.8     1.7e4 n/a     1.54     18348
+10        273 156        275 159        n/a n/a     5.18     n/a
+11       n/a  1795       n/a 1796
+12       n/a  n/a        n/a n/a
+13       n/a  n/a        n/a n/a

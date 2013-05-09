@@ -445,7 +445,8 @@ Sharkovskii and Li &amp; Yorke.
     <td>
       <a href="prog/mkinterp.py">mkinterp.py</a>
     </td>
-    <td>A Python script that computes the interpolation polynomial
+    <td>A Python script that generates a Mathematica script,
+      which computes the interpolation polynomial
       from the list of values.
       This script is intended for parallelization, which should be invoked
       only if the computing time is limited.
@@ -498,8 +499,33 @@ Sharkovskii and Li &amp; Yorke.
 
   <tr>
     <td><a href="prog/mknsolv.py">mknsolv.py</a></td>
-    <td>A Python script that numerically solves the polynomial equation of
+    <td>A Python script that generates a Mathematic script,
+      which numerically solves the polynomial equation of
       <span class="eq"><i>r</i></span>.</td>
+  </tr>
+
+  <tr>
+    <td><a href="prog/mkgb.py">mkgb.py</a></td>
+    <td>A Python script that generates a
+      <a href="http://magma.maths.usyd.edu.au/magma/">magma</a>
+      script,
+      which solves the boundary polynomial by
+      constructing a Gr&ouml;bner basis
+      (which is the specialty of
+      <a href="http://magma.maths.usyd.edu.au/magma/">magma</a>).
+
+      For example, to compute the bifurcation polynomial
+      of the 8-cycle for the simplified logistic map, type
+      <div class="code">python mkgb.py 8 b &gt; R8b.magma</div>
+      Then call magma
+      <div class="code">magma &lt; R8b.magma</div>
+
+      To compute the onset polynomial of the original logistic map, type
+      <div class="code">
+        python mkgb.py -r 8 a &gt; r8a.magma<br>
+        magma &lt; r8a.magma
+      </div>
+    </td>
   </tr>
 </table>
 
