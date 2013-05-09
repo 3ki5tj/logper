@@ -1,23 +1,21 @@
-#Relative time on a Linux Desktop in seconds
+# Time on a Linux Desktop (Mathematica 8) in seconds
 #
-#  X-R:         time required to obtain the X-R relation from solving the cyclic equations (per)
-#  order:       the order of X in the X-R relation
-#  onset:       time for the onset equation of R from solving the discriminant (per)
-#  bifurcation: time for the bifuracation equation of R (per)
-#  res1:        time for solving the resultant of equation 1 and d(equation 2)/d(d) (per)
-#  superstable: time for solving the superstable equation of R (per)
-#  onset(res.): time for solving the onset equation from the resultant (per)
-#  lsmat(prd):  time for prd.nb to write the matrix
-#  X-R (onset): time to obtain the X-R relation with X being the x1 ... xn and d = 1, with Lagrange interpolation
-#  GB:          brute force solution of the bifurcation point using Grobner basis (Mathematica)
-#  GB(stair):   improved Grobner basic, using some staircase equations
-#  GB(magma):   Using magma bifurcation point
-#n\task X-R    order   onset(discr.)  bifurcation   res1    superstable   onset(res.)  lsmat(prd) X-R (onset)  X-R (prod.) GB(magma)   GB      GB(stair)
-6       0.18    9      0.016          0.028         0.004      0.032      0.032        0.08       1.0          1.51        1.4         37.8    27.2
-7       0.84    18     0.86           1.01          0.344      0.90       1.02         0.17       1.0          37.5        26.7        1193    1157
-8       5.38    30     9.88           11.3          4.92       10.6       11.3         0.6        2.5          2668        838.2       71280   n/a
-9       105     56     625.5          658.4         422.2      681.1      723.7        1.7        24.6         n/a         20112
-10      3227    99     15040          19069         12716      16843      17662        5.2        274
-11      205218  186    n/a            n/a           n/a        n/a        n/a          18.9       3854*
-12      n/a     n/a    n/a            n/a           n/a        n/a        n/a          70         56744
-13      n/a     n/a    n/a            n/a           n/a        n/a        n/a          258
+# onset:       time for the onset equation of R
+# bifurcation: time for the bifuracation equation of R
+# general:     time for general boundary polynomial
+#
+# for the above, the second figure is run on Mathematica 9 on an i7 CPU
+# with hyperthreading turned on (which slows it down a bit)
+#
+# lsmat(prd):  time to write the matrix
+# GB(magma):   Using magma bifurcation point
+# GB:          the bifurcation point by Grobner basis (Mathematica)
+#n\task     onset         bifurcation       general       lsmat     GB(magma)  GB
+6        0.89 / 0.75      0.54 / 0.43     0.45 / 0.35      0.06     1.4        37.8
+7        0.83 / 0.56      0.82 / 0.56     5.4  / 3.8       0.16     31         1193
+8        2.56 / 1.49      2.46 / 1.49     318  / 197       0.52     822       71280
+9        24.6 / 15.2      24.4 / 14.8   17016  /           1.54     18348
+10        273 / 156        275 / 159                       5.18
+11       n/a  / n/a        n/a / n/a
+12       n/a  / n/a        n/a / n/a
+13       n/a  / n/a        n/a / n/a

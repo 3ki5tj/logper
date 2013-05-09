@@ -311,13 +311,13 @@ If[FileType[fnmats] === File,
 
 (* 3. compute the determinant of the matrix *)
 If[frac == 0, (* do symbolic calculation for a general boundary polynomial *)
-  
+
   (* directly compute the determinant. Note: we use the numerical version
      the last parameter of `symprimfac' is `True' *)
   tm = Timing[poly = symprimfac[n, mats, R, X, True];];
   Print["time ", tm];
   xsave["RX"<>ToString[n]<>".txt", poly],
-  
+
   (* otherwise do numerical calculation for the onset or bifurcation point *)
   If[kmin < kmax || kmax == None,
     fnls = If[n > 8, "ls"<>ToString[n]<>ch<>".txt", None];

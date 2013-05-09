@@ -1,18 +1,31 @@
+Magma programs
+==============
+
+Groebner Basis
+--------------
+
+log*.magma are scripts Groebner basis routines for Magma
+  
+To run it 
+  magma < log8b.magma
+
+
+
+Determinant routines
+--------------------
+
 Convert the matrix to magma format, calling the determinant routine there,
   slower than Mathematica
 The matsX.dat file is generated as a byproduct of, e.g., log.ma
 
-./mat2magma.py mats8.dat > a.magma
+  python ./mats2magma.py mats8.dat > a.magma
 
 then in Magma
 > load a.magma;
 > f;
 
-
 numbthy.py
     collects some basic number theory routines in Python
     mat2magma.py uses numbthy.py
 
-
-magma8.txt GroebnerBasis routines for Magma
 

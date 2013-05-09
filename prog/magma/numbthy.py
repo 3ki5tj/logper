@@ -21,7 +21,7 @@ License: Simplified BSD (see details at bottom)
      * moebiusmu(n) - Compute Moebius Mu function of n
        carmichaellambda(n) - Computer Carmichael's Lambda function of n - the smallest exponent e such that b**e = 1 for all b coprime to n.
        factor(n) - Find a factor of n using a variety of methods.
-       factors(n) - Return a sorted list of the prime factors of n.
+       pfactors(n) - Return a sorted list of the prime factors of n.
        factorPR(n) - Find a factor of n using the Pollard Rho method
      * divisors(n) - return a list of divisors of n
      * necklace(n, k) - number of k-ary necklaces
@@ -37,24 +37,25 @@ import math  # Use sqrt, floor
 
 def gcd(a,b):
   """gcd(a,b) returns the greatest common divisor of the integers a and b."""
-  if a == 0:
-    return b
+  if a == 0: return b
   return abs(gcd(b % a, a))
 
+
 def powmod(b,e,n):
-  """powmod(b,e,n) computes the eth power of b mod n.
+  """ computes the eth power of b mod n.
   (Actually, this is not needed, as pow(b,e,n) does the same thing for positive integers.
   This will be useful in future for non-integers or inverses."""
   accum = 1; i = 0; bpow2 = b
-  while ((e>>i)>0):
-    if((e>>i) & 1):
+  while (e>>i) > 0:
+    if ((e>>i) & 1):
       accum = (accum*bpow2) % n
     bpow2 = (bpow2*bpow2) % n
     i+=1
   return accum
 
+
 def xgcd(a,b):
-  """xgcd(a,b) returns a list of form [g,x,y], where g is gcd(a,b) and
+  """ return a list of form [g,x,y], where g is gcd(a,b) and
   x,y satisfy the equation g = ax + by."""
   a1=1; b1=0; a2=0; b2=1; aneg=1; bneg=1; swap = False
   if(a < 0):
@@ -82,14 +83,17 @@ def xgcd(a,b):
       else:
         return [a, a1*aneg, b1*bneg]
 
+
 def isprime(n):
   """isprime(n) - Test whether n is prime using a variety of pseudoprime tests."""
-  if (n in [2,3,5,7,11,13,17,19,23,29]): return True
+  if n in [2,3,5,7,11,13,17,19,23,29]: return True
   return isprimeE(n,2) and isprimeE(n,3) and isprimeE(n,5)
+
 
 def isprimeF(n,b):
   """isprimeF(n) - Test whether n is prime or a Fermat pseudoprime to base b."""
   return (pow(b,n-1,n) == 1)
+
 
 def isprimeE(n,b):
   """isprimeE(n) - Test whether n is prime or an Euler pseudoprime to base b."""
@@ -103,28 +107,31 @@ def isprimeE(n,b):
     if (c == n-1): return True
     c = pow(c,2,n)
 
+
 def factor(n):
-  """factor(n) - Find a prime factor of n using a variety of methods."""
-  if (isprime(n)): return n
-  for fact in [2,3,5,7,11,13,17,19,23,29]:
-    if n%fact == 0: return fact
+  """ find a prime factor of n using a variety of methods."""
+  if isprime(n): return n
+  for d in [2,3,5,7,11,13,17,19,23,29]:
+    if n % d == 0: return d
   return factorPR(n)  # Needs work - no guarantee that a prime factor will be returned
 
-def factors(n):
-  """factors(n) - Return a sorted list of the prime factors of n."""
-  if (isprime(n)):
-    return [n]
-  fact = factor(n)
-  if fact == 1: return []
-  facts = factors(n/fact) + factors(fact)
+
+def pfactors(n):
+  """ return a sorted list of the prime factors of n
+      p^e will occur e times in the list; 1 is excluded """
+  if isprime(n): return [n]
+  d = factor(n)
+  if d == 1: return []
+  facts = pfactors(n/d) + pfactors(d)
   facts.sort()
   return facts
 
+
 def factorPR(n):
-  """factorPR(n) - Find a factor of n using the Pollard Rho method.
+  """ find a factor of n using the Pollard Rho method.
   Note: This method will occasionally fail."""
   for slow in [2,3,4,6]:
-    numsteps=2*math.floor(math.sqrt(math.sqrt(n))); fast=slow; i=1
+    numsteps = 2*math.floor(math.sqrt(math.sqrt(n))); fast=slow; i=1
     while i<numsteps:
       slow = (slow*slow + 1) % n
       i = i + 1
@@ -138,6 +145,7 @@ def factorPR(n):
           return g
   return 1
 
+
 def divisors(n):
   ''' return divisors of n '''
   ls = [1]
@@ -146,26 +154,29 @@ def divisors(n):
       ls.append(d)
   return ls
 
+
 def eulerphi(n):
-  """eulerphi(n) - Computer Euler's Phi function of n - the number of integers
-  strictly less than n which are coprime to n.  Otherwise defined as the order
-  of the group of integers mod n."""
-  thefactors = factors(n)
+  """ Euler's phi function - the number of integers less than n
+  that are coprime to n.  Otherwise defined as the order
+  of the group of integers mod n """
+  facs = pfactors(n)
   phi = 1
-  oldfact = 1
-  for fact in thefactors:
-    if fact==oldfact:
-      phi = phi*fact
-    else:
-      phi = phi*(fact-1)
-      oldfact = fact
+  oldp = 1
+  """ phi(n) = n prod_p (1 - 1/p) = prod_p (p - 1) p^(e-1)
+      for n = prod_p p^e """
+  for p in facs:
+    if p == oldp: # multiply p for the p^(e - 1) factor
+      phi = phi * p
+    else: # for the p - 1 factor
+      phi = phi * (p - 1)
+      oldp = p
   return phi
 
 
 def moebiusmu(n):
-  ''' Mobius mu function '''
+  """ Mobius mu function """
   if n == 1: return 1
-  fac = factors(n)
+  fac = pfactors(n)
   if len(fac) == 1: return -1
   for k in range(len(fac) - 1): # check duplicity
     if fac[k] == fac[k+1]: return 0
@@ -173,10 +184,10 @@ def moebiusmu(n):
   else: return -1
 
 def carmichaellambda(n):
-  """carmichaellambda(n) - Computer Carmichael's Lambda function
-  of n - the smallest exponent e such that b**e = 1 for all b coprime to n.
+  """ Carmichael's Lambda function
+  the smallest exponent e such that b**e = 1 for all b coprime to n.
   Otherwise defined as the exponent of the group of integers mod n."""
-  thefactors = factors(n)
+  thefactors = pfactors(n)
   thefactors.sort()
   thefactors += [0]  # Mark the end of the list of factors
   carlambda = 1 # The Carmichael Lambda function of n
@@ -196,7 +207,7 @@ def carmichaellambda(n):
   return carlambda
 
 def isprimitive(g,n):
-  """isprimitive(g,n) - Test whether g is primitive - generates the group of units mod n."""
+  """ test whether g is primitive - generates the group of units mod n."""
   if gcd(g,n) != 1: return False  # Not in the group of units
   order = eulerphi(n)
   if carmichaellambda(n) != order: return False # Group of units isn't cyclic
@@ -209,26 +220,18 @@ def isprimitive(g,n):
   return True
 
 def necklace(n, k = 2):
-  ''' number of necklaces '''
+  """ number of necklaces """
   divs = divisors(n)
   Nn = 0
   for d in divs: Nn += eulerphi(n/d)*(k**d)
   return Nn/n
 
 def lyndon(n, k = 2):
-  ''' number of lyndon words '''
+  """ number of lyndon words """
   divs = divisors(n)
   Nn = 0
   for d in divs: Nn += moebiusmu(n/d)*(k**d)
   return Nn/n
-
-
-
-
-
-def info():
-  """Return information about the module"""
-  print locals()
 
 # import numbthy
 # reload(numbthy)
