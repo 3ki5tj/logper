@@ -25,7 +25,7 @@ Clear[rotl, w2term, mkcycls, geteqv, cycle1, cycle2];
 
 (* rotation to the left *)
 rotl[w_, n_] := Module[{w1 = w*2},
-    If [ BitGet[w1, n] == 1, w1 - 2^n + 1, w1]
+    If [ BitGet[w1, n] === 1, w1 - 2^n + 1, w1]
 ];
 (*rotl[rotl[6, 3],3]*)
 
@@ -62,7 +62,7 @@ mkcycls[vars_] := Module[
 geteqv[t_, vars_, pows_, map_] := Module[
   {w = pows.Exponent[t, vars]},
 
-  If [ w == 0,
+  If [ w === 0,
     {map[[1]], t},
     {map[[w+1]], Coefficient[t, w2term[w, Length[vars], vars]]}
   ]
@@ -118,7 +118,8 @@ mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[
   For [ k = 1, k <= Length[cl], k++, (* for the kth cyclic variable *)
     (* get coefficients of the square-free expansion of the product
        Xs cl[[k]] of Xs and the kth cyclic polynomial *)
-    cvar = cl[[k]]; (* e.g., {C12, a1a2, 1} and {C123, a1a2a3, 3} *)
+    cvar = cl[[k]]; (* cvar is a tuple,
+      e.g., {C12, a1 a2, 1} or {C123, a1 a2 a3, 3} *)
     xp = Cancel[
           cycle2[Xs cvar[[2]], vars, cl, map, reps] / cvar[[3]]
     ];
@@ -169,6 +170,131 @@ xload[fn_, verbose_: False] := Module[{fp, xp},
 
 
 
+(* stand-alone routine for superstable cycles *)
+fnss[R_, n_] := Module[
+  {k, x, poly, tab = Table[0, {k, n}], divs, mu, d},
+
+  For [ x = 0; k = 1, k <= n, k++,
+    tab[[k]] = x = R - x^2
+  ];
+  poly = 1;
+  divs = Divisors[n];
+  For [ k = 1, k <= Length[divs], k++,
+    d = divs[[k]];
+    mu = MoebiusMu[n/d];
+    If [ mu === 0, Continue[],
+    If [ mu === 1, poly *= tab[[d]],
+                   poly /= tab[[d]]
+    ] ]
+  ];
+  Cancel[poly]
+]
+
+
+
+
+(* ******************** Symbolic solution begins *********************** *)
+Clear[trigsimplify, mkcprod, mkctprod, symprimfac, calcgnk]
+
+(* simplify an expression of sines and cosines *)
+trigsimplify0[p_] := FullSimplify[TrigReduce[TrigExpand[p]]];
+
+(* simplify an _integral_ expression
+   to use the faster numerical version, set `usen' = True,
+   the symbolic version is psychologically safer *)
+trigsimplify[p_, vars_, usen_: False, prec0_: 10] := Module[
+  {p1, p2, prec = prec0, dprec, k},
+
+  If [!usen, Return[ Collect[ trigsimplify0[p], vars] ] ];
+  (* increase precision util results from two precisions match *)
+  p1 = Collect[ Expand[ N[p, prec] ], vars, Round ];
+  dprec = Max[ Round[prec0 / 4], 10 ];
+  For [ k = 1, True, k++,
+    prec += dprec;
+    (* NOTE: coefficients must be integers, so Round[] is safe *)
+    p2 = Collect[ Expand[ N[p, prec] ], vars, Round ];
+    If [ p2 === p1, Break[] ];
+    p1 = p2;
+  ];
+  Print[k, " iterations, precision: ", prec0, " -> ", prec];
+  p1
+];
+
+(* compute the cyclic product
+   \prod_{k=0..n-1} poly[X^(1/k) e^(2*pi*i*k/n)] *)
+mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
+  If [ n === 1, Return[poly] ];
+
+  (* form the product *)
+  For [ k = 0, k < n, k++,
+    pd *= poly /. { X -> Y * (Cos[2 k Pi/n] + I Sin[2 k Pi/n]) }
+  ];
+  (* simplify the expression *)
+  If [ usen,
+    trigsimplify[pd, {R, Y}, True],
+    (* this code is somewhat faster than the direct call of trigsimplify[] *)
+    Collect[pd, {R, Y}, trigsimplify0]
+  ] /. { Y -> X^(1/n) }
+];
+
+
+(* compute the cyclotomic product of `poly' *)
+mkctprod[poly_, R_, X_, n_, usen_: False] := Module[{pd = 1, k, prec},
+  If [ n === 1, Return[poly] ];
+
+  (* form the product *)
+  For [ k = 0, k < n, k++,
+    If [ GCD[k, n] != 1, Continue[] ];
+    pd *= poly /. { X -> (Cos[2 k Pi/n] + I Sin[2 k Pi/n]) }
+  ];
+  (* simplify the expression
+     guess the initial precision *)
+  prec = Round[ n * (Exponent[poly, X] + 1) * 1.5 + 10 ];
+  trigsimplify[pd, R, usen, prec]
+];
+
+(* solve the primitive polynomial for n-cycles *)
+symprimfac[n_, mats_, R_, X_, usen_:False, notn_:False] := Module[
+  {k, dls, pf, pf1, d, mu, mat},
+
+  dls = Divisors[n];
+  kmax = Length[dls];
+  If [ notn, kmax -= 1 ]; (* exclude d === n *)
+
+  (* P(n) = \prod cyc[ A(d), n/d ]^mu(n/d),
+     where cyc[A, n/d] means the (n/d)-fold cyclic product of A *)
+  For [ pf = 1; k = 1, k <= kmax, k++,
+    d = dls[[k]];
+    mu = MoebiusMu[n/d];
+    If [ mu === 0, Continue[] ];
+    If [ mats === None, (* compute the matrix if unavailable *)
+      mat = getcycmat[d, R, X],
+      mat = mats[[k]]
+    ];
+    pf1 = Factor[ Det[ mat ] ];
+    pf1 = mkcprod[pf1, R, X, n/d, usen];
+    (* if n === d is excluded, compute the inverted polynomial *)
+    If [ notn, mu *= -1 ];
+    If [ mu === 1, pf *= pf1, pf /= pf1 ]
+  ];
+  pf = Collect[Cancel[pf], R, Simplify];
+  (* if n === d is excluded, the factorized form is usually simpler *)
+  If [ notn, Factor[pf], pf ]
+];
+(*
+symprimfac[6, None, R, X, True, True]
+*)
+
+(* compute the polynomial at the intersection of n- and d-cycles *)
+calcgnk[n_, d_, R_, usen_: False] := Module[{p, X, lam},
+  p = symprimfac[d, None, R, X, usen];
+  p = Numerator[ Together[p /. { X -> lam/(-2)^d } ] ];
+  Numerator[ Together[ mkctprod[p, R, lam, n/d, usen] /. {R -> T/4} ] ]
+];
+(* ******************** Symbolic solution ends ************************* *)
+
+
+
 (* ******************** Root finding/printing begins ******************* *)
 (* wrapper for NSolve. *)
 Clear[nsolve, solveT];
@@ -190,7 +316,7 @@ solveT[eq_, x_, fn_, prec_: precdef] := Module[
       ls = Append[ls, sols[[k]]];
       r = 1 + Sqrt[1 + sols[[k]]];
       s = "";
-      If [ cnt == 0,
+      If [ cnt === 0,
         s = s <> "solutions of T^"
               <> ToString[ Exponent[ facs[[l]][[1]], T ] ]
               <> " ...:\n"
@@ -213,34 +339,14 @@ solveT[eq_, x_, fn_, prec_: precdef] := Module[
 
 
 
-(* for superstable cycles *)
-fnss[R_, n_] := Module[
-  {k, x, tab = Table[0, {k, n}], divs, mu, d},
-
-  For [ x = 0; k = 1, k <= n, k++,
-    tab[[k]] = x = R - x^2
-  ];
-  x = 1;
-  divs = Divisors[n];
-  For [ k = 1, k <= Length[divs], k++,
-    d = divs[[k]];
-    mu = MoebiusMu[n/d];
-    If [ mu == 0, Continue[],
-    If [ mu == 1, x *= tab[[d]],
-      x /= tab[[d]]
-    ] ]
-  ];
-  Cancel[x]
-]
-
-
-
-
 (* *****************  Lagrange interpolation begins ******************** *)
 (* return the value of the matrix for R = Rv and delta = 2 Pi I frac
 normalized such that the coefficient of the highest power of 4R is 1 *)
-Clear[numsolv0, numsolv1, numsolv2, numsolv2pt, interp];
+Clear[interp, numsolv0, numsolv1, numsolv2, numsolv2pt];
 
+interp[ls_, R_] := Factor[ InterpolatingPolynomial[ls, R] ];
+
+(* return the determinant of `mat' at Rv and exp(2 pi I frac) *)
 numsolv0[n_, mat_, frac_, Rv_, norm_: True] := Module[{nm = 1, Xv},
   (* normalization factor *)
   If [ norm,
@@ -262,10 +368,10 @@ numsolv1[n_, mats_, frac_, Rv_] := Module[
   For [ divs = Divisors[n]; k = 1, k <= Length[divs], k++, (* divisors *)
     d = divs[[k]]; (* contribution from a period-d cycle *)
     mu = MoebiusMu[n/d];
-    If [ mu == 0, Continue[] ];
+    If [ mu === 0, Continue[] ];
     {nf, df} = {Numerator[frac], Denominator[frac]};
 
-    (* for c=0,...,db-1 select typical c's *)
+    (* for c = 0, ... , db-1 select typical c's *)
     For [ gcds = {}; db = n/d; c = 0, c < db, c++,
       (* c/db+nf/(df db)= (c df+nf)/(df db); *)
       gcd = GCD[c df + nf, df db];
@@ -288,10 +394,10 @@ numsolv1[n_, mats_, frac_, Rv_] := Module[
       den1 = den1^(deg1/deg);
 
       (* multiply or divide the factor *)
-      If [ mu == 1,
+      If [ mu === 1,
         facs *= den1,
 
-        If [ den1 == 0, Return[{0, False}] ];
+        If [ den1 === 0, Return[{0, False}] ];
         facs /= den1
       ]
     ]
@@ -300,8 +406,9 @@ numsolv1[n_, mats_, frac_, Rv_] := Module[
 ];
 (*numsolv1[6,getcycmats[6,R,X],1,8/4]*)
 
-(* evaluate the determinant at a few R values *)
-numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_: None, xy0_:{}, dR_:1/4] :=
+(* evaluate the determinant at a few R values
+   driver routine for numsolve1[] *)
+numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_:None, xy0_:{}, dR_:1/4] :=
   Module[{k, xy = xy0, Rv, Pv, good, deg = degRp[n], kmin = k0, kmax = k1},
 
   If [ kmin === None || kmax === None,
@@ -311,8 +418,11 @@ numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_: None, xy0_:{}, dR_:1/4] :=
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
     Rv = k dR;
+    (* compute the value of the polynomial at R = Rv *)
     {Pv, good} = numsolv1[n, mats, frac, Rv];
-    If [!good, Continue[] ];
+    (* leave if a divide by zero is encountered *)
+    If [ !good, Continue[] ];
+    (* add the new value to the list *)
     xy = Append[xy, {Rv, Pv}];
     If [!(fn === None),
       xsave[fn, {Rv, Pv}, True]
@@ -321,101 +431,13 @@ numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_: None, xy0_:{}, dR_:1/4] :=
   xy
 ];
 
-interp[xy_, R_] := Factor[ InterpolatingPolynomial[xy, R] ];
-
-numsolv2[n_, mats_, frac_, dR_: 1/4] :=
-  interp[ numsolv2pt[n, mats, frac, None, None, None, {}, dR], R ];
+numsolv2[n_, mats_, frac_] :=
+  interp[ numsolv2pt[n, mats, frac], R ];
 (* *****************  Lagrange interpolation ends ********************** *)
 
 
 
-(* ******************** Symbolic solution begins *********************** *)
-Clear[trigsimplify, mkcprod, mkctprod, symprimfac, calcgnk]
-
-(* simplify an expression of sines and cosines *)
-trigsimplify0[p_] := FullSimplify[TrigReduce[TrigExpand[p]]];
-
-(* simplify an expression
-   to use the faster numerical version, set `usen' = True,
-   the symbolic version is psychologically safer *)
-trigsimplify[p_, vars_, usen_: False, prec0_: 10] := Module[
-  {p1, p2, prec = prec0, dprec, k},
-
-  If [!usen, Return[ Collect[ trigsimplify0[p], vars] ] ];
-  (* increase precision util results from two precisions match *)
-  p1 = Collect[ Expand[ N[p, prec] ], vars, Round ];
-  dprec = Max[ Round[prec0 / 4], 10 ];
-  For [ k = 1, True, k++,
-    prec += dprec;
-    (* we assume the coefficients are integers, so Round[] is safe *)
-    p2 = Collect[ Expand[ N[p, prec] ], vars, Round ];
-    If [ p2 === p1, Break[] ];
-    p1 = p2;
-  ];
-  Print[k, " iterations, precision: ", prec0, " -> ", prec];
-  p1
-];
-
-(* compute the cyclic product
-     prod_{k=0..n-1} poly[X^(1/k) e^(2*pi*i*k/n)] *)
-mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
-  If [ n == 1, Return[poly] ];
-
-  (* form the product *)
-  For [ k = 0, k < n, k++,
-    pd *= poly /. { X -> Y ( Cos[2 k Pi/n] + I Sin[2 k Pi/n] ) }
-  ];
-  (* simplify the expression *)
-  If [ usen,
-    trigsimplify[pd, {R, Y}, True],
-    (* this code is somewhat faster than the direct call of trigsimplify[] *)
-    Collect[pd, {R, Y}, trigsimplify0]
-  ] /. { Y -> X^(1/n) }
-];
-
-
-(* compute the cyclotomic product of `poly' *)
-mkctprod[poly_, R_, X_, n_, usen_: False] := Module[{pd = 1, k, prec},
-  If [ n == 1, Return[poly] ];
-
-  (* form the product *)
-  For [ k = 0, k < n, k++,
-    If [ GCD[k, n] != 1, Continue[] ];
-    pd *= poly /. { X -> (Cos[2 k Pi/n] + I Sin[2 k Pi/n]) }
-  ];
-  (* simplify the expression *)
-  prec = Round[ n * (Exponent[poly, X] + 1) * 1.5 + 10 ];
-  trigsimplify[pd, R, usen, prec]
-];
-
-(* solve the primitive polynomial for n-cycles *)
-symprimfac[n_, mats_, R_, X_, usen_: False] := Module[
-  {k, dls, pf, pf1, d, mu},
-
-  dls = Divisors[n];
-  For [ pf = 1; k = 1, k <= Length[dls], k++,
-    d = dls[[k]];
-    mu = MoebiusMu[n/d];
-    If [ mu == 0, Continue[] ];
-    pf1 = Factor[ Det[ mats[[k]] ] ];
-    pf1 = mkcprod[pf1, R, X, n/d, usen];
-    If [ mu == 1, pf *= pf1, pf /= pf1]
-  ];
-  Collect[Cancel[pf], R, Simplify]
-];
-
-(* compute the polynomial at the intersection of n- and d-cycles *)
-calcgnk[n_, d_, R_, usen_: False] := Module[{p, X, lam},
-  p = symprimfac[d, getcycmats[d, R, X], R, X, usen];
-  p = Numerator[ Together[p /. { X -> lam/(-2)^d } ] ];
-  Numerator[ Together[ mkctprod[p, R, lam, n/d, usen] /. {R -> T/4} ] ]
-];
-(* ******************** Symbolic solution ends ************************* *)
-
-
-
 (* main function starts here *)
-
 
 (* 1. handle input arguments *)
 n = 10;
@@ -427,9 +449,9 @@ ch = "a";
 If [ Length[ $CommandLine ] >= 3,
   ch = $CommandLine[[3]]
 ];
-frac = If [ ch == "b", 1/2,
-       If [ ch == "a", 1,
-                       0] ];
+frac = If [ ch === "b", 1/2,
+       If [ ch === "a", 1,
+                        0] ];
 
 kmin = kmax = None;
 If [ Length[ $CommandLine ] >= 5,
@@ -456,13 +478,11 @@ If [ FileType[fnmats] === File,
 
 
 (* 3. compute the determinant of the matrix *)
-If [ frac == 0, (* do symbolic calculation for a general boundary polynomial *)
+If [ frac === 0, (* do symbolic calculation for a general boundary polynomial *)
 
-  (* `ch' == `c' or `x', symbolically compute the determinant *)
-  If [ ch == "c",
+  (* `ch' === `c' or `x', symbolically compute the determinant *)
+  If [ ch === "c",
     tm = Timing[
-      (* Note: the numerical version, the last argument `True',
-         may be somewhat unstable *)
       poly = symprimfac[n, mats, R, X, True];
     ][[1]];
     Print["time for primitive polynomial ", tm];
@@ -485,10 +505,10 @@ If [ frac == 0, (* do symbolic calculation for a general boundary polynomial *)
     xsave["T" <> ToString[d] <> "x" <> ToString[n] <> ".txt", poly];
   ],
 
-  (* `ch' == 'a' or `b', numerically compute the onset or bifurcation point *)
-  If [ kmin < kmax || kmax == None,
+  (* `ch' === 'a' or `b', numerically compute the onset or bifurcation point *)
+  If [ kmin < kmax || kmax === None,
     fnls = If [ n > 8, "ls" <> ToString[n] <> ch <> ".txt", None];
-    If [ kmin == None && !(fnls == None),
+    If [ kmin === None && !(fnls === None),
       Close[ OpenWrite[fnls] ] (* clear the list file *)
     ];
     tm = Timing[

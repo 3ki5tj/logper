@@ -1,4 +1,4 @@
-prd.ma            logisitic map
+log.ma            logisitic map
 
 cub.ma            cubic map
 
