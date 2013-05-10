@@ -5,19 +5,20 @@
 # general:     time for general boundary polynomial
 #
 # for the above, the second figure is run on Mathematica 9 on an i7 CPU
+# but with slightly improve log.ma
 # with hyperthreading turned on (which slows it down a bit)
 #
-# lsmat(prd):  time to write the matrix
+# lsmat:       time to list equations for the matrix
 # GB(magma):   Using magma bifurcation point
-# GB:          the bifurcation point by Grobner basis (Mathematica)
-# Resultant:   the bifurcation point by Resultant (Mathematica)
+# GB:          the bifurcation point by Grobner basis (Mathematica 8)
+# Resultant:   the bifurcation point by Resultant (Mathematica 9)
 #              prog/etc/logres.ma
 #n         onset       bifurcation      general    lsmat     GB(magma)  GB     Resultant
-6        0.89 0.75      0.54 0.43       0.5 0.4     0.06     1.4        37.8    95.6
-7        0.83 0.56      0.82 0.56       5.4 3.8     0.16     31         1193    3374
-8        2.56 1.49      2.46 1.49       318 200     0.52     822       71280
-9        24.6 15.2      24.4 14.8     17016 12774   1.54     18348
-10        273 156        275 159        n/a n/a     5.18     n/a
+6        0.89 0.07      0.54 0.07       0.5 0.36    0.06     1.4        37.8    95.6
+7        0.83 0.18      0.82 0.18       5.4 3.8     0.16     31         1193    3374
+8        2.56 1.43      2.46 1.44       318 200     0.52     822       71280
+9        24.6 12.8      24.4 12.4     17016 12774   1.54     18348
+10        273 156        275 148        n/a n/a     5.18     n/a
 11       3367 1795      3377 1796
 12       n/a  33305      n/a 31954
 13       n/a  n/a        n/a n/a

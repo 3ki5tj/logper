@@ -324,7 +324,7 @@ solveT[eq_, x_, fn_, prec_: precdef] := Module[
       s = s <> "r: " <> ToString[r] <> ", r/4: " <> ToString[r/4]
             <> "; 4R: " <> ToString[sols[[k]]]
             <> ", R: " <> ToString[sols[[k]]/4];
-      Print[s];
+      If [ cnt < 1, Print[s] ];
       str = str <> s <> "\n";
     ]
   ];
@@ -338,102 +338,53 @@ solveT[eq_, x_, fn_, prec_: precdef] := Module[
 (* ****************** Root finding/printing ends *********************** *)
 
 
-
-(* *****************  Lagrange interpolation begins ******************** *)
-(* return the value of the matrix for R = Rv and delta = 2 Pi I frac
-normalized such that the coefficient of the highest power of 4R is 1 *)
-Clear[interp, numsolv0, numsolv1, numsolv2, numsolv2pt];
-
 interp[ls_, R_] := Factor[ InterpolatingPolynomial[ls, R] ];
 
-(* return the determinant of `mat' at Rv and exp(2 pi I frac) *)
-numsolv0[n_, mat_, frac_, Rv_, norm_: True] := Module[{nm = 1, Xv},
-  (* normalization factor *)
-  If [ norm,
-    nm = 4^Sum[EulerPhi[n/d] 2^(d - 1), {d, Divisors[n]}]
-  ];
-  Xv = Exp[2 Pi I frac]/(-2)^n;
-  Together[ nm * Det[mat /. {R -> Rv, X -> Xv}] ]
-];
 
-(* return the value of the primitive polynomial for n-cycles
-   at R = Rv with delta = Exp[I 2 Pi frac]
-   the formula is
-      P(n, n) = prod_{d|n} B(d, n/d)^(mu(n/d))
-   where B(d, n/d) is the product of A(d) evaluated
-   at all (n/d)th roots of delta *)
-numsolv1[n_, mats_, frac_, Rv_] := Module[
-  {k, c, d, db, mu, divs, facs = 1, den1, poly, Q, deg, deg1, gcd, gcds, nf, df},
+(* ***************** NEW Lagrange interpolation begins ******************** *)
+(* return the value of the matrix for R = Rv and delta = 2 Pi I frac
+normalized such that the coefficient of the highest power of 4R is 1 *)
+Clear[numdet];
 
-  For [ divs = Divisors[n]; k = 1, k <= Length[divs], k++, (* divisors *)
-    d = divs[[k]]; (* contribution from a period-d cycle *)
-    mu = MoebiusMu[n/d];
-    If [ mu === 0, Continue[] ];
-    {nf, df} = {Numerator[frac], Denominator[frac]};
+(* evaluate the primitive polynomial at a few R values *)
+numdet[n_, frac_, mats_:None, k0_:None, k1_:None, fn_:None, xy0_:{}, dR_:1/4] :=
+  Module[{mymats, xy = xy0, Xv, Rv, Pv, den, denv,
+          deg = degRp[n], k, kmin = k0, kmax = k1},
 
-    (* for c = 0, ... , db-1 select typical c's *)
-    For [ gcds = {}; db = n/d; c = 0, c < db, c++,
-      (* c/db+nf/(df db)= (c df+nf)/(df db); *)
-      gcd = GCD[c df + nf, df db];
-      If [ MemberQ[gcds, gcd],
-        Continue[],
-        gcds = Append[gcds, gcd]
-      ];
-      den1 = numsolv0[d, mats[[k]], frac/db + c/db, Rv, True];
-      deg1 = EulerPhi[ Denominator[ Together[(frac + c)/db] ] ]; (* expected degree *)
-      (*Print["den1 ",den1];*)
-      poly = CoefficientList[ MinimalPolynomial[den1, Q], Q ];
-      deg = Length[poly] - 1;
-      (* this gives the product of roots of the minimal polynomial *)
-      den1 = (poly[[1]]/poly[[-1]]) (-1)^deg;
-      (*Print["factor ",den1, ", n ", n, ", d ",d, ", (c,db,frac) ",{c, db,frac,poly,deg}];*)
-      If [ Mod[deg1, deg] != 0,
-        Print["bad degree ", {deg, deg1}];
-        Return[{0, False}]
-      ];
-      den1 = den1^(deg1/deg);
-
-      (* multiply or divide the factor *)
-      If [ mu === 1,
-        facs *= den1,
-
-        If [ den1 === 0, Return[{0, False}] ];
-        facs /= den1
-      ]
-    ]
-  ];
-  {facs, True}
-];
-(*numsolv1[6,getcycmats[6,R,X],1,8/4]*)
-
-(* evaluate the determinant at a few R values
-   driver routine for numsolve1[] *)
-numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_:None, xy0_:{}, dR_:1/4] :=
-  Module[{k, xy = xy0, Rv, Pv, good, deg = degRp[n], kmin = k0, kmax = k1},
-
+  mymats = If [ mats === None, getcycmats[n, R, X], mats ];
   If [ kmin === None || kmax === None,
-    kmin = -Round[deg/2+1];
+    kmin = -Round[deg/2 + 1];
     kmax = -kmin + 10000
   ];
+  Xv = Exp[ I 2 Pi frac ] / (-2)^n;
+  (* `den' is the contribution from shorter d-cycles d|n *)
+  den = symprimfac[n, None, R, X, True, True];
+  den = den /. {X -> Xv};
+  (* the normalization factor *)
+  den /= 4^Sum[MoebiusMu[n/d] 2^(d - 1), {d, Divisors[n]}];
+
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
     Rv = k dR;
-    (* compute the value of the polynomial at R = Rv *)
-    {Pv, good} = numsolv1[n, mats, frac, Rv];
+    denv = den /. {R -> Rv};
     (* leave if a divide by zero is encountered *)
-    If [ !good, Continue[] ];
+    If [ denv === 0, Continue[] ];
+    (* compute the value of the polynomial at R = Rv *)
+    Pv = Cancel[ Det[ mymats[[-1]] /. {R -> Rv, X -> Xv} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {Rv, Pv}];
     If [!(fn === None),
       xsave[fn, {Rv, Pv}, True]
-    ];
+    ]
   ];
   xy
 ];
 
-numsolv2[n_, mats_, frac_] :=
-  interp[ numsolv2pt[n, mats, frac], R ];
-(* *****************  Lagrange interpolation ends ********************** *)
+(*
+interp[ numdet[6, 1/2], T/4 ]
+*)
+
+(* ***************** NEW Lagrange interpolation ends ********************** *)
 
 
 
@@ -512,9 +463,9 @@ If [ frac === 0, (* do symbolic calculation for a general boundary polynomial *)
       Close[ OpenWrite[fnls] ] (* clear the list file *)
     ];
     tm = Timing[
-      xy = numsolv2pt[n, mats, frac, kmin, kmax, fnls];
+      xy = numdet[n, frac, mats, kmin, kmax, fnls];
     ][[1]];
-    Print["computing det: ", tm];
+    Print["computing Dets: ", tm];
     If [ Length[xy] >= degRp[n] + 1,
       poly = Numerator[ Together[ interp[xy, R] ] ] /. {R -> T/4};
       fnT = "T" <> ToString[n] <> ch <> ".txt";
