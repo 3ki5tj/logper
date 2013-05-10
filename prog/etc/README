@@ -1,0 +1,7 @@
+logres.ma     A Mathematica script that computes the boundary polynomials
+              of the logistic map using the resultant
+              e.g.,
+                math < res.ma 6 a
+              works for the onset of 6-cycle. Its performance sucks.
+
+math4vim.txt  how to highlight .ma files in Vim.

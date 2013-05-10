@@ -4,7 +4,7 @@ import os, sys
 
 def mkpbs(id, kmin, kmax, ch="a", n=13):
   return '''#!/bin/bash
-#PBS -N prd%s%s%s
+#PBS -N log%s%s%s
 #PBS -l nodes=1:ppn=1,walltime=24:00:00
 #PBS -V
 
@@ -13,7 +13,7 @@ def mkpbs(id, kmin, kmax, ch="a", n=13):
 #cat $PBS_NODEFILE
 cd $PBS_O_WORKDIR
 pwd
-math < prd.ma %s %s %s %s > /dev/null
+math < log.ma %s %s %s %s > /dev/null
 ''' % (n, ch, id, n, ch, kmin, kmax)
 
 def lsnm(n, ch):
@@ -40,7 +40,7 @@ def reprod(ch, n):
     os.system("mkdir %s" % dir);
     os.chdir(dir)
     os.system("ln -sf ../test/mats%s.txt ." % n)
-    os.system("ln -sf ../test/prd.ma .")
+    os.system("ln -sf ../test/log.ma .")
     kmin, kmax = getkminmax(None, i)
     str = mkpbs(i, kmin, kmax, ch, n);
     open("foo.pbs", "w").write(str)

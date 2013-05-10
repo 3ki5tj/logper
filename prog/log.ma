@@ -1,10 +1,13 @@
 (* Copyright 2012-2013 Cheng Zhang *)
 (* USAGE
-    math < prd.ma n ch kmin kmax
+    math < log.ma n ch kmin kmax
    where
    `n' is the cycle period
-   `ch' is `a' (onset), `b' (bifurcation) or `c' (general solution)
+   `ch' can be `a' (onset), `b' (bifurcation) or `c' (general solution)
    `kmin' and `kmax' can go from -(degR/2+1) to degR/2
+   `ch' can also be `i', in which case the arguments are
+      d i n
+    which computes the intersection polynomials of d- and n-cycles
 *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
@@ -279,9 +282,9 @@ symprimfac[n_, mats_, R_, X_, usen_: False] := Module[{k, dls, pf, pf1, d, mu},
 
 (* compute the polynomial at the intersection of n- and d-cycles *)
 calcgnk[n_, d_, R_, usen_: False] := Module[{p, X, lam},
-  p = symprimfac[d, getcycmats[d, R, X], R, X] /. {X -> lam/(-2)^d};
-  p = Numerator[Together[p]];
-  mkctprod[p, R, lam, n/d, usen]];
+  p = symprimfac[d, getcycmats[d, R, X], R, X, usen];
+  p = Numerator[Together[p] /. {X -> lam/(-2)^d}];
+  Numerator[Together[mkctprod[p, R, lam, n/d, usen]/.{R->T/4}]]];
 (* ******************** Symbolic solution ends ************************* *)
 
 
@@ -290,33 +293,43 @@ calcgnk[n_, d_, R_, usen_: False] := Module[{p, X, lam},
 
 (* 1. handle input arguments *)
 n = 10;
-If[Length[$CommandLine] >= 2, n = ToExpression[$CommandLine[[2]]]];
+If [Length[$CommandLine] >= 2, n = ToExpression[$CommandLine[[2]]]];
 ch = "a";
-If[Length[$CommandLine] >= 3, ch = $CommandLine[[3]]];
+If [Length[$CommandLine] >= 3, ch = $CommandLine[[3]]];
 kmin = kmax = None;
-If[Length[$CommandLine] >= 5,
+If [Length[$CommandLine] >= 5,
   {kmin, kmax} = {ToExpression[$CommandLine[[-2]]],ToExpression[$CommandLine[[-1]]]}];
-frac = If[ch == "b", 1/2, If[ch == "c", 0, 1]];
+frac = If[ch == "b", 1/2, If[ch == "a", 1, 0]];
 Print["n ", n, "; frac ", ch, " ", N[frac], "; kmin ", kmin, ", kmax ", kmax, "; primfac deg. ", degRp[n]];
 
 (* 2. load or compute the matrix that connects the n cyclic polynomials
       by the square-free reduction, each element of the matrix is a
       polynomial of R, matrices of divisors of n are also obtained *)
 fnmats = "mats"<>ToString[n]<>".txt";
-If[FileType[fnmats] === File,
+If [FileType[fnmats] === File,
   mats = xload[fnmats]; Print["matrix loaded from ", fnmats], (* load previous matrices *)
   Print["computing mats: ", Timing[mats = getcycmats[n,R,X]][[1]]];
   xsave[fnmats, mats];
 ];
 
 (* 3. compute the determinant of the matrix *)
-If[frac == 0, (* do symbolic calculation for a general boundary polynomial *)
+If [frac == 0, (* do symbolic calculation for a general boundary polynomial *)
 
-  (* directly compute the determinant. Note: we use the numerical version
-     the last parameter of `symprimfac' is `True' *)
-  tm = Timing[poly = symprimfac[n, mats, R, X, True];];
-  Print["time ", tm];
-  xsave["RX"<>ToString[n]<>".txt", poly],
+  If [ch == "c",
+    (* symbolically compute the determinant. Note: we use the numerical version
+       the last parameter of `symprimfac' is `True' *)
+    tm = Timing[poly = symprimfac[n, mats, R, X, True];][[1]];
+    Print["time for primitive polynomial ", tm];
+    xsave["RX"<>ToString[n]<>".txt", poly],
+    
+    (* compute the d/n-bifurcation polynomial *)
+    d = n;
+    If [Length[$CommandLine] >= 4, n = ToExpression[$CommandLine[[4]]]];
+    If [Mod[n, d] != 0, Print[n, " and ", d, "-cycles do not intersect"]; Exit[]];
+    tm = Timing[poly = calcgnk[n, d, R, False];][[1]];
+    Print["time ", tm, ", polynomial ", n, " and ", d]; Print[poly];
+    xsave["R"<>ToString[d]<>"_"<>ToString[n]<>".txt", poly]
+  ],
 
   (* otherwise do numerical calculation for the onset or bifurcation point *)
   If[kmin < kmax || kmax == None,
