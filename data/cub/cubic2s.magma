@@ -1,4 +1,0 @@
-Q:=RationalField(); P<x1,x2,r,X>:=PolynomialRing(Q,4);
-I:=ideal<P|x2-r*x1+x1^3,-x1-r*x2+x2^3,(r-3*x1^2)*(r-3*x2^2)-X>;
-time B := GroebnerBasis(I);
-Factorization(B[#B]);

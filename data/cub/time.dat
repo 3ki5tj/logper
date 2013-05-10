@@ -1,5 +1,5 @@
-#Magma timing measured from the bifurcation point
-#Mathematica time is for a single core
+# Magma timing measured from the bifurcation point
+# Mathematica time is for a single core
 #n   cub.ls   onset.  bifur.    GB(Magma)
 4    0.08     0.12    0.12      0.61
 5    0.38     2.9     3.0       108
