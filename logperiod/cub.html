@@ -79,35 +79,55 @@
 <div class="p">
   We list the polynomials involved in the <i>n</i>-cycles in the follows.
   The numerical zeros are appended after the files.
+
+  For the general boundary polynomial of
+    <span class="eq"><i>n</i></span>-cycles, we defined
+    <span class="eq">
+      <i>X</i> = (<i>r</i> &minus; <i>x</i><sub>1</sub><sup>2</sup>)
+     &#x22ef;
+     (<i>r</i> &minus; <i>x</i><sub><i>n</i></sub><sup>2</sup>),
+   </span>
+   and list the polynomial of
+    <span class="eq"><i>r</i></span>
+   versus
+    <span class="eq"><i>X</i></span>
+   (as shown as &ldquo;r-X&rdquo;).
+  You can right-click each item and save.
 </div>
 
 <table class="datatable">
 <tr>
-  <th>n</th><th>Onset</th><th>Bifurcation</th>
+  <th>n</th><th>Onset</th><th>Bifurcation</th><th>General</th>
 </tr>
 <tr><td>1</td>
   <td><a href="data/cub/cr1a.txt">eq.</a></td>
   <td><a href="data/cub/cr1b.txt">eq.</a></td>
+  <td><a href="data/cub/crX1.txt">r-X</a></td>
 </tr>
 <tr><td>2</td>
   <td><a href="data/cub/cr2a.txt">eq.</a></td>
   <td><a href="data/cub/cr2b.txt">eq.</a></td>
+  <td><a href="data/cub/crX2.txt">r-X</a></td>
 </tr>
 <tr><td>3</td>
   <td><a href="data/cub/cr3a.txt">eq.</a></td>
   <td><a href="data/cub/cr3b.txt">eq.</a></td>
+  <td><a href="data/cub/crX3.txt">r-X</a></td>
 </tr>
 <tr><td>4</td>
   <td><a href="data/cub/cr4a.txt">eq.</a></td>
   <td><a href="data/cub/cr4b.txt">eq.</a></td>
+  <td><a href="data/cub/crX4.txt">r-X</a></td>
 </tr>
 <tr><td>5</td>
   <td><a href="data/cub/cr5a.txt">eq.</a></td>
   <td><a href="data/cub/cr5b.txt">eq.</a></td>
+  <td><a href="data/cub/crX5.txt">r-X</a></td>
 </tr>
 <tr><td>6</td>
   <td><a href="data/cub/cr6a.txt">eq.</a></td>
   <td><a href="data/cub/cr6b.txt">eq.</a></td>
+  <td><a href="data/cub/crX6.txt">r-X</a></td>
 </tr>
 <tr><td>7</td>
   <td><a href="data/cub/cr7a.txt">eq.</a></td>
@@ -139,16 +159,38 @@
       <br>
 
       For the onset polynomial of the 7-cycles, type
-      <div class="code">math &lt; cub.ma 7 a</div>
+      <div class="code">
+        math &lt; cub.ma 7 a
+      </div>
       The output would be
       <span class="code">cr7a.txt</span>.
       <br>
 
       For the bifurcation polynomial of the 6-cycles, type
-      <div class="code">math &lt; cub.ma 6 b</div>
+      <div class="code">
+        math &lt; cub.ma 6 b
+      </div>
       The output would be
       <span class="code">cr6b.txt</span>.
       <br>
+
+      For the general boundary polynomial of the 5-cycles, type
+      <div class="code">
+        math &lt; cub.ma 5 c
+      </div>
+      The output would be
+      <span class="code">crX5.txt</span>.
+      <br>
+
+      For the complex branching polynomial of the intersection
+        of the 3-cycles and 21-cycles, type
+      <div class="code">
+        math &lt; cub.ma 3 x 21
+      </div>
+      The output would be
+      <span class="code">cr3x21.txt</span>.
+      <br>
+
     </td>
   </tr>
 
