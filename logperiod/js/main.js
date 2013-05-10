@@ -1,4 +1,4 @@
-/* Copyright (c) Cheng Zhang 2010-2012 */
+/* Copyright (c) Cheng Zhang 2010-2013 */
 window.onload = init;
 
 
@@ -62,6 +62,8 @@ function toc_show(open)
 }
 
 
+
+// the dynamic data/time bar at the bottom of the page
 var dtbox;
 function dtbox_init() // create a date/time box
 {
@@ -82,13 +84,16 @@ function dtbox_update(open)
   dtbox.innerHTML = open ? new Date().toLocaleString() : "";
 }
 
-// add links to all `style="demo"' `img' elements
+
+
+// add links to all "demo" or "fig" class `img' elements
 function makeimgslinks()
 {
   var imgs = document.getElementsByTagName("img");
 
   for (var i = 0; i < imgs.length; i++)
-    if (imgs[i].className == "demo") {
+    if ( imgs[i].className == "demo"
+      || imgs[i].className == "fig" ) {
       pr = imgs[i].parentNode;
       nb = document.createElement('a');
       nb.setAttribute('href', imgs[i].src);

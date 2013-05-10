@@ -47,7 +47,8 @@
   represents 2-cycles, not 4-cycles.
 
   <div class="fig">
-    <img src="img/cubtree.png" width="600" alt="bifurcation diagram of the cubic map">
+    <img class="fig" src="img/cubtree.png" width="600"
+      alt="bifurcation diagram of the cubic map">
   </div>
 </div>
 
@@ -62,8 +63,10 @@
   are plotted below.  The figure is the Mandelbrot set of the cubic map.
 
   <div class="fig">
-    <img src="img/cubbulb.png" width="600" alt="bulbs of the cubic map">
-    <div>Other versions:
+    <img class="fig" src="img/cubbulb.png" width="600"
+      alt="bulbs of the cubic map">
+    <div class="center">
+      Other versions:
       <a href="img/cubbulb.ps">PS</a>,
       <a href="img/cubbulb.pdf">PDF</a>
     </div>
@@ -133,12 +136,19 @@
       the onset and bifurcation polynomials
       of <span class="eq">r</span>
       for the <span class="eq"><i>n</i></span>-cycles.
+      <br>
 
       For the onset polynomial of the 7-cycles, type
       <div class="code">math &lt; cub.ma 7 a</div>
+      The output would be
+      <span class="code">cr7a.txt</span>.
+      <br>
 
       For the bifurcation polynomial of the 6-cycles, type
       <div class="code">math &lt; cub.ma 6 b</div>
+      The output would be
+      <span class="code">cr6b.txt</span>.
+      <br>
     </td>
   </tr>
 
@@ -163,7 +173,7 @@
     <td><a href="prog/mkinterp.py">mkinterp.py</a></td>
     <td>
       A Python script that generates a Mathematica script,
-      which computes the interpolation polynomial from a list of
+      which computes the polynomial from interpolating a list of
       <span class="eq"><i>r</i></span> values.
       This is used in parallel runs,
       see <a href="logistic#mkinterp">here</a> for details.
@@ -204,7 +214,7 @@
 </table>
 
 <div class="p">
-  See <a href="/index#mafiles">this note</a> about the Mathematica scripts
+  Please click <a href="/index#mafiles">here</a> about how to use the Mathematica scripts
   <span class="code">.ma</span> files.
 </div>
 

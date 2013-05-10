@@ -40,6 +40,7 @@ p, div.p {
   margin-bottom: 2.0em;
   line-height: 150%;
 }
+div.center { text-align: center; }
 pre.code, div.code, span.code { font: 90% monospace; }
 pre.code, div.code { padding: 10px 20px 10px 20px; }
 code { font-variant: normal; color: #440000; }
@@ -95,5 +96,7 @@ table.progtable th {
 }
 
 div.fig { margin: 3px; }
+img.fig { border: 1px solid #C0C0C0; }
 img.demo   { border: 3px ridge #C0C0C0; }  /* boxed image */
 img.float  { float: right; border: 3px ridge #a0a0f0; margin: 10px; }
+
