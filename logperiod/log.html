@@ -535,18 +535,28 @@ Sharkovskii and Li &amp; Yorke.
       constructing a Gr&ouml;bner basis
       (which is the specialty of
       <a href="http://magma.maths.usyd.edu.au/magma/">magma</a>).
+      <br>
 
       For example, to compute the bifurcation polynomial
       of the 8-cycle for the simplified logistic map, type
       <div class="code">python mkgb.py 8 b &gt; R8b.magma</div>
-      Then call magma
+      Download
+      <a href="prog/R8b.magma">R8b.magma</a>. Then call magma
       <div class="code">magma &lt; R8b.magma</div>
+      <br>
 
       To compute the onset polynomial of the original logistic map, type
       <div class="code">
         python mkgb.py -r 8 a &gt; r8a.magma<br>
         magma &lt; r8a.magma
       </div>
+      <br>
+
+      The program does not run as fast as the
+      <span class="code">log.ma</span>,
+      but it is much faster than
+      <span class="code">Mathematica</span>&rsquo;s
+      routine for Gr&ouml;bner basis.
     </td>
   </tr>
 </table>
