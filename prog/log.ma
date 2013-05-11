@@ -3,9 +3,9 @@
     math < log.ma n ch dR kmin kmax
    where
    `n' is the cycle period
-   `ch' can be `a' (onset), `b' (bifurcation) or `c' (general solution)
+   `ch' can be 'a' (onset), 'b' (bifurcation) or 'c' (general solution)
    `kmin' and `kmax' can go from -(degR/2+1) to degR/2
-   `ch' can also be `x':
+   `ch' can also be 'x':
       math < log.ma d x n
     which computes the intersection polynomials of d- and n-cycles
 *)
@@ -115,7 +115,7 @@ Clear[mkeqcycs, getcycmat, getcycmats];
 mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[
   {Xs, k, ls = {}, cvar, xp},
 
-  Xs = cl[[-1]][[2]];
+  Xs = cl[[-1]][[2]]; (* a1 a2 ... an *)
 
   For [ k = 1, k <= Length[cl], k++, (* for the kth cyclic variable *)
     (* get coefficients of the square-free expansion of the product
@@ -124,16 +124,16 @@ mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[
       e.g., {C12, a1 a2, 1} or {C123, a1 a2 a3, 3} *)
     xp = Cancel[
           cycle2[Xs cvar[[2]], vars, cl, map, reps] / cvar[[3]]
-    ] * (-2)^Length[vars];
+    ];
     xp[[k]] -= X;
     ls = Append[ls, xp];
   ];
   ls
 ];
 (*
-vars={a,b,c,d,e,f};
-{cl,map}=mkcycls[vars];
-mat=mkeqcycs[vars, cl, map, mksqrrep[vars, R], X]
+vars = {a,b,c,d,e,f};
+{cl, map} = mkcycls[vars];
+mat = mkeqcycs[vars, cl, map, mksqrrep[vars, R], X]
 *)
 
 (* get the matrix that connects cyclic polynomials *)
@@ -146,6 +146,9 @@ getcycmat[n_, R_, X_] := Module[{vars = getvars[n], reps, cl, map},
 (* get the matrix of n, and those of divisors d of n *)
 getcycmats[n_, R_, X_] := Table[ getcycmat[d, R, X], {d, Divisors[n]} ];
 (* Print[ getcycmats[3, R, X] ]; Exit[1]; *)
+
+(* the (-2)^n version of the matrix *)
+mulcycmat[mat_, n_, X_] := Cancel[ (-2)^n mat /. { X -> X/(-2)^n } ];
 
 (* degree in R of the primitive polynomial of n-cycles *)
 Clear[degRp];
@@ -197,12 +200,24 @@ fnss[R_, n_] := Module[
 
 
 (* ******************** Symbolic solution begins *********************** *)
-Clear[trigsimp0, trigsimp, mkcprod, mkctprod, symprimfac, calcgnk]
+Clear[nicefmt, trigsimp0, trigsimp, mkcprod, mkctprod, symprimfac, calcgnk]
+
+(* nicely format a polynomial for output *)
+nicefmt[p_, var_] := Module[{poly = 1, facs, k, f},
+  facs = FactorList[p];
+  (* simplify each factor, the first is a constant *)
+  poly = facs[[1]][[1]];
+  For [ k = 2, k <= Length[facs], k++,
+    f = Collect[ facs[[k]][[1]], var, Simplify ];
+    poly *= f^facs[[k]][[2]]; (* multiply the degeneracy *)
+  ];
+  poly
+]
 
 (* simplify an expression of sines and cosines *)
-trigsimp0[p_] := FullSimplify[TrigReduce[TrigExpand[p]]];
+trigsimp0[p_] := FullSimplify[ TrigReduce[ TrigExpand[p] ] ];
 
-(* simplify an _integral_ expression
+(* simplify an _integral_ polynomial `p' of `vars'
    to use the faster numerical version, set `usen' = True,
    the symbolic version is psychologically safer *)
 trigsimp[p_, vars_, usen_: False, prec0_: 10] := Module[
@@ -260,8 +275,8 @@ mkctprod[poly_, R_, X_, n_, usen_: False] := Module[{pd = 1, k, prec},
 
 
 (* solve the primitive polynomial for n-cycles *)
-symprimfac[n_, R_, X_, mats_:None, usen_:False, notn_:False] :=
-  Module[{k, dls, pf, pf1, d, mu, mat},
+symprimfac[n_, R_, X_, mats_:None, usen_:False, notn_:False, long_:True] :=
+  Module[{k, dls, pf, pf1, d, mu, mat, deg},
 
   dls = Divisors[n];
   kmax = Length[dls];
@@ -277,23 +292,32 @@ symprimfac[n_, R_, X_, mats_:None, usen_:False, notn_:False] :=
       mat = getcycmat[d, R, X],
       mat = mats[[k]]
     ];
+    If [ long, (* multiply X = a1 a2 ... ad by (-2)^d *)
+      mat = mulcycmat[ mat, d, X ]
+    ];
     pf1 = Factor[ Det[ mat ] ];
     pf1 = mkcprod[pf1, R, X, n/d, usen];
     (* if n === d is excluded, compute the inverted polynomial *)
     If [ notn, mu *= -1 ];
     If [ mu === 1, pf *= pf1, pf /= pf1 ]
   ];
-  pf = Collect[Cancel[pf], R, Simplify];
-  (* if n === d is excluded, the factorized form is usually simpler *)
-  If [ notn, Factor[pf], pf ]
+  nicefmt[ Cancel[pf], R ]
 ];
 
+(*
+Print[ symprimfac[4, R, X, None, True, False, False] ]; Exit[1];
+*)
 
 (* compute the polynomial at the intersection of n- and d-cycles *)
-calcgnk[n_, d_, R_, usen_: False] := Module[{p, X},
-  p = symprimfac[d, R, X, None, usen];
-  Numerator[ Together[ mkctprod[p, R, X, n/d, usen] /. {R -> T/4} ] ]
+calcgnk[n_, d_, R_, X_, mats_:None, usen_: False] := Module[{p},
+  p = symprimfac[d, R, X, mats, usen, False, True];
+  p = mkctprod[p, R, X, n/d, usen] /. {R -> T/4}
 ];
+
+(*
+Print[ calcgnk[9, 3, R, X, None, True] ]; Exit[1];
+*)
+
 (* ******************** Symbolic solution ends ************************* *)
 
 
@@ -348,10 +372,11 @@ Clear[interp, numdet];
 
 interp[ls_, R_] := Factor[ InterpolatingPolynomial[ls, R] ];
 
-(* evaluate the primitive polynomial at a few R values *)
-numdet[n_, frac_, R_, X_, mats_:None, k0_:None, k1_:None,
+(* evaluate the primitive polynomial at a few R values
+   dR can be 1/4, but for large n, it can make Det[] err! *)
+numdet[n_, Xv_, R_, X_, mats_:None, k0_:None, k1_:None,
        fn_:None, xy0_:{}, dR_:1] :=
-  Module[{mymats, xy = xy0, Xv, Rv, Pv, den, denv, mat,
+  Module[{mymats, xy = xy0, Rv, Pv, den, denv, mat,
           deg = degRp[n], k, kmin = k0, kmax = k1},
 
   mymats = If [ mats === None, getcycmats[n, R, X], mats ];
@@ -359,10 +384,12 @@ numdet[n_, frac_, R_, X_, mats_:None, k0_:None, k1_:None,
     kmin = -Round[deg/2 + 1];
     kmax = -kmin + 10000
   ];
-  Xv = Exp[ I 2 Pi frac ];
   (* `den' is the contribution from shorter d-cycles d|n *)
-  den = symprimfac[n, R, X, mats, True, True];
+  den = symprimfac[n, R, X, mats, True, True, True];
   den = den /. {X -> Xv};
+
+  (* deflate the n-matrix *)
+  mat = mulcycmat[ mymats[[-1]], n, X ] /. {X -> Xv};
 
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
@@ -371,8 +398,7 @@ numdet[n_, frac_, R_, X_, mats_:None, k0_:None, k1_:None,
     (* leave if a divide by zero is encountered *)
     If [ denv === 0, Continue[] ];
     (* compute the value of the polynomial at R = Rv *)
-    mat = mymats[[-1]] /. {R -> Rv, X -> Xv};
-    Pv = Cancel[ Det[ mat ] / denv ];
+    Pv = Cancel[ Det[ mat /. {R -> Rv} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {Rv, Pv}];
     If [!(fn === None),
@@ -382,7 +408,9 @@ numdet[n_, frac_, R_, X_, mats_:None, k0_:None, k1_:None,
   xy
 ];
 
-(* Print[ interp[ numdet[4, 1/2, R, X], T/4 ] ]; Exit[1]; *)
+(*
+Print[ interp[ numdet[4, -1, R, X], T/4 ] // InputForm ]; Exit[1];
+*)
 
 (* ***************** NEW Lagrange interpolation ends ********************** *)
 
@@ -400,17 +428,17 @@ ch = "a";
 If [ Length[ $CommandLine ] >= 3,
   ch = $CommandLine[[3]]
 ];
-frac = If [ ch === "b", 1/2,
-       If [ ch === "a", 1,
-                        0] ];
+lambda = If [ ch === "b", -1,
+         If [ ch === "a", 1,
+                          0] ];
 
-Print["n ", n, "; frac ", ch, " ", N[frac], "; degR. ", degRp[n]];
+Print["n ", n, "; lam ", ch, " ", lambda, "; degR. ", degRp[n]];
 
 
 (* 2. load or compute the matrix that connects the n cyclic polynomials
       by the square-free reduction, each element of the matrix is a
       polynomial of R, matrices of divisors of n are also obtained *)
-fnmats = "lmats" <> ToString[n] <> ".txt";
+fnmats = "mats" <> ToString[n] <> ".txt";
 If [ FileType[fnmats] === File,
   tm = Timing[
     mats = xload[fnmats];
@@ -426,15 +454,15 @@ If [ FileType[fnmats] === File,
 
 
 (* 3. compute the determinant of the matrix *)
-If [ frac === 0,
+If [ lambda === 0,
 
-  (* `ch' === `c' or `x', symbolically compute the determinant *)
+  (* `ch' === 'c' or 'x', symbolically compute the determinant *)
   If [ ch === "c",
     tm = Timing[
-      poly = symprimfac[n, R, X, mats, True];
+      poly = symprimfac[n, R, X, mats, True, False, False];
     ][[1]];
     Print["time for primitive polynomial ", tm];
-    xsave["RX" <> ToString[n] <> ".txt", poly],
+    xsave["RX" <> ToString[n] <> ".txt", poly, False, True],
 
     (* compute the d/n-bifurcation polynomial *)
     d = n;
@@ -442,18 +470,18 @@ If [ frac === 0,
       n = ToExpression[ $CommandLine[[4]] ]
     ];
     If [ Mod[n, d] != 0,
-      Print[n, " and ", d, "-cycles do not intersect"];
-      Exit[]
+      Print[n, "- and ", d, "-cycles do not intersect"];
+      Exit[1]
     ];
     tm = Timing[
-      poly = calcgnk[n, d, R, True];
+      poly = calcgnk[n, d, R, X, mats, True];
     ][[1]];
     Print["time ", tm, ", polynomial ", n, " and ", d];
     If [ n < 100, Print[poly] ];
-    xsave["T" <> ToString[d] <> "x" <> ToString[n] <> ".txt", poly];
+    xsave["T" <> ToString[d] <> "x" <> ToString[n] <> ".txt", poly, False, True];
   ],
 
-  (* `ch' === 'a' or `b', numerically compute the onset or bifurcation point *)
+  (* `ch' === 'a' or 'b', numerically compute the onset or bifurcation point *)
   kmin = kmax = None;
   If [ Length[ $CommandLine ] >= 5,
     {kmin, kmax} = {
@@ -473,12 +501,15 @@ If [ frac === 0,
       Close[ OpenWrite[fnls] ] (* clear the list file *)
     ];
     tm = Timing[
-      xy = numdet[n, frac, R, X, mats, kmin, kmax, fnls];
+      xy = numdet[n, lambda, R, X, mats, kmin, kmax, fnls, {}, dR];
     ][[1]];
-    Print["computing Dets: ", tm];
+    Print["computing determinant list: ", tm];
     If [ Length[xy] >= degRp[n] + 1,
-      poly = interp[xy, T/4];
-      If [ n < 7, Print[ poly ] ];
+      tm = Timing[
+        poly = interp[xy, T/4];
+      ][[1]];
+      Print["interpolation and factorization: ", tm];
+      If [ n < 7, Print[ poly // InputForm ] ];
       fnT = "T" <> ToString[n] <> ch <> ".txt";
       xsave[fnT, poly, False, True];
       sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];

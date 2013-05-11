@@ -4,22 +4,27 @@
 # bifurcation: time for the bifuracation equation of R
 # general:     time for general boundary polynomial
 #
+# for the onset and bifurcation points we only count the time to evaluate 
+#  the determinant, excluding the matrix listing and interpolation time
+#   
 # for the above, the second figure is run on Mathematica 9 on an i7 CPU
 # with hyperthreading turned on (which slows it down a bit)
 # it also uses a slightly newer log.ma in removing shorter cycles contrib.
 #
 # lsmat:       time to list equations for the matrix
+# interp/f:    time to interpolate a polynomial from a list of values
+#              and factorize it for the onset and bifurcation points
 # GB(magma):   Using magma bifurcation point
 # GB:          the bifurcation point by Grobner basis (Mathematica 8)
 # Resultant:   the bifurcation point by Resultant (Mathematica 9)
 #              prog/etc/logres.ma
-#n         onset       bifurcation      general    lsmat     GB(magma)  GB     Resultant
-6        0.89 0.07      0.54 0.07       0.5 0.36    0.06     1.4        37.8    95.6
-7        0.83 0.18      0.82 0.18       5.4 3.8     0.16     31         1193    3374
-8        2.56 1.43      2.46 1.44       318 200     0.52     822       71280
-9        24.6 12.8      24.4 12.4     17016 12774   1.54     18348
-10        273 151        275 151        n/a n/a     5.18     n/a
+#n         onset       bifurcation      general    lsmat       interp/f   GB(magma)  GB     Resultant
+6        0.89 0.07      0.54 0.07       0.5 0.22    0.06     0.008 0.004     1.4     37.8    95.6
+7        0.83 0.18      0.82 0.18       5.4 2.2     0.16     0.052 0.046      31     1193    3374
+8        2.56 1.43      2.46 1.44       318 124     0.52      0.31 0.076     822    71280
+9        24.6 12.8      24.4 12.4     17016 12774   1.54      1.51 0.49    18348
+10        273 151        275 151        n/a n/a     5.18      20.4 3.42    nomem
 11       3367 1782      3377 1795
-12       n/a  33305      n/a 31954
+12       n/a  31934    55699 32110      n/a n/a     n/a      (1181) n/a
 13       n/a  n/a        n/a n/a
 
