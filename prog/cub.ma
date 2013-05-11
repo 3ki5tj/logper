@@ -113,10 +113,7 @@ getcycmat[n_, r_, X_] := Module[{vars = getvars[n], reps, cl, map},
   mkeqcycs[vars, cl, map, reps, X]
 ];
 
-getcycmats[n_, r_, X_] := Module[{ls = {}},
-  Do[ ls = Append[ls, getcycmat[d, r, X]], {d, Divisors[n]} ];
-  ls
-];
+getcycmats[n_, r_, X_] := Table[ getcycmat[d, r, X], {d, Divisors[n]} ];
 (*getcycmats[3, r, X]*)
 
 (* degree in r for the cyclic matrix, the primitive factor, and the original factor *)
@@ -277,79 +274,82 @@ nsolve[ieq_, x_, prec_: 10] := Module[{k, eq, sols},
   eq = If [Head[ieq] === Equal, ieq, ieq == 0 ];
   sols = NSolve[eq, x, WorkingPrecision -> prec];
   sols = Table[x/.sols[[k]], {k, Length[sols]}];
-  Select[sols, Abs[Im[#]] < 10^-10 &]];
+  Select[sols, Abs[Im[#]] < 10^-10 &]
+];
 (* nsolve[x^3 + 2 x -1, x] *)
 (* ****************** Root finding/printing ends *********************** *)
 
 
 
-(* ***************** Lagrange interpolation begins ********************** *)
+(* ***************** NEW Lagrange interpolation begins ******************** *)
+Clear[interp, numdet];
 
-(* return the value of the matrix for r = rv and delta = 2 Pi I frac *)
-Clear[interp, numsolv0, numsolv1, numsolv2, numsolv2pt];
+interp[ls_, r_] := Factor[ InterpolatingPolynomial[ls, r] ];
 
-interp[xy_, r_] := Together[InterpolatingPolynomial[xy, r]];
-
-numsolv0[n_, mat_, frac_, rv_] := Together[Det[mat /. {r -> rv, X -> Exp[2 Pi I frac]}]];
-
-(* return the value of the primitive factor for r = rv, delta = Exp[I 2 Pi frac]
-the formula is P(n, n) = prod_{d|n} B(d, n/d)^(mu(n/d))
-where B(d, n/d) is the product of A(d) evaluated at all (n/d)th roots of delta *)
-numsolv1[n_, mats_, frac_, Rv_] :=
-  Module[{k, c, d, db, mu, divs, facs = 1, den1, poly, Q, deg, deg1, gcd, gcds, nf, df},
-    For[divs = Divisors[n]; k = 1, k <= Length[divs], k++,(* divisors *)
-      d = divs[[k]]; (* contribution from a period-d cycle *)
-      mu = MoebiusMu[n/d];
-      If[mu == 0, Continue[]];
-      {nf, df} = {Numerator[frac], Denominator[frac]};
-      (* for c=0,...,db-1 select typical c's *)
-      For[gcds = {}; db = n/d; c = 0, c < db, c++,
-        (* c/db+nf/(df db)= (c df+nf)/(df db); *)
-        gcd = GCD[c df + nf, df db];
-        If[MemberQ[gcds, gcd], Continue[], gcds = Append[gcds, gcd]];
-        den1 = numsolv0[d, mats[[k]], frac/db + c/db, Rv];
-        deg1 = EulerPhi[Denominator[Together[(frac + c)/db]]]; (* expected degree *)
-        (*Print["den1 ",den1];*)
-        poly = CoefficientList[MinimalPolynomial[den1, Q], Q];
-        deg = Length[poly] - 1;
-        (* this gives the product of roots of the minimal polynomial *)
-        den1 = (poly[[1]]/poly[[-1]]) (-1)^deg;
-        (*Print["factor ",den1, ", n ", n, ", d ",d, ", (c,db,frac) ",{c, db,frac,poly,deg}];*)
-        If[Mod[deg1, deg] != 0, Print["bad degree ", {deg, deg1}];
-          Return[{0, False}]];
-        den1 = den1^(deg1/deg);
-        If[mu == 1, facs *= den1, If[den1 == 0, Return[{0, False}]]; facs /= den1]];
-    ]; {facs, True}];
-(*numsolv1[3,getcycmats[3,r,X],1,4]*)
-
-(* evaluate a few r values *)
-numsolv2pt[n_, mats_, frac_, k0_:None, k1_:None, fn_: None, xy0_: {}, dr_: drdef] :=
-    Module[{k, xy = xy0, rv, Pv, good, kmin = k0, kmax = k1,
-      deg = degrp[n], ttl = If[n == 1, 2, 2^degXp[n]]},
-  If[kmin === None || kmax === None,
-    kmin = -Round[deg/2]; kmax = -kmin + 10000;
-    If[MemberQ[{4, 8}, n], kmin = 0; deg /= 2;]; (* even n, no r^odd terms *)
-  ];
-  For[k = kmin, k < kmax && Length[xy] < deg + 1, k++,
-    ClearSystemCache[]; rv = k dr;
-    {Pv, good} = numsolv1[n, mats, frac, rv];
-    If[!good, Continue[]];
-    Pv /= ttl;
-    xy = Append[xy, {rv, Pv}];
-    If[!(fn === None), xsave[fn, {rv, Pv}, True]];
-  ]; xy];
-
-(* extend to the negative side *)
+(* extend to the negative side
+   with xk = (-)^k i yk, r = -r', yk and r' satisfy the same map
+   thus, if the cycle period is a multiple of 4
+   r and r' = -r are the same, so any polynomial must be even *)
 mksym[xy_] := Module[{k, ls = {}},
-  For[k = 1, k <= Length[xy], k++,
+  For [k = 1, k <= Length[xy], k++,
     ls = Append[ls, xy[[k]]];
-    If[xy[[k]][[1]] != 0, ls = Append[ls, {-xy[[k]][[1]], xy[[k]][[2]]}]];
-  ]; ls];
+    If [ xy[[k]][[1]] != 0,
+      ls = Append[ ls, {-xy[[k]][[1]], xy[[k]][[2]]} ]
+    ];
+  ];
+  ls
+];
 
-numsolv2[n_, mats_, frac_, dr_: drdef] := Module[{xy},
-  xy = numsolv2pt[n, mats, frac, None, None, None, {}, dr];
-  If[MemberQ[{4, 8}, n], xy = mksym[xy]]; interp[xy, r]];
-(* ***************** Lagrange interpolation ends ********************** *)
+
+(* evaluate the primitive polynomial at a few r values *)
+numdet[n_, frac_, r_, X_, mats_:None, k0_:None, k1_:None,
+       fn_:None, xy0_:{}, dr_:drdef] :=
+  Module[{mymats, xy = xy0, Xv, rv, Pv, den, denv, mat,
+          deg = degrp[n], k, kmin = k0, kmax = k1, ttl},
+
+  mymats = If [ mats === None, getcycmats[n, r, X], mats ];
+  If [kmin === None || kmax === None,
+    kmin = -Round[deg/2];
+    kmax = -kmin + 10000;
+    If [ Mod[n, 4] === 0,
+      kmin = 0;
+      deg /= 2;
+    ]; (* n % 4 == 0, no r^odd terms, see mksym[] *)
+  ];
+  ttl = If[n == 1, 2, 2^degXp[n]];
+
+  Xv = Exp[ I 2 Pi frac ];
+  (* `den' is the contribution from shorter d-cycles d|n *)
+  den = symprimfac[n, r, X, mymats, True, True];
+  den = ( den /. {X -> Xv} ) * ttl;
+(*
+  Print [den, " xxx ", Cancel[Det[mymats[[-1]]/.{X -> Xv}]/den] ]; Exit[1];
+*)
+  For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
+    ClearSystemCache[]; (* free some memory *)
+    rv = k dr;
+    denv = den /. {r -> rv};
+    (* leave if a divide by zero is encountered *)
+    If [ denv === 0, Continue[] ];
+    (* compute the value of the polynomial at r = rv *)
+    mat = mymats[[-1]] /. {r -> rv, X -> Xv};
+    Pv = Cancel[ Det[ mat ] / denv ];
+    (* add the new value to the list *)
+    xy = Append[xy, {rv, Pv}];
+    If [!(fn === None),
+      xsave[fn, {rv, Pv}, True]
+    ]
+  ];
+  If [ Mod[n, 4] === 0, xy = mksym[xy] ];
+  (* Print[xy]; *)
+  xy
+];
+
+(*
+Print[ interp[ numdet[4, 1/2, r, X], r ] ]; Exit[1];
+*)
+
+(* ***************** NEW Lagrange interpolation ends ********************** *)
 
 
 
@@ -368,10 +368,9 @@ If [ Length[$CommandLine] >= 3,
 frac = If [ ch === "b", 1/2,
        If [ ch === "a", 1,
                         0 ] ];
-kmin = kmax = None;
-If[Length[$CommandLine] >= 5,
-  {kmin, kmax} = {ToExpression[$CommandLine[[-2]]],ToExpression[$CommandLine[[-1]]]}];
-Print["n ", n, "; frac ", ch, " ", N[frac], "; kmin ", kmin, ", kmax ", kmax, "; primfac deg. ", degrp[n]];
+
+Print["n ", n, "; frac ", ch, " ", N[frac], "; degr. ", degrp[n]];
+
 
 (* 2. reading or computing the matrix *)
 fnmats = "cmats"<>ToString[n]<>".txt";
@@ -398,7 +397,7 @@ If [ frac === 0,
       poly = symprimfac[n, r, X, mats, True];
     ][[1]];
     Print["time for primitive polynomial ", tm];
-    xsave["crX" <> ToString[n] <> ".txt", poly ],
+    xsave["crX" <> ToString[n] <> ".txt", poly, False, True],
 
     (* compute the d/n-bifurcation polynomial *)
     d = n;
@@ -413,24 +412,30 @@ If [ frac === 0,
       poly = calcgnk[n, d, r, True];
     ][[1]];
     Print["time ", tm, ", polynomial ", n, " and ", d];
-    If [ n < 100, Print[poly] ];
-    xsave["cr" <> ToString[d] <> "x" <> ToString[n] <> ".txt", poly];
+    If [ n < 10, Print[poly] ];
+    xsave["cr" <> ToString[d] <> "x" <> ToString[n] <> ".txt", poly, False, True];
   ],
 
   (* `ch' === 'a' or `b', numerically compute the onset or bifurcation point *)
+  kmin = kmax = None;
+  If [ Length[ $CommandLine ] >= 5,
+    {kmin, kmax} = { ToExpression[ $CommandLine[[-2]] ],
+                     ToExpression[ $CommandLine[[-1]] ] }
+  ];
+  Print["kmin ", kmin, ", kmax ", kmax];
+
   If [ kmin < kmax || kmin === None,
     fnls = If [ n > 6, "cls" <> ToString[n] <> ch <> ".txt", None ];
     If [ kmin === None && !(fnls === None),
       Close[OpenWrite[fnls]] (* clear the list *)
     ];
     tm = Timing[
-      xy = numsolv2pt[n,mats,frac,kmin,kmax,fnls];
+      xy = numdet[n, frac, r, X, mats, kmin, kmax, fnls];
     ][[1]];
-    Print["computing det: ", tm];
-    If [ MemberQ[{4, 8}, n],
-      xy = mksym[xy] ];
+    Print["computing Dets: ", tm];
     If [ Length[xy] >= degrp[n] + 1,
-      poly = Factor[interp[xy, r]];
+      poly = interp[xy, r];
+      If [ n <= 4, Print[ poly ] ];
       fnr = "cr" <> ToString[n] <> ch <> ".txt";
       xsave[fnr, poly, False, True];
       sols = nsolve[poly, r];

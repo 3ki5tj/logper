@@ -115,7 +115,7 @@ Clear[mkeqcycs, getcycmat, getcycmats];
 mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[
   {Xs, k, ls = {}, cvar, xp},
 
-  Xs = cl[[-1]][[2]] * (-2)^Length[vars];
+  Xs = cl[[-1]][[2]];
 
   For [ k = 1, k <= Length[cl], k++, (* for the kth cyclic variable *)
     (* get coefficients of the square-free expansion of the product
@@ -124,7 +124,7 @@ mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[
       e.g., {C12, a1 a2, 1} or {C123, a1 a2 a3, 3} *)
     xp = Cancel[
           cycle2[Xs cvar[[2]], vars, cl, map, reps] / cvar[[3]]
-    ];
+    ] * (-2)^Length[vars];
     xp[[k]] -= X;
     ls = Append[ls, xp];
   ];
@@ -344,8 +344,6 @@ solveT[eq_, x_, fn_, prec_: precdef] := Module[
 
 
 (* ***************** NEW Lagrange interpolation begins ******************** *)
-(* return the value of the matrix for R = Rv and delta = 2 Pi I frac
-normalized such that the coefficient of the highest power of 4R is 1 *)
 Clear[interp, numdet];
 
 interp[ls_, R_] := Factor[ InterpolatingPolynomial[ls, R] ];
