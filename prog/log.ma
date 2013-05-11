@@ -113,7 +113,9 @@ cycle2[0 R a^2 b + a^2 c^2 e^2, vars, cl, map, mksqrrep[vars, R]]
    the last cyclic polynomial, and the kth cyclic polynomial cl[[k]] *)
 Clear[mkeqcycs, getcycmat, getcycmats];
 mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[
-  {Xs = cl[[-1]][[2]], k, ls = {}, cvar, xp},
+  {Xs, k, ls = {}, cvar, xp},
+
+  Xs = cl[[-1]][[2]] * (-2)^Length[vars];
 
   For [ k = 1, k <= Length[cl], k++, (* for the kth cyclic variable *)
     (* get coefficients of the square-free expansion of the product
@@ -256,6 +258,7 @@ mkctprod[poly_, R_, X_, n_, usen_: False] := Module[{pd = 1, k, prec},
   trigsimp[pd, R, usen, prec]
 ];
 
+
 (* solve the primitive polynomial for n-cycles *)
 symprimfac[n_, R_, X_, mats_:None, usen_:False, notn_:False] :=
   Module[{k, dls, pf, pf1, d, mu, mat},
@@ -284,15 +287,12 @@ symprimfac[n_, R_, X_, mats_:None, usen_:False, notn_:False] :=
   (* if n === d is excluded, the factorized form is usually simpler *)
   If [ notn, Factor[pf], pf ]
 ];
-(*
-symprimfac[6, R, X, None, True, True]
-*)
+
 
 (* compute the polynomial at the intersection of n- and d-cycles *)
-calcgnk[n_, d_, R_, usen_: False] := Module[{p, X, lam},
+calcgnk[n_, d_, R_, usen_: False] := Module[{p, X},
   p = symprimfac[d, R, X, None, usen];
-  p = Numerator[ Together[p /. { X -> lam/(-2)^d } ] ];
-  Numerator[ Together[ mkctprod[p, R, lam, n/d, usen] /. {R -> T/4} ] ]
+  Numerator[ Together[ mkctprod[p, R, X, n/d, usen] /. {R -> T/4} ] ]
 ];
 (* ******************** Symbolic solution ends ************************* *)
 
@@ -352,7 +352,7 @@ interp[ls_, R_] := Factor[ InterpolatingPolynomial[ls, R] ];
 
 (* evaluate the primitive polynomial at a few R values *)
 numdet[n_, frac_, R_, X_, mats_:None, k0_:None, k1_:None,
-       fn_:None, xy0_:{}, dR_:1/4] :=
+       fn_:None, xy0_:{}, dR_:1] :=
   Module[{mymats, xy = xy0, Xv, Rv, Pv, den, denv, mat,
           deg = degRp[n], k, kmin = k0, kmax = k1},
 
@@ -361,12 +361,10 @@ numdet[n_, frac_, R_, X_, mats_:None, k0_:None, k1_:None,
     kmin = -Round[deg/2 + 1];
     kmax = -kmin + 10000
   ];
-  Xv = Exp[ I 2 Pi frac ] / (-2)^n;
+  Xv = Exp[ I 2 Pi frac ];
   (* `den' is the contribution from shorter d-cycles d|n *)
   den = symprimfac[n, R, X, mats, True, True];
   den = den /. {X -> Xv};
-  (* the normalization factor *)
-  den /= 2^Sum[ MoebiusMu[n/d] 2^d, {d, Divisors[n]} ];
 
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
@@ -414,7 +412,7 @@ Print["n ", n, "; frac ", ch, " ", N[frac], "; degR. ", degRp[n]];
 (* 2. load or compute the matrix that connects the n cyclic polynomials
       by the square-free reduction, each element of the matrix is a
       polynomial of R, matrices of divisors of n are also obtained *)
-fnmats = "mats" <> ToString[n] <> ".txt";
+fnmats = "lmats" <> ToString[n] <> ".txt";
 If [ FileType[fnmats] === File,
   tm = Timing[
     mats = xload[fnmats];
@@ -465,7 +463,7 @@ If [ frac === 0,
       ToExpression[ $CommandLine[[-1]] ]
     }
   ];
-  dR = 1/4;
+  dR = 1;
   If [ Length[ $CommandLine ] == 4 || Length[ $CommandLine ] >= 6,
     dR = ToExpression[ $CommandLine[[4]] ]
   ];
@@ -482,6 +480,7 @@ If [ frac === 0,
     Print["computing Dets: ", tm];
     If [ Length[xy] >= degRp[n] + 1,
       poly = interp[xy, T/4];
+      If [ n < 7, Print[ poly ] ];
       fnT = "T" <> ToString[n] <> ch <> ".txt";
       xsave[fnT, poly, False, True];
       sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];
