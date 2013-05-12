@@ -3,10 +3,11 @@
 # onset:       time for the onset equation of R
 # bifurcation: time for the bifuracation equation of R
 # general:     time for general boundary polynomial
+# general2:    use "C" instead of the "c" on the command line
 #
-# for the onset and bifurcation points we only count the time to evaluate 
+# for the onset and bifurcation points we only count the time to evaluate
 #  the determinant, excluding the matrix listing and interpolation time
-#   
+#
 # for the above, the second figure is run on Mathematica 9 on an i7 CPU
 # with hyperthreading turned on (which slows it down a bit)
 # it also uses a slightly newer log.ma in removing shorter cycles contrib.
@@ -18,13 +19,16 @@
 # GB:          the bifurcation point by Grobner basis (Mathematica 8)
 # Resultant:   the bifurcation point by Resultant (Mathematica 9)
 #              prog/etc/logres.ma
-#n         onset       bifurcation      general    lsmat       interp/f   GB(magma)  GB     Resultant
-6        0.89 0.07      0.54 0.07       0.5 0.22    0.06     0.008 0.004     1.4     37.8    95.6
-7        0.83 0.18      0.82 0.18       5.4 2.2     0.16     0.052 0.046      31     1193    3374
-8        2.56 1.43      2.46 1.44       318 124     0.52      0.31 0.076     822    71280
-9        24.6 12.8      24.4 12.4     17016 12774   1.54      1.51 0.49    18348
-10        273 151        275 151        n/a n/a     5.18      20.4 3.42    nomem
-11       3367 1782      3377 1795
-12       n/a  31934    55699 32110      n/a n/a     n/a      (1181) n/a
+#
+# starred "*" data are deprecated
+#
+#n         onset       bifurcation    general      general2    lsmat       interp/f   GB(magma)  GB     Resultant
+6        0.89 0.07      0.54 0.07     n/a 0.35     *0.5 0.22    0.06     0.008 0.004     1.4     37.8    95.6
+7        0.83 0.18      0.82 0.18     n/a 2.4      *5.4 2.2     0.16     0.052 0.046      31     1193    3374
+8        2.56 1.43      2.46 1.44     n/a 70       *318 47.7    0.52      0.31 0.076     822    71280
+9        24.6 12.8      24.4 12.4     n/a 644    *17016 772     1.54      1.51 0.49    18348
+10        273 151        275 151      n/a n/a       n/a 16174   5.18      20.4 3.42    nomem
+11       3367 1782      3377 1795     n/a n/a       n/a n/a     n/a        n/a  n/a
+12       n/a  31934    55699 32110    n/a n/a       n/a n/a     n/a      (1181) n/a
 13       n/a  n/a        n/a n/a
 

@@ -41,9 +41,16 @@ p, div.p {
   line-height: 150%;
 }
 div.center { text-align: center; }
-pre.code, div.code, span.code { font: 90% monospace; }
-pre.code, div.code { padding: 10px 20px 10px 20px; }
-code { font-variant: normal; color: #440000; }
+code, pre.code, div.code, span.code { 
+  font-family: "Courier New", "Courier", monospace;
+  color: #005500;
+}
+code, pre.code, div.code {
+  font-size: 110%;
+  padding: 3px 20px 3px 20px;
+  margin: 7px 0px 7px 0px; 
+  background-color: #ffffc0;
+}
 a:visited { color: #808080; font-weight: normal; }
 a:link { color: #000080; text-decoration: none; }
 a:hover { color: #ffffff; background-color: #808080; }

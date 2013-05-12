@@ -214,7 +214,7 @@ trigsimp[p_, vars_, usen_: False, prec0_: 10] := Module[
     prec += dprec;
     (* NOTE: coefficients must be integers, so Round[] is safe *)
     p2 = Collect[ Expand[ N[p, prec] ], vars, Round ];
-    If [ p2 === p1, Break[] ];
+    If [ p2 === p1, Break[]; ];
     p1 = p2;
   ];
   Print[k, " iterations, precision: ", prec0, " -> ", prec];
@@ -268,16 +268,16 @@ symprimfac[n_, a_, b_, X_, mats_:None, usen_:False, notn_:False] :=
   For [ pf = 1; k = 1, k <= kmax, k++,
     d = dls[[k]];
     mu = MoebiusMu[n/d];
-    If [ mu === 0, Continue[] ];
+    If [ mu === 0, Continue[]; ];
     If [ mats === None, (* compute the matrix if unavailable *)
       mat = getcycmat[d, a, b, X],
-      mat = mats[[k]]
+      mat = mats[[k]];
     ];
     pf1 = Factor[ Det[ mat ] ];
     pf1 = mkcprod[pf1, a, b, X, n/d, usen];
     (* if n === d is excluded, compute the inverted polynomial *)
     If [ notn, mu *= -1 ];
-    If [ mu === 1, pf *= pf1, pf /= pf1 ]
+    If [ mu === 1, pf *= pf1, pf /= pf1 ];
   ];
   nicefmt[ Cancel[pf], {a, b} ]
 ];
@@ -301,17 +301,19 @@ Print[ calcgnk[6, 2, a, b, X, None, True] // InputForm ]; Exit[1];
 
 
 (* ***************** NEW Lagrange interpolation begins ******************** *)
-Clear[interp, numdet];
+Clear[interp1, numdet];
 
-(* interpolate polynomials of `a' *)
-interp[xy_, a_, b_] := Module[{n = Length[xy], p, p1, ls, k, kmax},
+(* interpolate polynomials of `a', coefficients are polynomials of `b'
+   Note: although InterpolatingPolynomial[] officially allows polynomials
+   as coefficients, the performance sucks *)
+interp1[xy_, a_, b_] := Module[{n = Length[xy], p, p1, ls, k, kmax},
   p = Table[ xy[[l]][[2]], {l, n} ];
   kmax = Max[ Exponent[p, b] ]; (* highest power in `b' *)
   ls = Table[
     (* get the `b' coefficient list with padding zeros *)
     PadRight[ CoefficientList[ Expand[ p[[k]] ], b ], kmax + 1 ],
   {k, n}];
-  For[p = 0; k = 1, k <= kmax+1, k++,
+  For[p = 0; k = 1, k <= kmax + 1, k++,
     (* interpolate a polynomial of `A' for each b^k *)
     p1 = InterpolatingPolynomial[
       Table[ { xy[[l]][[1]], ls[[l]][[k]] }, {l, n} ],
@@ -324,21 +326,21 @@ interp[xy_, a_, b_] := Module[{n = Length[xy], p, p1, ls, k, kmax},
 
 (* evaluate the primitive polynomial at a few a values
    da can be 1/4, but for large n, it can make Det[] err! *)
-numdet[n_, Xv_, a_, b_, X_, mats_:None, k0_:None, k1_:None,
+numdet[n_, Xv_, a_, b_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
        fn_:None, xy0_:{}, da_:1] :=
-  Module[{mymats, xy = xy0, av, Pv, den, denv, mat,
+  Module[{mats = ms, mat, den = dn, denv, xy = xy0, av, Pv,
           deg = degRp[n], k, kmin = k0, kmax = k1},
 
-  mymats = If [ mats === None, getcycmats[n, a, b, X], mats ];
-  If [ kmin === None || kmax === None,
-    kmin = -Round[deg/2 + 1];
-    kmax = -kmin + 10000
-  ];
-  (* `den' is the contribution from shorter d-cycles d|n *)
-  den = symprimfac[n, a, b, X, mats, True, True];
-  den = den /. {X -> Xv};
-  mat = mymats[[-1]] /. {X -> Xv};
+  If [ mats === None, mats = getcycmats[n, a, b, X]; ];
+  mat = mats[[-1]] /. {X -> Xv};
   (* Print[ Factor[ Det[mat] ] // InputForm ]; Exit[1]; *)
+  
+  (* `den' is the contribution from shorter d-cycles d|n *)
+  If [ den === None, den = symprimfac[n, a, b, X, mats, True, True]; ];
+  den = den /. {X -> Xv};
+
+  If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
+  If [ kmax === None, kmax = Round[deg/2] + 10000 ];
 
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
@@ -350,15 +352,13 @@ numdet[n_, Xv_, a_, b_, X_, mats_:None, k0_:None, k1_:None,
     Pv = Cancel[ Det[ mat /. {a -> av} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {av, Pv}];
-    If [!(fn === None),
-      xsave[fn, {av, Pv}, True]
-    ]
+    If [ !(fn === None), xsave[fn, {av, Pv}, True]; ];
   ];
   xy
 ];
 
 (*
-Print[ interp[ numdet[4, -1, a, b, X], A/4, b ] // InputForm ]; Exit[1];
+Print[ interp1[ numdet[4, -1, a, b, X], A/4, b ] // InputForm ]; Exit[1];
 *)
 
 (* ***************** NEW Lagrange interpolation ends ********************** *)
@@ -448,12 +448,12 @@ If [ lambda === 0,
       Close[ OpenWrite[fnls] ] (* clear the list *)
     ];
     tm = Timing[
-      xy = numdet[n, lambda, a, b, X, mats, kmin, kmax, fnls, {}, da];
+      xy = numdet[n, lambda, a, b, X, mats, None, kmin, kmax, fnls, {}, da];
     ][[1]];
     Print["computing determinant list: ", tm];
     If [ Length[xy] >= degRp[n] + 1,
       tm = Timing[
-        poly = interp[xy, A/4, b];
+        poly = interp1[xy, A/4, b];
       ][[1]];
       Print["interpolation and factorization: ", tm];
       If [ n <= 4, Print[ poly // InputForm ] ];

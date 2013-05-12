@@ -151,8 +151,9 @@ getcycmats[n_, R_, X_] := Table[ getcycmat[d, R, X], {d, Divisors[n]} ];
 mulcycmat[mat_, n_, X_] := Cancel[ (-2)^n mat /. { X -> X/(-2)^n } ];
 
 (* degree in R of the primitive polynomial of n-cycles *)
-Clear[degRp];
+Clear[degRp, degXp];
 degRp[n_] := Sum[MoebiusMu[n/d] 2^(d-1), {d, Divisors[n]}];
+degXp[n_] := Sum[MoebiusMu[n/d] 2^d, {d, Divisors[n]}] / n;
 (* Print[Table[degRp[k],{k,1,20}]] *)
 
 Clear[xsave, xload];
@@ -242,19 +243,19 @@ trigsimp[p_, vars_, usen_: False, prec0_: 10] := Module[
 
 (* compute the cyclic product
    \prod_{k=0..n-1} poly[X^(1/k) e^(2*pi*i*k/n)] *)
-mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
+mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{XX, pd = 1, k},
   If [ n === 1, Return[poly] ];
 
   (* form the product *)
   For [ k = 0, k < n, k++,
-    pd *= poly /. { X -> Y * (Cos[2 k Pi/n] + I Sin[2 k Pi/n]) }
+    pd *= poly /. { X -> XX * (Cos[2 k Pi/n] + I Sin[2 k Pi/n]) }
   ];
   (* simplify the expression *)
   If [ usen,
-    trigsimp[pd, {R, Y}, True],
+    trigsimp[pd, {R, XX}, True],
     (* this code is somewhat faster than the direct call of trigsimp[] *)
-    Collect[pd, {R, Y}, trigsimp0]
-  ] /. { Y -> X^(1/n) }
+    Collect[pd, {R, XX}, trigsimp0]
+  ] /. { XX -> X^(1/n) }
 ];
 
 
@@ -372,25 +373,45 @@ Clear[interp, numdet];
 
 interp[ls_, R_] := Factor[ InterpolatingPolynomial[ls, R] ];
 
+(* interpolate polynomials of `a', coefficients are polynomials of `b'
+   Note: although InterpolatingPolynomial[] officially allows polynomials
+   as coefficients, the performance sucks, so interp1[] is faster
+   than interp[] in this case *)
+interp1[xy_, a_, b_] := Module[{n = Length[xy], p, p1, ls, k, kmax},
+  p = Table[ xy[[l]][[2]], {l, n} ];
+  kmax = Max[ Exponent[p, b] ]; (* highest power in `b' *)
+  ls = Table[
+    (* get the `b' coefficient list with padding zeros *)
+    PadRight[ CoefficientList[ Expand[ p[[k]] ], b ], kmax + 1 ],
+  {k, n}];
+  For[p = 0; k = 1, k <= kmax + 1, k++,
+    (* interpolate a polynomial of `A' for each b^k *)
+    p1 = InterpolatingPolynomial[
+      Table[ { xy[[l]][[1]], ls[[l]][[k]] }, {l, n} ],
+      a ];
+    p += Factor[p1] b^(k-1);
+  ];
+  nicefmt[p, a]
+];
+
+
 (* evaluate the primitive polynomial at a few R values
    dR can be 1/4, but for large n, it can make Det[] err! *)
-numdet[n_, Xv_, R_, X_, mats_:None, k0_:None, k1_:None,
+numdet[n_, Xv_, R_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
        fn_:None, xy0_:{}, dR_:1] :=
-  Module[{mymats, xy = xy0, Rv, Pv, den, denv, mat,
+  Module[{mats = ms, mat, den = dn, denv, xy = xy0, Rv, Pv,
           deg = degRp[n], k, kmin = k0, kmax = k1},
 
-  mymats = If [ mats === None, getcycmats[n, R, X], mats ];
-  If [ kmin === None || kmax === None,
-    kmin = -Round[deg/2 + 1];
-    kmax = -kmin + 10000
-  ];
+  If [ mats === None, mats = getcycmats[n, R, X]; ];
+  mat = mulcycmat[ mats[[-1]], n, X ] /. {X -> Xv};
+
   (* `den' is the contribution from shorter d-cycles d|n *)
-  den = symprimfac[n, R, X, mats, True, True, True];
+  If [ den === None, den = symprimfac[n, R, X, mats, True, True, True]; ];
   den = den /. {X -> Xv};
 
-  (* deflate the n-matrix *)
-  mat = mulcycmat[ mymats[[-1]], n, X ] /. {X -> Xv};
-
+  If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
+  If [ kmax === None, kmax = Round[deg/2 + 10000]; ];
+  
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
     Rv = k dR;
@@ -401,9 +422,7 @@ numdet[n_, Xv_, R_, X_, mats_:None, k0_:None, k1_:None,
     Pv = Cancel[ Det[ mat /. {R -> Rv} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {Rv, Pv}];
-    If [!(fn === None),
-      xsave[fn, {Rv, Pv}, True]
-    ]
+    If [ !(fn === None), xsave[fn, {Rv, Pv}, True]; ];
   ];
   xy
 ];
@@ -412,8 +431,51 @@ numdet[n_, Xv_, R_, X_, mats_:None, k0_:None, k1_:None,
 Print[ interp[ numdet[4, -1, R, X], T/4 ] // InputForm ]; Exit[1];
 *)
 
-(* ***************** NEW Lagrange interpolation ends ********************** *)
+(* solve the general boundary condition, faster version of symprimfac[] *)
+numdetX[n_, R_, X_, mats_:None, den_:None, fn_:None, dR_:1] := 
+    Module[{ls, Y, deg = degRp[n], k},
+  ls = numdet[n, (-2)^n Y, R, X, mats, den, None, None, fn, {}, dR];
+  ls = Table[ {ls[[k]][[1]], ls[[k]][[2]] / 4^deg}, {k, Length[ls]} ];
+  (* nicefmt[ interp[ls, R] /. {Y -> X}, R ] is much slower *)
+  interp1[ls, R, Y] /. {Y -> X}
+];
 
+(*
+Print[ numdetX[5, R, X] // InputForm ]; Exit[1];
+*)
+
+(* alternative to numdetX, similar performance *)
+numdetY[n_, R_, X_, ms_:None, dn_:None, l0_:None, l1_:None,
+        fn_:None, dX_:1] :=
+  Module[{mats = ms, den = dn, Xv, l, lmin = l0, lmax = l1,
+    degx = degXp[n], degrp = degRp[n], ls = {}, xy, XP},
+
+  (* make sure we have the matrix and denominator *)
+  If [ mats === None, mats = getcycmats[n, R, X]; ];
+  If [ den === None, den = symprimfac[n, R, X, mats, True, True, True]; ];
+
+  If [ l0 === None, lmin = -Round[degx/2]; ];
+  If [ l1 === None, lmax = Round[degx/2] + 10000; ];
+
+  For [ l = lmin, l < lmax && Length[ls] < degx + 1, l++,
+    ClearSystemCache[]; (* free some memory *)
+    Xv = l dX;
+    xy = numdet[n, Xv, R, X, mats, den];
+    Pv = interp[xy, R];
+    XP = {Xv / (-2)^n, Pv / 4^degrp};
+    ls = Append[ls, XP];
+    If [ n > 7, Print["l ", l, ", deg ", degx]; ];
+    If [ !(fn === None), xsave[fn, XP, True]; ];
+  ];
+  nicefmt[ interp1[ls, X, R], R ]
+];
+
+(*
+Print[ numdetY[5, R, X] // InputForm ]; Exit[1];
+*)
+
+
+(* ***************** NEW Lagrange interpolation ends ********************** *)
 
 
 (* main function starts here *)
@@ -457,9 +519,11 @@ If [ FileType[fnmats] === File,
 If [ lambda === 0,
 
   (* `ch' === 'c' or 'x', symbolically compute the determinant *)
-  If [ ch === "c",
+  If [ ch === "c" || ch === "C",
     tm = Timing[
-      poly = symprimfac[n, R, X, mats, True, False, False];
+      poly = If [ ch === "c",
+          numdetX[n, R, X, mats],
+          numdetY[n, R, X, mats] ];
     ][[1]];
     Print["time for primitive polynomial ", tm];
     xsave["RX" <> ToString[n] <> ".txt", poly, False, True],
@@ -467,7 +531,7 @@ If [ lambda === 0,
     (* compute the d/n-bifurcation polynomial *)
     d = n;
     If [ Length[$CommandLine] >= 4,
-      n = ToExpression[ $CommandLine[[4]] ]
+      n = ToExpression[ $CommandLine[[4]] ];
     ];
     If [ Mod[n, d] != 0,
       Print[n, "- and ", d, "-cycles do not intersect"];
@@ -495,13 +559,14 @@ If [ lambda === 0,
   ];
   Print["dR ", dR, "; kmin ", kmin, ", kmax ", kmax];
 
+
   If [ kmin < kmax || kmax === None,
     fnls = If [ n > 8, "ls" <> ToString[n] <> ch <> ".txt", None];
     If [ kmin === None && !(fnls === None),
-      Close[ OpenWrite[fnls] ] (* clear the list file *)
+      Close[ OpenWrite[fnls] ]; (* clear the list file *)
     ];
     tm = Timing[
-      xy = numdet[n, lambda, R, X, mats, kmin, kmax, fnls, {}, dR];
+      xy = numdet[n, lambda, R, X, mats, None, kmin, kmax, fnls, {}, dR];
     ][[1]];
     Print["computing determinant list: ", tm];
     If [ Length[xy] >= degRp[n] + 1,
@@ -509,12 +574,12 @@ If [ lambda === 0,
         poly = interp[xy, T/4];
       ][[1]];
       Print["interpolation and factorization: ", tm];
-      If [ n < 7, Print[ poly // InputForm ] ];
+      If [ n < 7, Print[ poly // InputForm ]; ];
       fnT = "T" <> ToString[n] <> ch <> ".txt";
       xsave[fnT, poly, False, True];
       sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];
       xsave[fnT, sols, True, False];
-    ]
-  ]
+    ];
+  ];
 ];
 

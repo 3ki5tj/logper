@@ -193,7 +193,7 @@ trigsimp[p_, vars_, usen_: False, prec0_: 10] := Module[
 
 (* compute the cyclic product
    \prod_{k=0..n-1} poly[X^(1/k) e^(2*pi*i*k/n)] *)
-mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
+mkcprod[poly_, r_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
   If [ n === 1, Return[poly] ];
 
   (* form the product *)
@@ -202,9 +202,9 @@ mkcprod[poly_, R_, X_, n_, usen_: False] := Module[{Y, pd = 1, k},
   ];
   (* simplify the expression *)
   If [ usen,
-    trigsimp[pd, {R, Y}, True],
+    trigsimp[pd, {r, Y}, True],
     (* this code is somewhat faster than the direct call of trigsimp[] *)
-    Collect[pd, {R, Y}, trigsimp0]
+    Collect[pd, {r, Y}, trigsimp0]
   ] /. { Y -> X^(1/n) }
 ];
 
@@ -251,7 +251,7 @@ symprimfac[n_, r_, X_, mats_:None, usen_:False, notn_:False] := Module[
   nicefmt[ Cancel[pf], r ]
 ];
 (*
-Print[ symprimfac[4, r, X, None, True, False] ];
+Print[ symprimfac[3, r, X, None, True] ];
 Exit[1];
 *)
 
@@ -283,12 +283,33 @@ Clear[interp, numdet];
 
 interp[ls_, r_] := Factor[ InterpolatingPolynomial[ls, r] ];
 
+(* interpolate polynomials of `a', coefficients are polynomials of `b'
+   Note: although InterpolatingPolynomial[] officially allows polynomials
+   as coefficients, the performance sucks, so interp1[] is faster
+   than interp[] in this case *)
+interp1[xy_, a_, b_] := Module[{n = Length[xy], p, p1, ls, k, kmax},
+  p = Table[ xy[[l]][[2]], {l, n} ];
+  kmax = Max[ Exponent[p, b] ]; (* highest power in `b' *)
+  ls = Table[
+    (* get the `b' coefficient list with padding zeros *)
+    PadRight[ CoefficientList[ Expand[ p[[k]] ], b ], kmax + 1 ],
+  {k, n}];
+  For[p = 0; k = 1, k <= kmax + 1, k++,
+    (* interpolate a polynomial of `A' for each b^k *)
+    p1 = InterpolatingPolynomial[
+      Table[ { xy[[l]][[1]], ls[[l]][[k]] }, {l, n} ],
+      a ];
+    p += Factor[p1] b^(k-1);
+  ];
+  nicefmt[p, a]
+];
+
 (* extend to the negative side
    with xk = (-)^k i yk, r = -r', yk and r' satisfy the same map
    thus, if the cycle period is a multiple of 4
    r and r' = -r are the same, so any polynomial must be even *)
 mksym[xy_] := Module[{k, ls = {}},
-  For [k = 1, k <= Length[xy], k++,
+  For [ k = 1, k <= Length[xy], k++,
     ls = Append[ls, xy[[k]]];
     If [ xy[[k]][[1]] != 0,
       ls = Append[ ls, {-xy[[k]][[1]], xy[[k]][[2]]} ]
@@ -299,28 +320,26 @@ mksym[xy_] := Module[{k, ls = {}},
 
 
 (* evaluate the primitive polynomial at a few r values *)
-numdet[n_, Xv_, r_, X_, mats_:None, k0_:None, k1_:None,
-       fn_:None, xy0_:{}, dr_:1] :=
-  Module[{mymats, xy = xy0, rv, Pv, den, denv, mat,
-          deg = degrp[n], k, kmin = k0, kmax = k1, ttl},
+numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
+       fn_:None, xy0_:{}, dr_:1, norm_:True] :=
+  Module[{mats = ms, mat, den = dn, denv, xy = xy0, rv, Pv,
+          deg = degrp[n], k, kmin = k0, kmax = k1, ttl = 1},
 
-  mymats = If [ mats === None, getcycmats[n, r, X], mats ];
-  If [kmin === None || kmax === None,
-    kmin = -Round[deg/2];
-    kmax = -kmin + 10000;
-    If [ Mod[n, 4] === 0,
-      kmin = 0;
-      deg /= 2;
-    ]; (* n % 4 == 0, no r^odd terms, see mksym[] *)
-  ];
-  ttl = If[n == 1, 2, 2^degXp[n]];
+  If [ mats === None, mats = getcycmats[n, r, X]; ];
+  mat = mats[[-1]] /. {X -> Xv};
 
   (* `den' is the contribution from shorter d-cycles d|n *)
-  den = symprimfac[n, r, X, mymats, True, True];
+  If [ den === None, den = symprimfac[n, r, X, mats, True, True]; ];
+  If [ norm, ttl = If[n == 1, 2, 2^degXp[n]]; ];
   den = ( den /. {X -> Xv} ) * ttl;
-(*
-  Print [den, " xxx ", Cancel[Det[mymats[[-1]]/.{X -> Xv}]/den] ]; Exit[1];
-*)
+
+  If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
+  If [ kmax === None, kmax = Round[deg/2 + 10000]; ];
+  If [ Mod[n, 4] === 0,
+    kmin = 0;
+    deg /= 2;
+  ]; (* n % 4 == 0, no r^odd terms, see mksym[] *)
+
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
     rv = k dr;
@@ -328,13 +347,10 @@ numdet[n_, Xv_, r_, X_, mats_:None, k0_:None, k1_:None,
     (* leave if a divide by zero is encountered *)
     If [ denv === 0, Continue[] ];
     (* compute the value of the polynomial at r = rv *)
-    mat = mymats[[-1]] /. {r -> rv, X -> Xv};
-    Pv = Cancel[ Det[ mat ] / denv ];
+    Pv = Cancel[ Det[ mat /. {r -> rv} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {rv, Pv}];
-    If [!(fn === None),
-      xsave[fn, {rv, Pv}, True]
-    ]
+    If [ !(fn === None), xsave[fn, {rv, Pv}, True]; ];
   ];
   If [ Mod[n, 4] === 0, xy = mksym[xy] ];
   (* Print[xy]; *)
@@ -343,6 +359,17 @@ numdet[n_, Xv_, r_, X_, mats_:None, k0_:None, k1_:None,
 
 (*
 Print[ interp[ numdet[4, -1, r, X], r ] ]; Exit[1];
+*)
+
+(* solve the general boundary condition, faster version of symprimfac[] *)
+numdetX[n_, r_, X_, mats_:None, den_:None, fn_:None, dr_:1] := 
+    Module[{ls, Y},
+  ls = numdet[n, Y, r, X, mats, den, None, None, fn, {}, dr, False];
+  nicefmt[ interp1[ls, r, Y] /. {Y -> X}, r]
+];
+
+(*
+Print[ numdetX[2, r, X] // InputForm ]; Exit[1];
 *)
 
 (* ***************** NEW Lagrange interpolation ends ********************** *)
@@ -390,7 +417,8 @@ If [ lambda === 0,
   (* `ch' === 'c' or 'x', symbolically compute the determinant *)
   If [ ch === "c",
     tm = Timing[
-      poly = symprimfac[n, r, X, mats, True];
+      (* poly = symprimfac[n, r, X, mats, True]; *)
+      poly = numdetX[n, r, X, mats];
       (* poly = nicefmt[ poly /. {X -> 3^n - 2 r Y}, Y ]; *)
     ][[1]];
     Print["time for primitive polynomial ", tm];
@@ -427,7 +455,7 @@ If [ lambda === 0,
       Close[OpenWrite[fnls]] (* clear the list *)
     ];
     tm = Timing[
-      xy = numdet[n, lambda, r, X, mats, kmin, kmax, fnls];
+      xy = numdet[n, lambda, r, X, mats, None, kmin, kmax, fnls];
     ][[1]];
     Print["computing Dets: ", tm];
     If [ Length[xy] >= degrp[n] + 1,
