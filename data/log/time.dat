@@ -12,23 +12,29 @@
 # with hyperthreading turned on (which slows it down a bit)
 # it also uses a slightly newer log.ma in removing shorter cycles contrib.
 #
-# lsmat:       time to list equations for the matrix
-# interp/f:    time to interpolate a polynomial from a list of values
-#              and factorize it for the onset and bifurcation points
-# GB(magma):   Using magma bifurcation point
-# GB:          the bifurcation point by Grobner basis (Mathematica 8)
-# Resultant:   the bifurcation point by Resultant (Mathematica 9)
-#              prog/etc/logres.ma
-#
+# lsmat:          time to list equations for the matrix (Matmematica 8)
+# interp/f:       time to interpolate a polynomial from a list of values
+#                 and factorize it for the onset and bifurcation points
+#                 (Mathematica 8)
+# GB(magma):      Using magma, bifurcation point and general case
+# GB:             the bifurcation point by Grobner basis (Mathematica 8)
+# Resul.(magma):  the bifurcation point by resultant (magma, res.magma)
+#                 and the general polynomial by resultant (magma, resX.magma)
+# Resul.:         the bifurcation point by Resultant (Mathematica8 / Mathematica 9-i7)
+#                 prog/etc/logres.ma
+# 
+# magma version: V2.18-4
 # starred "*" data are deprecated
 #
-#n         onset       bifurcation    general      general2    lsmat       interp/f   GB(magma)  GB     Resultant
-6        0.89 0.07      0.54 0.07     n/a 0.35     *0.5 0.22    0.06     0.008 0.004     1.4     37.8    95.6
-7        0.83 0.18      0.82 0.18     n/a 2.4      *5.4 2.2     0.16     0.052 0.046      31     1193    3374
-8        2.56 1.43      2.46 1.44     n/a 70       *318 47.7    0.52      0.31 0.076     822    71280
-9        24.6 12.8      24.4 12.4     n/a 644    *17016 772     1.54      1.51 0.49    18348
-10        273 151        275 151      n/a n/a       n/a 16174   5.18      20.4 3.42    nomem
-11       3367 1782      3377 1795     n/a n/a       n/a n/a     n/a        n/a  n/a
-12       n/a  31934    55699 32110    n/a n/a       n/a n/a     n/a      (1181) n/a
-13       n/a  n/a        n/a n/a
-
+#n         onset       bifurcation    general      general2    lsmat       interp/f   GB(magma)  GB     Resul.(magma)    Resul.
+6        0.89 0.07      0.54 0.07    0.76 0.35     0.86 0.22    0.06     0.008 0.004     1.4     37.8     1.2 63         93 95.6
+7        0.83 0.18      0.82 0.18     5.0 2.4       7.6 2.2     0.16     0.052 0.046      31     1193    18.9 2274     4267 3374
+8        2.56 1.43      2.46 1.44     170 70         88 47.7    0.52      0.31 0.076     822    71280     357 n/a       n/a n/a
+9        24.6 12.8      24.4 12.4     n/a 644      1445 772     1.54      1.51 0.49    18348      n/a    3681 n/a       n/a n/a
+10        273 151        275 151      n/a n/a       n/a 16174   5.18      20.4 3.42    nomem      n/a
+11       3367 1782      3377 1795     n/a n/a       n/a n/a     17.6       n/a  n/a
+12     *43408 31934    55699 32110    n/a n/a       n/a n/a     65.2     (1181) n/a
+13       n/a  n/a        n/a n/a      n/a n/a       n/a n/a      243
+#
+# 12 onset (first column) uses a newer a algorithm than the bifucation point
+#

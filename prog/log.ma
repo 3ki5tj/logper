@@ -411,7 +411,7 @@ numdet[n_, Xv_, R_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
 
   If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
   If [ kmax === None, kmax = Round[deg/2 + 10000]; ];
-  
+
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
     Rv = k dR;
@@ -432,7 +432,7 @@ Print[ interp[ numdet[4, -1, R, X], T/4 ] // InputForm ]; Exit[1];
 *)
 
 (* solve the general boundary condition, faster version of symprimfac[] *)
-numdetX[n_, R_, X_, mats_:None, den_:None, fn_:None, dR_:1] := 
+numdetX[n_, R_, X_, mats_:None, den_:None, fn_:None, dR_:1] :=
     Module[{ls, Y, deg = degRp[n], k},
   ls = numdet[n, (-2)^n Y, R, X, mats, den, None, None, fn, {}, dR];
   ls = Table[ {ls[[k]][[1]], ls[[k]][[2]] / 4^deg}, {k, Length[ls]} ];

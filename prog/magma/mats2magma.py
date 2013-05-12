@@ -73,7 +73,8 @@ def mkintmat(mat, n):
   dm = len(mat)
   num = "2^%s" % n
   nnum = "-2^%s" % n
-  if n%2 == 0: num, nnum = nnum, num;
+  if n % 2 == 0:
+    num, nnum = nnum, num;
   for i in range(dm):
     for j in range(dm):
       aij = mat[i][j]
@@ -127,7 +128,8 @@ def tomagma(mats, n):
 def mkcodesimple(n,delta=1):
   return '''
 P<R> := PolynomialRing(Ring0);
-time f := Factorization(Determinant(fmat%s(R, %s)));
+time f := Determinant(fmat%s(R, %s));
+time f := Factorization(f);
 print f;''' % (n, delta)
 
 def mkcodeinter(n, delta=1):
@@ -146,7 +148,8 @@ for i in [1 .. %s] do
     ys := Append(ys, y);
   end if;
 end for;
-f := Factorization(Interpolation(xs, ys));
+time f := Interpolation(xs, ys);
+time f := Factorization(f);
 ''' % (imax, imax/2, n, delta)
   return str
 
@@ -157,3 +160,4 @@ str += tomagma(mats, n)
 str += mkcodesimple(n)  # 84s for n = 9
 #str += mkcodeinter(n)  # 90s for n = 9
 print str
+

@@ -1,5 +1,5 @@
 /* Copyright (c) Cheng Zhang 2010-2013 */
-body { 
+body {
   font: 90% "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma',
     sans-serif;
   width: 640px; margin: auto;
@@ -23,14 +23,15 @@ ul.toclinks { padding: 0px; margin: 0px; }
 ul.toclinks li { display: inline; padding: 0px 3px; text-decoration: underline; }
 
 h1 {
-  font: small-caps 180% "Palatino Linotype", "Palatino", serif; 
+  font: small-caps 180% "Palatino Linotype", "Palatino", serif;
 }
 h2 {
   font: 150% "Book Antiqua", "Bookman", serif;
   padding: 20px 2px 5px 2px; margin: 30px 0px 0px 0px;
-  border-top: 1px dotted;  font-weight: bold; 
+  border-top: 1px dotted;
+  font-weight: bold;
 }
-h3 { 
+h3 {
   font: small-caps 130% "Verdana", "Arial", sans-serif;
   display: table; padding: 0px 50px 4px 10px; margin-bottom: 5px;
   border-bottom: 1px dashed; border-left: 2px solid; border-color: #b0b0b0;
@@ -41,21 +42,21 @@ p, div.p {
   line-height: 150%;
 }
 div.center { text-align: center; }
-code, pre.code, div.code, span.code { 
-  font-family: "Courier New", "Courier", monospace;
-  color: #005500;
+code, pre.code, div.code, span.code {
+  font: bold 120% monospace;
+  color: #000055;
 }
 code, pre.code, div.code {
-  font-size: 110%;
   padding: 3px 20px 3px 20px;
-  margin: 7px 0px 7px 0px; 
-  background-color: #ffffc0;
+  margin: 7px 0px 7px 0px;
+  background-color: #f0f0f0;
+  border: 1px solid #c0c0c0;
 }
 a:visited { color: #808080; font-weight: normal; }
 a:link { color: #000080; text-decoration: none; }
 a:hover { color: #ffffff; background-color: #808080; }
 .eq {
-  font-family: "Times", "Times New Roman", serif; 
+  font-family: "Times", "Times New Roman", serif;
   font-variant: normal;
 }
 div.eq { text-align: center; font-size: 120% }

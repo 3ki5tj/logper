@@ -1,0 +1,39 @@
+// compute the n-cycle boundary polynomial of the simplified logistic map
+// n is the cycle length
+n := 6;
+
+Q := RationalField();
+P<x,R,X> := PolynomialRing(Q, 3);
+
+f := func< x | R - x^2 >;
+df := func< x | -2*x >;
+
+function fn(x, n)
+  i := 0;
+  y := x;
+  while i lt n do
+    y := f(y);
+    i +:= 1;
+  end while;
+  return y;
+end function;
+
+function dfn(x, n)
+  i := 0;
+  y := x;
+  der := 1;
+  while i lt n do
+    der *:= df(y);
+    y := f(y);
+    i +:= 1;
+  end while;
+  return der;
+end function;
+
+p1 := fn(x, n) - x;
+p2 := dfn(x, n) - X;
+
+time res := Resultant(p1, p2, x);
+
+print Factorization( res );
+

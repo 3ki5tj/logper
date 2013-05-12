@@ -34,10 +34,10 @@ def mkmagma(n, ch, f, df, par):
     nvar += 1
   der = frac + "-" + der[:-1]
 
-  s = "Q:=RationalField();\n"
-  s += "P<" + xs + extra + ">:=PolynomialRing(Q," + str(nvar) + ");\n"
+  s = "Q := RationalField();\n"
+  s += "P<" + xs + extra + "> := PolynomialRing(Q, " + str(nvar) + ");\n"
 
-  s += "I:=ideal< P|" + eqs + der + ">;\n"
+  s += "I := ideal< P|" + eqs + der + ">;\n"
   s += "time B := GroebnerBasis(I);\n"
   s += "Factorization(B[#B]);"
   return s

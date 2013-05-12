@@ -334,7 +334,7 @@ numdet[n_, Xv_, a_, b_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
   If [ mats === None, mats = getcycmats[n, a, b, X]; ];
   mat = mats[[-1]] /. {X -> Xv};
   (* Print[ Factor[ Det[mat] ] // InputForm ]; Exit[1]; *)
-  
+
   (* `den' is the contribution from shorter d-cycles d|n *)
   If [ den === None, den = symprimfac[n, a, b, X, mats, True, True]; ];
   den = den /. {X -> Xv};

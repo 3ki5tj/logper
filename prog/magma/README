@@ -1,6 +1,20 @@
 Magma programs
 ==============
 
+Resultant
+--------------
+
+The example code for resultant method in magma
+  magma < logres8b.magma
+This only works for the bifurcation point of the 8-cycle.
+For the general boundary polynomial
+  magma < logres8c.magma
+For other cycle length, modify the above code.
+
+The cubic map script for 5-cycle bifurcation point,
+  magma < cubres5b.magma
+
+
 Groebner Basis
 --------------
 
@@ -9,8 +23,8 @@ log*.magma are prewritten scripts Groebner basis routines for Magma
 To run it
   magma < log8b.magma
 
-Other scripts for the logistic map and cubic map can be generated
-  from the Python script mkgb.py
+For other case, one can either modify log8b.magma,
+  or generate the magma scripts from the Python script mkgb.py
 
 For the general 8-cycle of the simplified logistic map:
   python mkgb.py -R 8 c > R8c.magma
@@ -35,14 +49,23 @@ Convert the matrix to magma format, calling the determinant routine there,
   slower than Mathematica
 The matsX.dat file is generated as a byproduct of, e.g., log.ma
 
-  python ./mats2magma.py mats8.dat > a.magma
+  python ./mats2magma.py mats9.dat > det9.magma
 
-then in Magma
-> load a.magma;
-> f;
+then
+  
+  magma < det9.magma
+
+or in magma
+> load det9.magma;
 
 numbthy.py
     collects some basic number theory routines in Python
-    mat2magma.py uses numbthy.py
+    mats2magma.py uses numbthy.py
+
+
+Other things
+=============
+logres.ma
+  Mathematica script, logistic map, resultant method
 
 

@@ -362,7 +362,7 @@ Print[ interp[ numdet[4, -1, r, X], r ] ]; Exit[1];
 *)
 
 (* solve the general boundary condition, faster version of symprimfac[] *)
-numdetX[n_, r_, X_, mats_:None, den_:None, fn_:None, dr_:1] := 
+numdetX[n_, r_, X_, mats_:None, den_:None, fn_:None, dr_:1] :=
     Module[{ls, Y},
   ls = numdet[n, Y, r, X, mats, den, None, None, fn, {}, dr, False];
   nicefmt[ interp1[ls, r, Y] /. {Y -> X}, r]

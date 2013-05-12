@@ -18,3 +18,4 @@ http://code.google.com/appengine/docs/python/gettingstarted/
 
 To synchronize
 rsync -avz ../logperiod /media/C3/logper/
+

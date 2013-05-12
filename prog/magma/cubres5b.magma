@@ -1,0 +1,41 @@
+// compute the n-cycle boundary polynomial of the simplified logistic map
+// n is the cycle length
+// lam is 1 for the onset problem, or -1 for the bifurcation problem
+n := 5;
+lam := -1;
+
+Q := RationalField();
+P<x,R> := PolynomialRing(Q, 2);
+
+f := func< x | r*x - x^3 >;
+df := func< x | r - 3*x^2 >;
+
+function fn(x, n)
+  i := 0;
+  y := x;
+  while i lt n do
+    y := f(y);
+    i +:= 1;
+  end while;
+  return y;
+end function;
+
+function dfn(x, n)
+  i := 0;
+  y := x;
+  der := 1;
+  while i lt n do
+    der *:= df(y);
+    y := f(y);
+    i +:= 1;
+  end while;
+  return der;
+end function;
+
+p1 := fn(x, n) - x;
+p2 := dfn(x, n) - lam;
+
+time res := Resultant(p1, p2, x);
+
+print Factorization( res );
+

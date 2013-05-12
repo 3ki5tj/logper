@@ -15,6 +15,6 @@ f[x_] := R - x^2;
 fn[x_] := Nest[f, x, n];
 dfn[x_] := D[fn[x], x];
 Timing[poly = Resultant[fn[x] - x, d - dfn[x], x];]
-Factor[poly /. {R->T/4}]
+Print[ Factor[(poly /. {R->T/4})] // InputForm ];
 
 
