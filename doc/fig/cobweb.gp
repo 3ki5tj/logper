@@ -4,10 +4,11 @@ set terminal postscript enhanced font "Times, 14" size 7, 10
 set output "cobweb.ps"
 set encoding iso_8859_1
 
+colordot = "#cc0000"
 
 # set arrow style 1, as a thin arrow
 # size length, angle (deg.), backangle (deg.)
-set style arrow 1 head size 0.040, 18, 30 filled lw 1.0 lc rgb "#3000ff"
+set style arrow 1 head size 0.040, 18, 30 filled lw 1.0 lc rgb "#0000aa"
 
 set style line 10 lt 2 lw 1.5 lc rgb "#808080"
 
@@ -80,7 +81,7 @@ set title 'Fixed point, {/Times-Italic r} = 2.8' offset 0, 0 font titlefont
 
 
 # a circle at the fixed point
-set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs solid
+set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs solid
 
 set arrow  1 from x0, x0 to x0, x1 as 1
 set arrow  2 from x0, x1 to x1, x1 as 1
@@ -120,9 +121,9 @@ xf = 1 - 1/r;
 
 set title "2-cycle, {/Times-Italic r} = 3.4" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs empty lw 1.5
-set object 12 circle at x2, x3 size 0.020 front fc rgb "#ff0000" fs solid
-set object 13 circle at x3, x2 size 0.020 front fc rgb "#ff0000" fs solid
+set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
+set object 12 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
+set object 13 circle at x3, x2 size 0.020 front fc rgb colordot fs solid
 
 
 #set arrow 1 from x0, x0 to x0, x1 as 1
@@ -161,10 +162,10 @@ xf = 1 - 1/r;
 
 set title "3-cycle, {/Times-Italic r} = 3.84" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs empty lw 1.5
-set object 12 circle at x1, x2 size 0.020 front fc rgb "#ff0000" fs solid
-set object 13 circle at x2, x3 size 0.020 front fc rgb "#ff0000" fs solid
-set object 14 circle at x3, x4 size 0.020 front fc rgb "#ff0000" fs solid
+set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
+set object 12 circle at x1, x2 size 0.020 front fc rgb colordot fs solid
+set object 13 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
+set object 14 circle at x3, x4 size 0.020 front fc rgb colordot fs solid
 
 
 set arrow 1 from x0, x0 to x0, x1 as 1
@@ -203,11 +204,11 @@ xf = 1 - 1/r;
 
 set title "     4-cycle, {/Times-Italic r} = 3.5" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs empty lw 1.5
-set object 12 circle at x1, x2 size 0.020 front fc rgb "#ff0000" fs solid
-set object 13 circle at x2, x3 size 0.020 front fc rgb "#ff0000" fs solid
-set object 14 circle at x3, x4 size 0.020 front fc rgb "#ff0000" fs solid
-set object 15 circle at x4, x5 size 0.020 front fc rgb "#ff0000" fs solid
+set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
+set object 12 circle at x1, x2 size 0.020 front fc rgb colordot fs solid
+set object 13 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
+set object 14 circle at x3, x4 size 0.020 front fc rgb colordot fs solid
+set object 15 circle at x4, x5 size 0.020 front fc rgb colordot fs solid
 
 
 #set arrow  1 from x0, x0 to x0, x1 as 1
@@ -243,11 +244,11 @@ xf = 1 - 1/r;
 
 set title "    4-cycle, {/Times-Italic r} = 3.9607" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs empty lw 1.5
-set object 12 circle at x1, x2 size 0.020 front fc rgb "#ff0000" fs solid
-set object 13 circle at x2, x3 size 0.020 front fc rgb "#ff0000" fs solid
-set object 14 circle at x3, x4 size 0.020 front fc rgb "#ff0000" fs solid
-set object 15 circle at x4, x5 size 0.020 front fc rgb "#ff0000" fs solid
+set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
+set object 12 circle at x1, x2 size 0.020 front fc rgb colordot fs solid
+set object 13 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
+set object 14 circle at x3, x4 size 0.020 front fc rgb colordot fs solid
+set object 15 circle at x4, x5 size 0.020 front fc rgb colordot fs solid
 
 
 set arrow 1 from x0, x0 to x0, x1 as 1
@@ -289,7 +290,7 @@ xf = 1 - 1/r;
 
 set title "Chaos, {/Times-Italic r} = 3.57" offset 0, -0.5 font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb "#ff0000" fs empty lw 1.5
+set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
 
 set arrow  1 from x0,  x0  to x0,  x1  as 1
 set arrow  2 from x0,  x1  to x1,  x1  as 1

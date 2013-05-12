@@ -3,7 +3,7 @@
     math < log.ma n ch dR kmin kmax
    where
    `n' is the cycle period
-   `ch' can be 'a' (onset), 'b' (bifurcation) or 'c' (general solution)
+   `ch' can be 'a' (onset), 'b' (bifurcation) or 'X'/'Y' (general solution)
    `kmin' and `kmax' can go from -(degR/2+1) to degR/2
    `ch' can also be 'x':
       math < log.ma d x n
@@ -328,7 +328,7 @@ Print[ calcgnk[9, 3, R, X, None, True] ]; Exit[1];
 Clear[nsolve, solveT];
 nsolve[ieq_, x_, prec_: precdef] := Module[{k, eq, sols},
   eq = If [ Head[ieq] === Equal, ieq, ieq == 0];
-  sols = NSolve[eq, x, WorkingPrecision -> prec];
+  sols = NSolve[eq, x, Reals, WorkingPrecision -> prec];
   sols = Table[x/.sols[[k]], {k, Length[sols]}];
   Select[sols, Abs[Im[#]] < 10^-10 &]
 ];
@@ -508,7 +508,7 @@ If [ Length[ $CommandLine ] >= 5,
 ];
 If [ !(kmin === None) && kmin >= kmax, Exit[]; ];
 (* prepare a list to save intermediate values *)
-diff = If [ MemberQ[{"c", "C"}, ch], n + 1, n ];
+diff = If [ MemberQ[{"X", "Y"}, ch], n + 1, n ];
 fnls = If [ diff >= 10, "ls" <> ToString[n] <> ch <> ".txt", None ];
 If [ kmin === None && !(fnls === None),
   Close[ OpenWrite[fnls] ]; (* clear the list file *)
@@ -542,10 +542,10 @@ If [ FileType[fnmats] === File,
 (* 3. compute the determinant of the matrix *)
 If [ lambda === 0,
 
-  (* `ch' === 'c' or 'x', symbolically compute the determinant *)
-  If [ ch === "c" || ch === "C",
+  (* `ch' === 'X' or 'x', symbolically compute the determinant *)
+  If [ ch === "X" || ch === "Y",
     tm = Timing[
-      poly = If [ ch === "c",
+      poly = If [ ch === "X",
           numdetX[n, R, X, mats, None, kmin, kmax, fnls, dR],
           numdetY[n, R, X, mats, None, kmin, kmax, fnls] ];
     ][[1]];
@@ -582,8 +582,11 @@ If [ lambda === 0,
     If [ n < 7, Print[ poly // InputForm ]; ];
     fnT = "T" <> ToString[n] <> ch <> ".txt";
     xsave[fnT, poly, False, True];
-    sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];
-    xsave[fnT, sols, True, False];
+    tm = Timing[
+      sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];
+    ][[1]];
+    Print["numerical solution: ", tm];
+    xsave[fnT, sols, True, True];
   ];
 ];
 

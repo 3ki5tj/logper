@@ -50,7 +50,7 @@ def usage():
   The first argument `n' is the period length.
   The second argument can be `a' for the onset point,
   `b' for the bifurcation point, or `c' for the general case """
-            
+
   print "OPTIONS:"
   print " -f, --func:   specify the map"
   print " -d, --dfunc:  specify the derivative of the map"

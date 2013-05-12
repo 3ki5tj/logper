@@ -4,10 +4,11 @@ set terminal postscript enhanced font "Times, 14" size 10,4.
 set output "oddcycle.ps"
 set encoding iso_8859_1
 
+colordot = "#cc0000"
 
 # set arrow style 1, as a thin arrow
 # size length, angle (deg.), backangle (deg.)
-set style arrow 1 head size 0.100, 18, 30 filled lw 1.0 lc rgb "#3000ff"
+set style arrow 1 head size 0.100, 18, 30 filled lw 1.0 lc rgb "#0000aa"
 
 set style line 10 lt 2 lw 1.5 lc rgb "#808080"
 
@@ -60,10 +61,10 @@ set title "1-odd-cycle, {/Times-Italic r} = 2.2" offset 0, 0 font titlefont
 
 
 # a circle at the fixed point
-set object 11 circle at  xf,  xf size 0.04 front fc rgb "#ff0000" fs solid
-set object 12 circle at -xf, -xf size 0.04 front fc rgb "#ff0000" fs solid
-set object 13 circle at  x0,  x1 size 0.04 front fc rgb "#ff0000" fs empty
-set object 14 circle at  x1,  x2 size 0.04 front fc rgb "#ff0000" fs empty
+set object 11 circle at  xf,  xf size 0.04 front fc rgb colordot fs solid
+set object 12 circle at -xf, -xf size 0.04 front fc rgb colordot fs solid
+set object 13 circle at  x0,  x1 size 0.04 front fc rgb colordot fs empty
+set object 14 circle at  x1,  x2 size 0.04 front fc rgb colordot fs empty
 
 set arrow 100 from 0, -2 to 0, 2 nohead
 set arrow 101 from -2, 0 to 2, 0 nohead
@@ -111,12 +112,12 @@ xf = sqrt(r-1);
 
 set title "      2-odd-cycle, {/Times-Italic r} = 2.8308" font titlefont
 
-set object 11 circle at  xf,  xf size 0.04 front fc rgb "#ff0000" fs empty
-set object 12 circle at -xf, -xf size 0.04 front fc rgb "#ff0000" fs empty
-set object 13 circle at  x0,  x1 size 0.04 front fc rgb "#ff0000" fs solid
-set object 14 circle at  x1,  x2 size 0.04 front fc rgb "#ff0000" fs solid
-set object 15 circle at  x2,  x3 size 0.04 front fc rgb "#ff0000" fs solid
-set object 16 circle at  x3,  x4 size 0.04 front fc rgb "#ff0000" fs solid
+set object 11 circle at  xf,  xf size 0.04 front fc rgb colordot fs empty
+set object 12 circle at -xf, -xf size 0.04 front fc rgb colordot fs empty
+set object 13 circle at  x0,  x1 size 0.04 front fc rgb colordot fs solid
+set object 14 circle at  x1,  x2 size 0.04 front fc rgb colordot fs solid
+set object 15 circle at  x2,  x3 size 0.04 front fc rgb colordot fs solid
+set object 16 circle at  x3,  x4 size 0.04 front fc rgb colordot fs solid
 
 
 set arrow  1 from x0, x0 to x0, x1 as 1

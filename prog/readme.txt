@@ -8,7 +8,7 @@ mkinterp.py       interpolation code
 
 mknsolv.py        numerical solution code
 
-additional.nb     additional and old code snippets
+extra.nb          additional and old code snippets
 
 
 old

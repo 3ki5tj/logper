@@ -6,7 +6,7 @@ usb::
 
 clean:
 	find . -name "*~" | xargs rm
-	rstrip.py -R *.tex *.html *.[ch] *.py *.ma *.gp *akefile
+	rstrip.py -R *.tex *.html *.c *.h *.py *.ma *.gp *akefile
 
 submkdirs = logperiod logperiod/prog/figtree \
 	  doc doc/fig prog

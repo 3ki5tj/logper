@@ -5,7 +5,7 @@ n := 5;
 lam := -1;
 
 Q := RationalField();
-P<x,R> := PolynomialRing(Q, 2);
+P<x,r> := PolynomialRing(Q, 2);
 
 f := func< x | r*x - x^3 >;
 df := func< x | r - 3*x^2 >;

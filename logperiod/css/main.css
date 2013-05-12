@@ -43,7 +43,7 @@ p, div.p {
 }
 div.center { text-align: center; }
 code, pre.code, div.code, span.code {
-  font: bold 120% monospace;
+  font: 120% monospace;
   color: #000055;
 }
 code, pre.code, div.code {
