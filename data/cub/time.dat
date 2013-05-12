@@ -2,9 +2,9 @@
 # Magma timing measured from the bifurcation point
 # Mathematica time is for a single core
 # general polynomial is computed from I7/Mathematica 9
-#n   lsmat    onset.  bifur.      general      GB(magma)  Res.(magma)
-4    0.08     0.12    0.12      *0.38 0.26      0.61        n/a
-5    0.38     2.9     3.0         *87 11         108        n/a
-6    2.4      73      70       *18641 4753      3735        n/a
-7    14.4     2729    2687        n/a n/a        n/a        n/a
+#n   lsmat    onset.  bifur.      general     general2   GB(magma)  Res.(magma)
+4    0.08     0.12    0.12      *0.38 0.33     n/a 0.44   0.61        n/a
+5    0.38     2.9     3.0         *87 16       n/a 21      108        n/a
+6    2.4      73      70       *18641 4753     n/a 2351   3735        n/a
+7    14.4     2729    2687        n/a n/a      n/a n/a     n/a        n/a
 8    103      n/a     136269

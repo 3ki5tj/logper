@@ -422,7 +422,10 @@ numdet[n_, Xv_, R_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
     Pv = Cancel[ Det[ mat /. {R -> Rv} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {Rv, Pv}];
-    If [ !(fn === None), xsave[fn, {Rv, Pv}, True]; ];
+    If [ !(fn === None),
+      Print["k ", k, ", deg ", deg, ", ", fn];
+      xsave[fn, {Rv, Pv}, True];
+    ];
   ];
   xy
 ];
@@ -432,12 +435,12 @@ Print[ interp[ numdet[4, -1, R, X], T/4 ] // InputForm ]; Exit[1];
 *)
 
 (* solve the general boundary condition, faster version of symprimfac[] *)
-numdetX[n_, R_, X_, mats_:None, den_:None, fn_:None, dR_:1] :=
-    Module[{ls, Y, deg = degRp[n], k},
-  ls = numdet[n, (-2)^n Y, R, X, mats, den, None, None, fn, {}, dR];
+numdetX[n_, R_, X_, mats_:None, den_:None, kmin_:None, kmax_:None,
+        fn_:None, dR_:1] := Module[{ls, deg = degRp[n], k},
+  ls = numdet[n, (-2)^n X, R, X, mats, den, kmin, kmax, fn, {}, dR];
   ls = Table[ {ls[[k]][[1]], ls[[k]][[2]] / 4^deg}, {k, Length[ls]} ];
-  (* nicefmt[ interp[ls, R] /. {Y -> X}, R ] is much slower *)
-  interp1[ls, R, Y] /. {Y -> X}
+  (* nicefmt[ interp[ls, R], R ] is much slower *)
+  interp1[ls, R, X]
 ];
 
 (*
@@ -464,8 +467,10 @@ numdetY[n_, R_, X_, ms_:None, dn_:None, l0_:None, l1_:None,
     Pv = interp[xy, R];
     XP = {Xv / (-2)^n, Pv / 4^degrp};
     ls = Append[ls, XP];
-    If [ n > 7, Print["l ", l, ", deg ", degx]; ];
-    If [ !(fn === None), xsave[fn, XP, True]; ];
+    If [ !(fn === None),
+      Print["l ", l, ", deg ", degx, ", ", fn];
+      xsave[fn, XP, True];
+    ];
   ];
   nicefmt[ interp1[ls, X, R], R ]
 ];
@@ -496,6 +501,25 @@ lambda = If [ ch === "b", -1,
 
 Print["n ", n, "; lam ", ch, " ", lambda, "; degR. ", degRp[n]];
 
+kmin = kmax = None;
+If [ Length[ $CommandLine ] >= 5,
+  {kmin, kmax} = { ToExpression[ $CommandLine[[-2]] ],
+                   ToExpression[ $CommandLine[[-1]] ] }
+];
+If [ !(kmin === None) && kmin >= kmax, Exit[]; ];
+(* prepare a list to save intermediate values *)
+diff = If [ MemberQ[{"c", "C"}, ch], n + 1, n ];
+fnls = If [ diff >= 10, "ls" <> ToString[n] <> ch <> ".txt", None ];
+If [ kmin === None && !(fnls === None),
+  Close[ OpenWrite[fnls] ]; (* clear the list file *)
+];
+dR = 1;
+If [ Length[ $CommandLine ] == 4 || Length[ $CommandLine ] >= 6,
+  dR = ToExpression[ $CommandLine[[4]] ];
+];
+Print["kmin ", kmin, ", kmax ", kmax, ", fnls ", fnls, ", dR ", dR];
+
+
 
 (* 2. load or compute the matrix that connects the n cyclic polynomials
       by the square-free reduction, each element of the matrix is a
@@ -522,8 +546,8 @@ If [ lambda === 0,
   If [ ch === "c" || ch === "C",
     tm = Timing[
       poly = If [ ch === "c",
-          numdetX[n, R, X, mats],
-          numdetY[n, R, X, mats] ];
+          numdetX[n, R, X, mats, None, kmin, kmax, fnls, dR],
+          numdetY[n, R, X, mats, None, kmin, kmax, fnls] ];
     ][[1]];
     Print["time for primitive polynomial ", tm];
     xsave["RX" <> ToString[n] <> ".txt", poly, False, True],
@@ -546,40 +570,20 @@ If [ lambda === 0,
   ],
 
   (* `ch' === 'a' or 'b', numerically compute the onset or bifurcation point *)
-  kmin = kmax = None;
-  If [ Length[ $CommandLine ] >= 5,
-    {kmin, kmax} = {
-      ToExpression[ $CommandLine[[-2]] ],
-      ToExpression[ $CommandLine[[-1]] ]
-    }
-  ];
-  dR = 1;
-  If [ Length[ $CommandLine ] == 4 || Length[ $CommandLine ] >= 6,
-    dR = ToExpression[ $CommandLine[[4]] ]
-  ];
-  Print["dR ", dR, "; kmin ", kmin, ", kmax ", kmax];
-
-
-  If [ kmin < kmax || kmax === None,
-    fnls = If [ n > 8, "ls" <> ToString[n] <> ch <> ".txt", None];
-    If [ kmin === None && !(fnls === None),
-      Close[ OpenWrite[fnls] ]; (* clear the list file *)
-    ];
+  tm = Timing[
+    xy = numdet[n, lambda, R, X, mats, None, kmin, kmax, fnls, {}, dR];
+  ][[1]];
+  Print["computing determinant list: ", tm];
+  If [ Length[xy] >= degRp[n] + 1,
     tm = Timing[
-      xy = numdet[n, lambda, R, X, mats, None, kmin, kmax, fnls, {}, dR];
+      poly = interp[xy, T/4];
     ][[1]];
-    Print["computing determinant list: ", tm];
-    If [ Length[xy] >= degRp[n] + 1,
-      tm = Timing[
-        poly = interp[xy, T/4];
-      ][[1]];
-      Print["interpolation and factorization: ", tm];
-      If [ n < 7, Print[ poly // InputForm ]; ];
-      fnT = "T" <> ToString[n] <> ch <> ".txt";
-      xsave[fnT, poly, False, True];
-      sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];
-      xsave[fnT, sols, True, False];
-    ];
+    Print["interpolation and factorization: ", tm];
+    If [ n < 7, Print[ poly // InputForm ]; ];
+    fnT = "T" <> ToString[n] <> ch <> ".txt";
+    xsave[fnT, poly, False, True];
+    sols = solveT[poly, T, "r" <> ToString[n] <> ch <> ".txt"];
+    xsave[fnT, sols, True, False];
   ];
 ];
 

@@ -350,10 +350,12 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
     Pv = Cancel[ Det[ mat /. {r -> rv} ] / denv ];
     (* add the new value to the list *)
     xy = Append[xy, {rv, Pv}];
-    If [ !(fn === None), xsave[fn, {rv, Pv}, True]; ];
+    If [ !(fn === None),
+      Print["k ", k, ", deg ", deg, ", ", fn];
+      xsave[fn, {rv, Pv}, True];
+    ];
   ];
   If [ Mod[n, 4] === 0, xy = mksym[xy] ];
-  (* Print[xy]; *)
   xy
 ];
 
@@ -362,14 +364,48 @@ Print[ interp[ numdet[4, -1, r, X], r ] ]; Exit[1];
 *)
 
 (* solve the general boundary condition, faster version of symprimfac[] *)
-numdetX[n_, r_, X_, mats_:None, den_:None, fn_:None, dr_:1] :=
-    Module[{ls, Y},
-  ls = numdet[n, Y, r, X, mats, den, None, None, fn, {}, dr, False];
-  nicefmt[ interp1[ls, r, Y] /. {Y -> X}, r]
+numdetX[n_, r_, X_, mats_:None, den_:None, kmin_:None, kmax_:None,
+        fn_:None, dr_:1] := Module[{ls},
+  ls = numdet[n, X, r, X, mats, den, kmin, kmax, fn, {}, dr, False];
+  nicefmt[ interp1[ls, r, X], r ]
 ];
 
 (*
 Print[ numdetX[2, r, X] // InputForm ]; Exit[1];
+*)
+
+(* alternative to numdetX, similar performance *)
+numdetY[n_, r_, X_, ms_:None, dn_:None, l0_:None, l1_:None,
+        fn_:None, dX_:1] :=
+  Module[{mats = ms, den = dn, Xv, l, lmin = l0, lmax = l1,
+    degx = degXp[n], degrp = degrp[n], ls = {}, xy, XP},
+
+  (* make sure we have the matrix and denominator *)
+  If [ mats === None, mats = getcycmats[n, r, X]; ];
+  If [ den === None, den = symprimfac[n, r, X, mats, True, True]; ];
+
+  If [ l0 === None, lmin = -Round[degx/2]; ];
+  If [ l1 === None, lmax = Round[degx/2] + 10000; ];
+
+  For [ l = lmin, l < lmax && Length[ls] < degx + 1, l++,
+    ClearSystemCache[]; (* free some memory *)
+    Xv = l dX;
+    xy = numdet[n, Xv, r, X, mats, den,
+        None, None, None, {}, 1, False];
+    Pv = interp[xy, r];
+    XP = {Xv, Pv};
+    ls = Append[ls, XP];
+    (*  Print["l ", l, ", deg ", degx, ", ", InputForm[XP]]; *)
+    If [ !(fn === None),
+      Print["l ", l, ", deg ", degx, ", ", fn];
+      xsave[fn, XP, True];
+    ];
+  ];
+  nicefmt[ interp1[ls, X, r], r ]
+];
+
+(*
+Print[ numdetY[2, r, X] // InputForm ]; Exit[1];
 *)
 
 (* ***************** NEW Lagrange interpolation ends ********************** *)
@@ -381,46 +417,62 @@ Print[ numdetX[2, r, X] // InputForm ]; Exit[1];
 (* 1. handling input arguments *)
 n = 3;
 If [ Length[$CommandLine] >= 2,
-  n = ToExpression[ $CommandLine[[2]] ]
+  n = ToExpression[ $CommandLine[[2]] ];
 ];
 
 ch = "a";
 If [ Length[$CommandLine] >= 3,
-  ch = $CommandLine[[3]]
+  ch = $CommandLine[[3]];
 ];
 lambda = If [ ch === "b", -1,
          If [ ch === "a", 1,
                           0 ] ];
-
 Print["n ", n, "; lambda ", ch, " ", lambda, "; degr. ", degrp[n]];
+
+kmin = kmax = None;
+If [ Length[ $CommandLine ] >= 5,
+  {kmin, kmax} = { ToExpression[ $CommandLine[[-2]] ],
+                   ToExpression[ $CommandLine[[-1]] ] }
+];
+If [ !(kmin === None) && kmin >= kmax, Exit[]; ];
+(* prepare a list to save intermediate values *)
+diff = If [ MemberQ[{"c", "C"}, ch], n + 1, n ];
+fnls = If [ diff >= 7, "cls" <> ToString[n] <> ch <> ".txt", None ];
+If [ kmin === None && !(fnls === None),
+  Close[ OpenWrite[fnls] ]; (* clear the list *)
+];
+Print["kmin ", kmin, ", kmax ", kmax, ", fnls ", fnls];
 
 
 (* 2. reading or computing the matrix *)
-fnmats = "cmats"<>ToString[n]<>".txt";
+fnmats = "cmats" <> ToString[n] <> ".txt";
 If [ FileType[fnmats] === File,
-  tm = Timing[
-    mats = xload[fnmats];
-  ][[1]];
-  Print["matrix loaded from ", fnmats, ", time ", tm],
+tm = Timing[
+  mats = xload[fnmats];
+][[1]];
+Print["matrix loaded from ", fnmats, ", time ", tm],
 
-  tm = Timing[
-    mats = getcycmats[n, r, X];
-  ][[1]];
-  Print["computing mats: ", tm];
-  xsave[fnmats, mats];
+tm = Timing[
+  mats = getcycmats[n, r, X];
+][[1]];
+Print["computing mats: ", tm];
+xsave[fnmats, mats];
 ];
 
 
 (* 3. computing the determinant of the matrix *)
 If [ lambda === 0,
 
-  (* `ch' === 'c' or 'x', symbolically compute the determinant *)
-  If [ ch === "c",
-    tm = Timing[
-      (* poly = symprimfac[n, r, X, mats, True]; *)
-      poly = numdetX[n, r, X, mats];
-      (* poly = nicefmt[ poly /. {X -> 3^n - 2 r Y}, Y ]; *)
-    ][[1]];
+(* `ch' === 'c' or 'x', symbolically compute the determinant *)
+If [ ch === "c" || ch === "C",
+  tm = Timing[
+    (* poly = symprimfac[n, r, X, mats, True]; *)
+    If [ ch === "c",
+      poly = numdetX[n, r, X, mats, None, kmin, kmax, fnls],
+      poly = numdetY[n, r, X, mats, None, kmin, kmax, fnls];
+    ]; 
+    (* poly = nicefmt[ poly /. {X -> 3^n - 2 r Y}, Y ]; *)
+  ][[1]];
     Print["time for primitive polynomial ", tm];
     xsave["crX" <> ToString[n] <> ".txt", poly, False, True],
 
@@ -442,33 +494,20 @@ If [ lambda === 0,
   ],
 
   (* `ch' === 'a' or 'b', numerically compute the onset or bifurcation point *)
-  kmin = kmax = None;
-  If [ Length[ $CommandLine ] >= 5,
-    {kmin, kmax} = { ToExpression[ $CommandLine[[-2]] ],
-                     ToExpression[ $CommandLine[[-1]] ] }
-  ];
-  Print["kmin ", kmin, ", kmax ", kmax];
-
-  If [ kmin < kmax || kmin === None,
-    fnls = If [ n > 6, "cls" <> ToString[n] <> ch <> ".txt", None ];
-    If [ kmin === None && !(fnls === None),
-      Close[OpenWrite[fnls]] (* clear the list *)
-    ];
+  tm = Timing[
+    xy = numdet[n, lambda, r, X, mats, None, kmin, kmax, fnls];
+  ][[1]];
+  Print["computing Dets: ", tm];
+  If [ Length[xy] >= degrp[n] + 1,
     tm = Timing[
-      xy = numdet[n, lambda, r, X, mats, None, kmin, kmax, fnls];
+      poly = interp[xy, r];
     ][[1]];
-    Print["computing Dets: ", tm];
-    If [ Length[xy] >= degrp[n] + 1,
-      tm = Timing[
-        poly = interp[xy, r];
-      ][[1]];
-      Print["interpolation and factorization: ", tm];
-      If [ n <= 4, Print[ poly ] ];
-      fnr = "cr" <> ToString[n] <> ch <> ".txt";
-      xsave[fnr, poly, False, True];
-      sols = nsolve[poly, r];
-      xsave[fnr, sols, True, False];
-    ]
+    Print["interpolation and factorization: ", tm];
+    If [ n <= 4, Print[ poly ] ];
+    fnr = "cr" <> ToString[n] <> ch <> ".txt";
+    xsave[fnr, poly, False, True];
+    sols = nsolve[poly, r];
+    xsave[fnr, sols, True, False];
   ]
 ];
 
