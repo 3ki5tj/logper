@@ -196,8 +196,14 @@ The onset and bifurcation points
 %
 The cycle and its stability depend on the parameter $r$.
 %
-Our purpose is to present an algorithm to identify
-  all regions of $r$ that allow stable $n$-cycles.
+The problem is to identify
+  all regions of $r$ that allow stable $n$-cycles,
+  which has been the objective of several previous
+  studies
+  \cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
+  saha, bechhoefer, gordon, burm, zhang, bailey1, bailey2, kk1, lewis}.
+Below we present a simple algorithm to do so.
+
 
 
 
@@ -562,23 +568,23 @@ To summarize, we have
   if $\lambda$ is set to $\exp(i\theta)$ with $\theta \in [0, 2\pi]$.
   The region enclosed by the contour corresponds to
     a bulb in the inverted Mandelbrot set
-  (the correspondence follows from the transformation $z_k = -x_k, c = -R$, which
+  (it follows from the transformation $z_k = -x_k, c = -R$, which
   reduces \refeq{logmaps} to the quadratic map $z_{k+1} = c + {z_k}^2$
   used in the Mandelbrot set \cite{mandelbrot}),
   see ref. \cite{stephenson2, stephenson3}. % and \reffig{logbulb}.
 \end{remark}
 
 
-\begin{remark}
-  With $\lambda = 0$,
-  the algorithm yields the polynomial of the superstable point,
-  at which the initial deviation from a cycle point vanishes
-  to the linear order after $n$ iterations of $f$.
-  But we have a better algorithm in this case:
-  since at least one of the $x_k$ is zero by \refeq{logder},
-  then $f^n(x_k = 0) = x_{n+k} = 0$, which provides
-  the desired equation of $R$ \cite{strogatz}.
-\end{remark}
+%\begin{remark}
+%  With $\lambda = 0$,
+%  the algorithm yields the polynomial of the superstable point,
+%  at which the initial deviation from a cycle point vanishes
+%  to the linear order after $n$ iterations of $f$.
+%  But we have a better algorithm in this case:
+%  since at least one of the $x_k$ is zero by \refeq{logder},
+%  then $f^n(x_k = 0) = x_{n+k} = 0$, which provides
+%  the desired equation of $R$ \cite{strogatz}.
+%\end{remark}
 
 
 
@@ -621,10 +627,12 @@ For $n = 1$, we have
 \]
 With $\Lambda \rightarrow \lambda$, the characteristic equation (\ref{eq:xr}) reads
 \begin{equation}
-0=  \left| \begin{array}{cc}
-  \lambda     & 2          \\
-  2 R         & \lambda - 2
-  \end{array} \right| = -4R - 2\lambda + \lambda^2.
+0
+  %=\left| \begin{array}{cc}
+  %\lambda     & 2          \\
+  %2 R         & \lambda - 2
+  %\end{array} \right|
+  = -4R - 2\lambda + \lambda^2.
   \tag{\ref{eq:xr}-1}
 \label{eq:xr1}
 \end{equation}
@@ -642,9 +650,9 @@ $C_{12} = x_1 x_2$;
 and $\Lambda = 4 \, x_1 x_2$.
 Thus,
 $\Lambda \, C_0 = 4 \, C_{12}$,
-$\Lambda \, C_1 = 4 \, {x_1}^2 \, x_2 + 4 \, x_1 \, {x_2}^2
+$\Lambda \, C_1 %= 4 \, {x_1}^2 \, x_2 + 4 \, x_1 \, {x_2}^2
   = -8 \, R \, C_0 + 4 \, (R + 1) \, C_1$
-(see the example after \refthm{sqrfree}),
+by the example after \refthm{sqrfree},
 $\Lambda \, C_{12}
   = 4 \, (R - x_2) (R - x_1)$,
 and
@@ -696,88 +704,89 @@ and the bifurcation ($\lambda = -1$) value is $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
 
 
 
-The $n = 3$ case is nontrivial and has sparked several different
-  elementary derivations \cite{brown1, saha, bechhoefer, gordon, burm, zhang}.
-For the current algorithm,
-%the cyclic polynomials are
-%$C_0 = 1$,
-%$C_1 = x_1 + x_2 + x_3$,
-%$C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$,
-%$C_{123} = x_1 x_2 x_3$,
-%and
-$\Lambda = -8 \, C_{123}$,
-%
-and the square-free reduction yields
-%
-\begin{small}
-\begin{align*}
-\Lambda
-\left( \begin{array}{c}
-  C_0 \\
-  C_1 \\
-  C_{12} \\
-  C_{123}
-\end{array} \right)
-=
-\left( \begin{array}{cccc}
- 0            & 0                 & 0               & -8 \\
- -24 R        & 8(R+1)            & -8R             & 0 \\
- 24 R^2       & -8R(R+2)          & 8(R+1)          & 0 \\
- -8R^3        & 8R^2              & -8R             & 8
-  \end{array} \right)
-\left( \begin{array}{c}
-  C_0 \\
-  C_1 \\
-  C_{12} \\
-  C_{123}
-\end{array} \right),
-\end{align*}
-\end{small}
-%
-%
-%
-and \refeq{xr} reads:
-\begin{align}
-  0
-&= -\big[
-  64R^3 - 128 R^2 - 8 (\lambda - 8) R - (\lambda -8)^2
-  \big] \notag \\
-&\qquad
-  \big(
-  \lambda^2 - 8\lambda - 24 R\lambda - 64 R^3
-  \big).
-  \tag{\ref{eq:xr}-3}
-\label{eq:xr3}
-\end{align}
-%
-Using the first factor, we find at the onset point
-  $\lambda = 1$,
-  $\left(
-  R-\frac74
-  \right)
-  \left(
-  R^2-\frac14 R + \frac{7}{16}
-  \right)=0$
-  and its only real solution is $R_a = 7/4$ ($r_a = 1+\sqrt 8$).
-%
-At the bifurcation point $\lambda = -1$,
-  the equation $R^3-2R^2 + \frac{9}{8} R -\frac{81}{64}=0$
-  yields
-  $R_b = \frac14
-      \left(
-      \frac{8}{3} +
-        \sqrt[3]{\frac{1915}{54} - \frac52\sqrt{201}}
-       +\sqrt[3]{\frac{1915}{54} + \frac52\sqrt{201}}
-      \right)$,
-whose corresponding $r = 1+\sqrt{1+4R}$
-is identical to that in ref. \cite{gordon, burm}.
-%
+%The $n = 3$ case is nontrivial and has sparked several different
+%  elementary derivations 
+%  \cite{brown1, saha, bechhoefer, gordon, burm, zhang}.
+%For the current algorithm,
+%%the cyclic polynomials are
+%%$C_0 = 1$,
+%%$C_1 = x_1 + x_2 + x_3$,
+%%$C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$,
+%%$C_{123} = x_1 x_2 x_3$,
+%%and
+%$\Lambda = -8 \, C_{123}$,
+%%
+%and the square-free reduction yields
+%%
+%\begin{small}
+%\begin{align*}
+%\Lambda
+%\left( \begin{array}{c}
+%  C_0 \\
+%  C_1 \\
+%  C_{12} \\
+%  C_{123}
+%\end{array} \right)
+%=
+%\left( \begin{array}{cccc}
+% 0            & 0                 & 0               & -8 \\
+% -24 R        & 8(R+1)            & -8R             & 0 \\
+% 24 R^2       & -8R(R+2)          & 8(R+1)          & 0 \\
+% -8R^3        & 8R^2              & -8R             & 8
+%  \end{array} \right)
+%\left( \begin{array}{c}
+%  C_0 \\
+%  C_1 \\
+%  C_{12} \\
+%  C_{123}
+%\end{array} \right),
+%\end{align*}
+%\end{small}
+%%
+%%
+%%
+%and \refeq{xr} reads:
+%\begin{align}
+%  0
+%&= -\big[
+%  64R^3 - 128 R^2 - 8 (\lambda - 8) R - (\lambda -8)^2
+%  \big] \notag \\
+%&\qquad
+%  \big(
+%  \lambda^2 - 8\lambda - 24 R\lambda - 64 R^3
+%  \big).
+%  \tag{\ref{eq:xr}-3}
+%\label{eq:xr3}
+%\end{align}
+%%
+%Using the first factor, we find at the onset point
+%  $\lambda = 1$,
+%  $\left(
+%  R-\frac74
+%  \right)
+%  \left(
+%  R^2-\frac14 R + \frac{7}{16}
+%  \right)=0$
+%  and its only real solution is $R_a = 7/4$ ($r_a = 1+\sqrt 8$).
+%%
+%At the bifurcation point $\lambda = -1$,
+%  the equation $R^3-2R^2 + \frac{9}{8} R -\frac{81}{64}=0$
+%  yields
+%  $R_b = \frac14
+%      \left(
+%      \frac{8}{3} +
+%        \sqrt[3]{\frac{1915}{54} - \frac52\sqrt{201}}
+%       +\sqrt[3]{\frac{1915}{54} + \frac52\sqrt{201}}
+%      \right)$,
+%whose corresponding $r = 1+\sqrt{1+4R}$
+%is identical to that in ref. \cite{gordon, burm}.
+%%
 
 
 
 
 For the $n = 4$ case
-\cite{brown1, stephenson1, stephenson3, bailey, kk1, lewis},
+\cite{brown1, stephenson1, stephenson3, bailey1, bailey2, kk1, lewis},
 %$C_0 = 1$,
 %$C_1 = x_1 + \cdots + x_4$,
 %$C_{12} = x_1 x_2 + \cdots + x_4 x_1$,
@@ -788,7 +797,8 @@ For the $n = 4$ case
 %$\Lambda = 16 \, C_{1234}$.
 %
 we only list the final characteristic equation \eqref{eq:xr}
-after the square reduction (with six square-free cyclic polynomials):
+after the square reduction:%
+%(with six square-free cyclic polynomials):
 %
 \begin{small}
 \begin{align}
@@ -849,11 +859,11 @@ $4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
   + 8432 R^2 + 4913 = 0$,
 which upon $R \rightarrow r(r-2)/4$ yields the same polynomial
 obtained previously
-\cite{bailey, kk1, lewis}.
+\cite{bailey2, kk1, lewis}.
 %
-The only two positive roots $r_b \approx 3.9608$
-and $r_b' \approx 3.5441$ of the sextic equation
-correspond to $r_a$ and $r_a'$ respectively.
+%The only two positive roots $r_b \approx 3.9608$
+%and $r_b' \approx 3.5441$ of the sextic equation
+%correspond to $r_a$ and $r_a'$ respectively.
 %
 %Since the 4-cycle problem were tackled mainly on computers
 %  in the previous studies,
@@ -970,10 +980,11 @@ where
 \end{theorem}
 %
 %
-\begin{remark}
-Here, ``minimal'' means that the polynomial contains all zeros;
-  it does not, however, necessarily mean that the polynomial is irreducible.
-\end{remark}
+%\begin{remark}
+%Here, ``minimal'' means that the polynomial contains all zeros.
+%It happens to be irreducible for a general $\lambda$.
+%At $\lambda = 1$, the polynomial of $R$, however, can be factorized (see later).
+%\end{remark}
 %
 \begin{remark}
 The M\"obius function $\mu(n)$ is $(-1)^k$
@@ -1006,7 +1017,7 @@ Particularly, $B_{n,1}\Rlam = A_n\Rlam$.
 %
 %
 Let us apply \refeq{primfac}
-to some examples in \refsec{examples}.
+to the examples in \refsec{examples}.
 We will omit the argument $R$ below for convenience.
 %%
 For $n = 1$,
@@ -1083,12 +1094,12 @@ Due to the technical nature of the derivation and subsequent discussions,
 %We will prove \refthm{primfac} by the following steps.
 %
 To show \refthm{primfac}, we first find the degrees in $\lambda$ of
-  $A_n\Rlam$ (\refthm{necklace}) and $P_n\Rlam$ (\refthm{lyndon}).
+  $A_n\Rlam$ (\refeq{necklace}) and $P_n\Rlam$ (\refeq{lyndon}).
 By comparing the degrees,
   we then show that each $P_d\Rlam$ with ($d|n$),
   after some transformation,
   contributes one polynomial factor to $A_n\Rlam$
-  (\refthm{prod}),
+  (\refeq{prod}),
   and the inversion of the relation
   yields \refthm{primfac}.
 
@@ -1123,9 +1134,9 @@ e.g. the above four necklaces correspond to
 %  $C_{12} = x_1 x_2 + x_2 x_3 + x_3 x_1$ (generator: $x_1 x_2$)
 %  and $C_{123} = x_1 x_2 x_3$ (generator: $x_1 x_2 x_3$), respectively.
 Thus,
-
-\begin{theorem}
-The number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$
+%
+%\begin{theorem}
+the number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$
   formed by the cycle points $\vx = \{x_1, \ldots, x_n\}$,
   which is also $\deg_\lambda A_n\Rlam$, is given by
 \begin{equation}
@@ -1134,8 +1145,8 @@ The number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$
 \label{eq:necklace}
 \end{equation}
 %
-\label{thm:necklace}
-\end{theorem}
+%\label{thm:necklace}
+%\end{theorem}
 %
 Here, $\varphi(m)$ is Euler's totient function,
 which gives the number of integers from 1 to $m$
@@ -1144,7 +1155,7 @@ which gives the number of integers from 1 to $m$
   $\varphi(1) = 1$,
   $\varphi(3) = 2$ for 1 and 2,
   $\varphi(6) = 2$ for 1 and 5.
-The first few values of $N_\Pset(n)$ are 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188, 352, 632, \ldots,
+The first few $N_\Pset(n)$ are 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188, 352, 632, \ldots,
   from $n = 1$.
 
 
@@ -1152,7 +1163,7 @@ The first few values of $N_\Pset(n)$ are 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, 188
 \subsubsection{Number of the $n$-cycles}
 
 
-\begin{theorem}
+%\begin{theorem}
 The degree in $\lambda$ of the minimal polynomial $P_n\Rlam$ of all $n$-cycles
   is equal to the number of the $n$-cycles,
   which is given by
@@ -1161,8 +1172,8 @@ The degree in $\lambda$ of the minimal polynomial $P_n\Rlam$ of all $n$-cycles
   L(n) = (1/n)\textstyle\sum_{d | n} \mu(n/d) 2^{\,d}.
 \label{eq:lyndon}
 \end{equation}
-\label{thm:lyndon}
-\end{theorem}
+%\label{thm:lyndon}
+%\end{theorem}
 %
 %
 \begin{proof}
@@ -1200,7 +1211,7 @@ Since an $n$-necklace is either aperiodic itself or
 
 
 
-\begin{theorem}
+%\begin{theorem}
 The minimal polynomials $P_d\Rlam$ of all $d$-cycles
   of periods $d|n$
 and $A_n\Rlam$ [defined in \refeq{xr}] are related by
@@ -1213,8 +1224,8 @@ and $A_n\Rlam$ [defined in \refeq{xr}] are related by
   is a polynomial of degree $L(d)$ in $\lambda$
   representing contributions from $d$-cycles.
 %encompassed by $A_n\Rlam$.
-\label{thm:prod}
-\end{theorem}
+%\label{thm:prod}
+%\end{theorem}
 
 \begin{proof}
 Since $A_n\Rlam$ represent all $d$-cycles with $d|n$,
@@ -1275,7 +1286,7 @@ So the multiple is one, hence \refeq{prod}.
 
 
 
-\refthm{primfac} is a corollary of \refthm{prod},
+\refeq{primfac} is a corollary of \refeq{prod},
 \begin{small}
 \begin{align*}
  B_{n, m} (\lambda)
@@ -1291,7 +1302,8 @@ The M\"obious inversion yields
 \begin{equation}
   Q_{n, m}\Rlam
 = \prod_{d|n} B_{d, m n/d}\Rlam^{\mu(n/d)},
-\tag{$\ref{eq:primfac}'$}
+\notag
+%\tag{$\ref{eq:primfac}'$}
 \end{equation}
 which is reduced to \refeq{primfac} with $m = 1$,
 for $Q_{n, 1}\Rlam = P_n\Rlam$.
@@ -1630,7 +1642,7 @@ By \refeq{necklace} we have \refeqsub{degR}{a}.
 
 \refeqsub{degR}{b} and (c) follow from taking taking the degree in $R$ of
   \refeq{prod} and \refeq{origfac}.
-\refeqsub{degR}{b} and (\ref{degR}c) were known \cite{mira, stephenson1, blackhurst}.
+\refeqsub{degR}{b} and (\ref{eq:degR}c) were known \cite{mira, stephenson1, blackhurst}.
 %
 \end{proof}
 %
@@ -2095,7 +2107,7 @@ We therefore save the polynomials and programs of the three maps on the web site
 http://logperiod.appspot.com.
 
 
-%Compared with other approaches \cite{hitzl, gordon, bailey, kk1, hao, hao2}
+%Compared with other approaches \cite{hitzl, gordon, bailey2, kk1, hao, hao2}
 %it appeared to be simpler and more transparent,
 %as it only requires the computation of a determinant.
 
@@ -2264,28 +2276,6 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
   \textbf{26},
   263--284.
 
-\bibitem[Saha \& Strogatz(1995)]{saha}
-  Saha, P. \& Strogatz, S. H. [1995]
-  ``The birth of period three,''
-  {\it Mathematics Magazine}
-  \textbf{68},
-  42--47.
-
-\bibitem[Kotsireas \& Karamanos(2004)]{kk1}
-  Kotsireas, I. S. \& Karamanos, K. [2004]
-  ``Exact computation of the bifurcation point $B_4$ of the logistic map
-  and  the Bailey-Broadhurst conjectures,''
-  {\it International Journal of Bifurcation and Chaos}
-  \textbf{14},
-  2417--2423.
-
-\bibitem[Burm \& Fishback(2001)]{burm}
-  Burm, J. \& Fishback, P. [2001]
-  ``Period-3 orbits via Sylvester's theorem and resultants,''
-  {\it Mathematics Magazine}
-  \textbf{74},
-  47--51.
-
 \bibitem[Stephenson(1991)]{stephenson1}
   Stephenson, J. [1991]
   ``Formulae for cycles in the Mandelbrot set,''
@@ -2293,19 +2283,26 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
   \textbf{177},
   416--420.
 
-\bibitem[Stephenson(1992)]{stephenson2}
-  Stephenson, J. [1992]
+\bibitem[Stephenson(1992a)]{stephenson2}
+  Stephenson, J. [1992a]
   ``Formulae for cycles in the Mandelbrot set II,''
   {\it Physica A}
   \textbf{190},
   104--116.
 
-\bibitem[Stephenson(1992)]{stephenson3}
-  Stephenson, J. [1992]
+\bibitem[Stephenson(1992b)]{stephenson3}
+  Stephenson, J. [1992b]
   ``Formulae for cycles in the Mandelbrot set III,''
   {\it Physica A}
   \textbf{190},
   117--129.
+
+\bibitem[Saha \& Strogatz(1995)]{saha}
+  Saha, P. \& Strogatz, S. H. [1995]
+  ``The birth of period three,''
+  {\it Mathematics Magazine}
+  \textbf{68},
+  42--47.
 
 \bibitem[Bechhoefer(1996)]{bechhoefer}
   Bechhoefer, J. [1996]
@@ -2321,6 +2318,13 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
   \textbf{69},
   118--120.
 
+\bibitem[Burm \& Fishback(2001)]{burm}
+  Burm, J. \& Fishback, P. [2001]
+  ``Period-3 orbits via Sylvester's theorem and resultants,''
+  {\it Mathematics Magazine}
+  \textbf{74},
+  47--51.
+
 \bibitem[Zhang(2010)]{zhang}
   Zhang, C. [2010]
   ``Period three begins,''
@@ -2328,19 +2332,27 @@ funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
   \textbf{83},
   295--297.
 
-%\bibitem[Bailey \& Broadhurst(2000)]{bailey1}
-%  Bailey, D. H. \& Broadhurst, D. J. [2000]
-%  ``Parallel integer relation detection: techniques and applications,''
-%  {\it Mathematics of Computation}
-%  \textbf{70},
-%  1719--1736.
-%
-\bibitem[Bailey {\it et al.}(2006)]{bailey}
+\bibitem[Bailey \& Broadhurst(2000)]{bailey1}
+  Bailey, D. H. \& Broadhurst, D. J. [2000]
+  ``Parallel integer relation detection: techniques and applications,''
+  {\it Mathematics of Computation}
+  \textbf{70},
+  1719--1736.
+
+\bibitem[Bailey {\it et al.}(2006)]{bailey2}
   Bailey, D. H., Borwein, J. M., Kapour, V. \& Weisstein, E. W. [2006]
   ``Ten problems in experimental mathematics,''
   {\it The American Mathematical Monthly}
   \textbf{113},
   481--509.
+
+\bibitem[Kotsireas \& Karamanos(2004)]{kk1}
+  Kotsireas, I. S. \& Karamanos, K. [2004]
+  ``Exact computation of the bifurcation point $B_4$ of the logistic map
+  and  the Bailey-Broadhurst conjectures,''
+  {\it International Journal of Bifurcation and Chaos}
+  \textbf{14},
+  2417--2423.
 
 \bibitem[Lewis(2008)]{lewis}
   Lewis, R. H. [2008]

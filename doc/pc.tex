@@ -187,9 +187,13 @@ The onset and bifurcation points
 
 The cycle and its stability depend on the parameter $r$.
 %
-Our purpose is to present an algorithm to identify
-  all regions of $r$ that allow stable $n$-cycles.
-
+The problem is to identify
+  all regions of $r$ that allow stable $n$-cycles,
+  which has been the objective of several previous
+  studies
+  \cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
+  saha, bechhoefer, gordon, burm, zhang, bailey, kk1, lewis}.
+Below we present a simple algorithm to do so.
 
 
 
@@ -1200,8 +1204,9 @@ where
 \end{theorem}
 
 \begin{remark}[1]
-Here, ``minimal'' means that the polynomial contains all zeros;
-  it does not, however, necessarily mean that the polynomial is irreducible.
+Here, ``minimal'' means that the polynomial contains all zeros.
+It happens to be irreducible for a general $\lambda$.
+At $\lambda = 1$, the polynomial of $R$, however, can be factorized (see later).
 \end{remark}
 
 \begin{remark}[2]
@@ -3761,31 +3766,6 @@ which is \refeq{cublyndon}
   263--284
   (1982).
 
-\bibitem{saha}
-  P. Saha and S. H. Strogatz,
-  The birth of period three,
-  \textit{Mathematics Magazine}
-  \textbf{68},
-  42--47
-  (1995).
-
-\bibitem{kk1}
-  I. S. Kotsireas and K. Karamanos,
-  Exact computation of the bifurcation point $B_4$ of the logistic map and
-    the Bailey-Broadhurst conjectures,
-  \textit{International Journal of Bifurcation and Chaos}
-  \textbf{14},
-  2417--2423
-  (2004).
-
-\bibitem{burm}
-  J. Burm, P. Fishback,
-  Period-3 orbits via Sylvester's theorem and resultants,
-  \textit{Mathematics Magazine}
-  \textbf{74},
-  47--51
-  (2001).
-
 \bibitem{stephenson}
   J. Stephenson,
   Formulae for cycles in the Mandelbrot set,
@@ -3804,6 +3784,14 @@ which is \refeq{cublyndon}
   117--129
   (1992).
 
+\bibitem{saha}
+  P. Saha and S. H. Strogatz,
+  The birth of period three,
+  \textit{Mathematics Magazine}
+  \textbf{68},
+  42--47
+  (1995).
+
 \bibitem{bechhoefer}
   J. Bechhoefer,
   The birth of period 3, revisited,
@@ -3820,6 +3808,14 @@ which is \refeq{cublyndon}
   118--120
   (1996).
 
+\bibitem{burm}
+  J. Burm, P. Fishback,
+  Period-3 orbits via Sylvester's theorem and resultants,
+  \textit{Mathematics Magazine}
+  \textbf{74},
+  47--51
+  (2001).
+
 \bibitem{zhang}
   C. Zhang,
   Period three begins,
@@ -3828,21 +3824,28 @@ which is \refeq{cublyndon}
   295--297
   (2010).
 
-
-%\bibitem{bailey1} D. H. Bailey and D. J. Broadhurst,
-%  Parallel integer relation detection: techniques and applications,
-%  \textit{Mathematics of Computation}
-%  \textbf{70},
-%  1719--1736
-%  (2000).
-%
 \bibitem{bailey}
+  D. H. Bailey and D. J. Broadhurst,
+  Parallel integer relation detection: techniques and applications,
+  \textit{Mathematics of Computation}
+  \textbf{70},
+  1719--1736
+  (2000);
   D. H. Bailey, J. M. Borwein, V. Kapour and E. W. Weisstein,
   Ten problems in experimental mathematics,
   \textit{The American Mathematical Monthly}
   \textbf{113},
   481--509
   (2006).
+
+\bibitem{kk1}
+  I. S. Kotsireas and K. Karamanos,
+  Exact computation of the bifurcation point $B_4$ of the logistic map and
+    the Bailey-Broadhurst conjectures,
+  \textit{International Journal of Bifurcation and Chaos}
+  \textbf{14},
+  2417--2423
+  (2004).
 
 \bibitem{lewis}
   R. H. Lewis,
