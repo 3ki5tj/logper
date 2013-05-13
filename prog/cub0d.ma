@@ -1,5 +1,6 @@
-(* Copyright 2012 Cheng Zhang *)
+(* Copyright 2012-2013 Cheng Zhang *)
 (* remove trivial divisors from the output of cub0.ma,
+   ** deprecated, minimal maintanence **
    e.g., input: cr6b0.ma, output: cr6b.ma
    math < cub0d.ma 6 b *)
 (* Clear[Evaluate[Context[]<>"*"]] *)

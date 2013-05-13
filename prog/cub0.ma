@@ -1,5 +1,6 @@
 (* Copyright 2012-2013 Cheng Zhang *)
 (* A variant of cub.ma for cycles of the cubic map
+   ** deprecated, minimal maintanence **
    This version does not attempt to remove factors from shorter cycles *)
 (* Clear[Evaluate[Context[]<>"*"]] *)
 
@@ -136,7 +137,7 @@ xload[fn_, verbose_: False] := Module[{fp, xp},
 Clear[nsolve, solveT];
 nsolve[ieq_, x_, prec_: 10] := Module[{k, eq, sols},
   eq = If[Head[ieq] === Equal, ieq, ieq == 0];
-  sols = NSolve[eq, x, WorkingPrecision -> prec];
+  sols = NSolve[eq, x, Reals, WorkingPrecision -> prec];
   sols = Table[x/.sols[[k]], {k, Length[sols]}];
   Select[sols, Abs[Im[#]] < 10^-10 &]];
 (* nsolve[x^3 + 2 x -1, x] *)
