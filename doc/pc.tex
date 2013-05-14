@@ -114,8 +114,8 @@ Starting from $(x_1, x_1)$ on the diagonal,
   where $y = f(x_k) = x_{k+1}$;
 the next horizontal arrow then reflects $(x_k, y)$ to
   $(y, y) = (x_{k+1}, x_{k+1})$,
-  which starts the next iteration.
-
+  the starting point of the next iteration.
+%
 \begin{figure}[h]
   \begin{minipage}{\linewidth}
     \begin{center}
@@ -191,7 +191,7 @@ The problem is to identify
   all regions of $r$ that allow stable $n$-cycles,
   which has been the objective of several previous
   studies
-  \cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
+  \cite{brown1, stephenson,
   saha, bechhoefer, gordon, burm, zhang, bailey, kk1, lewis}.
 Below we present a simple algorithm to do so.
 
@@ -279,8 +279,8 @@ But since \refeqs{logmaps} are nonlinear,
   it is nontrivial to reduce the final equation of $R$
   into a polynomial one.
 Nonetheless, on a computer, one can
-  construct a (polynomial) Gr\"obner basis \cite{kk1}
-  that gradually eliminates $x_k$ out of the $n+1$ equations.
+  construct a (polynomial) Gr\"obner basis \cite{kk1},
+  which gradually eliminates $x_k$ out of the $n+1$ equations.
 As a special case, if $x_2, \dots, x_n$ are eliminated first,
   the final elimination of $x_1$ can be accomplished
   by setting the resultant of $f^n(x_1) = x_1$ and
@@ -334,7 +334,7 @@ A polynomial is cyclic if it is invariant
   e.g., $a(\vx) = x_1 x_2 + x_2 x_3 + x_3 x_4 + x_4 x_1$
   and $b(\vx) = x_1 x_3 + x_2 x_4$,
   where $\vx \equiv \{x_1, \ldots, x_n\}$ and $n = 4$.
-Note that a cyclic polynomial is not necessarily symmetric
+Note that a cyclic polynomial is unnecessarily symmetric
   (i.e., invariant under the exchange of any two $x_k$ and $x_{j}$),
   e.g., $a(\vx)$ and $b(\vx)$ are not symmetric,
   but $a(\vx) + b(\vx)$ is.
@@ -485,7 +485,7 @@ Given a cyclic polynomial $K(\vx)$,
 The process will not last indefinitely
   for each substitution reduces the degree in $x_k$ %(no matter which $k$)
   by one.
-Since the original polynomial is cyclic,
+Since both the substitutions and the original polynomial are cyclic,
   so is the final square-free polynomial.
 Terms involving no $x_k$
   are collected to serve as the coefficient before $C_0(\vx) \equiv 1$.
@@ -493,7 +493,7 @@ Terms involving no $x_k$
 %  can survive the reduction,
 %  the final cyclic polynomials are square-free;
 The coefficients $f_p$ are polynomials of $R$,
-  for $R$ is the only variable introduced by the substitutions.
+  for $R$ is the only new variable introduced by the substitutions.
 \end{proof}
 
 
@@ -581,23 +581,20 @@ Since a set of homogeneous linear equations
   A_n\Rlam \equiv \Big| \lambda \, \vct I - \vct T(R) \Big| = 0.
 \label{eq:xr}
 \end{equation}
-Here, $A_n\Rlam$ is a polynomial of $R$ and $\lambda$,
-  and the subscript $n$ is attached such that
-  it can be used later with $A_d\Rlam$ of divisors $d$ of $n$.
-\refeq{xr} is a necessary condition
-  since $C_p(\vx)$ cannot vanish altogether;
-and since it involves $R$ only,
-  the polynomial expansion of the determinant
-  gives the answer to our problem.
-%Note that we did not solve the values $C_p$ in the process.
-
-
+%
+Now $A_n\Rlam$, after we expand the determinant,
+  is a polynomial of $R$ and $\lambda$,
+  the equation is the desired answer to our problem.
+%
+We attach the subscript $n$ to $A\Rlam$ because
+  it will later be used with $A_d\Rlam$ of divisors $d$ of $n$.
+%
 To summarize, we have
 \begin{theorem}
   At the onset and bifurcation points,
   the square-free cyclic polynomials $C_p(\vx)$
   of the orbit points $\vx = \{x_k\}$
-  are linear related by % \refeq{xcp},
+  are linearly related by % \refeq{xcp},
   $\lambda \, C_p(\vx) = \sum_{q \in \Pset} T_{pq}(R) \, C_q(\vx)$,
   with $\lambda$ being $+1$ and $-1$, respectively,
   and $T_{pq}(R)$ being the coefficients
@@ -646,7 +643,7 @@ To summarize, we have
 We illustrate the above algorithm by several small-$n$ cases.
 %
 It is still helpful to have a mathematical software
-  in order to verify certain steps
+  at hand to verify certain steps
   (e.g., in computing the determinants and their factorization).
 
 
@@ -3743,15 +3740,6 @@ which is \refeq{cublyndon}
   459--467
   (1976).
 
-\bibitem{mandelbrot}
-  B. B. Mandelbrot,
-  Fractal aspects of the iteration of $z \rightarrow \lambda z(1-z)$
-      for complex $\lambda$ and $z$,
-  \textit{Ann. NY Acad. Sci.}
-  \textbf{357},
-  249--259
-  (1980).
-
 \bibitem{brown1}
   A. Brown,
   Equations for periodic solutions of a logistic difference equation,
@@ -3846,6 +3834,15 @@ which is \refeq{cublyndon}
   \textbf{14},
   2417--2423
   (2004).
+
+\bibitem{mandelbrot}
+  B. B. Mandelbrot,
+  Fractal aspects of the iteration of $z \rightarrow \lambda z(1-z)$
+      for complex $\lambda$ and $z$,
+  \textit{Ann. NY Acad. Sci.}
+  \textbf{357},
+  249--259
+  (1980).
 
 \bibitem{lewis}
   R. H. Lewis,

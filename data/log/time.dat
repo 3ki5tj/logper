@@ -33,8 +33,7 @@
 9        24.2 12.8      24.2 12.4    2398 1073     1445 772     1.54      1.51 0.49    0.53 0.68    18348      n/a    3681 n/a       n/a n/a
 10        296 151        296 151      n/a ~2e5      n/a 16174   5.18      20.4 3.4      4.2 5.4     nomem      n/a   55541 n/a
 11       3756 1782      3754 1795     n/a n/a       n/a 365347  17.6      89.1 25.5     n/a n/a
-12      43408 31934   55699* 32110    n/a n/a       n/a n/a     65.2    (1181) n/a      n/a n/a
+12      43408 31934    42996 32110    n/a n/a       n/a n/a     65.2    (1181) 3830     n/a n/a
 13       n/a  n/a        n/a n/a      n/a n/a       n/a n/a      243       n/a n/a      n/a n/a
 #
-# 12 bifurcation (first column) uses a old algorithm
 #

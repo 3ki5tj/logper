@@ -4,9 +4,10 @@
 # general polynomial is computed from both prime/Mathematica 8 and I7/Mathematica 9
 #
 # magma version: 2.18-4
-#n   lsmat    onset.  bifur.      generalX     generalY   interp/f      num.solv    GB(magma)  Res.(magma)
-4    0.08     0.056   0.056      0.74 0.33    0.65 0.44   0.008 0.008   n/a n/a       0.61         2.0
-5    0.38     1.29    1.30         38 16        35 21      0.19 0.076   n/a n/a        108       176.0
-6    2.4      58.6    58.1      27418 4753    4135 2351     4.2 8.0     n/a n/a       3735       11207
-7    14.4     2729    2687        n/a n/a      n/a 232873   n/a n/a     n/a n/a        n/a         n/a
-8    103      n/a     136269
+#n   lsmat      onset.         bifur.        generalX     generalY     interp/f     num.solv    GB(magma)  Res.(magma)
+4    0.08     0.056 n/a      0.056   n/a     0.74 0.33    0.65 0.44   0.008 0.008   n/a n/a       0.61         2.0
+5    0.38     1.29  n/a      1.30    n/a       38 16        35 21      0.19 0.076   n/a n/a        108       176.0
+6    2.4      58.6  n/a      58.1    n/a    27418 4753    4135 2351     4.2 8.0     n/a n/a       3735       11207
+7    14.4     2750  n/a      2791    n/a      n/a n/a      n/a 232873   319 22      n/a n/a        n/a         n/a
+8    103      n/a   60670    136269  n/a      n/a n/a      n/a n/a      n/a n/a     n/a n/a        n/a         n/a
+
