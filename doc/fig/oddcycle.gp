@@ -1,6 +1,6 @@
 unset multiplot
 reset
-set terminal postscript enhanced font "Times, 14" size 10,4.
+set terminal postscript enhanced font "Times, 14" size 10,5.
 set output "oddcycle.ps"
 set encoding iso_8859_1
 
@@ -29,12 +29,12 @@ set label "(b)" at screen wlft + dx, 1.0-dy  font lbfont
 
 
 set tmargin 2.5
-set bmargin 3.0
+set bmargin 3.5
 set rmargin 2.0
 set lmargin 8.0
 
-set xlabel "{/Times-Italic x}" offset 0, 0.5 font lbfont
-set xtics 1 font tcfont offset 0, 0.3
+set xlabel "{/Times-Italic x}" offset 0, 0. font lbfont
+set xtics 1 font tcfont offset 0, 0.
 set mxtics 5
 
 set ylabel "{/Times-Italic f}{/=8 &{i}}({/Times-Italic x}{/=8 &{i}}) = {/Times-Italic r{/=8 &{i}}x} - {/Times-Italic x}{/=22 &{i}^3}" offset -1, 0 font lbfont

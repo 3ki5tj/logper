@@ -1,10 +1,10 @@
 TODO
 -----
-  * redo the degR
-  * add figure of performance
-  * compare performance with resultant
+  * (PARTIALLY) improve the onset factorization
+  * (PARTIALLY) redo the degR
   * add discussion of even poly of r at n = 4, 8 for the cubic map
   * discuss that the cyclic polynomial is the minimal basis
+  * add the necklace references (book)
 
 
 

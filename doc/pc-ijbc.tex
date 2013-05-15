@@ -34,6 +34,7 @@
 \newcommand{\LB}{L_\Pset}
 \newcommand{\lam}{(\lambda)}
 \newcommand{\Rlam}{(R, \lambda)}
+\newcommand{\rlam}{(r, \lambda)}
 
 %\newcommand{\eq}{}
 %\newcommand{\eqs}{}
@@ -143,9 +144,9 @@ the next horizontal arrow then reflects $(x_k, y)$ to
 %
 %
 After many iterations, there can be three ultimate patterns:
-  (i) a \emph{fixed point} or a constant (including infinity),
+  (i) a \emph{fixed point} (including infinity),
       e.g., \reffig{cobweb}(a);
-  (ii) a periodic \emph{cycle} or a self-repeating loop,
+  (ii) a periodic \emph{cycle},
       e.g., \reffigs{cobweb}(b)-(e);
 or
   (iii) a chaotic trajectory,
@@ -155,12 +156,12 @@ We will focus on the first two cases here.
 
 A fixed point is a solution of $x^* = f(x^*)$.
 %
-It is stable if $x_1$ deviates slightly from $x^*$
-  and the sequence still converges to $x^*$.
+It is stable if a small deviation from $x^*$
+  gets reduced by successive iterations.
 %
 For a differentiable $f$,
-  a stable fixed point requires $|f'(x^*)| \le 1$
-  to reduce deviations in successive iterations \cite{strogatz}.
+  this is equivalent to $|f'(x^*)| \le 1$
+  \cite{strogatz}.
 
 
 An $n$-cycle is a sequence $x_1, \dots, x_n$,
@@ -1241,37 +1242,45 @@ for $Q_n^1 = P_n$.
   Factors at the onset point}
 
 
-The onset polynomial
-  $P_n(R, \lambda = 1)$ for the $n$-cycles
-  can be further factorized.
+The $n$-cycle polynomial
+  $P_n(R, \lambda)$
+  can be further factorized at $\lambda = 1$.
 %
 This is caused by the intersection of an $n$-cycle
   and a shorter $d$-cycle ($d|n$, $d < n$),
   which forces the two to share orbit.
 %
-One can show that this intersection happens only
-  at the onset of the $n$-cycle, where $\lambda = 1$,
+One can show that (1) such an intersection happens only
+  at the onset of the longer $n$-cycle, where $\lambda = 1$,
 %
-  and the $d$-cycle branches out, or ``bifurcates,'' $n/d$-fold
-  to become the $n$-cycle.
+  and (2) $d$ and $n$ are coprime \cite{blackhurst}.
 %
 The simplest example is the first bifurcation point
   at $R = 3/4$ for $d = 1, n = 2$,
   where the fixed point \refeq{xr1}
   undergoes period-doubling and becomes the 2-cycle \refeq{xr2}.
-As a result, the polynomial $P_n(R, \lambda)$ from the $n$-cycle
-  has to accommodate $P_d(R, \lambda')$ from the $d$-cycle as a factor,
+As a result, the $n$-cycle polynomial $P_n(R, \lambda)$
+  has to accommodate the $d$-cycle one $P_d(R, \lambda')$ as a factor,
   with $\lambda'$ being a primitive $(n/d)\,$th root of $\lambda = 1$.
 
 
 
-If an $n$-cycle is not born out of the above branching,
-  we call it \emph{original}.
-The two types of cycles exist
-  as separate factors of $P_n(R, \lambda = 1)$.
-One can then show that the factor $S_n(R)$ responsible for the original cycles
+We can therefore distinguish \emph{original} cycles
+  from those born out of the above branching.
+Similar to \refeq{QP},
+  the contributions from the non-original cycles
+  born out of the $d$-cycles
+  can be written as a cyclotomic product
+  $\prod_{(k, c) = 1}
+      P_{d}
+        \left(
+          R, e^{2k\pi i/c}
+        \right)$,
+where $k$ runs through integers from 1 to $c=n/d$,
+  that are coprime to $c$.
+With these contributions removed,
+  we obtain the polynomial $S_n(R)$ responsible for the original cycles:
   %or the \emph{original factor} below,
-  is given by
   \begin{equation}
     S_n(R)
     = \frac
@@ -1290,11 +1299,9 @@ One can then show that the factor $S_n(R)$ responsible for the original cycles
     },
   \label{eq:origfac}
   \end{equation}
-where the inner product on the denominator is carried over
-   $k$ from 1 to $c$ that are coprime to $c$.
-
-
-
+%
+%
+%
 Take the $n = 4$ case as an example, we have
 $\prod_{k=1,3} P_1(R, e^{k\pi i/2})
 %=(-4R-2i-1)(-4R+2i-1)
@@ -1309,11 +1316,11 @@ $P_4(R, 1)
     (4R - 3)^3 - 108
   \bigr]$.
 Dividing $P_4(R, 1)$ by the two factors yields
-$S_4(R) = (4R-3)^3 - 108$,
-  whose only real root $R_a=(3+\sqrt[3]{108})/4$ corresponds to
-  the onset of the original cycle.
-Note $R_a' = 5/4$ is excluded from $S_4(R)$
-  as it is due to period-doubling the 2-cycle.
+$S_4(R) = (4R-3)^3 - 108$.
+%  whose only real root $R_a=(3+\sqrt[3]{108})/4$ corresponds to
+%  the onset of the original cycle.
+Note $R_a' = 5/4$ is not original,
+  for it is born out of period-doubling the 2-cycle.
 The two cycles are compared in \reffigs{cobweb}(d) and (e).
 
 
@@ -1416,162 +1423,73 @@ The two cycles are compared in \reffigs{cobweb}(d) and (e).
 
 
 
-%\begin{theorem}
-The degrees in $R$ of $A_n\Rlam$, $P_n\Rlam$ and $S_n(R)$ are
-\begin{subequations}\small
+In the numerical implementation
+  (see \refsec{end}),
+  it is helpful to know the degrees in $R$ of the polynomials
+  to evaluate the determinant by Lagrange interpolation. 
+We first show that:
+\begin{equation}
+\deg_R A_n\Rlam = \textstyle\sum_{d|n} \varphi(n/d) 2^{d-1},
+\label{eq:degRA}
+\end{equation}
+%
+The first few values are
+1, 3, 6, 12, 20, 42, 70, 144, 270, 540, \dots, from $n =1$.%1034, 2112, 4108, \dots,
+
+From \refeq{xr},
+  every term in the expansion of the determinant $|\vct A|$
+  can be written as
+  $\prod_{p} A_{p,q}$,
+  in which, $p$ runs through all cyclic polynomials,
+  and $\{q = q(p)\}$ is a permutation of $\{p\}$.
+Thus, $\deg_R |\vct A|$ is
+  reached by the term that maximizes the product.
+Recall that $A_{p,q}$ results from reducing
+  $\Lambda(\vx) \, C_p(\vx)$ to $C_q(\vx)$
+  by a sequence of substitutions ${x_k}^2 = R-x_{k+1}$.
+It follows that to increase $\deg_R$ by 1,
+  $\deg_\vx$ is decreased by at least 2.
+Accordingly,
+  $\deg_R A_{p,q} \le \deg_\vx(\Lambda \, C_p) - \deg_\vx C_q$.
+Now running $p$ and $q$ through the $\NB$ cyclic polynomials
+  yields
+\[
+  \deg_R |\vct A | = \deg_R \textstyle\prod_{p} A_{p,q} \le n \, \NB(n),
+\]
+where we have used $\deg_\vx \Lambda(\vx) = n$.
+%
+The equality can be achieved, if each $q$ is the ``complement'' of $p$,
+  that is, if $\prod_k x_k^{e_k}$ is the generator of $C_p$,
+  $C_q$ can be generated from $\prod_k x_k^{1-e_k}$.
+For example, for $n=4$,
+  $C_1 = x_1 + \cdots + x_4$
+  is the complement of
+  $C_{123} = x_{234} + \cdots + x_{123}$;
+  while $C_{12}$ is its own complement.
+Finally, we reach \refeq{degRA} by \refeq{necklace}.
+
+
+Now, taking the degrees in $R$ of \refeq{primfac} and \refeq{origfac}
+  yields
+%
+\begin{subequations}
 \begin{align}
-\deg_R A_n\Rlam &= \sum_{d|n} \varphi(n/d) 2^{d-1}, \\
-\deg_R P_n\Rlam &\equiv \beta(n) = \sum_{d|n} \mu(n/d) 2^{d-1}, \\
-\deg S_n(R) &= \beta(n) - \sum_{d | n, d < n} \beta(d) \, \varphi(n/d).
+\deg_R P_n\Rlam &\equiv \beta(n) = \sum_{d|n} \mu\Big(\frac{n}{d}\Big) 2^{d-1}, \\
+    \deg S_n(R) &= \beta(n)
+  - \sum_{d | n, d < n} \beta(d) \, \varphi\Big(\frac{n}{d}\Big).
 \end{align}
 \label{eq:degR}
 \end{subequations}
-%\label{thm:degR}
-%\end{theorem}
+%
+The two formulas are known \cite{mira, stephenson1, blackhurst}.
 %
 %
-%
-\begin{proof}
-We first prove \refeqsub{degR}{a}.
-%
-We recall the subscript $p$ of $C_p$ denotes a sequence of indices $k$
-  in the generating monomial $\prod_k {x_k}^{e_k}$.
-But for a square-free cyclic polynomial,
-  each $k$ occurs no more than once,
-so $p$ also represents a \emph{set} of indices,
-%
-e.g.,
-$p = 1$ represents $\{1\}$,
-  ($C_1 = x_1 + \dots + x_n$, generator: $x_1$)
-and
-$p = 13$ represents $\{1, 3\}$
-  ($C_{13} = x_1 \, x_3 + x_2 \, x_4 + \dots + x_n \, x_2$,
-  generator: $x_1 \, x_3 $, assuming $n \ge 4$).
-%more examples are listed in \reftab{sqrfreepoly}).
-%
-In this proof,
-we shall also use $p$ to denote the corresponding index set,
-  $|p|$ the set size, i.e., the number of indices in the set,
-  and
-  $\bar p \equiv \{1,\ldots,n\} \backslash p$ the complementary set.
-%
-Obviously, $|\bar p| + |p| = n$.
-%
-Further, we will include $p$ that correspond to alternative generators
-  of the same cyclic polynomial,
-e.g., we allow $p = \{2\}$, $\{3\}$, \dots, $\{n\}$,
-  although they represent the same cyclic polynomial $C_1$
-  as $p = \{1\}$.
-
-
-Next, we recall the matrix elements $T_{pq}(R)$ arise from the square-free reduction
-of $\Lambda(\vx) C_p(\vx) = (-2)^n x_1 \dots x_n \, C_p(\vx)$.
-%
-A single replacement ${x_k}^2 \rightarrow R - x_{k+1}$
-produces two new terms:
-in the first, ${x_k}^2 \rightarrow R$,
-and in the second, ${x_k}^2 \rightarrow - x_{k+1}$.
-We call the two type 1 and type 2 replacements, respectively.
-%
-If a monomial term $t(R, \vx)$
-results from $l_1$ type 1 and $l_2$ type 2 replacements
-during the reduction of a term $s(\vx)$ in $\Lambda(\vx) C_p(\vx)$,
-then the degrees in $\vct x$, for any $x_k$, of $s(\vx)$ and $t(R, \vx)$
-are related as
-%
-\begin{equation}
-  \deg_\vx s(\vx) - \deg_\vx t(R, \vx) = 2 l_1 + l_2.
-\label{eq:degxdiffst}
-\end{equation}
-%
-Similarly, the degrees in $R$ satisfy
-\[
-  \deg_R s(\vx) - \deg_R t(R, \vx) = - l_1,
-\]
-but since $\deg_R s(\vx) = 0$,
-\begin{equation}
-  \deg_R t(R, \vx) = l_1.
-\label{eq:degRt}
-\end{equation}
-
-%
-Now if the monomial $t(R, \vx)$ settles in the $q$th column of
-  the matrix $\vct T(R)$, as part
-  of $T_{pq}(R) C_q(\vx)$ in \refeq{xcp0},
-then
-  $t(R, \vx)$
-  must be
-%the product of
-%  a monomial of $R$ \big[as part of $T_{pq}(R)$\big]
-%  and one of the
-  a generator of $C_q(\vx)$;
-so
-%
-\begin{equation}
-  \deg_\vx t(R, \vx) = |q|.
-\label{eq:degxt}
-\end{equation}
-%
-Since $s(\vx)$ is part of $\Lambda(\vx) C_p(\vx)$,
-  we have
-%
-\begin{equation}
-  \deg_\vx s(\vx) = \deg_\vx \Lambda(\vx) + \deg_\vx C_p(\vx)
-  = n + |p|.
-\label{eq:degxs}
-\end{equation}
-%
-%
-From \refeqs{degxdiffst}, \req{degxt}, \req{degxs}, we get
-\[
-  n + |p| - |q| = 2 \, l_1 + l_2,
-\]
-and
-\begin{equation}
-  l_1  =    (n + |p| - |q| - l_2)/2
-             \le  (n + |p| - |q|)/2.
-\label{eq:l1limit}
-\end{equation}
-By \refeq{degRt}, we get
-\begin{align*}
-  \deg_R T_{pq}(R)
-  = \max\{ \deg_R t(R, \vx) \}
-  = \max\{ l_1 \}
-  \le   (n + |p| - |q|)/2,
-\end{align*}
-where the equality holds when all replacements are type 1 ($l_2 = 0$).
-%
-Finally, each term of the determinant
-$A_n\Rlam = \big|\lambda \, \vct I - \vct T(R)\big|$
-is given by
-$(-1)^s \prod_{p} \big[\lambda \, \delta_{p q} - T_{pq}(R)\big]$,
-where $p$ runs through rows of the matrix
-  and $\{q\}$ is a permutation of $\{p\}$,
-  with $(-1)^s$ being the proper sign.
-%
-Summing over rows under this condition yields
-\begin{align*}
-  \deg_R A_n\Rlam
-  = \max \sum_{p \in \Pset} \deg T_{pq}(R)
-  \le \NB \, \big(n + |p| - |q|\big)/2 = n \NB/2,
-\end{align*}
-where equality can be achieved if $q = \bar p$ in every row.
-By \refeq{necklace} we have \refeqsub{degR}{a}.
-%
-\refeqsub{degR}{b} and (c) follow from taking taking the degree in $R$ of
-  \refeq{prod} and \refeq{origfac}.
-\refeqsub{degR}{b} and (\ref{eq:degR}c) were known \cite{mira, stephenson1, blackhurst}.
-%
-\end{proof}
-%
-The first few $\deg_R A_n\Rlam$,
+The first few
   $\deg_R P_n\Rlam$,
   and $\deg S_n(R)$ are
-  1, 3, 6, 12, 20, 42, 70, 144, 270, 540, \dots,  %1034, 2112, 4108, \dots,
   1, 1, 3, 6, 15, 27, 63, 120, 252, 495, \dots, %1023, 2010, 4095, \dots,
   1, 0, 1, 3, 11, 20, 57, 108, 240, 472, \dots, % 1013, 1959, 4083, \dots,
   respectively, from $n = 1$.
-
 
 
 
@@ -1654,46 +1572,55 @@ The characteristic equation $A_n(\lambda) = \big|\lambda \, \vct I - \vct T\big|
 with $\lambda$ being $+1$ and $-1$, then gives
 the polynomials at onset and bifurcation points, respectively.
 %
-To filter out the contributions from shorter $d$-cycles with $d|n$,
-  we repeat compute the characteristic equations for all divisors $d$
-  and then apply \req{primfac}.
+The contributions from shorter $d$-cycles
+  can be removed by
+  % computing the characteristic equations for all divisors $d$ and applying
+  \refeq{primfac}.
 %
 
 
 When implemented on a computer,
-it is often helpful to evaluate $A_n(\lambda)$ by Lagrange interpolation,
-that is, we evaluate $A_n(r, \lambda)$ at a few different $r$,
-e.g., $r = 0, \pm1, \pm2,\ldots$, then piece them together
+it is often helpful to evaluate the characteristic polynomial
+by Lagrange interpolation,
+that is, by evaluating $A_n\Rlam$ at a few different $R$,
+e.g., $R = 0, \pm1, \pm2,\ldots$, then piecing them together
 to a polynomial.
 The strategy also allows a trivial parallelization.
 %
 The algorithm was coded into a Mathematica program,
 which was used to compute the polynomials for $n$ up to 13.
 %
-For polynomials of larger $n$ are saved in in the website in \refsec{end}.
+As shown in \reffig{logtime}, the algorithm
+outperformed the resultant \cite{burm} and
+  Gr\"obner basis \cite{kk1} methods,
+  by at least two orders of magnitudes.
 %
-The representative $r$ values are listed in \reftab{rval}.
+Note that the resultant of $f^n(x)-x$ and $\frac{d}{dx}f^n(x)-\lambda$
+  is the determinant of the Sylvester matrix, which has
+  $2^{n+1}-1$ rows and columns
+  [as $\deg_x f^n(x) = 2^n$],
+  while the matrix of the characteristic equation \refeq{xr}
+  is of only $\NB \approx 2^n/n$ [cf. \refeq{necklace}] rows and columns.
+Thus, the current algorithm is expected to be faster.
+
+
+
+\begin{figure}[h]
+  \begin{center}
+  \begin{minipage}{\linewidth}
+        \includegraphics[angle=-90, width=\linewidth]{logtime.pdf}
+  \end{minipage}%
+  \end{center}
+  \caption{\label{fig:logtime}
+  Time to compute the $n$-cycle bifurcation polynomials,
+    measured from a single core of
+    Intel\textsuperscript{\textregistered} 2.5GHz Dual-Core CPU
+  (Mathematica version: 8, Magma version: 2.18-4).
+  }
+\end{figure}
 %
 
 
-
-
-
-The algorithm (implemented as a Mathematica program)
-was quite efficient.
-%
-For the logistic map, the bifurcation point for $n = 8$
-took three seconds to compute on a desktop computer
-(single core, Intel\textsuperscript{\textregistered} Dual-Core CPU 2.50GHz).
-%
-In comparison,
-  the same problem took roughly 5.5 hours \cite{kk1}
-  using Gr\"obner basis
-  and 44 minutes in a later study \cite{lewis}.
-To be fair, using the latest Magma, computing the Gr\"obner basis
-  took 81 and 14 minutes, on the same machine
-  for \refeq{logmap} and \refeq{logmaps}, respectively;
-even so, our approach still had a 200-fold speed-up.
 
 
 
@@ -1703,9 +1630,10 @@ The exact polynomials of these maps are generally too large to print on paper,
   e.g., the polynomial for the logistic map with $n = 13$
     takes roughly seven megabytes to write down.
 %
-We therefore save the polynomials and programs of the three maps on the web site
+We therefore save the polynomials and programs on the web site
 http://logperiod.appspot.com.
-
+%
+The representative $r$ values are listed in \reftab{rval}.
 
 %Compared with other approaches \cite{hitzl, gordon, bailey2, kk1, hao, hao2}
 %it appeared to be simpler and more transparent,
@@ -1735,7 +1663,7 @@ we have, in terms of the new variables,
 \begin{equation}
   x_{k+1} = a + y_k - {x_k}^2, \quad
   y_{k+1} = b \, x_k.
-\tag{$\ref{eq:henon}'$}
+%\tag{$\ref{eq:henon}'$}
 \label{eq:henons}
 \end{equation}
 %
@@ -1830,10 +1758,12 @@ map, we consider the following cubic map \cite{strogatz}
   x_{k + 1} = f(x_k) = r \, x_k - {x_k}^3.
 \label{eq:cubic}
 \end{equation}
-This map is closely related to the one studied by Brown \cite{brown3, brown4}.
 %
 Unlike the logistic map, this map is antisymmetric,
   that is, $f(-x) = -f(x)$.
+%
+In fact, all antisymmetric cubic maps \cite{brown3, brown4}
+  can be mapped to \refeq{cubic} by a change of variables.
 We shall show below that this odd parity can be used to reduce the amount of calculation.
 
 First of all, the new replacement rule
@@ -2000,24 +1930,19 @@ $N_e(n) = $ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
 
 
 
-The characteristic polynomial $A_n(r, \lambda)$
+The characteristic polynomial $A_n\rlam$
   from the determinant equation
   has a degree $N_e(n)$ in $\lambda$.
 Again, it encompasses the factors
-  from the shorter $d$-cycles, as long as $d|n$.
-The polynomial for the $n$-cycles can be obtained
-  by \refeq{primfac} with proper substitutions, e.g.,
+  from the shorter $d$-cycles ($d|n$),
+  and the $n$-cycle polynomial can be obtained
+  from \refeq{primfac} by proper substitutions, e.g.,
   $R\rightarrow r$.
 %The degree of the polynomial,
-The degree in $\lambda$ of
-the minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles,
-  after some algebra,
-  is given by
+The degree in $\lambda$ of $P_n\rlam$
+  is given by, after some algebra,
 %
 %
-%\begin{theorem}
-%The degree in $\lambda$ of
-%the minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles is
 \begin{equation}
   L_e(n) = \frac{1}{n} \sum_{cd = n} \mu(c)
     \left[
@@ -2025,11 +1950,6 @@ the minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles,
     \right],
 \label{eq:cublyndon}
 \end{equation}
-%where $\odd(n)$ %$= [1 - (-1)^n]/2$
-%is $1$ for an odd $n$,
-%but $0$ for an even $n$.
-%\label{thm:cublyndon}
-%\end{theorem}
 %
 %
 For the first few values,
@@ -2038,17 +1958,16 @@ For the first few values,
 This is also the number of the $n$-cycles \cite{hao, hao2}.
 Note that, for $n>1$, $x_k$ in half of the cycles
   with negative $r$ are imaginary.
-However, in a closely-related map
+However, in a transformed map
 $z_{k+1} = r \, z_k \, (1 - {z_k}^2)$,
 which differs from \refeq{cubic} by $x_k = \sqrt{r} z_k$,
 $z_k$ in the negative-$r$ cycles are real.
 %
 %
 Following similar steps in \refsec{degR},
-we find the corresponding degrees in $r$
-of the characteristic polynomial $A_n(r, \lambda)$
-  and minimal polynomial $P_n(r, \lambda)$ of the $n$-cycles
-are $n N_e(n)$ and $n L_e(n)$, respectively.
+we find that
+  $\deg_r A_n(r, \lambda) = n N_e(n)$
+  and $\deg_r P_n(r, \lambda) = n L_e(n)$.
 
 
 
@@ -2075,13 +1994,15 @@ If $x_{n+1} = -x_1$ has a solution,
   then $x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}$
   is a $2n$-cycle, for $x_{2n+1} = - x_{n+1} = x_1$.
 %
-The existence of odd-cycles is why we used even, but not odd, cyclic polynomials
-  in the solution.
-An odd $2n$-cyclic polynomials is also always zero
-  in an $n$-odd-cycle,
-e.g., $C_1 = x_1 + x_2 + \dots + x_n - x_1 - x_2 - \dots - x_n = 0$;
-and the zero determinant condition \refeq{xr}
+It follows that a cyclic polynomial
+  formed by the $2n$ points
+  with an odd degree in $\vxn{2n}$
+  is also always zero,
+  e.g., $C_1 = x_1 + x_2 + \dots + x_n - x_1 - x_2 - \dots - x_n = 0$.
+Accordingly, the characteristic equation \refeq{xr}
   would omit the $n$-odd-cycles from the solution.
+The existence of odd-cycles is why we use even, but not odd,
+  cyclic polynomials in the solution.
 
 
 Since the $n$-odd-cycles satisfy a polynomial of lower degree,
@@ -2109,12 +2030,23 @@ The 2-cycle polynomial
   as a factor.
 
 
+Finally, we mention that the $n$-cycle polynomial $P_n\rlam$
+  is an even polynomial of $r$ if $n$ is a multiple of 4.
+%This follows from that the transformation
+%  $x_k \equiv (-)^k i y_k, r \equiv -r'$
+%  yields the identical map: $y_{k+1} = r' y_k - {y_k}^3$.
+Practically, we can cut the computating time by half
+  when calculating the determinant by Lagrange interpolation
+  in this case.
+
+
 
 
 \nonumsection{Acknowledgments} \noindent
-I thank Drs. T. Gilbert and Y. Mei for helpful communications.
+It is a pleasure to thank T. Gilbert, Y. Mei and the referees
+  for helpful communications and suggestions.
 Computing time on the Shared University Grid at Rice,
-funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
+  funded by NSF under Grant EIA-0216467, is gratefully acknowledged.
 
 %\appendix{}
 
