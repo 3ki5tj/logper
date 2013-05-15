@@ -1624,6 +1624,7 @@ The resulting string corresponds to a unique necklace;
   the alternative generators give
   the circularly-shifted binary strings.
 The mapping is reversible, or one-to-one.
+%
 For example, if $n = 3$,
  the square-free polynomials for $000$, $100$, $110$ and $111$ are
   $C_0 = 1$ (generator: 1),
@@ -1632,7 +1633,7 @@ For example, if $n = 3$,
   and $C_{123} = x_1 x_2 x_3$ (generator: $x_1 x_2 x_3$), respectively.
 \reftab{sqrfreepoly} shows a few more examples.
 %
-Thus,
+Thus, we have \cite{riordan}
 %
 \begin{theorem}
 The number $\NB(n)$ of the square-free cyclic polynomials $C_p(\vx)$ ($p \in \Pset$)
@@ -2303,7 +2304,7 @@ A simple two-dimensional extension of the logistic map
 \label{eq:henon}
 \end{equation}
 %
-By a change of variables
+By a change of variables \cite{huang}
   $x_k^\mathrm{new} \equiv a \, x_k^\mathrm{old},
    y_k^\mathrm{new} \equiv a \, y_k^\mathrm{old}$,
 we have, in terms of the new variables,
@@ -2366,7 +2367,7 @@ Thus, the eigenvalues $\lambda$ of $\vct J^n$ can be found from
 %
 where $\Theta(\vx)$ and $(-b)^n$
   are the trace and determinant of $\vct J^n(x_1)$,
-  respectively \cite{hitzl}.
+  respectively \cite{huang, hitzl}.
 The onset and bifurcation points
   correspond to $\lambda = +1$ and $-1$, respectively
 
@@ -2562,7 +2563,7 @@ We now study the following cubic map \cite{strogatz}
   x_{k + 1} = f(x_k) = r \, x_k - {x_k}^3.
 \label{eq:cubic}
 \end{equation}
-This map is closely related to the one studied by Brown \cite{brown3}.
+This map is closely related to the one studied by Brown \cite{may2, brown3}.
 Since the new replacement rule
 \begin{equation}
   {x_k}^3 \rightarrow r \, x_k - x_{k+1}
@@ -3856,6 +3857,11 @@ which is \refeq{cublyndon}
   \textit{An Introduction to the Theory of Numbers}
   (Oxford University Press, USA, 2008).
 
+\bibitem{riordan}
+  J. Riordan
+  \textit{An Introduction to Combinatorial Analysis}
+  (Wiley, New York, 1958).
+
 \bibitem{hao} B.-L. Hao,
   \textit{Elementary Symbolic Dynamics and Chaos in  Dissipative Systems}
   (World Scientific, Singapore, 1989);
@@ -3900,6 +3906,14 @@ which is \refeq{cublyndon}
   69--77
   (1976).
 
+\bibitem{huang}
+  Y. N. Huang
+  Determination of the stable periodic orbits for the Henon map by analytical method,
+  \textit{Chin. Phys. Lett.}
+  \textbf{2},
+  97--100
+  (1985).
+
 \bibitem{hitzl}
   D. L. Hitzl and F. Zele,
   An exploration of the H\'enon quadratic map,
@@ -3907,6 +3921,14 @@ which is \refeq{cublyndon}
   \textbf{14},
   305--326
   (1985).
+
+\bibitem{may2}
+  R. M. May,
+  Bifurcations and dynamic complexity in ecological systems,
+  \textit{Ann. N. Y. Acad. Sci.}
+  \textbf{316},
+  517--529
+  (1979).
 
 \bibitem{brown3}
   A. Brown,

@@ -1,8 +1,8 @@
 Magma programs
 ==============
 
-Resultant
---------------
+Resultant (logistic and cubic maps)
+-----------------------------------
 
 The example code for resultant method in magma
   magma < logres8b.magma
@@ -11,7 +11,7 @@ For the general boundary polynomial
   magma < logres8c.magma
 For other cycle length, modify the above code.
 
-The cubic map script for 5-cycle bifurcation point,
+The cubic map script for 5-cycle bifurcation point
   magma < cubres5b.magma
 
 
@@ -38,6 +38,8 @@ For the onset 5-cycle of the cubic map:
   python mkgb.py -c 5 a
 
 
+For the Henon map, see hengb3b.magma and hengb4b.magma.
+
 
 
 Determinant routines
@@ -52,7 +54,7 @@ The matsX.dat file is generated as a byproduct of, e.g., log.ma
   python ./mats2magma.py mats9.dat > det9.magma
 
 then
-  
+
   magma < det9.magma
 
 or in magma

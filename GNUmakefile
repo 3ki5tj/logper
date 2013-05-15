@@ -1,7 +1,9 @@
 # backup the directory to usb, delete useless files
+
+# use --size-only to avoid transfering large files
 usb::
-	rsync -avzL --delete-after --exclude="*~" --exclude=".*" --exclude="fit.log" \
-	  --exclude="*ls*.txt" --exclude="etc" \
+	rsync -avzL --delete-after --size-only \
+	  --exclude="*~" --exclude=".*" --exclude="fit.log" \
 	  * /media/C3/logper/
 
 clean:

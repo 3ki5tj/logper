@@ -4,7 +4,7 @@ Files
 * intv8a.txt    brackets for root searching, used by mknsolv.py to
   intv8b.txt    numerically find the roots of the 13-cycle polynomials
 
-* time.dat      time data
+* cubtime.dat   time data
 
 * crXX.dat      cycle boundary polynomials
 

@@ -206,7 +206,7 @@ rsolv[poly_, x_, prec_:10, wprec_:100, fnbra_:None, svbra_:False,
       intv = RootIntervals[poly][[1]];
     ][[1]];
     Print[Length[intv], " intervals determined ", intv[[1]], "... in ", y, "s"];
-    If [ Length[intv] > 0 && svbra, 
+    If [ Length[intv] > 0 && svbra,
       xsave[fnbraout, intv, True, True];
     ],
     intv = xload[fnbra, True];

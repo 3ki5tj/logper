@@ -218,8 +218,10 @@ Below we present a simple algorithm to do so.
 \section{\label{sec:logmap}Logistic map}
 
 
-We will illustrate the algorithm on the logistic map \cite{may, strogatz}
-  defined in \refeq{logmap}.
+We will illustrate the algorithm on the logistic map% \cite{may, strogatz}
+  defined in \refeq{logmap},
+  although it can be readily generalized.
+%
 If $r$ is real,
   we will find windows $(r_a, r_b)$,
     within which stable $n$-cycles can exist.
@@ -1049,7 +1051,7 @@ Thus,
 %\begin{theorem}
 the number $\NB(n)$ of the square-free cyclic polynomials $C_p$,
   %$(\vx)$ formed by the cycle points $\vx = \{x_1, \ldots, x_n\}$,
-  is given by
+  is given by \cite{riordan}
 \begin{equation}
   %\deg_\lambda A_n\lam =
   \NB(n) = (1/n) \textstyle\sum_{d|n} \varphi(n/d) 2^{\,d},
@@ -1149,8 +1151,11 @@ In order words, $\vxn{n}^{(l)}$ is $\vxn{d}^{(l)}$
 %
 It follows that
 $\Lambda(\vxn{n})$ = $[\Lambda(\vxn{d})]^c$.
+%
 By factorizing $\lambda - \Lambda^c$
-  in terms of complex roots of unity, we get
+  in terms of the $c$ complex roots of $\lambda$,
+  we get
+%
 \begin{align}
 Q_d^{c}\lam
 %  &= \prod_l
@@ -1277,7 +1282,11 @@ Similar to \refeq{QP},
           R, e^{2k\pi i/c}
         \right)$,
 where $k$ runs through integers from 1 to $c=n/d$,
-  that are coprime to $c$.
+  which are coprime to $c$.
+%
+This product for cycle intersection is equivalent to a previous
+  formula in terms of canonical matrices \cite{blackhurst}.
+%
 With these contributions removed,
   we obtain the polynomial $S_n(R)$ responsible for the original cycles:
   %or the \emph{original factor} below,
@@ -1656,7 +1665,7 @@ A simple two-dimensional extension of the logistic map
 \label{eq:henon}
 \end{equation}
 %
-By a change of variables
+By a change of variables \cite{huang}
   $x_k^\mathrm{new} \equiv a \, x_k^\mathrm{old},
    y_k^\mathrm{new} \equiv a \, y_k^\mathrm{old}$,
 we have, in terms of the new variables,
@@ -1719,7 +1728,7 @@ Thus, the eigenvalues $\lambda$ of $\vct J^n$ can be found from
 %
 where $\Theta(\vx)$ and $(-b)^n$
   are the trace and determinant of $\vct J^n(x_1)$,
-  respectively \cite{hitzl}.
+  respectively \cite{huang, hitzl}.
 The onset and bifurcation points
   correspond to $\lambda = +1$ and $-1$, respectively
 
@@ -1762,7 +1771,7 @@ map, we consider the following cubic map \cite{strogatz}
 Unlike the logistic map, this map is antisymmetric,
   that is, $f(-x) = -f(x)$.
 %
-In fact, all antisymmetric cubic maps \cite{brown3, brown4}
+In fact, all antisymmetric cubic maps \cite{may2, brown3, brown4}
   can be mapped to \refeq{cubic} by a change of variables.
 We shall show below that this odd parity can be used to reduce the amount of calculation.
 
@@ -1907,8 +1916,6 @@ The number of ternary necklaces is
 $N_3(n) = \frac{1}{n} \sum_{d|n} \varphi(n/d) 3^d$,
 %\begin{theorem}
 while the even ones sum to
-%or the cube-free cyclic polynomials for the cubic map of even degrees in $\vx$
-%is given by
 \begin{equation}
   N_e(n) = \frac{1}{n} \sum_{c d = n} \varphi(c)
     \left[
@@ -1925,7 +1932,7 @@ is 1 if $c$ is odd or 0 if even.
 Since $N_e \approx N_3/2$, using the parity saves about half of the equations
   in computation.
 %
-$N_e(n) = $ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
+$N_e(n) =$ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
 %
 
 
@@ -2030,14 +2037,25 @@ The 2-cycle polynomial
   as a factor.
 
 
-Finally, we mention that the $n$-cycle polynomial $P_n\rlam$
-  is an even polynomial of $r$ if $n$ is a multiple of 4.
-%This follows from that the transformation
-%  $x_k \equiv (-)^k i y_k, r \equiv -r'$
-%  yields the identical map: $y_{k+1} = r' y_k - {y_k}^3$.
-Practically, we can cut the computating time by half
-  when calculating the determinant by Lagrange interpolation
-  in this case.
+Finally, we mention that the $n$-cycle polynomial $P_n\rlam$,
+  after divided by the contribution from the odd-cycles,
+  is an even polynomial of $r$ for an even $n$.
+%
+This follows from that the transformed variables
+  $y_k \equiv (-)^k i x_k$
+satisfy
+  $y_{k+1} = (-r) y_k - {y_k}^3$.
+Thus, there is a one-to-one correspondence
+  between the cycles for $r$ and $-r$.
+%
+Since the mapping applies to an even $m$-odd-cycle,
+  hence the corresponding $2m$-cycle,
+  $P_n\rlam$ is an even polynomial of $r$
+  if $n$ is a multiple of 4.
+%
+This fact allows one to cut the computating time by half
+  in calculating the determinant by Lagrange interpolation
+  in these cases.
 
 
 
@@ -2295,6 +2313,11 @@ Computing time on the Shared University Grid at Rice,
   {\it An Introduction to the Theory of Numbers}
   (Oxford University Press, USA).
 
+\bibitem[Riordan(1958)]{riordan}
+  Riordan, J. [1958]
+  {\it An Introduction to Combinatorial Analysis}
+  (Wiley, New York).
+
 \bibitem[Hao(1989)]{hao}
   Hao, B.-L. [1989]
   {\it Elementary Symbolic Dynamics and Chaos in  Dissipative Systems}
@@ -2334,12 +2357,26 @@ Computing time on the Shared University Grid at Rice,
   \textbf{50},
   69--77.
 
+\bibitem[Huang(1985)]{huang}
+  Huang, Y.-N. [1985]
+  ``Determination of the stable periodic orbits for the Henon map by analytical method,''
+  {\it Chin. Phys. Lett.}
+  \textbf{2},
+  97--100.
+
 \bibitem[Hitzl(1985)]{hitzl}
   Hitzl, D. L. \& Zele, F. [1985]
   ``An exploration of the H\'enon quadratic map,''
   {\it Physica D}
   \textbf{14},
   305--326.
+
+\bibitem[May(1979)]{may2}
+  May, R. M. [1979]
+  ``Bifurcations and dynamic complexity in ecological systems,''
+  {\it Ann. N. Y. Acad. Sci.}
+  \textbf{316},
+  517--529.
 
 \bibitem[Brown(1984a)]{brown3}
   Brown, A. [1984a]

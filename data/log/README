@@ -1,10 +1,10 @@
 Files
 =======
 
+* logtime.dat   time data
+
 * intv13a.txt   brackets for root searching, used by mknsolv.py
   intv13b.txt
-
-* time.dat      time data
 
 Formulas
 ========
