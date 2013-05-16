@@ -1503,7 +1503,8 @@ The first few
 
 
 
-\begin{table}[h]\footnotesize
+\begin{table}[h]
+  %\small
   \tbl{
   Smallest positive $r$ at the onset and bifurcation points
   of the $n$-cycles of the logistic map.
@@ -1847,7 +1848,7 @@ The representative $r$ values are listed in \reftab{crval}.
 
 
 
-\begin{table}[h]\footnotesize
+\begin{table}[h]%\footnotesize
 %\caption{
 \tbl{
   Smallest positive $r$ at the onset and bifurcation points
@@ -1951,10 +1952,8 @@ The degree in $\lambda$ of $P_n\rlam$
 %
 %
 \begin{equation}
-  L_e(n) = \frac{1}{n} \sum_{cd = n} \mu(c)
-    \left[
-      1 + \odd(c)\frac{3^d-1}{2}
-    \right],
+  L_e(n) = \delta_{n, 1} +
+    \frac{1}{n} \sum_{cd = n} \mu(c) \odd(c)\frac{3^d-1}{2},
 \label{eq:cublyndon}
 \end{equation}
 %
@@ -1978,25 +1977,25 @@ we find that
 
 
 
-%\subsection{\label{sec:oddcycle}Odd-cycles}
+%\subsection{\label{sec:halfcycle}Odd-cycles}
 
 %
 %
 \begin{figure}[h]
   \begin{center}
   \begin{minipage}{\linewidth}
-        \includegraphics[angle=-90, width=\linewidth]{oddcycle.pdf}
+        \includegraphics[angle=-90, width=\linewidth]{halfcycle.pdf}
   \end{minipage}%
   \end{center}
-  \caption{\label{fig:oddcycle}
+  \caption{\label{fig:halfcycle}
   Odd-cycles of the cubic map.}
 \end{figure}
 %
 %
 
 The symmetry $f(-x) = -f(x)$ permits
-  a particular \emph{odd-cycle},
-  see \reffig{oddcycle} for examples.
+  a particular \emph{half-cycle},
+  see \reffig{halfcycle} for examples.
 If $x_{n+1} = -x_1$ has a solution,
   then $x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}$
   is a $2n$-cycle, for $x_{2n+1} = - x_{n+1} = x_1$.
@@ -2007,24 +2006,24 @@ It follows that a cyclic polynomial
   is also always zero,
   e.g., $C_1 = x_1 + x_2 + \dots + x_n - x_1 - x_2 - \dots - x_n = 0$.
 Accordingly, the characteristic equation \refeq{xr}
-  would omit the $n$-odd-cycles from the solution.
-The existence of odd-cycles is why we use even, but not odd,
+  would omit the $n$-half-cycles from the solution.
+The existence of half-cycles is why we use even, but not odd,
   cyclic polynomials in the solution.
 
 
-Since the $n$-odd-cycles satisfy a polynomial of lower degree,
+Since the $n$-half-cycles satisfy a polynomial of lower degree,
   the $n$-cycle polynomial $P_{2n}(\lambda)$
   (omitting the argument $r$)
   can always be factorized.
 %
-Suppose $\Lambda^o(\vx) \equiv \prod_{k = 1}^{n} f'(x_k)$ in the odd-cycle
+Suppose $\Lambda^o(\vx) \equiv \prod_{k = 1}^{n} f'(x_k)$ in the half-cycle
  satisfies $P_{n}^o(\lambda^o) = 0$
 \big[where $\lambda^o$ is the value of $\Lambda^o(\vx)$,
 and $\lambda^o = \pm\sqrt \lambda$\,\big],
 then $P^o_{n}(\sqrt \lambda) P^o_{n/2}(-\sqrt \lambda)$
 is a factor of $P_{n}(\lambda)$.
 %
-For example, by solving the $n = 2$ odd-cycle,
+For example, by solving the $n = 2$ half-cycle,
   we have $- x_1 = r x_1 - {x_1}^3$, or ${x_1}^2 = r + 1$.
 Since $\lambda^o = r - 3 {x_1}^2$,
 $P^o_1(\lambda^o) = \lambda^o + 2 r + 3$.
@@ -2038,7 +2037,7 @@ The 2-cycle polynomial
 
 
 Finally, we mention that the $n$-cycle polynomial $P_n\rlam$,
-  after divided by the contribution from the odd-cycles,
+  after divided by the contribution from the half-cycles,
   is an even polynomial of $r$ for an even $n$.
 %
 This follows from that the transformed variables
@@ -2048,7 +2047,7 @@ satisfy
 Thus, there is a one-to-one correspondence
   between the cycles for $r$ and $-r$.
 %
-Since the mapping applies to an even $m$-odd-cycle,
+Since the mapping applies to an even $m$-half-cycle,
   hence the corresponding $2m$-cycle,
   $P_n\rlam$ is an even polynomial of $r$
   if $n$ is a multiple of 4.

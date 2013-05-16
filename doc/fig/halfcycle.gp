@@ -1,43 +1,47 @@
 unset multiplot
 reset
-set terminal postscript enhanced font "Times, 14" size 10,5.
-set output "oddcycle.ps"
+set terminal postscript enhanced font "Times, 14" size 7,3.5
+set output "halfcycle.ps"
 set encoding iso_8859_1
 
-colordot = "#cc0000"
+dotlw = 1
+dotsize = 0.08
+dotcolor = "#000020"
+arrowcolor = "#5050aa"
 
 # set arrow style 1, as a thin arrow
 # size length, angle (deg.), backangle (deg.)
-set style arrow 1 head size 0.100, 18, 30 filled lw 1.0 lc rgb "#0000aa"
+set style arrow 1 head size 0.100, 18, 30 filled lw 1.0 lc rgb arrowcolor
 
 set style line 10 lt 2 lw 1.5 lc rgb "#808080"
 
 dx = 0.015
+dx2 = 0.0
 dy = 0.050
 
-wlft = 0.54
+wlft = 0.55
 wrt = 1 - wlft
 
 hormargin = 1.0
 
-lbfont = "Times, 28"
-titlefont = "Times, 28"
-tcfont = "Times, 20"
+lbfont = "Times, 20"
+titlefont = "Times, 20"
+tcfont = "Times, 17"
 
-set label "(a)" at screen dx,        1.0-dy  font lbfont
-set label "(b)" at screen wlft + dx, 1.0-dy  font lbfont
+set label "(a)" at screen dx,         1.0-dy  font lbfont
+set label "(b)" at screen wlft + dx2, 1.0-dy  font lbfont
 
 
 set tmargin 2.5
-set bmargin 3.5
+set bmargin 3.0
 set rmargin 2.0
-set lmargin 8.0
+set lmargin 7.0
 
-set xlabel "{/Times-Italic x}" offset 0, 0. font lbfont
+set xlabel "{/Times-Italic x}" offset 0, 0.3 font lbfont
 set xtics 1 font tcfont offset 0, 0.
 set mxtics 5
 
-set ylabel "{/Times-Italic f}{/=8 &{i}}({/Times-Italic x}{/=8 &{i}}) = {/Times-Italic r{/=8 &{i}}x} - {/Times-Italic x}{/=22 &{i}^3}" offset -1, 0 font lbfont
+set ylabel "{/Times-Italic f}{/=8 &{i}}({/Times-Italic x}{/=8 &{i}}) = {/Times-Italic r{/=8 &{i}}x} - {/Times-Italic x}{/=17 &{i}^3}" offset 0, 0 font lbfont
 set ytics 1 font tcfont offset 0.5, 0
 set mytics 5
 
@@ -57,14 +61,14 @@ x6 = f(x5)
 x7 = f(x6)
 xf = sqrt(r-1);
 
-set title "1-odd-cycle, {/Times-Italic r} = 2.2" offset 0, 0 font titlefont
+set title "1-half-cycle, {/Times-Italic r} = 2.2" offset 0, 0 font titlefont
 
 
 # a circle at the fixed point
-set object 11 circle at  xf,  xf size 0.08 front fc rgb colordot fs solid
-set object 12 circle at -xf, -xf size 0.08 front fc rgb colordot fs solid
-set object 13 circle at  x0,  x1 size 0.08 front fc rgb colordot fs empty
-set object 14 circle at  x1,  x2 size 0.08 front fc rgb colordot fs empty
+set object 11 circle at  xf,  xf size dotsize front fc rgb dotcolor fs solid lw 0
+set object 12 circle at -xf, -xf size dotsize front fc rgb dotcolor fs solid lw 0
+set object 13 circle at  x0,  x1 size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 14 circle at  x1,  x2 size dotsize front fc rgb dotcolor fs empty lw dotlw
 
 set arrow 100 from 0, -2 to 0, 2 nohead
 set arrow 101 from -2, 0 to 2, 0 nohead
@@ -110,14 +114,14 @@ x9 = f(x8)
 x10 = f(x9)
 xf = sqrt(r-1);
 
-set title "      2-odd-cycle, {/Times-Italic r} = 2.8308" font titlefont
+set title "      2-half-cycle, {/Times-Italic r} = 2.8308" font titlefont
 
-set object 11 circle at  xf,  xf size 0.08 front fc rgb colordot fs empty
-set object 12 circle at -xf, -xf size 0.08 front fc rgb colordot fs empty
-set object 13 circle at  x0,  x1 size 0.08 front fc rgb colordot fs solid
-set object 14 circle at  x1,  x2 size 0.08 front fc rgb colordot fs solid
-set object 15 circle at  x2,  x3 size 0.08 front fc rgb colordot fs solid
-set object 16 circle at  x3,  x4 size 0.08 front fc rgb colordot fs solid
+set object 11 circle at  xf,  xf size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 12 circle at -xf, -xf size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 13 circle at  x0,  x1 size dotsize front fc rgb dotcolor fs solid lw 0
+set object 14 circle at  x1,  x2 size dotsize front fc rgb dotcolor fs solid lw 0
+set object 15 circle at  x2,  x3 size dotsize front fc rgb dotcolor fs solid lw 0
+set object 16 circle at  x3,  x4 size dotsize front fc rgb dotcolor fs solid lw 0
 
 
 set arrow  1 from x0, x0 to x0, x1 as 1

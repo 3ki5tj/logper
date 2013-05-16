@@ -4,15 +4,19 @@ set terminal postscript enhanced font "Times, 14" size 7, 10
 set output "cobweb.ps"
 set encoding iso_8859_1
 
-colordot = "#cc0000"
+dotlw = 1
+dotsize = 0.02
+dotcolor = "#000020"
+arrowcolor = "#5050aa"
 
 # set arrow style 1, as a thin arrow
 # size length, angle (deg.), backangle (deg.)
-set style arrow 1 head size 0.040, 18, 30 filled lw 1.0 lc rgb "#0000aa"
+set style arrow 1 head size 0.040, 18, 30 filled lw 1.0 lc rgb arrowcolor
 
 set style line 10 lt 2 lw 1.5 lc rgb "#808080"
 
 dx = 0.007
+dx2 = 0.0
 dy = 0.030
 
 # width of the left and right colums
@@ -42,9 +46,9 @@ tcfont = "Times, 17"
 set label "(a)" at screen dx, 1.000-dy      font lbfont
 set label "(b)" at screen dx, top2-dy       font lbfont
 set label "(c)" at screen dx, top3-dy       font lbfont
-set label "(d)" at screen wlft+dx, 1.000-dy font lbfont
-set label "(e)" at screen wlft+dx, top2-dy  font lbfont
-set label "(f)" at screen wlft+dx, top3-dy  font lbfont
+set label "(d)" at screen wlft+dx2, 1.000-dy font lbfont
+set label "(e)" at screen wlft+dx2, top2-dy  font lbfont
+set label "(f)" at screen wlft+dx2, top3-dy  font lbfont
 
 set xtics .2 font tcfont offset 0, 0.3
 set mxtics 2
@@ -52,7 +56,6 @@ set mxtics 2
 set ylabel "{/Times-Italic f}{/=8 &{i}}({/Times-Italic x}{/=8 &{i}}) = {/Times-Italic r{/=8 &{i}}x}{/=8 &{i}}(1 - {/Times-Italic x}{/=8 &{i}})" offset 1.5, 0 font titlefont
 set ytics .2 font tcfont offset 0.5, 0
 set mytics 2
-
 
 
 set rmargin 1.0
@@ -81,7 +84,7 @@ set title 'Fixed point, {/Times-Italic r} = 2.8' offset 0, 0 font titlefont
 
 
 # a circle at the fixed point
-set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs solid
+set object 11 circle at xf, xf size dotsize front fc rgb dotcolor fs solid
 
 set arrow  1 from x0, x0 to x0, x1 as 1
 set arrow  2 from x0, x1 to x1, x1 as 1
@@ -121,9 +124,9 @@ xf = 1 - 1/r;
 
 set title "2-cycle, {/Times-Italic r} = 3.4" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
-set object 12 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
-set object 13 circle at x3, x2 size 0.020 front fc rgb colordot fs solid
+set object 11 circle at xf, xf size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 12 circle at x2, x3 size dotsize front fc rgb dotcolor fs solid
+set object 13 circle at x3, x2 size dotsize front fc rgb dotcolor fs solid
 
 
 #set arrow 1 from x0, x0 to x0, x1 as 1
@@ -149,7 +152,7 @@ set size wlft, ht3
 set origin 0., 0
 set bmargin botmargin
 set format x "%g"
-set xlabel "{/Times-Italic x}" offset 0, 0.0 font titlefont
+set xlabel "{/Times-Italic x}" offset 0, 0.5 font titlefont
 
 r = 3.84
 x0 = 0.149407
@@ -162,10 +165,10 @@ xf = 1 - 1/r;
 
 set title "3-cycle, {/Times-Italic r} = 3.84" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
-set object 12 circle at x1, x2 size 0.020 front fc rgb colordot fs solid
-set object 13 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
-set object 14 circle at x3, x4 size 0.020 front fc rgb colordot fs solid
+set object 11 circle at xf, xf size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 12 circle at x1, x2 size dotsize front fc rgb dotcolor fs solid
+set object 13 circle at x2, x3 size dotsize front fc rgb dotcolor fs solid
+set object 14 circle at x3, x4 size dotsize front fc rgb dotcolor fs solid
 
 
 set arrow 1 from x0, x0 to x0, x1 as 1
@@ -202,13 +205,13 @@ x4 = f(x3)
 x5 = f(x4)
 xf = 1 - 1/r;
 
-set title "     4-cycle, {/Times-Italic r} = 3.5" font titlefont
+set title "  4-cycle, {/Times-Italic r} = 3.5" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
-set object 12 circle at x1, x2 size 0.020 front fc rgb colordot fs solid
-set object 13 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
-set object 14 circle at x3, x4 size 0.020 front fc rgb colordot fs solid
-set object 15 circle at x4, x5 size 0.020 front fc rgb colordot fs solid
+set object 11 circle at xf, xf size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 12 circle at x1, x2 size dotsize front fc rgb dotcolor fs solid
+set object 13 circle at x2, x3 size dotsize front fc rgb dotcolor fs solid
+set object 14 circle at x3, x4 size dotsize front fc rgb dotcolor fs solid
+set object 15 circle at x4, x5 size dotsize front fc rgb dotcolor fs solid
 
 
 #set arrow  1 from x0, x0 to x0, x1 as 1
@@ -244,11 +247,11 @@ xf = 1 - 1/r;
 
 set title "    4-cycle, {/Times-Italic r} = 3.9607" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
-set object 12 circle at x1, x2 size 0.020 front fc rgb colordot fs solid
-set object 13 circle at x2, x3 size 0.020 front fc rgb colordot fs solid
-set object 14 circle at x3, x4 size 0.020 front fc rgb colordot fs solid
-set object 15 circle at x4, x5 size 0.020 front fc rgb colordot fs solid
+set object 11 circle at xf, xf size dotsize front fc rgb dotcolor fs empty lw dotlw
+set object 12 circle at x1, x2 size dotsize front fc rgb dotcolor fs solid
+set object 13 circle at x2, x3 size dotsize front fc rgb dotcolor fs solid
+set object 14 circle at x3, x4 size dotsize front fc rgb dotcolor fs solid
+set object 15 circle at x4, x5 size dotsize front fc rgb dotcolor fs solid
 
 
 set arrow 1 from x0, x0 to x0, x1 as 1
@@ -271,7 +274,7 @@ set size wrt, ht3
 set origin wlft, 0
 set bmargin botmargin
 set format x "%g"
-set xlabel "{/Times-Italic x}" offset 0, 0.0 font titlefont
+set xlabel "{/Times-Italic x}" offset 0, 0.5 font titlefont
 
 r = 3.57
 f(x) = r*x*(1-x)
@@ -288,9 +291,9 @@ x9  = f(x8)
 x10 = f(x9)
 xf = 1 - 1/r;
 
-set title "Chaos, {/Times-Italic r} = 3.57" offset 0, -0.5 font titlefont
+set title "Chaos, {/Times-Italic r} = 3.57" font titlefont
 
-set object 11 circle at xf, xf size 0.020 front fc rgb colordot fs empty lw 1.5
+set object 11 circle at xf, xf size dotsize front fc rgb dotcolor fs empty lw dotlw
 
 set arrow  1 from x0,  x0  to x0,  x1  as 1
 set arrow  2 from x0,  x1  to x1,  x1  as 1

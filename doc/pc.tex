@@ -2599,7 +2599,7 @@ by \refeq{cubreplace}.
 For technical reasons, we will not use polynomials of odd degrees,
 because the map allows a symmetric $2n$-cycle:
 $x_1, x_2, \ldots, x_n, -x_1, -x_2, \ldots, -x_n$
-(see \reffig{oddcycle}),
+(see \reffig{halfcycle}),
 which makes all odd cyclic polynomials zero,
 e.g., $C_1 = x_1 + x_2 + \dots + x_n - x_1 - x_2 - \dots - x_n = 0$.
 %
@@ -2612,10 +2612,10 @@ Thus, the zero determinant condition, similar to that in \refeq{xr},
 \begin{figure}[h]
   \begin{minipage}{\linewidth}
     \begin{center}
-        \includegraphics[angle=-90, width=\linewidth]{oddcycle.pdf}
+        \includegraphics[angle=-90, width=\linewidth]{halfcycle.pdf}
     \end{center}
   \end{minipage}%
-  \caption{\label{fig:oddcycle}
+  \caption{\label{fig:halfcycle}
   Odd-cycles of the cubic map.}
 \end{figure}
 
@@ -2738,11 +2738,11 @@ $\begin{aligned}
 \hline
 \multicolumn{2}{p{\textwidth}}{
 $^\dagger$
-The factors from odd-cycles (see \refsec{oddcycle}) are struck out.
+The factors from half-cycles (see \refsec{halfcycle}) are struck out.
 }\\
 \multicolumn{2}{p{\textwidth}}{
 $^\ddagger$
-The $n = 4$ odd-cycles satisfy
+The $n = 4$ half-cycles satisfy
 $(\lambda^\odd + 9)^2 - 2(\lambda^\odd-27) r^2 - 8 r^4 = 0$,
   where $\lambda^\odd=\pm\sqrt\lambda$.
 } \\
@@ -3054,7 +3054,7 @@ of the characteristic polynomial $A_n(r, \lambda)$
 are $n N_e(n)$ and $n L_e(n)$, respectively.
 
 
-\subsection{\label{sec:oddcycle}Odd-cycles}
+\subsection{\label{sec:halfcycle}Odd-cycles}
 
 Because of the symmetry $f(-x) = -f(x)$,
 the minimal polynomial $P_n(r, \lambda)$
@@ -3064,21 +3064,21 @@ If $x_{(n/2)+1} = -x_1$,
   then $x_1, \ldots, x_{n/2}, -x_1, \ldots, -x_{n/2}$
   is an $n$-cycle,
   for $x_{n+1} = - x_{(n/2)+1} = x_1$.
-We call such a cycle an odd-cycle,
-see \reffig{oddcycle} for examples.
+We call such a cycle an half-cycle,
+see \reffig{halfcycle} for examples.
 %
 Odd-cycles satisfy a polynomial
   of lower degrees in $\lambda$,
   which causes the factorization.
 %
-Suppose $\Lambda^\odd(\vx) \equiv \prod_{k = 1}^{n/2} f'(x_k)$ in the odd-cycle
+Suppose $\Lambda^\odd(\vx) \equiv \prod_{k = 1}^{n/2} f'(x_k)$ in the half-cycle
  satisfies $P_{n/2}^\odd(r, \lambda^\odd) = 0$
 \big[where $\lambda^\odd$ is the value of $\Lambda^\odd(\vx)$,
 and $\lambda^\odd = \pm\sqrt \lambda$\,\big],
 then $P^\odd_{n/2}(r, \sqrt \lambda) P^\odd_{n/2}(r, -\sqrt \lambda)$
 is a factor of $P_{n}(r, \lambda)$.
 %
-For example, by solving the $n = 2$ odd-cycle,
+For example, by solving the $n = 2$ half-cycle,
   we have $- x_1 = r x_1 - {x_1}^3$, or ${x_1}^2 = r + 1$.
 Since $\lambda^\odd = r - 3 {x_1}^2$,
 $P^\odd_1(r, \lambda^\odd) = \lambda^\odd + 2 r + 3$.
@@ -3573,8 +3573,7 @@ $nL_e(n)$   & $G_L(s-1)$ $^\ddagger$
 \hline
 \multicolumn{2}{p{\linewidth}}{
 $^\dagger$
-$\zeta(s) = \sum_n n^{-s}$ is the zeta function.
-See ref. \cite{hardy} for proofs.
+$\zeta(s) = \sum_n n^{-s}$ is the zeta function, cf. ref. \cite{hardy}.
 }\\
 \multicolumn{2}{p{\linewidth}}{
 $^\ddagger$
@@ -3597,7 +3596,7 @@ Thus,
 
 
 
-Another fact is if $G_\alpha(s)$ is the generating function of $\alpha(n)$,
+If $G_\alpha(s)$ is the generating function of $\alpha(n)$,
 then $G_\alpha(s-1)$ is that of $n \alpha(n)$,
 for $\alpha(n)/n^{s-1} = \big[ n \alpha(n) \big] / n^s$.
 Thus, the generating function of $n$ is $\zeta(s-1)$,
@@ -3610,19 +3609,25 @@ that of $n N_e(n)$ is $G_N(s-1)$
 
 
 We now compute the generating function of $\mu(n)\odd(n)$.
-First, recall the generating function $G_\mu(s)$ of $\mu(n)$ is
+First, $\mu(n)/n^s$ can be expanded by
+  the distinct prime factors of $n$ as $\prod_p (-)/p^s$
+  (the term is zeroed by $\mu(n)$
+  if $n$ is divisible by a square of a prime).
+%
+Thus,
+the generating function $G_\mu(s)$ of $\mu(n)$:
 \[
   G_\mu(s) = \sum_{n=1}^{\infty} \frac{\mu(n)}{n^s}
   = \prod_p \left( 1 - \frac{1}{p^s} \right),
 \]
 where $p$ goes through every prime.
 %
-The follows directly from expanding the product
-  and the definition of $\mu(n)$,
-which is $-1$ to the power of the number of distinct prime factors.
+%The follows directly from expanding the product
+%  and the definition of $\mu(n)$,
+%which is $-1$ to the power of the number of distinct prime factors.
 %
 The same reasoning applies to
-$G_{\mu, \odd}(s) = \sum_{n \text{ odd}} \mu(n)/n^s$
+$G_{\mu, \odd}(s) = \sum_{n, \odd} \mu(n)/n^s$
 with the only difference being that all multiples $n$ of 2
 are absent. So
 %
@@ -3630,7 +3635,7 @@ are absent. So
 \[
   G_{\mu, \odd}(s)
   = \sum_{n=1}^{\infty} \frac{\mu(n) \, \odd(n)}{n^s}
-  = \sum_{n \text{ odd}} \frac{\mu(n)}{n^s}
+  = \sum_{n, \odd} \frac{\mu(n)}{n^s}
   = \prod_{p \ge 3} \left( 1 - \frac{1}{p^s} \right).
 \]
 \end{small}
@@ -3646,20 +3651,21 @@ Comparing the two formulas yields
 
 
 Similarly,
-we can compute the generating function of $\odd(n)$ as
+the generating function of $\odd(n)$ is
 \[
   G_\odd(s)
   \equiv \sum_{n=1}^{\infty} \frac{\odd(n)}{n^s}
   = \sum_{n \text{ odd}} \frac{1}{n^s}
   = \zeta(s) \left(1 - \frac{1}{2^s} \right).
 \]
-This can also be derived by taking the generating function of
-both sides of the identity:
-$\sum_{d|n} \mu(d) \odd(d) \, \odd(n/d) = \delta_{n, 1}$
-\big[which is a modification of
-$\sum_{d|n} \mu(d) = \delta_{n, 1}$\big].
 %
-It follows that the generating function of $n \, \odd(n)$ is $G_\odd(s-1)$.
+%This can also be derived by taking the generating function of
+%both sides of the identity:
+%$\sum_{d|n} \mu(d) \odd(d) \, \odd(n/d) = \delta_{n, 1}$
+%\big[which is a modification of
+%$\sum_{d|n} \mu(d) = \delta_{n, 1}$\big].
+%
+%It follows that the generating function of $n \, \odd(n)$ is $G_\odd(s-1)$.
 
 
 
@@ -3707,8 +3713,7 @@ and
           {2 \, \zeta(s) \big(1 - 2^{-s}\big)} \\
   &   = 1 + \frac{t(s) - \zeta(s)}{2} G_{\mu, \odd}(s).
 \end{align*}
-Comparing the coefficients of the $n$th term ($n \ll M$),
-  we find
+Comparing the coefficients of the $n$th term yields
 \[
   n L_e(n) = \delta_{n,1} + \sum_{cd = n} \mu(c) \, \odd(c) \frac{3^d-1}{2},
 \]
@@ -3858,7 +3863,7 @@ which is \refeq{cublyndon}
   (Oxford University Press, USA, 2008).
 
 \bibitem{riordan}
-  J. Riordan
+  J. Riordan,
   \textit{An Introduction to Combinatorial Analysis}
   (Wiley, New York, 1958).
 
@@ -3937,7 +3942,7 @@ which is \refeq{cublyndon}
   \textbf{25},
   451--462
   (1984);
-
+%
   Solutions of period four for a non-linear difference equation,
   %\textit{J. Austral. Math. Soc. Ser. B}
   \textit{ibid.}

@@ -59,25 +59,35 @@ mkcycls[vars_] := Module[
 (*mkcycls[getvars[4]]*)
 
 (* map to a cyclic variable *)
-geteqv[t_, vars_, pows_, map_] := Module[
-  {w = pows.Exponent[t, vars]},
-
+geteqv[t_, vars_, b2k_, map_] := Module[
+  { w = b2k . Exponent[t, vars] },
+  (* if t is x0^e0 x1^e1 x2^e2 ...,
+     then Exponent[] returns {e0, e1, e2, ...}
+     we then combine the coefficients to form a binary word `w'
+     b2k = {1, 2, 2^2, 2^3, ...},
+     w = e0 2^0 + e1 2^1 + e2 2^2 + ..., ek = 0 or 1 *)
   If [ w === 0,
-    {map[[1]], t},
-    {map[[w+1]], Coefficient[t, w2term[w, Length[vars], vars]]}
+    { map[[1]], t },
+    { map[[w+1]], Coefficient[t, w2term[w, Length[vars], vars] ] }
   ]
 ];
-(*vars={a1,a2,a3,a4,a5,a6}; geteqv[3 R a1 a2 a4, vars, {1, 2, 4, 8, 16, 32}, mkcycls[vars][[2]]]*)
+(*
+vars={a1,a2,a3,a4,a5,a6};
+geteqv[3 R a1 a2 a4, vars, {1, 2, 4, 8, 16, 32}, mkcycls[vars][[2]] ]
+*)
 
 cycle1[expr_, vars_, cl_, map_] := Module[
-  {ls, pows, xp, k, cid, co},
+  {ls, b2k, xp, k, cid, co},
 
-  pows = Table[2^(k-1), {k, Length[vars]}];
+  b2k = Table[2^(k-1), {k, Length[vars]}];
   ls = Table[0, {k, Length[cl]}];
+  (* convert the monomial expresion to a list *)
   xp = If [ Head[expr] === Plus, expr, {expr}];
+  (* loop over monomial terms in `xp' *)
   For [ k = 1, k <= Length[xp], k++,
-    {cid, co} = geteqv[xp[[k]], vars, pows, map];
-    ls[[cid]] += co cl[[cid]][[3]]; ];
+    {cid, co} = geteqv[xp[[k]], vars, b2k, map];
+    ls[[cid]] += co cl[[cid]][[3]];
+  ];
   ls
 ];
 (*vars={a,b,c,d,e,f}; {cl,map}=mkcycls[vars]; cycle1[3 R a b + R^2 a c e, vars, cl, map]*)
@@ -488,17 +498,20 @@ Print[ numdetY[5, R, X] // InputForm ]; Exit[1];
 (* 1. handle input arguments *)
 n = 10;
 If [ Length[ $CommandLine ] >= 2,
-  n = ToExpression[ $CommandLine[[2]] ]
+  n = ToExpression[ $CommandLine[[2]] ];
 ];
 
 ch = "a";
 If [ Length[ $CommandLine ] >= 3,
-  ch = $CommandLine[[3]]
+  ch = $CommandLine[[3]];
+];
+If [ !MemberQ[{"a", "b", "X", "Y", "x"}, ch],
+  Print["do not support ", ch];
+  Exit[1];
 ];
 lambda = If [ ch === "b", -1,
          If [ ch === "a", 1,
                           0] ];
-
 Print["n ", n, "; lam ", ch, " ", lambda, "; degR. ", degRp[n]];
 
 kmin = kmax = None;
