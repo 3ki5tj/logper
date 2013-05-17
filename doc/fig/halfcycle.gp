@@ -6,8 +6,8 @@ set encoding iso_8859_1
 
 dotlw = 1
 dotsize = 0.08
-dotcolor = "#000020"
-arrowcolor = "#5050aa"
+dotcolor = "#222222"
+arrowcolor = "#777777"
 
 # set arrow style 1, as a thin arrow
 # size length, angle (deg.), backangle (deg.)

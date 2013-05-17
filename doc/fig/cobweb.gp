@@ -6,8 +6,8 @@ set encoding iso_8859_1
 
 dotlw = 1
 dotsize = 0.02
-dotcolor = "#000020"
-arrowcolor = "#5050aa"
+dotcolor = "#222222"
+arrowcolor = "#777777"
 
 # set arrow style 1, as a thin arrow
 # size length, angle (deg.), backangle (deg.)
@@ -94,12 +94,6 @@ set arrow  5 from x2, x2 to x2, x3 as 1
 set arrow  6 from x2, x3 to x3, x3 as 1
 set arrow  7 from x3, x3 to x3, x4 as 1
 set arrow  8 from x3, x4 to x4, x4 as 1
-#set arrow  9 from x4, x4 to x4, x5 as 1
-#set arrow 10 from x4, x5 to x5, x5 as 1
-#set arrow 11 from x5, x5 to x5, x6 as 1
-#set arrow 12 from x5, x6 to x6, x6 as 1
-#set arrow 13 from x6, x6 to x6, x7 as 1
-#set arrow 14 from x6, x7 to x7, x7 as 1
 
 
 plot [0:1][:1] f(x) lw 2.0 not, \
@@ -129,8 +123,6 @@ set object 12 circle at x2, x3 size dotsize front fc rgb dotcolor fs solid
 set object 13 circle at x3, x2 size dotsize front fc rgb dotcolor fs solid
 
 
-#set arrow 1 from x0, x0 to x0, x1 as 1
-#set arrow 2 from x0, x1 to x1, x1 as 1
 set arrow 3 from x1, x1 to x1, x2 as 1
 set arrow 4 from x1, x2 to x2, x2 as 1
 set arrow 5 from x2, x2 to x2, x3 as 1
@@ -214,8 +206,6 @@ set object 14 circle at x3, x4 size dotsize front fc rgb dotcolor fs solid
 set object 15 circle at x4, x5 size dotsize front fc rgb dotcolor fs solid
 
 
-#set arrow  1 from x0, x0 to x0, x1 as 1
-#set arrow  2 from x0, x1 to x1, x1 as 1
 set arrow  3 from x1, x1 to x1, x2 as 1
 set arrow  4 from x1, x2 to x2, x2 as 1
 set arrow  5 from x2, x2 to x2, x3 as 1

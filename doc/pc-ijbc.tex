@@ -7,11 +7,13 @@
 \usepackage{calc}
 \usepackage{cancel} % strike out (cancel) in math mode
 \usepackage{ws-rotating}
+%\usepackage{multicol}
 \begin{document}
 
 
 
 \newcommand{\odd}{\mathrm{odd}}
+\newcommand{\even}{\mathrm{even}}
 
 % bold font for vectors
 \newcommand{\vct}[1]{\mathbf{#1}}
@@ -99,11 +101,9 @@ The minimal polynomials of the critical parameters
 
 %\maketitle
 
-
 % switch text to two-column
+%\begin{multicols}{2}
 \twocolumn
-
-
 
 %
 %
@@ -218,9 +218,10 @@ Below we present a simple algorithm to do so.
 \section{\label{sec:logmap}Logistic map}
 
 
-We will illustrate the algorithm on the logistic map% \cite{may, strogatz}
-  defined in \refeq{logmap},
-  although it can be readily generalized.
+We will illustrate the algorithm on the logistic map % \cite{may, strogatz}
+  \refeq{logmap}.
+%
+The generalizations are straightforward.
 %
 If $r$ is real,
   we will find windows $(r_a, r_b)$,
@@ -530,8 +531,8 @@ Now $A_n\Rlam$, after we expand the determinant,
   is a polynomial of $R$ and $\lambda$,
   the equation is the desired answer to our problem.
 %
-We attach the subscript $n$ to $A\Rlam$ because
-  it will later be used with $A_d\Rlam$ of divisors $d$ of $n$.
+We attach the subscript $n$ to the determinant because
+  it will later be used with those of divisors $d$ of $n$.
 %
 To summarize, we have
 \begin{theorem}
@@ -546,7 +547,8 @@ To summarize, we have
   $C_p(\vx) \, \prod_k f'(x_k)$. %[\refeq{logder}].
   Thus, the fixed point of $f^n$
   is marginally stable when $R$ satisfies
-  characteristic equation $\big| \lambda \, \vct I - \vct T(R) \big| = 0$.
+  the characteristic equation
+  $\big| \lambda \, \vct I - \vct T(R) \big| = 0$.
   \label{thm:main}
 \end{theorem}
 
@@ -610,19 +612,22 @@ For $n = 1$, we have
   C_1
   \end{array} \right).
 \]
-With $\Lambda \rightarrow \lambda$, the characteristic equation (\ref{eq:xr}) reads
+With $\Lambda \rightarrow \lambda$,
+  the characteristic equation (\ref{eq:xr}) reads
 \begin{equation}
-0
+A_1\Rlam
   %=\left| \begin{array}{cc}
   %\lambda     & 2          \\
   %2 R         & \lambda - 2
   %\end{array} \right|
-  = -4R - 2\lambda + \lambda^2.
+  = -4R - 2\lambda + \lambda^2
+  = 0.
   \tag{\ref{eq:xr}-1}
 \label{eq:xr1}
 \end{equation}
 Thus, $R = (\lambda^2 -2\lambda)/4$;
-  and the fixed point begins at $R_a = -1/4$ ($\lambda = +1$), and
+  and the fixed point
+  %begins at $R_a = -1/4$ ($\lambda = +1$), and
   becomes unstable at $R_b = 3/4$ ($\lambda = -1$).
 
 
@@ -668,15 +673,16 @@ The characteristic equation \refeq{xr} reads
 %
 %
 \begin{align}
-0 &= (4R - 4 + \lambda) [(4 R-\lambda)^2 - 4 \lambda].
+A_2 = (4R - 4 + \lambda) [(4 R-\lambda)^2 - 4 \lambda] = 0.
   \tag{\ref{eq:xr}-2}
 \label{eq:xr2}
 \end{align}
 %
 %
 %
-The first factor is responsible for the 2-cycle,
-  while the second factor is for the unstable fixed points. % (see later).
+The first factor, denoted as $P_2\Rlam = 4R -r+\lambda$,
+  is responsible for the 2-cycle,
+  while the second factor is for the fixed points (see \refsec{primfac}).
 Setting the former to zero yields $R = 1 - \lambda/4$;
 so the onset ($\lambda = +1$) value is $R_a = 3/4$ ($r_a = 3$)
 and the bifurcation ($\lambda = -1$) value is $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
@@ -770,8 +776,8 @@ and the bifurcation ($\lambda = -1$) value is $R_b = 5/4$ ($r_b = 1+\sqrt 6$).
 
 
 
-For the $n = 4$ case
-\cite{brown1, stephenson1, stephenson3, bailey1, bailey2, kk1, lewis},
+For the $n = 4$ case,
+%\cite{brown1, stephenson1, stephenson3, bailey1, bailey2, kk1, lewis},
 %$C_0 = 1$,
 %$C_1 = x_1 + \cdots + x_4$,
 %$C_{12} = x_1 x_2 + \cdots + x_4 x_1$,
@@ -785,9 +791,9 @@ we only list the final characteristic equation \eqref{eq:xr}
 after the square reduction:%
 %(with six square-free cyclic polynomials):
 %
-\begin{small}
+%\begin{small}
 \begin{align}
-0
+A_4
 %& = \left|
 %\begin{array}{cccccc}
 % \lambda  & 0               & 0                 & 0     & 0     & -16 \\
@@ -800,23 +806,29 @@ after the square reduction:%
 %\right | \nonumber  \\
 & =
     \big[
-    4096 R^6-12288 R^5 + 256 (\lambda + 48) (R^4- R^3) \notag \\
+    4096 R^6-12288 R^5 + 
+    256 (\lambda + 48) (R^4- R^3) \notag \\
 & \quad
     -16 (\lambda + 32)(\lambda - 16) R^2
       -(\lambda - 16)^3 \big] \notag \\
 & \quad
+    \big[(16 R^2 + \lambda)^2 - 16 (2R+1)^2 \lambda \big] \notag \\
+& \quad
     \big[ 16 (R-1)^2 - \lambda \big]
- \, \big[(16 R^2 + \lambda)^2 - 16 (2R+1)^2 \lambda \big],
-  \tag{\ref{eq:xr}-4}
+ = 0.
+\tag{\ref{eq:xr}-4}
 \label{eq:xr4}
 \end{align}
-\end{small}
+%\end{small}
 %
 %
 %
-The first (sextic) factor, responsible for the 4-cycle,
-can be factorized as
-$ (
+The first (sextic) factor, denoted as $P_4\Rlam$,
+  is responsible for the 4-cycle.
+%
+It can be factorized as
+$ P_4(R, 1)
+= (
     4R - 5
   )
 \, \big[
@@ -824,8 +836,8 @@ $ (
   \big]
 \, \big[
   (4R - 3)^3 - 108
-  \big] =0$
-at the onset point $\lambda = 1$.
+  \big]$
+at the onset point. % $\lambda = 1$.
 %
 %
 %
@@ -839,9 +851,10 @@ $R_a = (3+\sqrt[3]{108})/4$
 \big($r_a = 1+\sqrt{4+\sqrt[3]{108}} \approx 3.9601$\big)
 for an original cycle \big[\reffig{cobweb}(e)\big].
 %
-At the bifurcation point ($\lambda = -1$), we have
-$4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
-  + 8432 R^2 + 4913 = 0$
+At the bifurcation point, % ($\lambda = -1$),
+we have $P_4(R, -1)
+ = 4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
+  + 8432 R^2 + 4913$
 %which upon $R \rightarrow r(r-2)/4$ yields the same polynomial
 %obtained previously
 \cite{stephenson1, stephenson3, bailey2, kk1, lewis}.
@@ -865,7 +878,7 @@ $4096 R^6 - 12288 R^5 + 12032 (R^4 - R^3)
 The characteristic polynomial $A_n\Rlam$ in \refeq{xr}
   is derived for the fixed points of $f^n$.
 Thus, it represents not only the $n$-cycles,
-  but also cycles of shorter periods $d$ ($d|n$).
+  but also the shorter $d$-cycles with $d|n$.
 %
 Fortunately, the contributions from different cycles
   are separate factors of $A_n\Rlam$.
@@ -916,7 +929,7 @@ The first few $\mu(n) = 1, -1, -1, 0, -1, 1, -1, \ldots,$
 
 Since the discussions in this and the next sections
   concern $\lambda$ instead of $R$,
-  we will drop the argument $R$ in $P_n\Rlam$ and $A_n\Rlam$, etc.
+  we will drop the argument $R$ in $P_n\Rlam$, $A_n\Rlam$, etc.
 %\begin{remark}
 %$B_{d,c}\lambda$ is a polynomial of $\lambda$.
 Despite the argument $\lambda^{1/c}$,
@@ -937,7 +950,7 @@ to the examples in \refsec{examples}.
 %%
 For $n = 1$,
 %there is no irrelevant factor in \refeq{xr1} and
-$P_1(\lambda) = B_1^1(\lambda) = A_1(\lambda)
+$P_1 = B_1^1 = A_1
   = \lambda^2 - 2\,\lambda - 4\,R$.
 %
 %
@@ -950,7 +963,7 @@ A_1(-\sqrt{\lambda})
 =
 (4R-\lambda)^2 -4\lambda$,
 %
-$P_2(\lambda) = A_2(\lambda) \, B_1^2(\lambda)^{-1} = 4R - 4 + \lambda$.
+$P_2 = A_2 / B_1^2 = 4R - 4 + \lambda$.
 %
 %
 For $n = 4$,
@@ -970,12 +983,11 @@ can be written as
 $B_2^2(\lambda) = A_2(\sqrt{\lambda}) A_2(-\sqrt{\lambda})$,
 and
 %
-$P_4(\lambda)
-    = A_4(\lambda) \, B_2^2(\lambda)^{-1}$
+$P_4 = A_4 / B_2^2$
 indeed the yields the sextic factor.
 %$    = 4096 R^6-12288 R^5+ 256 (\lambda + 48) (R^4- R^3)
 %    -16(\lambda + 32)(\lambda - 16) R^2 - (\lambda-16)^3$.
-Note, $B_1^4(\lambda)$ is unused for $\mu(4) = 0$.
+Note, $B_1^4$ is unused for $\mu(4) = 0$.
 
 
 
@@ -1009,7 +1021,7 @@ To do so, we first find the degrees in $\lambda$ of
 By comparing the degrees,
   we then show that each $P_d\lam$ with $d|n$,
   after some transformation,
-  contributes one polynomial factor to $A_n\lam$
+  contributes a polynomial factor to $A_n\lam$
   [\refeq{prod}],
   and the inversion of the relation
   yields \refeq{primfac}.
@@ -1021,10 +1033,9 @@ By comparing the degrees,
 First, to count the square-free cyclic polynomials,
   we notice a one-to-one mapping
   from the square-free cyclic polynomials
-  to the binary necklaces.
+  to the binary necklaces,
 %
-A binary necklace
-  is a nonequivalent binary $0$-$1$ string.
+which are nonequivalent binary $0$-$1$ strings.
 %
 Two strings are equivalent if they differ only by a circular shift.
 %
@@ -1069,7 +1080,7 @@ which gives the number of integers from 1 to $m$
   $\varphi(3) = 2$ for 1 and 2,
   $\varphi(6) = 2$ for 1 and 5.
 By \refeq{xr},
-  $\NB$ is also $\deg_\lambda A_n$.
+  $\NB(n) = \deg_\lambda A_n\Rlam$.
 The first few $\NB(n)$ are
 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, \dots, % 188, 352, 632, \ldots,
   from $n = 1$.
@@ -1080,9 +1091,10 @@ The first few $\NB(n)$ are
 
 
 %\begin{theorem}
-Next the polynomial $P_n\lam$ can be written as
+Next, the $n$-cycle polynomial $P_n\lam$ can be written as
 \begin{equation}
   P_n\lam = \textstyle\prod_l [\lambda - \Lambda(\vxn{n}^{(l)})],
+\notag
 \end{equation}
 where $\vxn{n}^{(l)}$ denotes the $l$th $n$-cycle.
 %
@@ -1115,12 +1127,12 @@ Since an $n$-necklace is either aperiodic itself or
   we have
 \begin{equation}
   \NB(n) = \textstyle\sum_{d|n} \LB(d).
-\label{eq:necklacelyndon}
+\notag
+%\label{eq:necklacelyndon}
 \end{equation}
 %
 Since the left side is the degree in $\lambda$ of $A_n\lam$,
   which accommodates all fixed points of $f^n$,
-  %\refeq{necklacelyndon} shows that
   each distinct $d$-cycle (with $d|n$)
   contributes one and only one zero to $A_n\lam$.
 %
@@ -1255,23 +1267,23 @@ This is caused by the intersection of an $n$-cycle
   and a shorter $d$-cycle ($d|n$, $d < n$),
   which forces the two to share orbit.
 %
-One can show that (1) such an intersection happens only
+One can show that i) such an intersection happens only
   at the onset of the longer $n$-cycle, where $\lambda = 1$,
 %
-  and (2) $d$ and $n$ are coprime \cite{blackhurst}.
+  and ii) $d$ and $n$ are coprime \cite{blackhurst}.
 %
-The simplest example is the first bifurcation point
-  at $R = 3/4$ for $d = 1, n = 2$,
-  where the fixed point \refeq{xr1}
-  undergoes period-doubling and becomes the 2-cycle \refeq{xr2}.
 As a result, the $n$-cycle polynomial $P_n(R, \lambda)$
   has to accommodate the $d$-cycle one $P_d(R, \lambda')$ as a factor,
   with $\lambda'$ being a primitive $(n/d)\,$th root of $\lambda = 1$.
-
+%
+The simplest example is the first bifurcation point
+  at $R = 3/4$ for $d = 1, n = 2$,
+  where the fixed point %\refeq{xr1}
+  undergoes period-doubling and becomes the 2-cycle. % \refeq{xr2}.
 
 
 We can therefore distinguish \emph{original} cycles
-  from those born out of the above branching.
+  from those born out of the above intersection.
 Similar to \refeq{QP},
   the contributions from the non-original cycles
   born out of the $d$-cycles
@@ -1311,20 +1323,18 @@ With these contributions removed,
 %
 %
 %
-Take the $n = 4$ case as an example, we have
+Take the $n = 4$ case as an example,
+[cf. \refsec{examples}],
+we have
 $\prod_{k=1,3} P_1(R, e^{k\pi i/2})
 %=(-4R-2i-1)(-4R+2i-1)
 =16R^2+8R+5$
 (for $c = 4$),
 $P_2(R, -1) = 4R - 5$
-(for $c = 2$),
-and
-$P_4(R, 1)
-= (4R - 5) (16 R^2 + 8 R + 5)
-  \bigl[
-    (4R - 3)^3 - 108
-  \bigr]$.
-Dividing $P_4(R, 1)$ by the two factors yields
+(for $c = 2$).
+%
+Dividing $P_4(R, 1)$ 
+by the two factors yields
 $S_4(R) = (4R-3)^3 - 108$.
 %  whose only real root $R_a=(3+\sqrt[3]{108})/4$ corresponds to
 %  the onset of the original cycle.
@@ -1435,7 +1445,7 @@ The two cycles are compared in \reffigs{cobweb}(d) and (e).
 In the numerical implementation
   (see \refsec{end}),
   it is helpful to know the degrees in $R$ of the polynomials
-  to evaluate the determinant by Lagrange interpolation. 
+  to evaluate the determinant by Lagrange interpolation.
 We first show that:
 \begin{equation}
 \deg_R A_n\Rlam = \textstyle\sum_{d|n} \varphi(n/d) 2^{d-1},
@@ -1446,7 +1456,7 @@ The first few values are
 1, 3, 6, 12, 20, 42, 70, 144, 270, 540, \dots, from $n =1$.%1034, 2112, 4108, \dots,
 
 From \refeq{xr},
-  every term in the expansion of the determinant $|\vct A|$
+  every term in the determinant $|\vct A|$
   can be written as
   $\prod_{p} A_{p,q}$,
   in which, $p$ runs through all cyclic polynomials,
@@ -1461,14 +1471,14 @@ It follows that to increase $\deg_R$ by 1,
 Accordingly,
   $\deg_R A_{p,q} \le \deg_\vx(\Lambda \, C_p) - \deg_\vx C_q$.
 Now running $p$ and $q$ through the $\NB$ cyclic polynomials
+ and using $\deg_\vx \Lambda(\vx) = n$
   yields
 \[
-  \deg_R |\vct A | = \deg_R \textstyle\prod_{p} A_{p,q} \le n \, \NB(n),
+  \deg_R |\vct A | = \deg_R \textstyle\prod_{p} A_{p,q} \le n \, \NB(n).
 \]
-where we have used $\deg_\vx \Lambda(\vx) = n$.
 %
-The equality can be achieved, if each $q$ is the ``complement'' of $p$,
-  that is, if $\prod_k x_k^{e_k}$ is the generator of $C_p$,
+The equality can be achieved, if each $q$ is the complement of $p$,
+  that is, if $C_p$ is generated from $\prod_k x_k^{e_k}$,
   $C_q$ can be generated from $\prod_k x_k^{1-e_k}$.
 For example, for $n=4$,
   $C_1 = x_1 + \cdots + x_4$
@@ -1479,26 +1489,24 @@ Finally, we reach \refeq{degRA} by \refeq{necklace}.
 
 
 Now, taking the degrees in $R$ of \refeq{primfac} and \refeq{origfac}
-  yields
+  yields two known formulas
+\cite{mira, stephenson1, blackhurst}:
 %
 \begin{subequations}
-\begin{align}
-\deg_R P_n\Rlam &\equiv \beta(n) = \sum_{d|n} \mu\Big(\frac{n}{d}\Big) 2^{d-1}, \\
-    \deg S_n(R) &= \beta(n)
+\begin{align*}
+\deg_R P_n\Rlam &\equiv \beta(n)
+  = \sum_{d|n} \mu\Big(\frac{n}{d}\Big) 2^{d-1}, \\
+\deg S_n(R) &= \beta(n)
   - \sum_{d | n, d < n} \beta(d) \, \varphi\Big(\frac{n}{d}\Big).
-\end{align}
+\end{align*}
 \label{eq:degR}
 \end{subequations}
 %
-The two formulas are known \cite{mira, stephenson1, blackhurst}.
-%
-%
-The first few
-  $\deg_R P_n\Rlam$,
-  and $\deg S_n(R)$ are
+The first few $\deg_R P_n\Rlam$ are
   1, 1, 3, 6, 15, 27, 63, 120, 252, 495, \dots, %1023, 2010, 4095, \dots,
+and $\deg S_n(R) = $
   1, 0, 1, 3, 11, 20, 57, 108, 240, 472, \dots, % 1013, 1959, 4083, \dots,
-  respectively, from $n = 1$.
+from $n = 1$.
 
 
 
@@ -1573,22 +1581,24 @@ $^*$
 \subsection{\label{sec:end}Implementation}
 
 
-Let us summarize the algorithm.
-%
-First, we list \refeqs{xcp}  with $\Lambda(\vx) = \prod_{k=1}^n f'(x_k)$.
-This step populates elements of the matrix $\vct T$.
-%
-The characteristic equation $A_n(\lambda) = \big|\lambda \, \vct I - \vct T\big| = 0$,
-with $\lambda$ being $+1$ and $-1$, then gives
-the polynomials at onset and bifurcation points, respectively.
-%
-The contributions from shorter $d$-cycles
-  can be removed by
-  % computing the characteristic equations for all divisors $d$ and applying
-  \refeq{primfac}.
-%
+%Let us summarize the algorithm.
+%%
+%First, we list \refeqs{xcp}  with $\Lambda(\vx) = \prod_{k=1}^n f'(x_k)$.
+%This step populates elements of the matrix $\vct T$.
+%%
+%The characteristic equation $A_n(\lambda) = \big|\lambda \, \vct I - \vct T\big| = 0$,
+%with $\lambda$ being $+1$ and $-1$, then gives
+%the polynomials at onset and bifurcation points, respectively.
+%%
+%The contributions from shorter $d$-cycles
+%  can be removed by
+%  % computing the characteristic equations for all divisors $d$ and applying
+%  \refeq{primfac}.
+%%
 
-
+The most time-consuming step is the evaluation of the determinant
+in \refeq{xr}.
+%
 When implemented on a computer,
 it is often helpful to evaluate the characteristic polynomial
 by Lagrange interpolation,
@@ -1723,8 +1733,9 @@ Thus, the eigenvalues $\lambda$ of $\vct J^n$ can be found from
 \begin{equation}
 \big|\, \lambda \, \vct I - \vct J^n(x_1) \,\big|
   = \lambda^2 - \Theta(\vx) \,\lambda +(-b)^n = 0,
+\notag
 %\tag{$\ref{eq:der}'$}
-\label{eq:henonder}
+%\label{eq:henonder}
 \end{equation}
 %
 where $\Theta(\vx)$ and $(-b)^n$
@@ -1769,11 +1780,11 @@ map, we consider the following cubic map \cite{strogatz}
 \label{eq:cubic}
 \end{equation}
 %
-Unlike the logistic map, this map is antisymmetric,
-  that is, $f(-x) = -f(x)$.
+Unlike the logistic map, this map is antisymmetric:
+  $f(-x) = -f(x)$.
 %
-In fact, all antisymmetric cubic maps \cite{may2, brown3, brown4}
-  can be mapped to \refeq{cubic} by a change of variables.
+It can be mapped to another antisymmetric cubic map \cite{may2, brown3, brown4}
+  by a change of variables.
 We shall show below that this odd parity can be used to reduce the amount of calculation.
 
 First of all, the new replacement rule
@@ -1794,12 +1805,12 @@ We must, therefore, extend the basis set of cyclic polynomials
   is still not).
 
 
-The odd parity, however, allows us to limit
+The odd parity, however, limits
   the set of cube-free cyclic polynomials
   to those of even degrees in $\vx$.
 %
-This is because \refeq{cubreplace} contains only linear and cubic terms,
-and a cyclic polynomial with an odd (even) degree in $\vx$
+This is because \refeq{cubreplace} %contains only linear and cubic terms,
+never reduces a cyclic polynomial with an odd (even) degree in $\vx$
 can never be reduced to one with an even (odd) degree.
 %
 %Thus, we only need polynomials of even degrees.
@@ -1908,8 +1919,8 @@ $^*$
 
 
 %Similar to the logistic-map case,
-Even cube-free cyclic polynomials
-can be mapped to \emph{even ternary} necklaces,
+Even-degree cube-free cyclic polynomials
+correspond to \emph{even ternary} necklaces,
 in which each bead can assume
 0, 1, or 2, with the total being even.
 %
@@ -1922,15 +1933,16 @@ while the even ones sum to
     \left[
       3^d - \odd(c) \frac{3^d-1}{2}
     \right],
-\label{eq:cubnecklace}
+\notag
+%\label{eq:cubnecklace}
 \end{equation}
 where
-$\odd(c)$ %$\equiv \big[1 - (-1)^c\big]/2$
-is 1 if $c$ is odd or 0 if even.
+$\odd(c) \equiv c \mod 2$.
 %\label{thm:cubnecklace}
 %\end{theorem}
 %
-Since $N_e \approx N_3/2$, using the parity saves about half of the equations
+Since $N_e \approx N_3/2$, using the parity
+  saves about half of the equations
   in computation.
 %
 $N_e(n) =$ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
@@ -1940,44 +1952,56 @@ $N_e(n) =$ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
 
 The characteristic polynomial $A_n\rlam$
   from the determinant equation
-  has a degree $N_e(n)$ in $\lambda$.
-Again, it encompasses the factors
-  from the shorter $d$-cycles ($d|n$),
-  and the $n$-cycle polynomial can be obtained
-  from \refeq{primfac} by proper substitutions, e.g.,
+  has a degree $N_e(n)$ in $\lambda$,
+and it encompasses the factors
+  from the shorter $d$-cycles with $d|n$.
+The pure $n$-cycle polynomial $P_n\rlam$ can be obtained
+  from \refeq{primfac} by proper substitutions
   $R\rightarrow r$.
 %The degree of the polynomial,
 The degree in $\lambda$ of $P_n\rlam$
-  is given by, after some algebra,
+is given by the M\"obius inversion
+$L_e(n) = \sum_{d|n} \mu(n/d) N_e(d)$,
+which becomes, after some algebra,
 %
 %
 \begin{equation}
   L_e(n) = \delta_{n, 1} +
-    \frac{1}{n} \sum_{cd = n} \mu(c) \odd(c)\frac{3^d-1}{2},
-\label{eq:cublyndon}
+    \frac{1}{n} \sum_{cd = n} \mu(c) \odd(c)\frac{3^d-1}{2}.
+\notag
+%\label{eq:cublyndon}
 \end{equation}
 %
 %
-For the first few values,
-  $L_e(n)$ = 2, 2, 4, 10, 24, 60, 156, 410, \ldots, starting from $n = 1$.
+%For the first few values,
+The first few values are 2, 2, 4, 10, 24, 60, 156, 410, \ldots, starting from $n = 1$.
 %
-This is also the number of the $n$-cycles \cite{hao, hao2}.
-Note that, for $n>1$, $x_k$ in half of the cycles
+This is also the number of the $n$-cycles \cite{zeng}.
+%
+The $\delta_{n,1}$ term corresponds to the fixed point
+  at the origin,
+%
+%Excluding this term,
+and
+$L^*_e(n) \equiv L_e(n) - \delta_{n,1}$
+ is the number of nontrivial $n$-cycles \cite{hao, hao2}.
+For $n>1$, half of the cycles points $\vx$
   with negative $r$ are imaginary.
-However, in a transformed map
+They can, however, be made real by
+$x_k = \sqrt{r} z_k$,
+in a transformed map
 $z_{k+1} = r \, z_k \, (1 - {z_k}^2)$,
-which differs from \refeq{cubic} by $x_k = \sqrt{r} z_k$,
-$z_k$ in the negative-$r$ cycles are real.
+which share the same boundary polynomials of $r$.
 %
 %
 Following similar steps in \refsec{degR},
-we find that
+we find
   $\deg_r A_n(r, \lambda) = n N_e(n)$
   and $\deg_r P_n(r, \lambda) = n L_e(n)$.
 
 
 
-%\subsection{\label{sec:halfcycle}Odd-cycles}
+%\subsection{\label{sec:halfcycle}Half-cycles}
 
 %
 %
@@ -1988,73 +2012,131 @@ we find that
   \end{minipage}%
   \end{center}
   \caption{\label{fig:halfcycle}
-  Odd-cycles of the cubic map.}
+  Half-cycles of the cubic map.}
 \end{figure}
 %
 %
 
 The symmetry $f(-x) = -f(x)$ permits
   a particular \emph{half-cycle},
+  that is a solution of $x_{n+1} = -x_1$,
   see \reffig{halfcycle} for examples.
-If $x_{n+1} = -x_1$ has a solution,
-  then $x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}$
-  is a $2n$-cycle, for $x_{2n+1} = - x_{n+1} = x_1$.
+%
+A repeatd $n$-half-cycle is a $2n$-cycle:
+  $x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}, x_1$.
 %
 It follows that a cyclic polynomial
   formed by the $2n$ points
   with an odd degree in $\vxn{2n}$
   is also always zero,
   e.g., $C_1 = x_1 + x_2 + \dots + x_n - x_1 - x_2 - \dots - x_n = 0$.
-Accordingly, the characteristic equation \refeq{xr}
-  would omit the $n$-half-cycles from the solution.
-The existence of half-cycles is why we use even, but not odd,
-  cyclic polynomials in the solution.
+%
+We would have missed the $n$-half-cycle contributions
+  in $A_{2n}\rlam$ and $P_{2n}\rlam$,
+  had the characteristic equation been listed using odd,
+  instead of even cyclic polynomials of $\vx$.
+%The existence of half-cycles is why we use even, but not odd,
+%  cyclic polynomials in the solution.
 
 
-Since the $n$-half-cycles satisfy a polynomial of lower degree,
-  the $n$-cycle polynomial $P_{2n}(\lambda)$
+The polynomial $P^h_n\rlam$ for the $n$-half-cycles
+  share the the same degree in $\lambda$ with $P_n\rlam$.
+%
+We further define $P^{h*}_n\lam$
   (omitting the argument $r$)
-  can always be factorized.
+  as $P^h_n\lam$ for $n > 1$,
+  but as $P^h_n\lam/(\lambda - r)$ for $n = 1$,
+  to exclude the contribution from
+  the trivial solution $x=0$
+  (which is both a cycle and half-cycle).
 %
-Suppose $\Lambda^o(\vx) \equiv \prod_{k = 1}^{n} f'(x_k)$ in the half-cycle
- satisfies $P_{n}^o(\lambda^o) = 0$
-\big[where $\lambda^o$ is the value of $\Lambda^o(\vx)$,
-and $\lambda^o = \pm\sqrt \lambda$\,\big],
-then $P^o_{n}(\sqrt \lambda) P^o_{n/2}(-\sqrt \lambda)$
-is a factor of $P_{n}(\lambda)$.
+Since a repeated $n$-half-cycle is a $2n$-cycle,
+  $P^{h*}_{n}\big(\sqrt \lambda\big)
+   P^{h*}_{n}\big(-\sqrt \lambda\big)$
+  is a factor of the $2n$-cycle polynomial $P_{2n}(\lambda)$.
 %
-For example, by solving the $n = 2$ half-cycle,
-  we have $- x_1 = r x_1 - {x_1}^3$, or ${x_1}^2 = r + 1$.
-Since $\lambda^o = r - 3 {x_1}^2$,
-$P^o_1(\lambda^o) = \lambda^o + 2 r + 3$.
+For example, by solving the nontrivial 1-half-cycle or inversion point,
+  $- x_1 = f(x_1)$, we have ${x_1}^2 = r + 1$,
+%Since $\lambda^h = r - 3 {x_1}^2$,
+and
+$P^{h*}_1(\lambda) = \lambda + 2 r + 3$.
 %
 The 2-cycle polynomial
-  $P_2(\lambda) = -\big[(2r+3)^2 - \lambda\big]\,(\lambda + 2r^2-9)$,
+  $P_2(\lambda) = -\big[(2r+3)^2 - \lambda\big]\,(\lambda + 2r^2-9)$
   indeed contains
-  $P^o_1(\sqrt \lambda) \, P^o_1(r, -\sqrt \lambda)
-   = (\sqrt \lambda + 2 r + 3)(-\sqrt \lambda + 2 r + 3)$
+  $P^{h*}_1(\sqrt \lambda) \, P^{h*}_1(r, -\sqrt \lambda)
+   =
+  \big( \sqrt \lambda + 2 r + 3\big)
+  \big(-\sqrt \lambda + 2 r + 3\big)$
   as a factor.
-
-
-Finally, we mention that the $n$-cycle polynomial $P_n\rlam$,
-  after divided by the contribution from the half-cycles,
-  is an even polynomial of $r$ for an even $n$.
 %
-This follows from that the transformed variables
+%
+We may therefore define a deducted polynomial as
+\begin{equation}
+\bar P_n\lam \equiv
+  \left.
+    P_n\lam
+  \middle/
+     \left[
+        P^{h*}_{n/2}(\sqrt\lambda)
+        P^{h*}_{n/2}(-\sqrt\lambda)
+      \right],
+  \right.
+\label{eq:Pded}
+\end{equation}
+for an even $n$, and $\bar P_n = P_n$ for an odd $n$.
+%
+As mentioned earily,
+  $\bar P_n$ can also be obtained
+  from the characteristic equation
+  derived for odd cyclic polynomials of $\vx$;
+%
+and $\deg_\lambda \bar P\lam$ is
+\begin{align*}
+%  N_o(n) &= \frac{1}{n} \sum_{c d = n} \varphi(c)
+%      \odd(c) \frac{3^d-1}{2}, \\
+  L_o(n) &= \delta_{n, 1} +
+      \frac{1}{n} \sum_{cd = n}
+    \mu(c) \left[1 - \tfrac{1}{2}\odd(c)\right] (3^d-1).
+\end{align*}
+%
+%and $L^*_o(n) \equiv L_o(n) - \delta_{n,1}$
+%further excludes the fixed point at the origin.
+%
+%Additionally,
+It follows from \refeq{Pded} that
+$L_e(n) = L_o(n) + \even(n) L_e(n/2)$,
+where $\even(n) = 1 - \odd(n)$.
+
+
+The $n$-half-cycle polynomial
+  are related to the $n$-cycle polynomial as
+  $P^h_n(r, \lambda) = P_n(-r, -\lambda)$
+  for an odd $n$.
+%
+This is because the transformed variables
   $y_k \equiv (-)^k i x_k$
 satisfy
-  $y_{k+1} = (-r) y_k - {y_k}^3$.
-Thus, there is a one-to-one correspondence
-  between the cycles for $r$ and $-r$.
+  $y_{k+1} = (-r) \, y_k - {y_k}^3$.
 %
-Since the mapping applies to an even $m$-half-cycle,
-  hence the corresponding $2m$-cycle,
-  $P_n\rlam$ is an even polynomial of $r$
-  if $n$ is a multiple of 4.
+Thus, each $n$-cycle
+  $\vx = \{x_1, x_2, \dots, x_n, x_1\}$
+can be mapped isomorphically (one-to-one) to an $n$-half-cycle
+  $\vct y = \{-i x_1, i x_2, \dots, - i x_n, i x_1\}$
+for the map with $-r$,
+and $\Lambda(\vx) = -\Lambda(\vct y)$.
 %
-This fact allows one to cut the computating time by half
-  in calculating the determinant by Lagrange interpolation
-  in these cases.
+Further, for an even $n$, the same transformation
+  maps an $n$-(half-)cycle at $r$ to
+       an $n$-(half-)cycle at $-r$,
+  with $\Lambda(\vx) = \Lambda(\vct y)$.
+%
+It follows that $A_{2n}\rlam$, $P^h_{2n}\rlam$, $\bar P_{2n}\rlam$,
+  and $P_{4n}\rlam$, are all even polynomials of $r$.
+%
+Thus, these polynomials need to be computed only
+  at the positive half of $r$ values
+  in Lagrange interpolation.
 
 
 
@@ -2391,8 +2473,17 @@ Computing time on the Shared University Grid at Rice,
   \textbf{26},
   146--164.
 
+\bibitem[Zeng(1985)]{zeng}
+  Zeng, W. [1985]
+  ``On the number of stable cycles in the cubic map''
+  {\it Commun. Theor. Phys.}
+  \textbf{8}
+  273--280.
 
 \end{thebibliography}
+
+
+%\end{multicols}
 
 \end{document}
 

@@ -15,6 +15,6 @@ usb::
 	  ../$(prj) /media/C3/logper
 
 clean:
-	rm -f *~ data/*~
+	find . -name "*~" | xargs rm -f
 	rstrip.py -R *.tex *.html *.c *.h *.py *.ma *.gp *akefile *.css *.js
 
