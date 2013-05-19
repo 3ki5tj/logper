@@ -181,8 +181,10 @@ degrp[n_] := degXp[n]*n;
 *)
 degrp[n_] := Sum[MoebiusMu[n/d] If[Mod[n/d, 2] == 0, 1, (3^d + 1)/2], {d, Divisors[n]}];
 degXp[n_] := degrp[n]/n;
-
-(*Print[Table[{degr[i], degrp[i]}, {i,1,10}]]*)
+(*
+Print[ Table[{degr[i], degrp[i]}, {i,10}] ];
+Exit[1];
+*)
 
 Clear[xsave, xload];
 
@@ -304,8 +306,38 @@ symprimfac[n_, r_, X_, mats_:None, usen_:False, notn_:False] := Module[
   nicefmt[ Cancel[pf], r ]
 ];
 (*
-Print[ symprimfac[3, r, X, None, True] ];
+Print[ symprimfac[1, r, X, None, True] ];
 Exit[1];
+*)
+
+(* compute the n-half-cycle polynomial, the origin is excluded
+   for an odd n, Ph(r, X) = P(-r, -X), due to the mapping
+   yk = (-)^k i xk that maps a cycle to a half-cycle *)
+symhalffac[n_, r_, X_] := Module[{p},
+  If [ Mod[n, 2] === 0,
+    Print["cannot solve half-cycle for n = ", n];
+    Exit[1];
+  ];
+  p = symprimfac[n, r, X, None, True, False] /. {r -> -r, X -> -X};
+  If [ n == 1, p = Cancel[ p/(r - X) ]; ];
+  p (* the sign may need working *)
+];
+
+(*
+Print[ symhalffac[5, r, X] // InputForm ];
+Exit[1];
+*)
+
+(* compute Ph(n/2, r, sqrt X) Ph(n/2, r, -sqrt X), which is
+   a factor of P(n, r, X), where Ph is the half-cycle polynomial *)
+symhalffac2[n_, r_, X_] := Module[{p, p2, Y},
+  (* this only works for n % 4 == 2 *)
+  If [ Mod[n, 4] != 2, Return[1]; ];
+  p = symhalffac[n/2, r, Y];
+  nicefmt[ Expand[(p * (p /. {Y -> - Y}))] /. {Y -> Sqrt[X]}, r ]
+];
+(*
+Print[ symhalffac2[6, r, -1] // InputForm ]; Exit[1];
 *)
 
 (* compute the polynomial at the intersection of n- and d-cycles *)
@@ -359,8 +391,8 @@ interp1[xy_, a_, b_] := Module[{n = Length[xy], p, p1, ls, k, kmax},
 
 (* extend to the negative side
    with xk = (-)^k i yk, r = -r', yk and r' satisfy the same map
-   thus, if the cycle period is a multiple of 4
-   r and r' = -r are the same, so any polynomial must be even *)
+   thus, if the cycle period is even, cycles of r and -r
+   can be mapped one-to-one, so any polynomial must be even *)
 mksym[xy_] := Module[{k, ls = {}},
   For [ k = 1, k <= Length[xy], k++,
     ls = Append[ls, xy[[k]]];
@@ -373,32 +405,43 @@ mksym[xy_] := Module[{k, ls = {}},
 
 
 (* evaluate the primitive polynomial at a few r values *)
-numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
+numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
        fn_:None, xy0_:{}, dr_:1, norm_:True] :=
-  Module[{mats = ms, mat, den = dn, denv, xy = xy0, rv, Pv,
+  Module[{mats = ms, mat, den = dn, denv, xy = xy0, rv, Pv, p, den2 = 1,
           deg = degrp[n], k, kmin = k0, kmax = k1, ttl = 1},
 
   If [ mats === None, mats = getcycmats[n, r, X]; ];
   mat = mats[[-1]] /. {X -> Xv};
 
   (* `den' is the contribution from shorter d-cycles d|n *)
-  If [ den === None, den = symprimfac[n, r, X, mats, True, True]; ];
+  If [ den === None,
+    den = symprimfac[n, r, X, mats, True, True];
+  ];
   If [ norm, ttl = If[n == 1, 2, 2^degXp[n]]; ];
   den = ( den /. {X -> Xv} ) * ttl;
 
   If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
   If [ kmax === None, kmax = Round[deg/2 + 10000]; ];
-  If [ Mod[n, 4] === 0,
+  If [ Mod[n, 2] === 0,
+    (* n % 2 == 0, no r^odd terms, see mksym[] *)
     kmin = 0;
     deg /= 2;
-  ]; (* n % 4 == 0, no r^odd terms, see mksym[] *)
+    If [ Mod[n, 4] === 2,
+      (* the contribution from the (n/2)-half-cycle polynomial can be
+         computed from the (n/2)-cycle polynomial *)
+      den2 = If [ph === None,
+                 symhalffac2[n, r, Xv],
+                 ph /. {X -> Xv}];
+      den *= den2;
+    ];
+  ];
 
   For [ k = kmin, k < kmax && Length[xy] < deg + 1, k++,
     ClearSystemCache[]; (* free some memory *)
     rv = k dr;
     denv = den /. {r -> rv};
     (* leave if a divide by zero is encountered *)
-    If [ denv === 0, Continue[] ];
+    If [ denv === 0, Continue[]; ];
     (* compute the value of the polynomial at r = rv *)
     Pv = Cancel[ Det[ mat /. {r -> rv} ] / denv ];
     (* add the new value to the list *)
@@ -408,29 +451,33 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
       xsave[fn, {rv, Pv}, True];
     ];
   ];
-  If [ Mod[n, 4] === 0, xy = mksym[xy] ];
-  xy
+  If [ Mod[n, 2] === 0, xy = mksym[xy] ];
+  {xy, den2}
 ];
 
 (*
-Print[ interp[ numdet[4, -1, r, X], r ] ]; Exit[1];
+{xy, ph} = numdet[6, -1, r, X];
+p = Factor[ ph interp[xy, r] ];
+Print[ p // InputForm ]; Exit[1];
 *)
 
 (* solve the general boundary condition, faster version of symprimfac[] *)
 numdetX[n_, r_, X_, mats_:None, den_:None, kmin_:None, kmax_:None,
-        fn_:None, dr_:1] := Module[{ls},
-  ls = numdet[n, X, r, X, mats, den, kmin, kmax, fn, {}, dr, False];
-  nicefmt[ interp1[ls, r, X], r ]
+        fn_:None, dr_:1] := Module[{ls, ph, ph0},
+  ph0 = symhalffac2[n, r, X];
+  {ls, ph} = numdet[n, X, r, X, mats, den, ph0,
+      kmin, kmax, fn, {}, dr, False];
+  nicefmt[ ph interp1[ls, r, X], r ]
 ];
 
 (*
-Print[ numdetX[2, r, X] // InputForm ]; Exit[1];
+Print[ numdetX[4, r, X] // InputForm ]; Exit[1];
 *)
 
 (* alternative to numdetX, better performance *)
 numdetY[n_, r_, X_, ms_:None, dn_:None, l0_:None, l1_:None,
         fn_:None, dX_:1] :=
-  Module[{mats = ms, den = dn, Xv, l, lmin = l0, lmax = l1,
+  Module[{mats = ms, den = dn, Xv, l, lmin = l0, lmax = l1, ph, ph0,
     degx = degXp[n], degrp = degrp[n], ls = {}, xy, XP},
 
   (* make sure we have the matrix and denominator *)
@@ -440,10 +487,13 @@ numdetY[n_, r_, X_, ms_:None, dn_:None, l0_:None, l1_:None,
   If [ l0 === None, lmin = -Round[degx/2]; ];
   If [ l1 === None, lmax = Round[degx/2] + 10000; ];
 
+  ph0 = symhalffac2[n, r, X];
+
+  (* extrapolate a polynomial along X *)
   For [ l = lmin, l < lmax && Length[ls] < degx + 1, l++,
     ClearSystemCache[]; (* free some memory *)
     Xv = l dX;
-    xy = numdet[n, Xv, r, X, mats, den,
+    {xy, ph} = numdet[n, Xv, r, X, mats, den, ph0,
         None, None, None, {}, 1, False];
     Pv = interp[xy, r];
     XP = {Xv, Pv};
@@ -454,7 +504,7 @@ numdetY[n_, r_, X_, ms_:None, dn_:None, l0_:None, l1_:None,
       xsave[fn, XP, True];
     ];
   ];
-  nicefmt[ interp1[ls, X, r], r ]
+  nicefmt[ ph0 interp1[ls, X, r], r ]
 ];
 
 (*
@@ -564,12 +614,13 @@ If [ ch === "X" || ch === "Y",
 
   (* `ch' === 'a' or 'b', numerically compute the onset or bifurcation point *)
   tm = Timing[
-    xy = numdet[n, lambda, r, X, mats, None, kmin, kmax, fnls];
+    {xy, ph} = numdet[n, lambda, r, X, mats, None, None,
+                      kmin, kmax, fnls];
   ][[1]];
   Print["computing Dets: ", tm];
   If [ Length[xy] >= degrp[n] + 1,
     tm = Timing[
-      poly = interp[xy, r];
+      poly = ph interp[xy, r];
     ][[1]];
     Print["interpolation and factorization: ", tm];
     If [ n <= 4, Print[ poly ] ];
