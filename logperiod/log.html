@@ -193,17 +193,14 @@ Sharkovskii and Li &amp; Yorke.
   For longer cycles, it is generally impossible to write
   the exact onset or bifurcation
   <span class="eq"><i>R</i></span> values as radical expressions.
-  Still it is possible to identify the <span class="eq"><i>R</i></span> values
-  as the roots of a polynomial with integral coefficients
-  (i.e., they are still algebraic numbers).
+  But it is still possible to identify the <span class="eq"><i>R</i></span>
+  as the roots of a polynomial with integral coefficients.
 </div>
 
 <div class="p">
   The main objective of this web page and the reference paper (Zhang 2012)
-  is to describe a computational method to find the polynomials.
-  The method takes advantage of the fact that
-  the cyclic polynomials of the <span class="eq"><i>n</i></span>-cycle points
-  are linearly related with one another.
+  is to describe a computational method to find the polynomials
+  by using cyclic polynomials.
 
   An example of a cyclic polynomial is
   <span class="eq">
@@ -212,6 +209,7 @@ Sharkovskii and Li &amp; Yorke.
   + &#x22ef;
   + <i>x</i><sub><i>n</i> &minus; 1</sub> <i>x</i><sub><i>n</i></sub>
   + <i>x</i><sub><i>n</i></sub> <i>x</i><sub>1</sub></span>.
+  But note that it is not necessarily a symmetric polynomial.
 
   Another example is
   <span class="eq">
@@ -224,9 +222,13 @@ Sharkovskii and Li &amp; Yorke.
   <span class="eq"><i>d</i> = [ <i>f<sup> n</sup></i>(<i>x</i>) ]&prime;</span>
   of the iterated map.
 
-  But note that it is not necessarily a symmetric polynomial.
+  With the help of the above derivative condition,
+    one can show that the cyclic polynomials,
+    constructed from the <span class="eq"><i>n</i></span>-cycle points,
+    are linearly related with one another.
+
   Thus, we can write down a set of <em>homogeneous linear</em> equations
-  regarding the cyclic polynomials.
+    regarding the cyclic polynomials.
 
   These equations can be compactly written as
   <div class="eq">

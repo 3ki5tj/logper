@@ -1,7 +1,7 @@
   logbulb and cubbulb
 =========================
 logbulb.gp uses logpX.txt, which are complex cycles at different $R = \exp(i \theta)$
-The format is 
+The format is
   Re(R)  Im(R)  cycle-id   phase-id
 where `cycle-id' is the index among cycles of the same period,
   e.g., there are three complex 3-cycles, so cycle-id can be 1, 2 or 3.

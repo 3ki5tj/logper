@@ -20,4 +20,5 @@ $(PS) : %.ps : %.gp $(deps)
 
 clean:
 	rm -f $(PDF) $(PS) $(PNG) *~
+	rstrip.py -Rv
 

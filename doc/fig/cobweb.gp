@@ -70,7 +70,7 @@ set format x ""
 
 r = 2.8
 f(x) = r*x*(1-x)
-x0 = 0.25
+x0 = 0.2
 x1 = f(x0)
 x2 = f(x1)
 x3 = f(x2)

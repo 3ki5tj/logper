@@ -16,5 +16,5 @@ usb::
 
 clean:
 	find . -name "*~" | xargs rm -f
-	rstrip.py -R *.tex *.html *.c *.h *.py *.ma *.gp *akefile *.css *.js
+	rstrip.py -Rv
 

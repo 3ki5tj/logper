@@ -24,6 +24,6 @@ usb::
 
 clean:
 	rm -f $(PDF) *.aux *.log *.bib *.out *~ pc.mobi pc.html
-	rstrip.py -R *.tex *.html *.[ch] *.py *.ma *.gp *akefile
+	rstrip.py -Rv
 
 

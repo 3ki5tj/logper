@@ -2,7 +2,7 @@ CC = gcc -Wall -O0 -g3 -pedantic
 LM = -lm
 # optimized compiling
 CX = icc -Wall -O3 -g -march=native -vec_report0
-LMX = 
+LMX =
 #CX = gcc -Wall -O3 -g -march=native -mfpmath=sse -funroll-all-loops
 #LMX = -lm
 deps = Makefile
@@ -35,6 +35,7 @@ cubtree.dat: figtree
 
 clean:
 	rm -f *~ *.out MTSEED *.dat $(bin) $(bin_d) *.tree *.dat *.pdf *.ps *.png
+	rstrip.py -Rv
 
 .PHONY: clean all
 

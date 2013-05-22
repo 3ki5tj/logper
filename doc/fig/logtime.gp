@@ -19,7 +19,7 @@ set format y "10^{%L}"
 # set mytics 5
 
 
-set key bottom spacing 1.0 
+set key bottom spacing 1.0
 
 plot [6:12][:] \
   "logtime.dat" u 1:($4+$12)  w lp pt 5 ps 2 lw 2 t "This method, Mathematica", \
