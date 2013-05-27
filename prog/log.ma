@@ -81,7 +81,7 @@ cycle1[expr_, vars_, cl_, map_] := Module[
 
   b2k = Table[2^(k-1), {k, Length[vars]}];
   ls = Table[0, {k, Length[cl]}];
-  (* convert the monomial expresion to a list *)
+  (* convert the monomial expression to a list *)
   xp = If [ Head[expr] === Plus, expr, {expr}];
   (* loop over monomial terms in `xp' *)
   For [ k = 1, k <= Length[xp], k++,

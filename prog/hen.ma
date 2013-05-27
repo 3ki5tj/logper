@@ -103,7 +103,7 @@ cycle2[expr_, vars_, cl_, map_, reps_] := cycle1[rmsqrs[expr, vars, reps], vars,
 (*vars=getvars[6]; {cl,map}=mkcycls[vars];
 cycle2[3 a x1^2 x2 + x1^2 x3^2 x5^2, vars, cl, map, mksqrrep[vars, a, b]]*)
 
-(* jacobian matrices *)
+(* Jacobian matrices *)
 jac1[b_, x_] := {{-2 x, 1}, {b, 0}};
 jac[b_, vars_] := Module[
   {k, n = Length[vars], m = {{1, 0}, {0, 1}}},
@@ -366,7 +366,7 @@ Print[ interp1[ numdet[4, -1, a, b, X], A/4, b ] // InputForm ]; Exit[1];
 
 
 
-(* main function starst here *)
+(* main function starts here *)
 
 n = 6;
 If [ Length[$CommandLine] >= 2,

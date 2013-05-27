@@ -232,7 +232,7 @@ trigsimp[p_, vars_, usen_: False, prec0_: 10] := Module[
   (* use the symbolic version, slower *)
   If [!usen, Return[ Collect[ trigsimp0[p], vars] ] ];
 
-  (* increase precision util results from two precisions match *)
+  (* increase precision until results from two precisions match *)
   p1 = Collect[ Expand[ N[p, prec] ], vars, Round ];
   dprec = Max[ Round[prec0 / 4], 10 ];
   For [ k = 1, True, k++,

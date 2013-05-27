@@ -14,6 +14,11 @@ usb::
 	  --exclude="*ls*.txt"  --exclude="etc" \
 	  ../$(prj) /media/C3/logper
 
+htmls = $(wildcard *.html)
+
+check: $(htmls)
+	for d in $(htmls); do (aspell -H check $$d ); done
+
 clean:
 	find . -name "*~" | xargs rm -f
 	rstrip.py -Rv
