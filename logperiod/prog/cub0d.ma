@@ -1,1 +1,1 @@
-../../prog/cub0d.ma
+../../prog/old/cub0d.ma

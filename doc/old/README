@@ -1,0 +1,3 @@
+per4.tex   proof of period 4 without using cyclic variables
+pc.v1.tex     first version, proof by period-3, 4 examples.
+pc.v2.tex     second version, X is still x_1 + ... x_2

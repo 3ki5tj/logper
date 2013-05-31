@@ -124,7 +124,7 @@ sigjac[b_, vars_] := Module[{m = jac[b, vars]},
 Clear[mkeqcycs, getcycmat, getcycmats];
 
 (* X(a1, ..., an) = lambda = +1/-1, and X^2 - 2 sigma X + (-b)^n == 0 *)
-mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[{Xs, k, ls = {}, cvar, xp},
+mkeqcycs[vars_, cl_, map_, reps_, b_, X_] := Module[{Xs, k, ls = {}, cvar, xp},
   Xs = -2 X sigjac[b, vars];
   For [ k = 1, k <= Length[cl], k++,(* for the kth cyclic variable *)
     cvar = cl[[k]]; (* e.g., {C12, x1 x2, 1} and {C123, x1 x2 x3, 3} *)
@@ -139,7 +139,7 @@ mkeqcycs[vars_, cl_, map_, reps_, X_] := Module[{Xs, k, ls = {}, cvar, xp},
 (*
 vars = getvars[2];
 {cl, map} = mkcycls[vars];
-Print[ (mat = mkeqcycs[vars, cl, map, mksqrrep[vars, a, b], X]) // InputForm];
+Print[ (mat = mkeqcycs[vars, cl, map, mksqrrep[vars, a, b], b, X]) // InputForm];
 Print[ (det = Factor[ Det[mat] ]) // InputForm ];
 Print[ Factor[det/.{X->1}] // InputForm ];
 Print[ Factor[det/.{X->-1}] // InputForm ]; Exit[1];
@@ -148,7 +148,7 @@ Print[ Factor[det/.{X->-1}] // InputForm ]; Exit[1];
 getcycmat[n_, a_, b_, X_] := Module[{vars = getvars[n], reps, cl, map},
   reps = mksqrrep[vars, a, b];
   {cl,map} = mkcycls[vars];
-  mkeqcycs[vars, cl, map, reps, X]
+  mkeqcycs[vars, cl, map, reps, b, X]
 ];
 
 getcycmats[n_, a_, b_, X_] := Table[ getcycmat[d, a, b, X], {d, Divisors[n]} ];

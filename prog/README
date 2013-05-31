@@ -1,0 +1,27 @@
+log.ma            logisitic map, f(x) = R - x^2
+
+cub.ma            antisymmetric cubic map f(x) = r x - x^3
+
+cub2.ma           solve a transformed map f(u) = r^2 u (1 - u)^2
+                  which encompasses both cycles and half-cycles
+                  of the antisymmetric cubic map
+
+hen.ma            Henon map
+
+mkinterp.py       interpolation code
+
+mknsolv.py        numerical solution code
+
+/old
+cub0.ma/cub0d.ma  cub0.ma is similar to cub.ma, but it does not remove divisors
+                  cub0d.ma removes the divisors of the output of cub0.ma
+                  this protocol seems to be more robust
+
+cubh.ma           solve the half-cycle polynomial without using cyclic polynomials
+
+extra.nb          additional and old code snippets
+
+
+
+For log.ma and cub.ma
+"C" is faster than "c" for larger n

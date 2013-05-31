@@ -1,6 +1,6 @@
 (* Copyright 2013 Cheng Zhang *)
 (* Solving the boundary polynomial the n-half-cycle
-     of the antisymmetric cubic map f(x) = r x - x^3
+   of the antisymmetric cubic map f(x) = r x - x^3
    USAGE
     math < cubh.ma n ch kmin kmax
   `n' is the cycle period
@@ -168,7 +168,7 @@ Exit[1];
 
 (* make equations *)
 Clear[mkeqs, getmat, getmats];
-mkeqs[vars_, basis_, map_, reps_, X_] := Module[{Xs, k, ls = {}, bvar, xp},
+mkeqs[vars_, basis_, map_, reps_, r_, X_] := Module[{Xs, k, ls = {}, bvar, xp},
   Xs = Product[r - b vars[[k]]^(b-1), {k, Length[vars]}];
   For [ k = 1, k <= Length[basis], k++, (* for the kth basic variable *)
     bvar = basis[[k]][[2]];
@@ -182,7 +182,7 @@ mkeqs[vars_, basis_, map_, reps_, X_] := Module[{Xs, k, ls = {}, bvar, xp},
 (*
 vars = getvars[4];
 {cl, map} = mkbasis[vars, 1];
-mat = mkeqs[vars, cl, map, mkrep[vars, r], X];
+mat = mkeqs[vars, cl, map, mkrep[vars, r], r, X];
 Print["computing det..."];
 Timing[det = Factor[ Det[mat] ];]
 Print[ det // InputForm ];
@@ -193,7 +193,7 @@ Exit[1];
 getmat[n_, r_, X_, par_:1] := Module[{vars = getvars[n], reps, cl, map},
   reps = mkrep[vars, r];
   {cl,map} = mkbasis[vars, par];
-  mkeqs[vars, cl, map, reps, X]
+  mkeqs[vars, cl, map, reps, r, X]
 ];
 
 getmats[n_, r_, X_, par_:1] := Table[
@@ -348,9 +348,9 @@ Exit[1];
 *)
 
 (* compute the polynomial at the intersection of n- and d-cycles *)
-calcgnk[n_, d_, r_, X_, mats_:None, usen_: False] := Module[{p,lam},
-  p = symprimfac[d, r, X, mats, usen] /. {X -> lam};
-  Factor[ mkctprod[p, r, lam, n/d, usen] ]
+calcgnk[n_, d_, r_, X_, mats_:None, usen_: False] := Module[{p},
+  p = symprimfac[d, r, X, mats, usen];
+  Factor[ mkctprod[p, r, X, n/d, usen] ]
 ];
 (* ******************** Symbolic solution ends ************************* *)
 
@@ -371,7 +371,7 @@ nsolve[ieq_, x_, prec_: 10] := Module[{k, eq, sols},
 
 
 (* ***************** NEW Lagrange interpolation begins ******************** *)
-Clear[interp, numdet];
+Clear[interp, interp1, mksym, numdet, numdetX, numdetY];
 
 interp[ls_, r_] := Factor[ InterpolatingPolynomial[ls, r] ];
 
