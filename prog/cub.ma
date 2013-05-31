@@ -1,5 +1,5 @@
 (* Copyright 2012-2013 Cheng Zhang *)
-(* Solving the boundary polynomial the n-cycle
+(* Solving the boundary polynomials of the n-cycle
    of the antisymmetric cubic map f(x) = r x - x^3
    USAGE
     math < cub.ma n ch kmin kmax

@@ -1,5 +1,5 @@
 (* Copyright 2012-2013 Cheng Zhang *)
-(* Solving the boundary polynomial the n-cycle
+(* Solving the boundary polynomials of the n-cycle
    of the cubic map f(u) = r^2 u (1 - u)^2
    which is related to f(z) = r^2 z (1 - z^2) by u = z^2
    we define R = 1/r^2 below

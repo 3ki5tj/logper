@@ -91,8 +91,9 @@ The onset and bifurcation points of the $n$-cycles of
   a polynomial map are located
   through a characteristic equation
   connecting the cyclic polynomials of the cycle points.
-The polynomials satisfied by the critical parameters
-  of the logistic, H\'enon, and cubic maps are obtained
+The polynomials satisfied by the parameters
+  of the logistic, H\'enon, and cubic maps
+  at the onset and bifurcation points are obtained
   for $n$ up to 13, 9, and 8,
   respectively.
 \end{abstract}
@@ -266,26 +267,26 @@ and the corresponding polynomials for $r$ can be obtained by $R \rightarrow r(r-
 
 \subsection{Strategy}
 
-Since the $n$-cycles points constitute a subset of the fixed points of $f^n$,
+Since the $n$-cycles points constitute
+  a subset of the fixed points of $f^n$,
 we will first find
   the polynomials at the stability boundaries
   for the fixed points of $f^n$
   (\refsecs{cyclic}-\ref{sec:examples}).
 The polynomials contain
-  factors, contributed by short $d$-cycles with $d|n$
-  (which are also fixed points of $f^n$).
+  factors contributed by short $d$-cycles with $d|n$,
+  which are also fixed points of $f^n$.
 The factors are removed in \refsec{primfac}.
 
 
-
-At the first glance, the polynomials of the fixed points of $f^n$
+At first glance, the polynomials of the fixed points of $f^n$
   can be obtained by brute force.
 We can solve
   \refeqs{logmaps} and express $x_1, \ldots, x_n$
   in terms of $R$,
   and then plug the solution into \refeq{der}.
 The result would contain $R$ only,
-  and is therefore the answer.
+  and therefore be the answer.
 But since \refeqs{logmaps} are nonlinear,
   it is nontrivial to reduce the final equation of $R$
   into a polynomial one.
@@ -310,17 +311,17 @@ These approaches, however, do not
 
 Instead of solving \refeqs{logmaps} for $x_k$,
   we will derive a set of equations
-  in terms of the cyclic polynomials $\{C_p\}$ of $x_k$
-  (an example of a cyclic polynomial is
-  $x_1 x_2 + x_2 x_3 + \dots + x_n x_1$
-  with $n$ terms).
+  in terms of the cyclic polynomials $\{C_p\}$ of $x_k$.
+  %(an example of a cyclic polynomial is
+  %$x_1 x_2 + x_2 x_3 + \dots + x_n x_1$
+  %with $n$ terms).
 %
 The advantage is that the new set of equations are
   \emph{homogeneous}, \emph{linear} and \emph{complete},
   i.e., there is an equation
-  $\sum_q A_{pq} C_q = 0$ for every cyclic polynomial labeled by $p$.
+  $\sum_q A_{pq} C_q = 0$ for every cyclic polynomial $C_p$.
 %
-Now the matrix formed by the coefficients $A_{pq}$
+The matrix formed by the coefficients $A_{pq}$
   must have a zero determinant,
   for the cyclic polynomials $\{C_p\}$ are not zeros altogether.
 %
@@ -340,8 +341,8 @@ A cyclic polynomial is an invariant
   e.g., $a = x_1 x_2 + x_2 x_3 + x_3 x_4 + x_4 x_1$
   and $b = x_1 x_3 + x_2 x_4$ for $n = 4$.
 %
-It may not, however, be symmetric
-  (invariant under the exchange of any two $x_i$ and $x_{j}$),
+But it may not be symmetric
+  (invariant under the exchange of any $x_i$ and $x_{j}$),
   e.g., $a$ and $b$ are not symmetric,
   only $a + b$ is.
 
@@ -471,7 +472,7 @@ This condition yields a characteristic equation,
   which solves our problem.
 
 
-\subsection{\label{sec:algo}Fixed points of $f^n$}
+\subsection{\label{sec:algo}Characteristic equation}
 
 
 %The matrix of the connecting coefficients thus has a vanishing determinant.
@@ -502,7 +503,7 @@ and $p, q \in \Pset$.
 
 
 By \refeq{der},
-  $\Lambda(\vx{n})$ equals to $\lambda = +1$ ($-1$)
+  $\Lambda(\vx{n})$ equals $\lambda = +1$ ($-1$)
   at the onset (bifurcation) point,
   respectively;
   so \refeq{xcp0}
@@ -532,8 +533,7 @@ $\vct C = \{C_p(\vx{n})\}$ is an $\NB$-dimensional column vector.
 
 
 Since a set of homogeneous linear equations
-  has a nontrivial solution
-  ($C_p \ne 0$ for at least one $p$)
+  has a nonzero solution of $\vct C$
   only if the determinant of the coefficient matrix
   is zero, we have
 \begin{equation}
@@ -929,16 +929,15 @@ $\mu(n) = 1, -1, -1, 0, -1, 1, -1, \ldots,$
 
 
 
-The following discussion concerns the $\lambda$ dependence;
-  and we will drop the argument $R$ in $P_n\Rlam$, $A_n\Rlam$, etc.,
-  till the end of the next section.
 %\begin{remark}
 %$B_{d,c}\lambda$ is a polynomial of $\lambda$.
 Despite the radical argument $\lambda^{1/c}$,
-  the expanded product $\prod_{k=1}^c A_d(e^{2k\pi i/c} \lambda^{1/c})$
-  is free from radicals,
-  for it is invariant under $\lambda \rightarrow e^{2\pi i} \lambda$,
-  i.e., $B_d^c\lam$ is a polynomial of $\lambda$.
+  the product
+  $B_d^c\Rlam = \prod_{k=1}^c A_d(R, e^{2k\pi i/c} \lambda^{1/c})$
+  is a polynomial of $\lambda$,
+  for it is invariant under
+  $\lambda \rightarrow e^{2\pi i} \lambda$.
+For convenience, we will drop the $R$ in ``$\Rlam$'' below till the end the next section.
 Particularly, $B_n^1\lam = A_n\lam$.
 We also have $\deg_\lambda B_d^c\lam = \deg_\lambda A_d\lam$.
 %
@@ -1087,7 +1086,7 @@ where $\varphi(m)$ is Euler's totient function,
   e.g.,
   $\varphi(1) = 1$,
   $\varphi(3) = 2$ for 1 and 2 are coprime to 3,
-  $\varphi(6) = 2$ for 1 and 5.
+  $\varphi(6) = 2$ for 1 and 5 \cite{hardy}.
 %
 By \refeq{xr},
   $\NB(n) = \deg_\lambda A_n\Rlam$.
@@ -1177,9 +1176,9 @@ where $Q_d^{n/d}(\lambda) \equiv \prod_l
 \end{equation}
 %
 It follows that
-$\Lambda(\vx{n}) = [ \Lambda(\vx{d}) ]^c$.
+$\Lambda(\vx{n}) = \left[ \Lambda(\vx{d}) \right]^c$.
 %
-By factorizing $\Lambda^c - \lambda$
+By factoring $\Lambda^c - \lambda$
   in terms of the $c$ complex roots of $\lambda$,
   we get
 %
@@ -1300,7 +1299,7 @@ As a result, the $n$-cycle polynomial $P_n(R, \lambda)$
   with $\lambda'$ being a primitive $(n/d)\,$th root of $\lambda = 1$.
 %
 The simplest example is the first bifurcation point
-  at $R = 3/4$ for $d = 1, n = 2$,
+  at $R = 3/4$ for $d = 1$ and $n = 2$,
   where the fixed point %\refeq{xr1}
   undergoes a period-doubling and becomes the 2-cycle. % \refeq{xr2}.
 
@@ -1309,14 +1308,14 @@ We can thus distinguish \emph{original} cycles
   from those born out of the above cycle intersection. % period-tupling.
 %
 Similar to \refeq{QP},
-  the contributions from the unoriginal cycles
-  born out of the $d$-cycles
-  can be arranged as a cyclotomic product
+  the unoriginal cycles
+  from the shorter $d$-cycles with $d|n$
+  contributes a cyclotomic product
   $\prod_{(k, c) = 1}
       P_{d}
         \left(
           R, e^{2k\pi i/c}
-        \right)$,
+        \right)$ to $P_n(R, 1)$,
 where $k$ runs through integers from 1 to $c=n/d$
   that are coprime to $c$.
 %
@@ -1332,7 +1331,7 @@ With these contributions removed,
       P_n(R, 1)
     }
     {
-      \prod_{c d =  n, \; c > 1}
+      \prod_{c d =  n, \; d < n}
       %\left[ \,
         \prod_{(k, c) = 1}
       P_{d}
@@ -1621,13 +1620,13 @@ $S_4(R) = 108-(4R-3)^3$.
 %  \refeq{primfac}.
 %%
 
-The most time-consuming step of the algorithm
-is the evaluation of the determinant in \refeq{xr}.
+The most time-consuming step of the algorithm in \refsec{algo}
+is the evaluation of the determinant $A_n\Rlam$ in the characteristic
+equation (\ref{eq:xr}).
 %
 When implemented on a computer,
-it is helpful to evaluate the characteristic polynomial
-by Lagrange interpolation:
-we evaluate $A_n\Rlam$ at a few $\deg_R A_n + 1$ values of $R$,
+it is helpful to use Lagrange interpolation:
+we evaluate $A_n\Rlam$ at $\deg_R A_n + 1$ values of $R$,
 e.g., $R = 0, \pm1, \pm2,\ldots$, then piece them together
 to a polynomial.
 %
@@ -1686,7 +1685,7 @@ This is unsurprising,
 %
 The exact polynomials of these maps are generally too large to print on paper,
   e.g., the bifurcation polynomial of the 13-cycle
-    takes roughly seven megabytes to write down.
+    takes roughly seven megabytes.
 %
 The polynomials and programs are saved on the website
 http://logperiod.appspot.com.
@@ -1794,13 +1793,14 @@ Using the matrix identity $\Tr( \vct A \vct B) = \Tr(\vct B \vct A)$,
 %
   Thus, we can expand $\Theta(\vx{n}) \, C_p(\vx{n})$
   in terms of square-free cyclic polynomials,
-  and then replace $\lambda$ by $\lambda + (-b)^n/\lambda$
-  in \refeq{xr}
-  to obtain the desired polynomials of $a$ and $b$.
+  and then replace the eigenvalue of the coefficient matrix
+  by $\lambda + (-b)^n/\lambda$
+  in the characteristic equation.
 %
 %
 %
-The boundary polynomials
+The onset ($\lambda = 1$) and bifurcation ($\lambda = -1$)
+  polynomials of $a$ and $b$
   for $n$ up to 9 are saved on the website in \refsec{end}.
 
 
@@ -1962,8 +1962,8 @@ never reduces even-degree cyclic polynomials
 to odd-degree ones,
 or the other way around.
 %
-But if performed on odd-degree cyclic polynomials,
-  the method would miss a few symmetric cycles (discussed later).
+But if applied on odd-degree cyclic polynomials,
+  the algorithm would miss some symmetric cycles (see later).
 %Thus, the matrix $\vct T$ in \refeq{xcp} can be split into two independent blocks
 %  with two separate sets of eigenvalues.
 %
@@ -1980,10 +1980,10 @@ is equal to that of \emph{even ternary} necklaces
 which is given by
 %
 \begin{equation}
-  N_e(n) = \frac{1}{n} \sum_{c d = n} \varphi(c)
-    \left[
-      3^d - \odd(c) \frac{3^d-1}{2}
-    \right],
+  N_e(n) = 1 +
+    \frac{1}{2n} \sum_{c d = n} \varphi(c)
+    \left[ 2 - \odd(c) \, \right]
+    (3^d-1),
 \notag
 %\label{eq:cubnecklace}
 \end{equation}
@@ -2006,7 +2006,7 @@ and
 %
 \begin{equation}
   L_e(n) = \delta_{n, 1} +
-    \frac{1}{n} \sum_{cd = n} \mu(c) \odd(c)\frac{3^d-1}{2},
+    \frac{1}{2n} \sum_{cd = n} \mu(c) \odd(c) \, (3^d-1),
 \notag
 %\label{eq:cublyndon}
 \end{equation}
@@ -2054,38 +2054,33 @@ The degrees in $r$ are
 %
 %
 
-We now define a \emph{half-cycle}
-  as a solution of $x_{n+1} = -x_1$,
+We call a solution of $x_{n+1} = -x_1$ a \emph{half-cycle}.
   %see \reffig{halfcycle} for examples.
-  and a polynomial $H^{*}_n\rlam$,
-  analogous to $P^*_n\rlam$,
-  for the nontrivial ($x \ne 0$) $n$-half-cycles.
-%
-The polynomials $H^*_n\rlam$ and $P^*_n\rlam$
-  share the same degree in $\lambda$.
+The $n$-half-cycle polynomial $H^{*}_n\rlam$
+  can be defined in analogous to $P^*_n\rlam$.
 %
 Once iterated, an $n$-half-cycle turns into a symmetric $2n$-cycle:
   $x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}, x_1$.
 %
 %Since a repeated $n$-half-cycle is a $2n$-cycle,
-Dividing the $2n$-cycle polynomial $P^{*}_{2n}(\lambda)$
-  (omitting $r$)
+Dividing the $2n$-cycle polynomial
+  $P^{*}_{2n}(r, \lambda)$
   by
-  $H^{*}_{n}\big(\sqrt \lambda\big)
-   H^{*}_{n}\big(-\sqrt \lambda\big)$
+  $H^{*}_{n}\big(r, \sqrt \lambda\big)
+   H^{*}_{n}\big(r, -\sqrt \lambda\big)$
 %
 yields an \emph{asymmetric} $n$-cycle polynomial:
 \begin{equation}
-\bar P^*_n\lam \equiv
+\hat P^*_n\rlam \equiv
   %\left.
   \frac{
-    P^*_n\lam
+    P^*_n\rlam
   }
   %\middle/
   { \quad
     \left[
-      H^*_{n/2}(\sqrt\lambda)
-      H^*_{n/2}(-\sqrt\lambda)
+      H^*_{n/2}(r, \sqrt\lambda)
+      H^*_{n/2}(r, -\sqrt\lambda)
     \right]^{\even(n)}
   },
   %\right.
@@ -2094,29 +2089,46 @@ yields an \emph{asymmetric} $n$-cycle polynomial:
 \end{equation}
 %
 where $\even(n)=1-\odd(n)$.
+
+
+Now consider a quadradtic transformation $u_k = {x_k}^2/r$,
+  which converts \refeq{cubic} to
+  $u_{k+1} = F(u_k) = r^2 u_k (1 - u_k)^2$,
+whose $n$-cycles encompass
+  both $n$-half-cycles and asymmetric $n$-cycles of \refeq{cubic}.
 %
-The $\bar P^*_n\rlam$ is
-  identical to the $n$-cycle polynomial
+The nontrivial $n$-cycle polynomial of $F$,
+  which is an even polynomial of $r$,
+  is the product $\hat P^*_n\rlam H^*_n\rlam$.
+%
+From this, we can show that
+  $\deg_\lambda \hat P^*\rlam$ is
+%
+\begin{align*}
+  L_o(n) &= %\delta_{n, 1} +
+      \frac{1}{2n} \sum_{cd = n}
+    \mu(c) \left[2 - \odd(c)\right] (3^d-1),
+\end{align*}
+and $\deg_\lambda H^*_n\rlam = \deg_\lambda P^*_n\rlam = L^*_e(n)$.
+%with
+%$L^*_e(n) = L_o(n) + \even(n) L^*_e(n/2)$.
+%
+
+
+%
+The polynomial $\hat P^*_n\rlam$ is also
+  equivalent to the $n$-cycle polynomial
   derived from \refeq{xr} using odd-degree cyclic polynomials.
 %
 This is because,
   in a symmetric $2n$-cycle,
   an odd-degree cyclic polynomial formed by the $2n$ points
-  is always zero,
-  e.g., $C_1 = x_1 + \dots + x_n - x_1 - \dots - x_n = 0$.
+  is always zero
+  (e.g., $C_1 = x_1 + \dots + x_n - x_1 - \dots - x_n = 0$),
 %
-The characteristic equation from the odd-degree cyclic polynomials
-  would accordingly miss the symmetric cycles.
+and thus escapes the characteristic equation.
 %
-The degree in $\lambda$ of $\bar P^*\lam$ is
 %
-\begin{align*}
-  L_o(n) &= %\delta_{n, 1} +
-      \frac{1}{n} \sum_{cd = n}
-    \mu(c) \left[1 - \tfrac{1}{2}\odd(c)\right] (3^d-1),
-\end{align*}
-and
-$L^*_e(n) = L_o(n) + \even(n) L^*_e(n/2)$.
 
 
 Finally, we can further cut the computational cost
@@ -2137,7 +2149,7 @@ Thus, for an odd $n$, any $n$-cycle
 %
 So the $n$-half-cycle and $n$-cycle polynomials
   are related by
-  $H_n(r, \lambda) = P_n(-r, -\lambda)$
+  $H^*_n(r, \lambda) = P^*_n(-r, -\lambda)$
   for an odd $n$.
 %
 Similarly, if $n$ is even,
@@ -2146,7 +2158,7 @@ Similarly, if $n$ is even,
   with $\Lambda_r(\vx{n}) = \Lambda_{-r}(\vy{n})$.
 %
 So $H^*_{n}\rlam$,
-  $\bar P^*_{n}\rlam$,
+  $\hat P^*_{n}\rlam$,
   and $A_{n}\rlam$
   are all even polynomials of $r$
 \big[but $\deg_r P^*_{n}\rlam$ is even only if $4|n$,

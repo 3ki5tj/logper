@@ -80,8 +80,9 @@ The onset and bifurcation points of the $n$-cycles of
   a polynomial map are located
   through a characteristic equation
   connecting the cyclic polynomials of the cycle points.
-The minimal polynomials of the critical parameters
-  of the logistic, H\'enon, and cubic maps are obtained
+The polynomials satisfied by the parameters
+  of the logistic, H\'enon, and cubic maps
+  at the onset and bifurcation points are obtained
   for $n$ up to 13, 9, and 8,
   respectively.
 %
@@ -267,14 +268,14 @@ The contributions from shorter $d$-cycles ($d|n$)
   (\refsecs{primfac} and \ref{sec:degprimfac}).
 
 %Let us consider the first step of finding the fixed points of $f^n$.
-At the first glance, the polynomials of the fixed points of $f^n$
+At first glance, the polynomials of the fixed points of $f^n$
   can be obtained by brute force.
 We can solve
   \refeqs{logmaps} and express $x_1, \ldots, x_n$
   in terms of $R$,
   and then plug the solution into \req{der}.
 The result would contain $R$ only,
-  and is therefore the answer.
+  and therefore be the answer.
 But since \refeqs{logmaps} are nonlinear,
   it is nontrivial to reduce the final equation of $R$
   into a polynomial one.
@@ -516,7 +517,7 @@ The determinant of the matrix must vanish,
   and this condition yields the solution of the problem.
 
 
-\subsection{\label{sec:algo}Algorithm for locating fixed points of $f^n$}
+\subsection{\label{sec:algo}Characteristic equation}
 
 
 We first observe that the derivative of $f^n$

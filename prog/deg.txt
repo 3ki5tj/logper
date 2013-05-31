@@ -41,10 +41,13 @@ Lo*   Lo - delta(n, 1)
 
 Transformed cubic map  F(u) = (1/R) u (1 - u)^2
 ------------------------------------------------
+The map x' = r x - x^3 share the same boundary polynomials as
+  z' = r z (1 - z^2)
+where u = z^2, R = 1/r^2.
 
-Here u = x^2, R = 1/r^2
 The map encompasses both n-cycles and n-half-cycles
   of the original antisymmetric map
+
 The map can be computed by cub2.ma
 
 n     xp      xpe     xpo     rp      rpe     rpo
