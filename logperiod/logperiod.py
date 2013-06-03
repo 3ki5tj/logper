@@ -31,7 +31,7 @@ class MainPage(webapp2.RequestHandler):
         </ul></div>''',
 
         'last_update':
-        '<p>Last updated on May 31th, 2013.',
+        '<p>Last updated on June 3rd, 2013.',
     }
     self.response.write(template.render(template_values))
 

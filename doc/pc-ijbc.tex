@@ -94,7 +94,7 @@ The onset and bifurcation points of the $n$-cycles of
 The polynomials satisfied by the parameters
   of the logistic, H\'enon, and cubic maps
   at the onset and bifurcation points are obtained
-  for $n$ up to 13, 9, and 8,
+  for $n$ up to 14, 9, and 8,
   respectively.
 \end{abstract}
 
@@ -153,7 +153,7 @@ After many iterations, there can be three ultimate patterns:
   (ii) a periodic \emph{cycle},
       %e.g., \reffigs{cobweb}(b)-(e);
 or
-  (iii) a chaotic trajectory.
+  (iii) a chaotic or aperiodic trajectory.
       %e.g., \reffig{cobweb}(f).
 We only discuss the first two cases here.
 
@@ -165,7 +165,7 @@ It is stable if a small deviation from $x^*$
 %
 For a differentiable $f$,
   this is equivalent to $|f'(x^*)| \le 1$
-  \cite{strogatz}.
+  \cite{strogatz, hao}.
 %
 An $n$-cycle is a sequence $x_1, \dots, x_n$,
   such that $n$ is the smallest positive integer
@@ -196,7 +196,7 @@ Thus, a cycle can be classified as stable or unstable
 The onset and bifurcation points
   are defined at the loci
   where $\frac {d} {dx} f^n(x_1)$ reaches $+1$ and $-1$,
-  respectively \cite{strogatz}.
+  respectively \cite{strogatz, hao}.
 %
 %
 %
@@ -209,9 +209,9 @@ There are generally multiple such windows for a single $n$,
   but all $r_a$ are zeros of a polynomial,
   and all $r_b$ another.
 %
-Our goal is thus to find the two polynomials for a given $n$.
+Our aim is thus to find the two polynomials for a given $n$.
 %
-The problem has been tackled by several previous studies
+The problem has been tackled in previous studies
   \cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
   saha, bechhoefer, gordon, burm, zhang, bailey1, bailey2, kk1, lewis}.
 Below we present a simple algorithm to do so.
@@ -265,7 +265,7 @@ and the corresponding polynomials for $r$ can be obtained by $R \rightarrow r(r-
 
 
 
-\subsection{Strategy}
+\subsection{Plan}
 
 Since the $n$-cycles points constitute
   a subset of the fixed points of $f^n$,
@@ -274,7 +274,7 @@ we will first find
   for the fixed points of $f^n$
   (\refsecs{cyclic}-\ref{sec:examples}).
 The polynomials contain
-  factors contributed by short $d$-cycles with $d|n$,
+  extraneous factors contributed by short $d$-cycles with $d|n$,
   which are also fixed points of $f^n$.
 The factors are removed in \refsec{primfac}.
 
@@ -284,9 +284,8 @@ At first glance, the polynomials of the fixed points of $f^n$
 We can solve
   \refeqs{logmaps} and express $x_1, \ldots, x_n$
   in terms of $R$,
-  and then plug the solution into \refeq{der}.
-The result would contain $R$ only,
-  and therefore be the answer.
+  and then plug the solution into \refeq{der}
+  to get a polynomial equation of $R$.
 But since \refeqs{logmaps} are nonlinear,
   it is nontrivial to reduce the final equation of $R$
   into a polynomial one.
@@ -294,15 +293,15 @@ Nonetheless, on a computer, one can
   construct a polynomial Gr\"obner basis \cite{kk1},
   which gradually eliminates $x_k$ out of the $n+1$ equations.
 If $x_2, \dots, x_n$ are eliminated first,
-  there are only two equations left:
-  $f^n(x_1) = x_1$
+  there are only two polynomial equations left:
+  $f^n(x_1) - x_1 = 0$
   and
-  $\frac{d}{dx}f^n (x_1) = \pm 1$
+  $\frac{d}{dx}f^n (x_1) \mp 1 = 0$
   [\refeq{der}];
   the final elimination of $x_1$ can then be accomplished
-  by setting the resultant of the two equations
-  to zero \cite{burm},
-  leading to the desired polynomial equation of $R$.
+  by setting the resultant of the two polynomials
+  to zero \cite{burm}.
+  %leading to the desired polynomial equation of $R$.
 %
 These approaches, however, do not
   exploit the cyclic structure of \refeqs{logmaps},
@@ -671,11 +670,16 @@ and \refeq{xr} reads
 %
 %
 %
+{\small
 \begin{align}
-A_2 \equiv (4 - 4R - \lambda) [(4 R-\lambda)^2 - 4 \lambda] = 0.
+A_2\Rlam \equiv (4 - 4R - \lambda)
+  \left[
+    (4 R-\lambda)^2 - 4 \lambda
+  \right] = 0.
   \tag{\ref{eq:xr}-2}
 \label{eq:xr2}
 \end{align}
+}
 %
 %
 %
@@ -790,9 +794,9 @@ we only list the final \refeq{xr}: %characteristic equation (\ref{eq:xr}):
 %after the square-free reduction:
 %(with six square-free cyclic polynomials):
 %
-%\begin{small}
+\begin{small}
 \begin{align}
-A_4
+A_4\Rlam
 %& = \left|
 %\begin{array}{cccccc}
 % \lambda  & 0               & 0                 & 0     & 0     & -16 \\
@@ -804,12 +808,11 @@ A_4
 %\end{array}
 %\right | \nonumber  \\
 & \equiv
-    \big[
+    \Big[
     4096 R^6-12288 R^5 +
-    256 (\lambda + 48) (R^4- R^3) \notag \\
-& \quad
-    -16 (\lambda + 32)(\lambda - 16) R^2
-      -(\lambda - 16)^3 \big] \notag \\
+    256 (\lambda + 48) (R^4 - R^3) \notag \\
+& -16 (\lambda + 32)(\lambda - 16) R^2
+      -(\lambda - 16)^3 \Big] \notag \\
 & \quad
     \big[(16 R^2 + \lambda)^2 - 16 (2R+1)^2 \lambda \big] \notag \\
 & \quad
@@ -818,7 +821,7 @@ A_4
 \tag{\ref{eq:xr}-4}
 \label{eq:xr4}
 \end{align}
-%\end{small}
+\end{small}
 %
 %
 %
@@ -871,7 +874,7 @@ we have $P_4(R, -1)
 
 
 
-\subsection{\label{sec:primfac}$n$-cycle polynomial}
+\subsection{\label{sec:primfac}Polynomials of $n$-cycles}
 
 
 The characteristic polynomial $A_n\Rlam$ in \refeq{xr}
@@ -901,6 +904,7 @@ More systematically, we have
   \end{equation}
 where
   $B_d^c\Rlam \equiv \prod_{k=1}^c A_{d}(R, e^{2k\pi i/c} \lambda^{1/c})$,
+  particularly, $B_n^1\rlam = A_n\rlam$,
   and
   $\lambda^{1/c}$ is a complex $c$th root of $\lambda$;
   the outer product runs over all divisors $d$ of $n$.
@@ -937,9 +941,9 @@ Despite the radical argument $\lambda^{1/c}$,
   is a polynomial of $\lambda$,
   for it is invariant under
   $\lambda \rightarrow e^{2\pi i} \lambda$.
-For convenience, we will drop the $R$ in ``$\Rlam$'' below till the end the next section.
-Particularly, $B_n^1\lam = A_n\lam$.
-We also have $\deg_\lambda B_d^c\lam = \deg_\lambda A_d\lam$.
+Also, $\deg_\lambda B_d^c\rlam = \deg_\lambda A_d\rlam$.
+For convenience, we will drop the $R$ in ``$\Rlam$'' or the arguments entirely below
+  till the end the next section.
 %
 %\end{remark}
 
@@ -1468,7 +1472,7 @@ $S_4(R) = 108-(4R-3)^3$.
 %In the numerical implementation
 %  (cf. \refsec{end}),
 %  the degrees in $R$ of the polynomials are needed
-%  for evaluating the determinant by Lagrange interpolation.
+%  for evaluating the determinant by polynomial interpolation.
 %We now show that
 %\begin{equation}
 %\deg_R A_n\Rlam = \textstyle\sum_{d|n} \varphi(n/d) 2^{d-1},
@@ -1625,7 +1629,7 @@ is the evaluation of the determinant $A_n\Rlam$ in the characteristic
 equation (\ref{eq:xr}).
 %
 When implemented on a computer,
-it is helpful to use Lagrange interpolation:
+it is helpful to use polynomial interpolation:
 we evaluate $A_n\Rlam$ at $\deg_R A_n + 1$ values of $R$,
 e.g., $R = 0, \pm1, \pm2,\ldots$, then piece them together
 to a polynomial.
@@ -1644,10 +1648,10 @@ The strategy also allows a trivial parallelization.
 
 
 We coded the algorithm into a Mathematica program,
-and computed the polynomials for $n$ up to 13.
+and computed the polynomials for $n$ up to 14.
 %
 As shown in \reffig{logtime}, the algorithm
-outperformed the resultant \cite{burm} and
+  outperformed the resultant \cite{burm} and
   Gr\"obner basis \cite{kk1} methods,
   by at least two orders of magnitudes.
 %
@@ -1684,8 +1688,8 @@ This is unsurprising,
 
 %
 The exact polynomials of these maps are generally too large to print on paper,
-  e.g., the bifurcation polynomial of the 13-cycle
-    takes roughly seven megabytes.
+  e.g., the bifurcation polynomial of the 14-cycle
+    takes about 27 megabytes.
 %
 The polynomials and programs are saved on the website
 http://logperiod.appspot.com.
@@ -2060,7 +2064,7 @@ The $n$-half-cycle polynomial $H^{*}_n\rlam$
   can be defined in analogous to $P^*_n\rlam$.
 %
 Once iterated, an $n$-half-cycle turns into a symmetric $2n$-cycle:
-  $x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}, x_1$.
+$x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}, x_1$ \cite{hao}.
 %
 %Since a repeated $n$-half-cycle is a $2n$-cycle,
 Dividing the $2n$-cycle polynomial
@@ -2131,7 +2135,7 @@ and thus escapes the characteristic equation.
 %
 
 
-Finally, we can further cut the computational cost
+Finally, we can further reduce the computational cost
   by half for an even $n$.
 %
 If a sequence $x_k$ satisfies \refeq{cubic},
@@ -2167,7 +2171,7 @@ So $H^*_{n}\rlam$,
 %
 Thus, these polynomials need to be computed only
   at the positive half of $r$ values
-  in Lagrange interpolation.
+  in polynomial interpolation.
 %
 
 
@@ -2312,6 +2316,11 @@ Computing time on the Shared University Grid at Rice University,
   {\it Nonlinear Dynamics and Chaos}
   (Addison-Wesley. Reading, MA).
 
+\bibitem[Hao(1989)]{hao}
+  Hao, B.-L. [1989]
+  {\it Elementary Symbolic Dynamics and Chaos in  Dissipative Systems}
+  (World Scientific, Singapore).
+
 \bibitem[Brown(1981)]{brown1}
   Brown, A. [1981]
   ``Equations for periodic solutions of a logistic difference equation,''
@@ -2429,11 +2438,6 @@ Computing time on the Shared University Grid at Rice University,
   Riordan, J. [1958]
   {\it An Introduction to Combinatorial Analysis}
   (Wiley, New York).
-
-\bibitem[Hao(1989)]{hao}
-  Hao, B.-L. [1989]
-  {\it Elementary Symbolic Dynamics and Chaos in  Dissipative Systems}
-  (World Scientific, Singapore).
 
 \bibitem[Hao(2000)]{hao2}
   Hao, B.-L. [2000]

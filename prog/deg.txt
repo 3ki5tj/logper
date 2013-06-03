@@ -85,5 +85,5 @@ Notes:
   Since 1/R = r^2, the degree in r of the n-cycles of F,
     can be found from the Mobius inversion:
       sum_{d|n} mu(n/d) (3^d - 1)
-  
+
 

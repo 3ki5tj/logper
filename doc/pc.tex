@@ -134,7 +134,7 @@ After many iterations, there can be three ultimate patterns:
   (ii) a periodic \emph{cycle} or a self-repeating loop,
       e.g., \reffigs{cobweb}(b)-(e);
 or
-  (iii) a chaotic trajectory,
+  (iii) a chaotic or aperiodic trajectory,
       e.g., \reffig{cobweb}(f).
 We will focus on the first two cases here.
 
@@ -147,7 +147,7 @@ It is stable if $x_1$ deviates slightly from $x^*$
 %
 For a differentiable $f$,
   a stable fixed point requires $|f'(x^*)| \le 1$
-  to reduce deviations in successive iterations \cite{strogatz}.
+  to reduce deviations in successive iterations \cite{strogatz, hao}.
 
 
 An $n$-cycle is a sequence $x_1, \dots, x_n$,
@@ -181,7 +181,7 @@ Thus, a cycle can be classified as stable or unstable
 The onset and bifurcation points
   are defined at the loci
   where $\frac {d} {dx} f^n(x_1)$ reaches $+1$ and $-1$,
-  respectively \cite{strogatz}.
+  respectively \cite{strogatz, hao}.
 %
 %
 %
@@ -1171,7 +1171,7 @@ $^*$
 
 
 
-\subsection{\label{sec:primfac}Minimal polynomial for the $n$-cycles}
+\subsection{\label{sec:primfac}Polynomials of $n$-cycles}
 
 
 The factors ignored in \refsec{examples}
@@ -1701,7 +1701,7 @@ we have
 $2^n = \sum_{d\,|\,n} L(d) \, d$.
 %
 The M\"obius inversion yields $L(n) = (1/n) \sum_{d\,|\,n} \mu(n/d) 2^{\,d}$.
-This formula was known to several authors \cite{hao, lutzky}.
+This formula was known to several authors \cite{hao2, lutzky}.
 
 We now define $\lambda_c$ as the value of $\Lambda(\vx)$,
   evaluated at the cycle points
@@ -3734,11 +3734,6 @@ which is \refeq{cublyndon}
 \begin{thebibliography}{50}
 
 
-\bibitem{strogatz}
-  S. H. Strogatz,
-  \textit{Nonlinear Dynamics and Chaos}
-  (Addison-Wesley. Reading, MA, 1994).
-
 \bibitem{may}
   R. M. May,
   Simple mathematical models with very complicated dynamics,
@@ -3746,6 +3741,15 @@ which is \refeq{cublyndon}
   \textbf{261},
   459--467
   (1976).
+
+\bibitem{strogatz}
+  S. H. Strogatz,
+  \textit{Nonlinear Dynamics and Chaos}
+  (Addison-Wesley. Reading, MA, 1994).
+
+\bibitem{hao} B.-L. Hao,
+  \textit{Elementary Symbolic Dynamics and Chaos in  Dissipative Systems}
+  (World Scientific, Singapore, 1989).
 
 \bibitem{brown1}
   A. Brown,
@@ -3868,9 +3872,7 @@ which is \refeq{cublyndon}
   \textit{An Introduction to Combinatorial Analysis}
   (Wiley, New York, 1958).
 
-\bibitem{hao} B.-L. Hao,
-  \textit{Elementary Symbolic Dynamics and Chaos in  Dissipative Systems}
-  (World Scientific, Singapore, 1989);
+\bibitem{hao2} B.-L. Hao,
   Number of periodic orbits in continuous maps of
     the interval complete solution of the counting problem,
   \textit{Annals of Combinatorics}

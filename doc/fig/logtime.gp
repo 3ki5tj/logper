@@ -23,10 +23,10 @@ set key bottom spacing 1.0
 
 plot [6:12][:] \
   "logtime.dat" u 1:($4+$12)  w lp pt 5 ps 2 lw 2 t "This method, Mathematica", \
-  ""            u 1:15        w lp pt 6 ps 2 lw 2 t "Gr{\366}bner basis, Magma", \
-  ""            u 1:16        w lp pt 7 ps 2 lw 2 t "Gr{\366}bner basis, Mathematica", \
-  ""            u 1:17        w lp pt 8 ps 2 lw 2 t "Resultant, Magma", \
-  ""            u 1:19        w lp pt 9 ps 2 lw 2 t "Resultant, Mathematica"
+  ""            u 1:15  w lp pt 6 ps 2 lw 2 t "Gr{\366}bner basis, Magma", \
+  ""            u 1:16  w lp pt 7 ps 2 lw 2 t "Gr{\366}bner basis, Mathematica", \
+  ""            u 1:17  w lp pt 8 ps 2 lw 2 t "Resultant, Magma", \
+  ""            u 1:19  w lp pt 9 ps 2 lw 2 t "Resultant, Mathematica"
 
 
 unset output

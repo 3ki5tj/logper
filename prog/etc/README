@@ -5,3 +5,6 @@ logres.ma     A Mathematica script that computes the boundary polynomials
               works for the onset of 6-cycle. Its performance sucks.
 
 math4vim.txt  how to highlight .ma files in Vim.
+
+div14.ma      factorize the 14-cycle onset polynomial
+

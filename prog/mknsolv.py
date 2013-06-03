@@ -317,7 +317,8 @@ elif fninp.startswith("T"):
   print "write %s for logistic map" % fnout
   src = src_log
 else:
-  print "bad input file: ", fninp
+  print "unrecognized input file %s, assume logistic map, output %s " % (fninp, fnout)
+  src = src_log
 
 src = codevars + xsave + nsolve + seqload + src
 open(fnout, "w").write(src)

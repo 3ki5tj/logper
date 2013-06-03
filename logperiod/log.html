@@ -412,6 +412,13 @@ Sharkovskii and Li &amp; Yorke.
       <a href="data/log/r13b.txt">r values</a></td>
   <td></td>
 </tr>
+<tr><td>14</td>
+  <td><a href="data/log/T14a.txt">eq.</a> and
+      <a href="data/log/r14a.txt">r values</a></td>
+  <td><a href="data/log/T14b.txt">eq.</a> and
+      <a href="data/log/r14b.txt">r values</a></td>
+  <td></td>
+</tr>
 </table>
 
 
@@ -475,12 +482,13 @@ Sharkovskii and Li &amp; Yorke.
 
   <tr>
     <td>
-      <a name="mkinterp"></a>
-      <a href="prog/mkinterp.py">mkinterp.py</a>
+      <a name="lsfit"></a>
+      <a href="prog/lsfit.ma">lsfit.ma</a>
     </td>
-    <td>A Python script that generates a Mathematica script,
-      which computes the polynomial
-      from interpolating the list of values.
+    <td>
+      A specialized Mathematica script
+      the computes a polynomial
+      from interpolating a list of values.
       This script is intended for parallelization, which should be invoked
       only if the computing time is limited.
       For small <span class="eq"><i>n</i></span>,
@@ -509,6 +517,83 @@ Sharkovskii and Li &amp; Yorke.
       This will create another
       <span class="code">ls8b.txt</span>.
       (If the two commands are run under the same directory,
+      but at different times, the latter will simply append new values
+      to the existing <span class="code">ls8b.txt</span>.)
+      We should now combine the contents in the two files.
+
+      We now type
+      <div class="code">
+        math &lt; lsfit.ma ls8b.txt 2 1
+      </div>
+      The interpolated polynomial from the values in
+      <span class="code">ls8b.txt</span>
+      are then saved to
+      <span class="code">fit.txt</span>.
+      <br>
+
+      Here, the second number 2 is the method index.
+      If it is 0, it means to use
+      <span class="code">Mathematica</span>'s
+      built-in function
+      <span class="code">InterpolatingPolynomial[]</span>.
+      This built-in function is quite fast. But it may fail sometimes.
+      If it is 1, it will compute the interpolating polynomial
+      from top (the leading coefficients) to bottom.
+      Method 1 is robust, but very slow.
+      If it is 2, it will compute the interpolating polynomial
+      from bottom to top.
+      Method 2 is quite fast, and is therefore recommended.
+      <br>
+
+      The last number 1 is the verbosity level.
+      <br>
+
+      Using method 2, the script also checks for potential corruptions
+      in the list values (which can happen!) that prevents
+      the final result to be an integral polynomial.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a name="mkinterp"></a>
+      <del><a href="prog/mkinterp.py">mkinterp.py</a></del>
+      (deprecated)
+    </td>
+    <td>
+      <del>
+      A Python script that generates a Mathematica script,
+      which computes a polynomial
+      from interpolating a list of values.
+      This script is intended for parallelization, which should be invoked
+      only if the computing time is limited.
+      For small <span class="eq"><i>n</i></span>,
+      a simple call to <span class="code">log.ma</span> will save
+      much trouble.
+      <br>
+
+      To parallelize the calculation of the bifurcation polynomial
+      for the 8-cycles,
+      we can compute the first 60
+      <span class="eq"><i>R</i></span> values
+      (the degree in <span class="eq"><i>R</i></span> is 120,
+      and
+      <span class="eq"><i>R</i></span> runs from &minus;60 to &minus;1)
+      <div class="code">
+        math &lt; log.ma 8 b -60 0
+      </div>
+      This will create a file called
+      <span class="code">ls8b.txt</span>.
+
+      On another computer node, we do it again for the other half
+      (such that <span class="eq"><i>R</i></span> runs from 0 to 60)
+      <div class="code">
+        math &lt; log.ma 8 b 0 61
+      </div>
+      This will create another
+      <span class="code">ls8b.txt</span>.
+      (If the two commands are run under the same directory,
       but at different times, the latter will simply append data
       to the existing <span class="code">ls8b.txt</span>.)
       We should now combine the contents in the two files.
@@ -526,7 +611,9 @@ Sharkovskii and Li &amp; Yorke.
       <div class="code">
         math &lt; fit.ma
       </div>
-
+      The result is saved to
+      <span class="code">fit.txt</span>.
+      </del>
     </td>
   </tr>
 

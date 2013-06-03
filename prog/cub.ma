@@ -1,5 +1,5 @@
 (* Copyright 2012-2013 Cheng Zhang *)
-(* Solving the boundary polynomials of the n-cycle
+(* Solving the boundary polynomial of the n-cycle
    of the antisymmetric cubic map f(x) = r x - x^3
    USAGE
     math < cub.ma n ch kmin kmax
@@ -409,7 +409,7 @@ mksym[xy_] := Module[{k, ls = {}},
 numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
        fn_:None, xy0_:{}, dr_:1, norm_:True] :=
   Module[{mats = ms, mat, den = dn, denv, xy = xy0, rv, Pv, p, den2 = 1,
-          deg = degrp[n], k, kmin = k0, kmax = k1, ttl = 1},
+          deg = degrp[n], k, kmin = k0, kmax = k1, ttl = 1, ttl2 = 1},
 
   If [ mats === None, mats = getcycmats[n, r, X]; ];
   mat = mats[[-1]] /. {X -> Xv};
@@ -418,8 +418,9 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
   If [ den === None,
     den = symprimfac[n, r, X, mats, True, True];
   ];
-  If [ norm, ttl = If[n == 1, 2, 2^degXp[n]]; ];
+  If [ norm, ttl = If [ n == 1, 2, 2^degXp[n] ]; ];
   den = ( den /. {X -> Xv} ) * ttl;
+  Print[" ttl ", ttl];
 
   If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
   If [ kmax === None, kmax = Round[deg/2 + 10000]; ];
@@ -430,9 +431,10 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
     If [ Mod[n, 4] === 2,
       (* the contribution from the (n/2)-half-cycle polynomial can be
          computed from the (n/2)-cycle polynomial *)
-      den2 = If [ph === None,
+      ttl2 = If [ n/2 == 1, 2, 2^degXp[n/2] ];
+      den2 = If [ ph === None,
                  symhalffac2[n, r, Xv],
-                 ph /. {X -> Xv}];
+                 ph /. {X -> Xv}]/ttl2;
       den *= den2;
     ];
   ];
@@ -445,11 +447,18 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
     If [ denv === 0, Continue[]; ];
     (* compute the value of the polynomial at r = rv *)
     Pv = Cancel[ Det[ mat /. {r -> rv} ] / denv ];
+    If [ Head[Pv] === Rational, (* rational _number_, not an fractional expression *)
+      Print["corruption, r = ", rv];
+      Continue[];
+    ];
     (* add the new value to the list *)
     xy = Append[xy, {rv, Pv}];
     If [ !(fn === None),
       Print["k ", k, ", deg ", deg, ", ", fn];
       xsave[fn, {rv, Pv}, True];
+      If [ Mod[n, 2] === 0,
+        xsave[fn, {-rv, Pv}, True];
+      ];
     ];
   ];
   If [ Mod[n, 2] === 0, xy = mksym[xy] ];
@@ -556,7 +565,10 @@ If [ Length[ $CommandLine ] >= 5,
 If [ !(kmin === None) && kmin >= kmax, Exit[]; ];
 (* prepare a list to save intermediate values *)
 diff = If [ MemberQ[{"X", "Y"}, ch], n + 1, n ];
-fnls = If [ diff >= 7, "cls" <> ToString[n] <> ch <> pch <> ".txt", None ];
+fnls = If [ diff >= 7 || !(kmin === None) || !(kmax === None),
+  "cls" <> ToString[n] <> ch <> pch <> ".txt",
+  None
+];
 If [ kmin === None && !(fnls === None),
   Close[ OpenWrite[fnls] ]; (* clear the list *)
 ];

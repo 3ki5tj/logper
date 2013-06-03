@@ -430,6 +430,10 @@ numdet[n_, Xv_, R_, X_, ms_:None, dn_:None, k0_:None, k1_:None,
     If [ denv === 0, Continue[] ];
     (* compute the value of the polynomial at R = Rv *)
     Pv = Cancel[ Det[ mat /. {R -> Rv} ] / denv ];
+    If [ Head[Pv] === Rational, (* rational _number_, not an fractional expression *)
+      Print["corruption, R = ", Rv];
+      Continue[];
+    ];
     (* add the new value to the list *)
     xy = Append[xy, {Rv, Pv}];
     If [ !(fn === None),
@@ -522,7 +526,10 @@ If [ Length[ $CommandLine ] >= 5,
 If [ !(kmin === None) && kmin >= kmax, Exit[]; ];
 (* prepare a list to save intermediate values *)
 diff = If [ MemberQ[{"X", "Y"}, ch], n + 1, n ];
-fnls = If [ diff >= 10, "ls" <> ToString[n] <> ch <> ".txt", None ];
+fnls = If [ diff >= 10 || !(kmin === None) || !(kmax === None),
+  "ls" <> ToString[n] <> ch <> ".txt",
+  None
+];
 If [ kmin === None && !(fnls === None),
   Close[ OpenWrite[fnls] ]; (* clear the list file *)
 ];

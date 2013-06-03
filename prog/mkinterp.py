@@ -39,40 +39,6 @@ for i in range(n):
   #s[i][1] = re.sub(r"[\\\n]", "", s[i][1])
   s[i][1] = re.sub(r"\\\n", "", s[i][1])
 
-'''
-# add mirrors
-t = []
-for i in range(n):
-  id = s[i][0]
-  if id <= 0: continue
-  for j in range(i):
-    if s[j][0] == -id:
-      break
-  else:
-    print "adding ", -s[i][0]
-    t = [[-s[i][0], s[i][1]]] + t
-s = t + s
-str = ''.join(  [("{%s, %s}\n" % (l[0], l[1])) for l in s]  )
-open("xxx.txt", "w").write(str)
-'''
-
-
-'''
-# check parity
-for i in range(n):
-  id = s[i][0]
-  if id >= 0: break
-  for j in range(i+1, n):
-    if s[j][0] == -id:
-      break
-  else:
-    continue
-
-  if s[i][1] == s[j][1]:
-    pass #print "i %s, id %s checked" % (i, id)
-  else:
-    print "i %s, id %s bad" % (i, id)
-'''
 
 
 ls = "ls = {"
@@ -90,19 +56,31 @@ xsave = """
 
 # logistic map
 fit_log = """
-p = Numerator[Together[InterpolatingPolynomial[ls, R]/.{R->T/4}]];
+tm = Timing[
+    p = InterpolatingPolynomial[ls, T/4];
+    ][[1]];
+Print["interpolation: ", tm];
 xsave["fit.txt", p, False, True];
-Print["trying to factorize..."];
-Timing[p = Factor[p];][[1]];
+Print["trying to factor..."];
+tm = Timing[
+    p = Factor[p];
+    ][[1]];
+Print["factoring: ", tm];
 xsave["fit.txt", p, False, True];
 """
 
 # cubic map
 fit_cubic = """
-p = Numerator[Together[InterpolatingPolynomial[ls, r]]];
+tm = Timing[
+    p = Numerator[Together[InterpolatingPolynomial[ls, r]]];
+    ][[1]];
+Print["interpolation: ", tm];
 xsave["fit.txt", p, False, True];
 Print["trying to factorize..."];
-Timing[p = Factor[p];][[1]];
+tm = Timing[
+    p = Factor[p];
+    ][[1]];
+Print["factoring: ", tm];
 xsave["fit.txt", p, False, True];
 """
 
@@ -125,8 +103,11 @@ interp[xy_, a_, b_, A_:None, k1_:None, k2_:None, fntmp_:None] := Module[
 
 kmin = %s;
 kmax = %s;
-p = interp[ls, a, b, A, kmin, kmax, "fittmp.txt"];
-If[kmin === None && kmax === None,
+tm = Timing[
+    p = interp[ls, a, b, A, kmin, kmax, "fittmp.txt"];
+    ][[1]];
+Print["interpolation: ", tm];
+If [ kmin === None && kmax === None,
   %s
   xsave["fit.txt", p];
 ];
