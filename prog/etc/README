@@ -8,3 +8,5 @@ math4vim.txt  how to highlight .ma files in Vim.
 
 div14.ma      factorize the 14-cycle onset polynomial
 
+trimnsolv.py  reads `nsolv.txt', write an output that can be appended at the end of
+              the polynomial file like `T13a.txt'

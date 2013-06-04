@@ -1,16 +1,20 @@
 #!/usr/bin/env python
 
+''' trim the output `nsolv.txt' of mknsolv.py '''
+
 import re, sys, os
 
 
-fnin = "inp.txt"
+fnin = "nsolv.txt"
 if len(sys.argv) >= 2:
   fnin = sys.argv[1]
 
 sa = open(fnin).read().strip()
+# indented lines are attached to the previous ones
 sa = re.sub(r"\n ", " ", sa)
 sa = sa.split('\n')
 ls = []
+
 for k in range(len(sa)):
   s = sa[k].strip("{}() ")
   s = re.sub(r"\(", ",", s)
@@ -21,9 +25,9 @@ for k in range(len(sa)):
     ls = ls + [item]
     id = int(s[0].strip())
     if len(ls) != id:
-      print "Index mismatch: %s vs %s" % (id, len(ls))
+      sys.stderr.write( "Warning: index mismatch: %s vs %s\n" % (id, len(ls)) )
   except:
-    print "error occured %s" % s
+    sys.stderr.write( "error occured %s\n" % s )
     raise Exception
 s = "{" + ',\n'.join(ls) + "}"
 print s
