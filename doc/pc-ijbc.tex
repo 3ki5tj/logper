@@ -105,7 +105,7 @@ The polynomials satisfied by the parameters
 
 % switch text to two-column
 %\begin{multicols}{2}
-\twocolumn
+%\twocolumn
 
 %
 %
@@ -1648,9 +1648,38 @@ and $\deg_R P_n = \sum_{d|n} \mu(n/d) 2^{d-1}$
 The strategy also allows a trivial parallelization.
 
 
+\begin{figure}[h]
+  \begin{center}
+  \begin{minipage}{\linewidth}
+        \includegraphics[width=\linewidth]{T14b.png}
+  \end{minipage}%
+  \end{center}
+  \caption{\label{fig:T14b}
+  Coefficients of the 14-cycle bifurcation polynomial in two columns (left to right).
+  The $k$th line from the top is the coefficient before $(4R)^k$ in base-256.
+  The digits are shown by the grayscale from white (0) to black (255).
+  The leading bar before each line is the sign (black: $-$, white: $+$).
+  }
+\end{figure}
+
+
+
 
 We coded the algorithm into a Mathematica program,
-and computed the polynomials for $n$ up to 14.
+  and computed the polynomials for $n$ up to 14
+  (data on the website http://logperiod.appspot.com).
+%
+The bifurcation polynomial of the 14-cycle in shown in \reffig{T14b}.
+%
+%The exact polynomials of these maps are generally too large to print on paper,
+%  e.g., the bifurcation polynomial of the 14-cycle
+%    takes about 27 megabytes.
+%
+%The representative $r$ values are listed in \reftab{rval}.
+
+%Compared with other approaches \cite{hitzl, gordon, bailey2, kk1, hao, hao2}
+%it appeared to be simpler and more transparent,
+%as it only requires the computation of a determinant.
 %
 As shown in \reffig{logtime}, the algorithm
   outperformed the resultant \cite{burm} and
@@ -1687,20 +1716,6 @@ This is unsurprising,
 
 
 
-
-%
-The exact polynomials of these maps are generally too large to print on paper,
-  e.g., the bifurcation polynomial of the 14-cycle
-    takes about 27 megabytes.
-%
-The polynomials and programs are saved on the website
-http://logperiod.appspot.com.
-%
-%The representative $r$ values are listed in \reftab{rval}.
-
-%Compared with other approaches \cite{hitzl, gordon, bailey2, kk1, hao, hao2}
-%it appeared to be simpler and more transparent,
-%as it only requires the computation of a determinant.
 
 
 

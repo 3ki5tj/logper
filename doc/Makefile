@@ -1,7 +1,8 @@
 
 #PDF = $(patsubst %.tex,%.pdf, $(wildcard *.tex))
 PDF = pc.pdf pc-ijbc.pdf p3p.pdf
-figpng = $(wildcard *.png)
+#figpng = $(wildcard *.png)
+figpng = cobweb.png cubbulb.png halfcycle.png logbulb.png
 figpdf = $(patsubst %.png,%.pdf, $(figpng))
 
 all: $(PDF) p3p.html

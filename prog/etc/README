@@ -10,3 +10,8 @@ div14.ma      factorize the 14-cycle onset polynomial
 
 trimnsolv.py  reads `nsolv.txt', write an output that can be appended at the end of
               the polynomial file like `T13a.txt'
+
+
+bmp.ma        Convert polynomial coefficients to bytes (text file).
+bmp.c         Convert the output of `bmp.ma' to a .bmp picture.
+
