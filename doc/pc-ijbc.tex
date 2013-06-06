@@ -270,7 +270,7 @@ and the corresponding polynomials for $r$ can be obtained by $R \rightarrow r(r-
 Since the $n$-cycles points constitute
   a subset of the fixed points of $f^n$,
 we will first find
-  the polynomials at the stability boundaries
+  the polynomials of marginal stability
   for the fixed points of $f^n$
   (\refsecs{cyclic}-\ref{sec:examples}).
 The polynomials contain
@@ -466,9 +466,7 @@ ${x_2}^2 \, x_1 = R \, x_1 - R + x_2$.
   as a combination of the square-free ones.
 At the onset and bifurcation points,
   the $\NB$ square-free cyclic polynomials $C_p$ are themselves
-  linearly connected by \refeq{der}.
-This condition yields a characteristic equation,
-  which solves our problem.
+  linearly connected by a characteristic equation.
 
 
 \subsection{\label{sec:algo}Characteristic equation}
@@ -903,11 +901,11 @@ More systematically, we have
   \label{eq:primfac}
   \end{equation}
 where
-  $B_d^c\Rlam \equiv \prod_{k=1}^c A_{d}(R, e^{2k\pi i/c} \lambda^{1/c})$,
-  particularly, $B_n^1\rlam = A_n\rlam$,
-  and
-  $\lambda^{1/c}$ is a complex $c$th root of $\lambda$;
-  the outer product runs over all divisors $d$ of $n$.
+  $B_d^c\Rlam \equiv \prod_{k=1}^c A_{d}(R, e^{2k\pi i/c} \lambda^{1/c})$
+  with
+  $\lambda^{1/c}$ being a complex $c$th root of $\lambda$;
+Particularly, $B_n^1\rlam = A_n\rlam$.
+The outer product runs over all divisors $d$ of $n$.
 %\end{theorem}
 %
 %
@@ -1089,11 +1087,10 @@ where $\varphi(m)$ is Euler's totient function,
   that are coprime to $m$,
   e.g.,
   $\varphi(1) = 1$,
-  $\varphi(3) = 2$ for 1 and 2 are coprime to 3,
-  $\varphi(6) = 2$ for 1 and 5 \cite{hardy}.
+  $\varphi(6) = 2$ for 1 and 5 are coprime to 6 \cite{hardy}.
 %
 By \refeq{xr},
-  $\NB(n) = \deg_\lambda A_n\Rlam$.
+  $\deg_\lambda A_n\lam = \NB(n)$.
 The first few $\NB(n)$ are
 2, 3, 4, 6, 8, 14, 20, 36, 60, 108, \dots, % 188, 352, 632, \ldots,
   from $n = 1$.
@@ -1148,7 +1145,7 @@ One can verify that
 %
 %Since the left side is the degree in $\lambda$ of $A_n\lam$,
 Thus, in order for $A_n\lam$ to accommodate all fixed points of $f^n$,
-  each distinct $d$-cycle with $d|n$
+  each distinct $d$-cycle ($d|n$)
   contributes one and only one zero to $A_n\lam$.
 %
 %
@@ -1627,56 +1624,53 @@ $S_4(R) = 108-(4R-3)^3$.
 %%
 
 The most time-consuming step of the algorithm in \refsec{algo}
-is the evaluation of the determinant $A_n\Rlam$ in the characteristic
-equation (\ref{eq:xr}).
+  is the evaluation of the determinant $A_n(R, \lambda = \pm1)$
+  in the characteristic equation (\ref{eq:xr}).
 %
-When implemented on a computer,
-it is helpful to use polynomial interpolation:
-we evaluate $A_n\Rlam$ at $\deg_R A_n + 1$ values of $R$,
-e.g., $R = 0, \pm1, \pm2,\ldots$, then piece them together
-to a polynomial.
+In implementation,
+we found it helpful to use polynomial interpolation
+by first evaluating $A_n\Rlam$ at $\deg_R A_n + 1$ values of $R$,
+e.g., $R = 0, \pm1, \pm2,\ldots$, then piecing them together
+into a polynomial of $R$.
 %
-By using \refeq{primfac}, we only need $\deg_R P_n + 1$ values
+Further, using \refeq{primfac}, we only need $\deg_R P_n + 1$ values
   to directly compute $P_n\Rlam$.
 %
 %
 Here,
-$\deg_R A_n = \sum_{d|n} \varphi(n/d) 2^{d-1}$,
-and $\deg_R P_n = \sum_{d|n} \mu(n/d) 2^{d-1}$
+$\deg_R A_n = n \NB(n)/2$
+and $\deg_R P_n = n \LB(n)/2$
   \cite{mira, stephenson1}.
 %
-The strategy also allows a trivial parallelization.
-
-
-\begin{figure}[h]
-  \begin{center}
-  \begin{minipage}{\linewidth}
-        \includegraphics[width=\linewidth]{T14b.png}
-  \end{minipage}%
-  \end{center}
-  \caption{\label{fig:T14b}
-  Coefficients of the 14-cycle bifurcation polynomial in two columns (left to right).
-  The $k$th line from the top is the coefficient before $(4R)^k$ in base-256.
-  The digits are shown by the grayscale from white (0) to black (255).
-  The leading bar before each line is the sign (black: $-$, white: $+$).
-  }
-\end{figure}
-
-
+%The strategy also allows a trivial parallelization.
+%
+%\begin{figure}[h]
+%  \begin{center}
+%  \begin{minipage}{\linewidth}
+%        \includegraphics[width=\linewidth]{T14b.png}
+%  \end{minipage}%
+%  \end{center}
+%  \caption{\label{fig:T14b}
+%  Coefficients of the 14-cycle bifurcation polynomial in two columns (left to right).
+%  The $k$th line from the top is the coefficient before $(4R)^k$ in base-256.
+%  The digits are shown by the grayscale from white (0) to black (255).
+%  The leading bar before each line is the sign (black: $-$, white: $+$).
+%  }
+%\end{figure}
 
 
 We coded the algorithm into a Mathematica program,
-  and computed the polynomials for $n$ up to 14
-  (data on the website http://logperiod.appspot.com).
+  and computed the polynomials for $n$ up to 14.
+The data are saved on the website http://logperiod.appspot.com.
 %
-The bifurcation polynomial of the 14-cycle in shown in \reffig{T14b}.
+%The bifurcation polynomial of the 14-cycle in shown in \reffig{T14b}.
 %
 %The exact polynomials of these maps are generally too large to print on paper,
 %  e.g., the bifurcation polynomial of the 14-cycle
 %    takes about 27 megabytes.
 %
 %The representative $r$ values are listed in \reftab{rval}.
-
+%
 %Compared with other approaches \cite{hitzl, gordon, bailey2, kk1, hao, hao2}
 %it appeared to be simpler and more transparent,
 %as it only requires the computation of a determinant.
@@ -2187,7 +2181,7 @@ So $H^*_{n}\rlam$,
   would be mapped to an $(n/2)$-cycle\big].
 %
 Thus, these polynomials need to be computed only
-  at the positive half of $r$ values
+  at the positive half of the $r$ values
   in polynomial interpolation.
 %
 
