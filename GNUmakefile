@@ -4,7 +4,7 @@
 usb::
 	rsync -avzL --delete-after --size-only \
 	  --exclude="*~" --exclude=".*" --exclude="fit.log" \
-	  * /media/C3/logper/
+	  * /media/C3/code/logper/
 
 clean:
 	find . -name "*~" | xargs rm

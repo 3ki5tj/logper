@@ -36,4 +36,11 @@
 12      43408 31934    42996 32110    n/a n/a       n/a n/a     65.2    (1181) 3830     n/a n/a
 13       n/a  n/a        n/a n/a      n/a n/a       n/a n/a      243       n/a n/a      n/a n/a
 #
-#
+# bifurcation point
+# n    interp    factor     interp(magma)   factor(magma)
+# 9     0.14      0.38       70.8            0.27
+# 10    0.68      2.85       2019            1.06
+# 11    4.8       22
+# 12    621       3203
+# 13    ?         ?
+# 14    ?         ?

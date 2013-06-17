@@ -41,8 +41,11 @@ function toc_init()
     + '<li><a href="/">Home</a>'
     + '<li><a href="/logistic">Logistic</a>'
     + '<li><a href="/cubic">Cubic</a>'
-    + '<li><a href="/henon">H&eacute;non</a>';
-    '</ul>';
+    + '<li><a href="/henon">H&eacute;non</a>'
+    + '</ul><br>'
+    + '<ul class="toclinks">'
+    + '<li><a href="/esd">ESD</a>'
+    + '</ul>';
   env.appendChild(links);
 
   env.onmouseover = function () { toc_show(1); };

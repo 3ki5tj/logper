@@ -65,6 +65,9 @@ numbthy.py
     mats2magma.py uses numbthy.py
 
 
+A newer routine is mkintmag.py.  It seems to be doing the same thing. 
+
+
 Other things
 =============
 logres.ma

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Elementary Symbolic Dynamics</title>
+<script type="text/javascript" src="js/main.js"></script>
+<link type="text/css" rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<h1>Elementary Symbolic Dynamics by B.-L. Hao</h1>
+
+<h2>Introduction</h2>
+<div class="p">
+  The page is about B.-L. Hao&rsquo;s book
+  &ldquo;Elementary Symbolic Dynamics.&rdquo;
+</div>
+
+
+
+<h2>Programs</h2>
+
+<table class="progtable">
+  <tr>
+    <th>Program</th>
+    <th>Description</th>
+  </tr>
+
+  <tr>
+    <td><a href="prog/mword.py">mword.py</a></td>
+    <td>A Python script to list median words shorter than a certain length.
+      A median word of <span class="eq"><i>n</i> &minus; 1</span>
+      corresponds to a real cycle <span class="eq"><i>n</i></span>-cycles.
+      (The original Fortran 77 code in Chapter 3.3 of the book is heavily optimized,
+       three-page long, and has too many GOTO statements.
+       The shorter Python script here should be more pedagogical.)
+      <br>
+
+      To list all cycles up to period-7 (Table 3.1 of the book), type
+      <div class="code">
+        python mword.py 7
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a name="renorm"></a>
+      <a href="prog/renorm.ma">renorm.ma</a>
+    </td>
+    <td>
+      A Mathematica script to find the universal limiting function of
+      <span class="eq"><i>f</i>(<i>x</i>) = 1 &minus; <i>A x<sup>z</sup></i></span>
+      after many iterations by renormalization.
+      The logistic or quadratic map corresponds to
+      the <span class="eq"><i>z</i> = 2</span> case.
+
+      The script is quite short (about ten lines), and after adjusting parameters,
+      such as
+      <span class="eq"><i>z</i></span>
+      the number <span class="eq"><i>n</i></span> of terms
+      in the expansion
+      <span class="eq">
+        <i>f</i>(<i>x</i>) =
+        1 &minus; &sum;<i>A<sub>k</sub> x<sup>k z</sup></i>.
+      </span>
+      Run the program as
+      <div class="code">
+        math &lt; renorm.ma
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+
+
+<h2>Reference</h2>
+
+<ul>
+<li>
+Bailin Hao,
+<a href="http://power.itp.ac.cn/~hao/"><i>
+  Elementary Symbolic Dynamics and Chaos in Dissipative Systems,
+</i></a> World Scientific, Singapore, 1989.
+Note. The author&rsquo;s website (the above link) has a free PDF copy of the book,
+with several corrections.
+</li>
+</ul>
+
+{{ go_home }}
+{{ last_update }}
+
+<script type="text/javascript">var sc_project=9032716; var sc_invisible=1; var sc_security="070bc505";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+</body>
+</html>

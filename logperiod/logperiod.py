@@ -27,7 +27,8 @@ class MainPage(webapp2.RequestHandler):
         <li><a href="/">Home</a>,
         <li><a href="/logistic">Logistic</a>,
         <li><a href="/cubic">Cubic</a>,
-        <li><a href="/henon">H&eacute;non</a>
+        <li><a href="/henon">H&eacute;non</a>,
+        <li><a href="/esd">ESD</a>
         </ul></div>''',
 
         'last_update':
@@ -51,10 +52,16 @@ class HenonPage(MainPage):
     MainPage.get(self, "hen.html")
 
 
+class ESDPage(MainPage):
+  def get(self):
+    MainPage.get(self, "esd.html")
+
+
 class AboutPage(webapp2.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.write('test page')
+
 
 app = webapp2.WSGIApplication(
   [('/', MainPage),
@@ -65,6 +72,7 @@ app = webapp2.WSGIApplication(
    ('/cub', CubicPage), # alias
    ('/henon', HenonPage),
    ('/hen', HenonPage), # alias
+   ('/esd', ESDPage),
    ('/about', AboutPage)],
   debug=True)
 
