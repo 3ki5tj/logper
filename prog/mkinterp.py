@@ -49,7 +49,7 @@ ls = ls.rstrip(",\n") + "};\n"
 # mathematica code for interpolation
 
 xsave = """
-  xsave[fn_, xp_, append_: False, verbose_: False] := Module[{fp, s},
+xsave[fn_, xp_, append_: False, verbose_: False] := Module[{fp, s},
   If[verbose, Print[If[append, "appending ", "writing "], fn]];
   fp = If[append, OpenAppend[fn], OpenWrite[fn]]; Write[fp, xp]; Close[fp];];
 """
@@ -72,7 +72,7 @@ xsave["fit.txt", p, False, True];
 # cubic map
 fit_cubic = """
 tm = Timing[
-    p = Numerator[Together[InterpolatingPolynomial[ls, r]]];
+    p = InterpolatingPolynomial[ls, r];
     ][[1]];
 Print["interpolation: ", tm];
 xsave["fit.txt", p, False, True];

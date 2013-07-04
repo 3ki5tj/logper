@@ -191,7 +191,7 @@ fninp = "ls14b.txt";
 If [ Length[ $CommandLine ] >= 2,
   fninp = $CommandLine[[2]];
 ];
-method = 2;
+method = 3;
 If [ Length[ $CommandLine ] >= 3,
   method = ToExpression[ $CommandLine[[3]] ];
 ];

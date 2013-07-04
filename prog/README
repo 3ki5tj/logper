@@ -8,7 +8,13 @@ cub2.ma           solve a transformed map f(u) = r^2 u (1 - u)^2
 
 hen.ma            Henon map
 
-mkinterp.py       interpolation code
+lsfit.ma          specialized script to fit a polynomial from a list of
+                  integer values
+                  it is able to detect some corruptions
+
+mkinterp.py       (deprecated) same purpose as lsfit.ma
+                  for log.ma/cub.ma, use lsfit.ma instead
+                  however, it is still useful for hen.ma
 
 mknsolv.py        numerical solution code
 
@@ -23,5 +29,7 @@ extra.nb          additional and old code snippets
 
 
 
-For log.ma and cub.ma
-"C" is faster than "c" for larger n
+For log.ma and cub.ma,
+the command-line argument "C" is faster than "c" for larger n.
+
+
