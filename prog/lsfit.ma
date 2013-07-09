@@ -11,7 +11,8 @@
       2 (stair, from the lowerest power to the highest, much faster than power)
    `verbose' is a number: 0, 1 or 2 *)
 
-(* *********************** powfit begins *****************************)
+(* *********************** powfit begins **************************** *)
+
 
 (* get the leading coefficient *)
 lead[xs0_, ys0_, verbose_ : 0] := Module[{n, kmax, k, xs, ys, a, os},
@@ -63,11 +64,31 @@ Print[ Expand[InterpolatingPolynomial[ls, x]] // InputForm ];
 Exit[];
 *)
 
-(* *********************** powfit ends *****************************)
+(* *********************** powfit ends **************************** *)
 
 
-(* *********************** stairfit begins *************************)
+(* *********************** stairfit begins ************************ *)
+(* Here we first express the polynomial as
+   f(x) = y1 + (x - x1)*(y2 + (x - x2)*(y3 + (x - x3)*(y4...))) (#)
+  then, obtain the normal polynomial coefficients.
 
+  (#) can be expressed iteratively as f(x) = f1(x),
+    f1(x) = y1 + (x - x1)*f2(x)
+    ...
+    fm(x) = ym + (x - xm)*f_{m+1}(x).
+
+  In the first stage, we obtain (x1, y1), then (x2, y2), then
+  (x3, y3), .... from the given list of pair values.
+  This is accomplished by the function peel[].
+  Since fm(xm) = ym, the pair is obtained just by selecting
+  one of the values in the current list.
+  However, to make the process iterable, we update the list
+  of pair values as
+  y^(m+1)_k = (y^(m)_k - ym) / (xk - xm).
+
+  In the second stage, we can construct fn(x), then f_{n-1}(x), ...,
+  all the way to the f1(x) = f(x).  This is implemented in stairfit[].
+*)
 
 (* reduce the function f(x) --> (f(x) - f(xm))/(x - xm) *)
 peel[xs0_, ys0_] := Module[{i, im, xm, ym, xs, ys, err},
@@ -136,7 +157,7 @@ Print[ stairfit[ls, x, 2] // InputForm];
 Print[ Expand[InterpolatingPolynomial[ls, x]] // InputForm ];
 Exit[];
 *)
-(* *********************** stairfit ends ***************************)
+(* *********************** stairfit ends ************************** *)
 
 
 xloadn[fn_, verbose_: 0] := Module[{fp, xp, ls = {}},

@@ -43,7 +43,7 @@
   say +0.1 and &minus;0.1,
   the sequence will be converged to different final values.
   Thus, the window
-  <span class="eq">(2, &radic;5) = (2, 2.235...)</span>
+  <span class="eq">(2, &radic;<span style="text-decoration:overline">5</span>) = (2, 2.235...)</span>
   represents 2-cycles, not 4-cycles.
 
   <div class="fig">
@@ -77,8 +77,8 @@
 <h2><i>n</i>-cycle data</h2>
 
 <div class="p">
-  We list the polynomials involved in the <i>n</i>-cycles in the follows.
-  The numerical zeros are appended after the files.
+  We list the polynomials involved in the <i>n</i>-cycles below.
+  The numerical zeros are appended at the end of each file.
 
   For the general boundary polynomial of
     <span class="eq"><i>n</i></span>-cycles, we defined
@@ -102,37 +102,37 @@
 <tr><td>1</td>
   <td><a href="data/cub/cr1a.txt">eq.</a></td>
   <td><a href="data/cub/cr1b.txt">eq.</a></td>
-  <td><a href="data/cub/crX1.txt">r-X</a></td>
+  <td><a href="data/cub/cr1X.txt">r-X</a></td>
 </tr>
 <tr><td>2</td>
   <td><a href="data/cub/cr2a.txt">eq.</a></td>
   <td><a href="data/cub/cr2b.txt">eq.</a></td>
-  <td><a href="data/cub/crX2.txt">r-X</a></td>
+  <td><a href="data/cub/cr2X.txt">r-X</a></td>
 </tr>
 <tr><td>3</td>
   <td><a href="data/cub/cr3a.txt">eq.</a></td>
   <td><a href="data/cub/cr3b.txt">eq.</a></td>
-  <td><a href="data/cub/crX3.txt">r-X</a></td>
+  <td><a href="data/cub/cr3X.txt">r-X</a></td>
 </tr>
 <tr><td>4</td>
   <td><a href="data/cub/cr4a.txt">eq.</a></td>
   <td><a href="data/cub/cr4b.txt">eq.</a></td>
-  <td><a href="data/cub/crX4.txt">r-X</a></td>
+  <td><a href="data/cub/cr4X.txt">r-X</a></td>
 </tr>
 <tr><td>5</td>
   <td><a href="data/cub/cr5a.txt">eq.</a></td>
   <td><a href="data/cub/cr5b.txt">eq.</a></td>
-  <td><a href="data/cub/crX5.txt">r-X</a></td>
+  <td><a href="data/cub/cr5X.txt">r-X</a></td>
 </tr>
 <tr><td>6</td>
   <td><a href="data/cub/cr6a.txt">eq.</a></td>
   <td><a href="data/cub/cr6b.txt">eq.</a></td>
-  <td><a href="data/cub/crX6.txt">r-X</a></td>
+  <td><a href="data/cub/cr6X.txt">r-X</a></td>
 </tr>
 <tr><td>7</td>
   <td><a href="data/cub/cr7a.txt">eq.</a></td>
   <td><a href="data/cub/cr7b.txt">eq.</a></td>
-  <td><a href="data/cub/crX7.txt">r-X</a></td>
+  <td><a href="data/cub/cr7X.txt">r-X</a></td>
 </tr>
 <tr><td>8</td>
   <td><a href="data/cub/cr8a.txt">eq.</a></td>
@@ -140,8 +140,8 @@
   <td></td>
 </tr>
 <tr><td>9</td>
-  <td><a href="data/cub/cr9a.txt">eq.</a></td>
-  <td><a href="data/cub/cr9b.txt">eq.</a></td>
+  <td><a href="data/cub/cr9a.zip">eq. (.zip file)</a></td>
+  <td><a href="data/cub/cr9b.zip">eq. (.zip file)</a></td>
   <td></td>
 </tr>
 </table>
@@ -186,7 +186,7 @@
         math &lt; cub.ma 5 X
       </div>
       The output would be
-      <span class="code">crX5.txt</span>.
+      <span class="code">cr5X.txt</span>.
       A variant can be accessed through
       &ldquo;<span class="code">X</span>&rdquo;
       instead of
@@ -264,8 +264,8 @@
 
   <tr>
     <td><a href="prog/mkgb.py">mkgb.py</a></td>
-    <td>A Python script that generates a
-      <a href="http://magma.maths.usyd.edu.au/magma/">magma</a>
+    <td>(Slow) A Python script that generates a
+      <a href="http://magma.maths.usyd.edu.au/magma/">Magma</a>
       script,
       which solves the boundary polynomial
       by constructing a Gr&ouml;bner basis.
@@ -290,9 +290,9 @@
       A Mathematica script that computes a
       transformed cubic map, which encompasses
       both
-      <span class="eq">n</span>-cycle
+      <span class="eq"><i>n</i></span>-cycle
       and
-      <span class="eq">n</span>-half-cycle polynomials.
+      <span class="eq"><i>n</i></span>-half-cycle polynomials.
       The usage is similar to <span class="code">cub.ma</span>.
     </td>
   </tr>

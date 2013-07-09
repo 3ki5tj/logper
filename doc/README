@@ -1,3 +1,11 @@
+Manuscript corrections
+-----------------------
+The following error exists in the manuscript resubmitted to ijbc
+  J_n(x_1) = J(x_n) ... J(x_1)
+instead of
+  J_n(x_1) = J(x_1) ... J(x_n)
+
+
 TODO
 -----
   * (PARTIALLY) improve the onset factorization

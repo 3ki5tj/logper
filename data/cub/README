@@ -1,12 +1,19 @@
 Files
 =======
 
+* crXX.dat      cycle boundary polynomials the first X is the cycle length
+                the second is the cycle type, which is one of
+                "a" (onset), "b" (bifurcation) or "X" (general).
+
 * intv8a.txt    brackets for root searching, used by mknsolv.py to
-  intv8b.txt    numerically find the roots of the 13-cycle polynomials
+  intv8b.txt    numerically find the roots of the 8-cycle polynomials
+
+* intv9a.txt    brackets for root searching, used by mknsolv.py to
+  intv9b.txt    numerically find the roots of the 9-cycle polynomials
 
 * cubtime.dat   time data
 
-* crXX.dat      cycle boundary polynomials
+*
 
 
 half-cycle, raw matrix determinant

@@ -420,7 +420,6 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
   ];
   If [ norm, ttl = If [ n == 1, 2, 2^degXp[n] ]; ];
   den = ( den /. {X -> Xv} ) * ttl;
-  Print[" ttl ", ttl];
 
   If [ kmin === None, kmin = -Round[deg/2 + 1]; ];
   If [ kmax === None, kmax = Round[deg/2 + 10000]; ];
@@ -605,7 +604,7 @@ If [ lambda === 0,
       (* poly = nicefmt[ poly /. {X -> 3^n - 2 r Y}, Y ]; *)
     ][[1]];
     Print["time for primitive polynomial ", tm];
-    xsave["crX" <> ToString[n] <> pch <> ".txt", poly, False, True],
+    xsave["cr" <> ToString[n] <> "X" <> pch <> ".txt", poly, False, True],
 
     (* compute the d/n-bifurcation polynomial *)
     d = n;
