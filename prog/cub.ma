@@ -447,7 +447,7 @@ numdet[n_, Xv_, r_, X_, ms_:None, dn_:None, ph_:None, k0_:None, k1_:None,
     (* compute the value of the polynomial at r = rv *)
     Pv = Cancel[ Det[ mat /. {r -> rv} ] / denv ];
     If [ Head[Pv] === Rational, (* rational _number_, not an fractional expression *)
-      Print["corruption, r = ", rv];
+      Print["corruption, r = ", rv, " Pv ", Pv // InputForm];
       Continue[];
     ];
     (* add the new value to the list *)
@@ -635,7 +635,7 @@ If [ lambda === 0,
       poly = ph interp[xy, r];
     ][[1]];
     Print["interpolation and factorization: ", tm];
-    If [ n <= 4, Print[ poly ] ];
+    If [ n <= 4, Print[ poly // InputForm ] ];
     fnr = "cr" <> ToString[n] <> ch <> pch <> ".txt";
     xsave[fnr, poly, False, True];
     tm = Timing[

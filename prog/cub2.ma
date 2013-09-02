@@ -1,7 +1,7 @@
 (* Copyright 2012-2013 Cheng Zhang *)
 (* Solving the boundary polynomials of the n-cycle
    of the cubic map f(u) = r^2 u (1 - u)^2
-   which is related to f(z) = r^2 z (1 - z^2) by u = z^2
+   which is related to f(z) = r z (1 - z^2) by u = z^2
    we define R = 1/r^2 below
    USAGE
     math < cub.ma n ch kmin kmax
@@ -68,13 +68,13 @@ geteqv[t_, vars_, b2k_, map_] := Module[
     Print[t, " is reducible"];
     Abort[];
   ];
-  (* map the sequence of exponents to a b-nary word
-     b2k = {b^0, b^1, b^2, ...}
-     w = e0 b^0 + e1 b^1 + e2 b^2 + ...,  where e0 = 0..b-1 *)
+  (* map the sequence of exponents to a ternary word
+     b2k = {3^0, 3^1, 3^2, ...}
+     w = e0 3^0 + e1 3^1 + e2 3^2 + ...,  where ei = 0, 1, 2 *)
   w = b2k . e;
   If [ w == 0,
     Return[ {map[[1]], t} ],
-    Return[ {map[[w+1]],
+    Return[ {map[[w + 1]],
              Coefficient[t, w2term[w, Length[vars], vars]]
             } ];
   ]
@@ -87,7 +87,7 @@ geteqv[3 r x1^2 x2 x4, vars, {1, 3, 9, 27, 81, 343}, mkcycls[vars][[2]] ]
 
 (* decompose an expression `expr' as a linear combination of basis variables *)
 cycle1[expr_, vars_, cl_, map_] := Module[{ls, b2k, xp, k, cid, co},
-  b2k = Table[3^(k-1), {k, Length[vars]}];
+  b2k = Table[3^(k - 1), {k, Length[vars]}];
   ls = Table[0, {k, Length[cl]} ];
   (* convert the monomial expression to a list *)
   xp = If [ Head[expr] === Plus, expr, {expr}];
@@ -529,7 +529,7 @@ If [ lambda === 0,
       (* poly = nicefmt[ poly /. {X -> 3^n - 2 R Y}, Y ]; *)
     ][[1]];
     Print["time for primitive polynomial ", tm];
-    xsave["curX" <> ToString[n] <> ".txt", R2r[poly], False, True],
+    xsave["cur" <> ToString[n] <> "X.txt", R2r[poly], False, True],
 
     (* compute the d/n-bifurcation polynomial *)
     d = n;
@@ -544,7 +544,7 @@ If [ lambda === 0,
       poly = calcgnk[n, d, R, X, mats, True];
     ][[1]];
     Print["time ", tm, ", polynomial ", n, " and ", d];
-    If [ n < 10, Print[poly] ];
+    If [ n <= 4, Print[Collect[poly, R, Factor] // InputForm] ];
     xsave["cur" <> ToString[d] <> "x" <> ToString[n] <> ".txt",
           R2r[poly], False, True];
   ],

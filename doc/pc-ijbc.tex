@@ -73,8 +73,6 @@
 
 \title{Cycles of the logistic map}
 \author{Cheng Zhang}
-%\affiliation{Applied Physics Program and Department of Bioengineering, \
-%Rice University, Houston, TX 77005}
 \address{Applied Physics Program \& Department of Bioengineering,
 Rice University, Houston, TX 77005, USA}
 
@@ -88,9 +86,9 @@ Rice University, Houston, TX 77005, USA}
 
 \begin{abstract}
 The onset and bifurcation points of the $n$-cycles of
-  a polynomial map are located
+  several polynomial maps are located
   through a characteristic equation
-  connecting the cyclic polynomials of the cycle points.
+  connecting cyclic polynomials of the cycle points.
 The polynomials satisfied by the parameters
   of the logistic, H\'enon, and cubic maps
   at the onset and bifurcation points are obtained
@@ -105,7 +103,7 @@ The polynomials satisfied by the parameters
 
 % switch text to two-column
 %\begin{multicols}{2}
-%\twocolumn
+\twocolumn
 
 %
 %
@@ -148,9 +146,9 @@ Consider the logistic map \cite{may, strogatz}:
 %
 %
 After many iterations, there can be three ultimate patterns:
-  (i) a \emph{fixed point} (including infinity),
+  (i) a fixed point (possibly at the infinity),
       %e.g., \reffig{cobweb}(a);
-  (ii) a periodic \emph{cycle},
+  (ii) a periodic cycle,
       %e.g., \reffigs{cobweb}(b)-(e);
 or
   (iii) a chaotic or aperiodic trajectory.
@@ -160,11 +158,11 @@ We only discuss the first two cases here.
 
 A fixed point is a solution of $x^* = f(x^*)$.
 %
-It is stable if a small deviation from $x^*$
-  gets reduced by successive iterations.
+A stable fixed point requires that a small deviation from $x^*$
+  gets reduced in magnitude after an iteration of \refeq{logmap}.
 %
-For a differentiable $f$,
-  this is equivalent to $|f'(x^*)| \le 1$
+Since $f$ is differentiable,
+  the condition is equivalent to $|f'(x^*)| \le 1$
   \cite{strogatz, hao}.
 %
 An $n$-cycle is a sequence $x_1, \dots, x_n$,
@@ -172,30 +170,31 @@ An $n$-cycle is a sequence $x_1, \dots, x_n$,
   that satisfies $x_1 = x_{n+1} = f^n(x_1)$,
   where $f^n$ is the $n$th iterate of $f$,
   e.g., $f^3(x) = f(f(f(x)))$.
-Obviously, any $x_k$ in an $n$-cycle of $f$ is a fixed point of $f^n$.
+By definition, any $x_k$ in an $n$-cycle of $f$ is a fixed point of $f^n$
+(but the latter also permits an $x_k$ in a $d$-cycle with $d|n$).
 %
 %\big[but the converse is untrue, for a fixed point of $f^n$
 %  can also be a fixed point of $f^d$ for a divisor $d$ of $n$:
 %  if $f^d(x) = x$, then $f^n(x) = f^d(\cdots f^d(x)\cdots) = x$\big].
 %
 %
-Thus, a cycle can be classified as stable or unstable
-  according to the corresponding fixed point of $f^n$:
+Thus, the stability of a cycle can be defined
+  according to that of the corresponding fixed point of $f^n$:
   a stable cycle requires
-  $\big| \frac {d} {dx} f^n(x_1) \big| \le 1$,
+  $\big| \frac {d} {dx_1} f^n(x_1) \big| \le 1$,
   or by the chain rule,
 %
 %
 %
 \begin{equation}
-  \Big| f'(x_1) \cdots f'(x_n) \Big| \le 1,
+  \Big| f'(x_n) \cdots f'(x_1) \Big| \le 1,
 \label{eq:der}
 \end{equation}
 %
 %
 The onset and bifurcation points
   are defined at the loci
-  where $\frac {d} {dx} f^n(x_1)$ reaches $+1$ and $-1$,
+  where $\frac {d} {dx_1} f^n(x_1)$ reaches $+1$ and $-1$,
   respectively \cite{strogatz, hao}.
 %
 %
@@ -211,10 +210,12 @@ There are generally multiple such windows for a single $n$,
 %
 Our aim is thus to find the two polynomials for a given $n$.
 %
-The problem has been tackled in previous studies
-  \cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
-  saha, bechhoefer, gordon, burm, zhang, bailey1, bailey2, kk1, lewis}.
-Below we present a simple algorithm to do so.
+The problem has been tackled either by hand for small $n$
+\cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
+      saha, bechhoefer, gordon, burm, zhang}
+or by general computer algebra methods \cite{bailey1, bailey2, kk1, lewis}.
+%
+Below we present a specialized algorithm to do so.
 %
 %
 %
@@ -296,16 +297,16 @@ If $x_2, \dots, x_n$ are eliminated first,
   there are only two polynomial equations left:
   $f^n(x_1) - x_1 = 0$
   and
-  $\frac{d}{dx}f^n (x_1) \mp 1 = 0$
+  $\frac{d}{dx_1}f^n (x_1) \mp 1 = 0$
   [\refeq{der}];
   the final elimination of $x_1$ can then be accomplished
   by setting the resultant of the two polynomials
   to zero \cite{burm}.
   %leading to the desired polynomial equation of $R$.
 %
-These approaches, however, do not
-  exploit the cyclic structure of \refeqs{logmaps},
-  and can thus be improved by the following alternative.
+These approaches, however, have not fully
+  exploited the cyclic structure of \refeqs{logmaps},
+  and can be improved by the following alternative.
 
 
 Instead of solving \refeqs{logmaps} for $x_k$,
@@ -318,16 +319,18 @@ Instead of solving \refeqs{logmaps} for $x_k$,
 The advantage is that the new set of equations are
   \emph{homogeneous}, \emph{linear} and \emph{complete},
   i.e., there is an equation
-  $\sum_q A_{pq} C_q = 0$ for every cyclic polynomial $C_p$.
+  $\sum_q A_{pq}(R) C_q = 0$ for every cyclic polynomial $C_p$.
 %
-The matrix formed by the coefficients $A_{pq}$
+The matrix $\mathbf A(R)$ formed by the coefficients $A_{pq}(R)$
   must have a zero determinant,
   for the cyclic polynomials $\{C_p\}$ are not zeros altogether.
 %
-Thus, the zero-determinant condition $|\mathbf A| = 0$ gives
+Thus, the zero-determinant condition $|\mathbf A(R)| = 0$ gives
   the required polynomial equation of $R$.
 %whose roots contain all fixed points of $f^n$.
 %
+
+
 
 
 \subsection{\label{sec:cyclic}Cyclic polynomials}
@@ -340,39 +343,29 @@ A cyclic polynomial is an invariant
   e.g., $a = x_1 x_2 + x_2 x_3 + x_3 x_4 + x_4 x_1$
   and $b = x_1 x_3 + x_2 x_4$ for $n = 4$.
 %
-But it may not be symmetric
-  (invariant under the exchange of any $x_i$ and $x_{j}$),
-  e.g., $a$ and $b$ are not symmetric,
-  only $a + b$ is.
+A cyclic polynomial is not necessarily symmetric,
+  that is, invariant under the exchange of any two $x_i$ and $x_{j}$,
+  e.g., the above $a$ and $b$ are not symmetric, but $a + b$ is.
 
 
-A cyclic polynomial can be generated by summing over
-  distinct cyclic versions of a simpler polynomial of $x_k$, or a \emph{generator}.
-The generators of the above $a$ and $b$
-  are $x_1 x_2$ and $x_1 x_3$, respectively.
-%For example,
-%$x_1 x_2$ is a generator of $a$;
-%$x_1 x_3$ is that of $b$;
-%and
-%$x_1 x_2 + \frac{1}{2} x_1 x_3$ is that of $a + b$.
-%Note that, according this definition, the coefficient before $x_1 x_3$
-%  is 1 in the second case
-%  for there are only two distinct versions,
-%  but $\frac{1}{2}$ in the third case
-%  for there are four. % distinct versions of the generator.
+We call a cyclic polynomial simple
+  if it is equal to the sum of
+  all distinct cyclic versions of
+  a unit-coefficient monomial of $x_k$.
 %
+The monomial is called a generator of the cyclic polynomial.
 %
+For example, the above $a$ and $b$ are simple,
+  and their generators are $x_1 x_2$ and $x_1 x_3$, respectively.
 %
-Cyclic polynomials
-  generated from monomials of unit coefficient
-  %such as $a$ and $b$, % but not $a + b$ in the above example)
-  can be labeled as follows.
-If we write the monomial generator as
+A simple cyclic polynomial
+  $C_p(\vx{n})$, with $\vx{n} \equiv \{x_1, \ldots, x_n\}$,
+can be labeled as follows.
+%
+If the monomial generator is
   ${x_1}^{e_1} {x_2}^{e_2} \dots {x_n}^{e_n}$,
-  then the sequence $p$ of indices with
-  $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s
-  serves as the label of the cyclic polynomial $C_p(\vx{n})$,
-  where $\vx{n} \equiv \{x_1, \ldots, x_n\}$.
+  we define the label $p$ as the sequence of indices with
+  $e_1$ 1's, $e_2$ 2's, \ldots, $e_n$ $n$'s.
 %
 For example,
 $C_{12}(\vx{n})  = x_1 x_2 + x_2 x_3 + \dots + x_n x_1$
@@ -382,10 +375,10 @@ $C_{112}(\vx{n}) = {x_1}^2 x_2 + {x_2}^2 x_3 + \dots + {x_n}^2 x_1$.
 Below, we may drop %the subscript ``$_n$'' or even the argument
   ``$(\vx{n})$'' when it is clear.
 In case the cyclic polynomial has several generators,
-  we pick the one with the smallest $p$
+  we pick the one with the smallest label $p$
   in the sense of lexicographic order,
-  e.g., we choose $x_1 x_2$ over $x_2 x_3$ for $C_{12}(\vx{n})$,
-  because $12 < 23$.
+  e.g., we choose $x_1 x_2$ over $x_2 x_3$ as the generator of $C_{12}(\vx{n})$,
+  because ``$12$'' $<$ ``$23$.''
 %
 Finally, we add $C_0(\vx{n}) \equiv 1$.
 %
@@ -400,7 +393,7 @@ Finally, we add $C_0(\vx{n}) \equiv 1$.
 
 
 
-A cyclic polynomial is \emph{square-free}
+A cyclic polynomial is square-free
   if it has no square or higher powers of $x_k$,
 e.g., $C_{12} = x_1 x_2 + \cdots$ is square-free,
   $C_{112} = {x_1}^2 x_2 + \cdots$ is not.
@@ -409,11 +402,11 @@ The label $p$ of a square-free polynomial
   has no repeated index.
 We denote the set of all square-free $p$ by
 $\Pset = \{0, 1, 12, 13, \ldots, 123, 124, \ldots, 12\cdots n\}$,
-and its size by $\NB$.
+and its size by $\NB$ [cf. \refeq{necklace} below for the formula].
 % is the number of square-free cyclic polynomials.
 %
 %
-The set of square-free cyclic polynomials
+The set of the simple square-free cyclic polynomials
   furnishes a basis for expanding cyclic polynomials:
 
 
@@ -424,7 +417,7 @@ The set of square-free cyclic polynomials
   formed by the $n$-cycle points
   $\vx{n} = \{x_1, \ldots, x_n\}$
   is a linear combination of
-  the square-free cyclic polynomials $C_p(\vx{n})$:
+  the simple square-free cyclic polynomials $C_p(\vx{n})$:
 \[
   K(\vx{n}) = \sum_{p \in \Pset} f_p(R) \, C_p(\vx{n}),
 \]
@@ -464,9 +457,14 @@ ${x_2}^2 \, x_1 = R \, x_1 - R + x_2$.
 \refthm{sqrfree}
   shows that any cyclic polynomial can be expanded
   as a combination of the square-free ones.
-At the onset and bifurcation points,
+We will further show below that
+  at the onset and bifurcation points,
   the $\NB$ square-free cyclic polynomials $C_p$ are themselves
-  linearly connected by a characteristic equation.
+  linearly connected by a characteristic equation
+  furnished by \refeq{der},
+  which is the key step of the solution.
+
+
 
 
 \subsection{\label{sec:algo}Characteristic equation}
@@ -476,12 +474,13 @@ At the onset and bifurcation points,
 %This condition furnishes the desired polynomial equation.
 
 
-First, the derivative of $f^n$ is a cyclic polynomial:
+First, the derivative $\frac{d}{dx_1}f^n(x_1)$ is
+  a cyclic polynomial of $\vx{n} = \{x_1, \ldots, x_n\}$:
 %
 %
 \begin{equation}
   \Lambda(\vx{n})
-   = f'(x_1) \dots f'(x_n)
+   = f'(x_n) \dots f'(x_1)
    = (-2)^n x_1 \dots x_n.
 \label{eq:logder}
 \end{equation}
@@ -591,9 +590,9 @@ We illustrate the above algorithm on several small-$n$ cases.
 %
 %
 For $n = 1$, % (the fixed point),
-we have two square-free cyclic polynomials
-$\{C_0, C_1\} = \{1, x_1\}$.
-$\Lambda = -2 \, x_1$, and
+we have two simple square-free cyclic polynomials
+$\{C_0, C_1\} = \{1, x_1\}$, with
+$\Lambda = -2 \, x_1$. So
 \[
   \Lambda
   \left( \begin{array}{c}
@@ -623,9 +622,7 @@ A_1\Rlam
 \label{eq:xr1}
 \end{equation}
 So $R = (\lambda^2 -2\lambda)/4$,
-  and the fixed point
-  %begins at $R_a = -1/4$ ($\lambda = +1$), and
-  becomes unstable at $R_b = 3/4$ where $\lambda = -1$.
+  so the fixed point becomes unstable at $R_b = 3/4$ where $\lambda = -1$.
 
 
 
@@ -681,7 +678,7 @@ A_2\Rlam \equiv (4 - 4R - \lambda)
 %
 %
 %
-Only the first factor, denoted as $P_2\Rlam = 4-4R -\lambda$,
+Only the first factor $P_2\Rlam \equiv 4-4R -\lambda$
   corresponds to the 2-cycle  (cf. \refsec{primfac}).
 %  while the second factor is from the fixed points
 So $R = 1 - \lambda/4$,
@@ -867,6 +864,9 @@ we have $P_4(R, -1)
 %  in the previous studies,
 %  we also supply a compact elementary derivation
 %  in the Appendix.
+%
+In the next section, we show how to systematically eliminate
+the extraneous factors encountered in \refeqs{xr2} and \req{xr4}.
 
 
 
@@ -878,19 +878,17 @@ we have $P_4(R, -1)
 The characteristic polynomial $A_n\Rlam$ in \refeq{xr}
   is derived for the fixed points of $f^n$.
 Thus, it encompasses not only the $n$-cycles,
-  but also the shorter $d$-cycles with $d|n$.
+  but also shorter $d$-cycles for divisors $d$ of $n$.
 %
 Fortunately, the contributions from cycles of different periods
   are separate factors of $A_n\Rlam$.
 For a large $n$,
   the factor $P_n\Rlam$ of $n$-cycles only,
   or the \emph{$n$-cycle polynomial} below,
-  can be easily recognized
-  as the largest factor of $A_n\Rlam$.
+  can be recognized
+  as the largest irreducible factor of $A_n\Rlam$.
 %
 More systematically, we have
-
-
 %\begin{theorem}
 %  The polynomial $P_n\Rlam$ of all $n$-cycles
 %  is a factor of the characteristic polynomial $A_n\Rlam$,
@@ -903,7 +901,7 @@ More systematically, we have
 where
   $B_d^c\Rlam \equiv \prod_{k=1}^c A_{d}(R, e^{2k\pi i/c} \lambda^{1/c})$
   with
-  $\lambda^{1/c}$ being a complex $c$th root of $\lambda$;
+  $\lambda^{1/c}$ being a complex $c$th root of $\lambda$.
 Particularly, $B_n^1\rlam = A_n\rlam$.
 The outer product runs over all divisors $d$ of $n$.
 %\end{theorem}
@@ -918,7 +916,7 @@ The outer product runs over all divisors $d$ of $n$.
 %\begin{remark}
 The M\"obius function $\mu(n)$ is $(-1)^k$
   if $n$ is the product of $k$ distinct primes,
-  or 0 if $n$ is divisible by a square of a prime;
+  or 0 if $n$ is divisible by a square of a prime:
 %Thus,
 $\mu(n) = 1, -1, -1, 0, -1, 1, -1, \ldots,$
   from $n = 1$
@@ -940,7 +938,7 @@ Despite the radical argument $\lambda^{1/c}$,
   for it is invariant under
   $\lambda \rightarrow e^{2\pi i} \lambda$.
 Also, $\deg_\lambda B_d^c\rlam = \deg_\lambda A_d\rlam$.
-For convenience, we will drop the $R$ in ``$\Rlam$'' or the arguments entirely below
+For convenience, we will drop the $R$ in ``$\Rlam$'' %or the arguments entirely below
   till the end the next section.
 %
 %\end{remark}
@@ -952,7 +950,7 @@ to the examples in \refsec{examples}.
 %%
 For $n = 1$,
 %there is no irrelevant factor in \refeq{xr1} and
-$P_1 = B_1^1 = A_1
+$P_1(\lambda) = B_1^1(\lambda) = A_1(\lambda)
   = \lambda^2 - 2\,\lambda - 4\,R$.
 %
 %
@@ -965,7 +963,7 @@ A_1(-\sqrt{\lambda})
 =
 (4R-\lambda)^2 -4\lambda$,
 %
-we have $P_2 = A_2 / B_1^2 = 4 - 4R - \lambda$.
+we have $P_2(\lambda) = A_2(\lambda) / B_1^2(\lambda) = 4 - 4R - \lambda$.
 %
 %
 For $n = 4$,
@@ -984,7 +982,7 @@ can be written as
 $B_2^2(\lambda) = A_2(\sqrt{\lambda}) A_2(-\sqrt{\lambda})$,
 and
 %
-$P_4 = A_4 / B_2^2$
+$P_4(\lambda) = A_4(\lambda) / B_2^2(\lambda)$
 indeed yields the sextic factor.
 %$    = 4096 R^6-12288 R^5+ 256 (\lambda + 48) (R^4- R^3)
 %    -16(\lambda + 32)(\lambda - 16) R^2 - (\lambda-16)^3$.
@@ -996,8 +994,13 @@ indeed yields the sextic factor.
 
 
 %\begin{remark}
+The proof of \refeq{primfac} and subsequent discussions
+  are somewhat technical, so
+  the reader may wish to skip the rest of \refsec{logmap}
+  on first reading.
+%
 Since the above derivation works also for complex cycles,
-  each complex $R$ root of the polynomial $P_n\Rlam$ trace
+  each complex $R$ root of the polynomial $P_n\Rlam$ traces
   the outline of a bulb in the inverted Mandelbrot set,
   %(the inversion $z_k = -x_k, c = -R$
   %reduces \refeq{logmaps} to the standard Mandelbrot form: $z_{k+1} = c + {z_k}^2$
@@ -1006,11 +1009,6 @@ Since the above derivation works also for complex cycles,
   cf. \cite{stephenson2, stephenson3}. % and \reffig{logbulb}.
 %\end{remark}
 %
-The proof of \refeq{primfac} and subsequent discussions
-  are somewhat technical, so
-  the reader may wish to skip the rest of \refsec{logmap}
-  on first reading.
-
 
 
 
@@ -1021,7 +1019,7 @@ The proof of \refeq{primfac} and subsequent discussions
 
 Below we show \refeq{primfac} based on the fact that
   each zero of the characteristic polynomial $A_n\lam$
-  corresponds to a distinct $d$-cycle with $d|n$.
+  corresponds to a \emph{distinct} $d$-cycle with $d|n$.
 %\refeq{primfac} then follows from a simple M\"obius inversion.
 
 %We now prove \refeq{primfac}.
@@ -1040,12 +1038,12 @@ Below we show \refeq{primfac} based on the fact that
 
 %\subsubsection{Number of the square-free cyclic polynomials}
 
-First, to count the square-free cyclic polynomials,
+First, to count the number of simple square-free cyclic polynomials,
   we notice a one-to-one mapping
-  from the square-free cyclic polynomials
+  from the simple square-free cyclic polynomials
   to the binary necklaces,
 %
-which are nonequivalent binary $0$-$1$ strings.
+which are defined as nonequivalent binary $0$-$1$ strings.
 %
 Two strings are equivalent if they differ only by a circular shift.
 %
@@ -1056,10 +1054,10 @@ so are 110 and 101 to 011.
 %
 %The mapping is constructed as follows.
 %
-Now given a square-free cyclic polynomial, if its generator contains $x_k$,
+Now given a simple square-free cyclic polynomial, if its generator contains $x_k$,
   the $k$th character from the right of the necklace is 1,
-  otherwise 0,
-e.g. the above four necklaces correspond to
+  otherwise 0.
+For example, the above four necklaces correspond to
   $C_0$, $C_1$, $C_{12}$ and $C_{123}$, respectively.
 %For example, if $n = 3$,
 % the square-free polynomials for $000$, $100$, $110$ and $111$ are
@@ -1103,15 +1101,15 @@ The first few $\NB(n)$ are
 %\begin{theorem}
 Next, we define the $n$-cycle polynomial as
 \begin{equation}
-  P_n\lam \equiv \textstyle\prod_l [
-    \Lambda(\vx{n}^{(l)}) - \lambda
-  ],
+  P_n\lam \equiv \textstyle\prod_l \Big[
+    \Lambda\big(\vx{n}^{(l)}\big) - \lambda
+  \Big],
 \notag
 \end{equation}
 where $\vx{n}^{(l)}$ denotes the $l$th $n$-cycle.
 %
 Thus, $\deg_\lambda P_n\lam$
-  is equal to the number $\LB$ of the $n$-cycles,
+  is equal to the number $\LB(n)$ of the $n$-cycles,
   which is given by
   \cite{hao, hao2, lutzky}
 \begin{equation}
@@ -1263,7 +1261,7 @@ Q_n^m\lam
 %\tag{$\ref{eq:primfac}'$}
 \end{equation}
 \refeq{primfac} is the special case of $m = 1$,
-for $Q_n^1 = P_n$.
+for $Q_n^1(\lambda) = P_n(\lambda)$.
 
 
 
@@ -1277,20 +1275,20 @@ for $Q_n^1 = P_n$.
   Factors at the onset point}
 
 
-At the onset point,
-  the $n$-cycle polynomial
-  $P_n(R, \lambda = +1)$
-  becomes reducible
+The $n$-cycle polynomial $P_n(R, \lambda)$
+  is generally irreducible.
+At the onset point $\lambda = +1$,
+  however, $P_n(R, +1)$ can be further factored,
+  cf. the paragraph after \refeq{xr4} for the $n = 4$ case.
 %
-  because of the intersection of an $n$-cycle
-  and a shorter $d$-cycle with $d|n$.
+This factorization is due to the intersection with
+  a shorter $d$-cycle with $d|n$.
 %
 The intersection forces the two cycles to share orbit,
- and corresponds to
-  a period-$(n/d)$-tupling \cite{hao}
-  of the shorter $d$-cycle.
+  resulting a period-$(n/d)$-tupling
+  of the shorter $d$-cycle \cite{hao}.
 %
-One can show that i) it happens only
+One can show that i) the period tupling happens only
   at the onset of the longer $n$-cycle, where $\lambda = 1$,
 %
   and ii) $d$ and $n$ are coprime \cite{blackhurst}.
@@ -1633,13 +1631,13 @@ by first evaluating $A_n\Rlam$ at $\deg_R A_n + 1$ values of $R$,
 e.g., $R = 0, \pm1, \pm2,\ldots$, then piecing them together
 into a polynomial of $R$.
 %
-Further, using \refeq{primfac}, we only need $\deg_R P_n + 1$ values
+According to \refeq{primfac}, we only need $\deg_R P_n + 1$ values
   to directly compute $P_n\Rlam$.
 %
 %
 Here,
-$\deg_R A_n = n \NB(n)/2$
-and $\deg_R P_n = n \LB(n)/2$
+$\deg_R A_n = n \NB(n)/2 = \sum_{d|n} \varphi(n/d) 2^{d-1}$
+and $\deg_R P_n = n \LB(n)/2 = \sum_{d|n} \mu(n/d) 2^{d-1}$
   \cite{mira, stephenson1}.
 %
 %The strategy also allows a trivial parallelization.
@@ -1677,16 +1675,16 @@ The data are saved on the website http://logperiod.appspot.com.
 %
 As shown in \reffig{logtime}, the algorithm
   outperformed the resultant \cite{burm} and
-  Gr\"obner basis \cite{kk1} methods,
-  by at least two orders of magnitudes.
+  Gr\"obner basis \cite{kk1} methods.
+%  by at least two orders of magnitudes.
 %
 This is unsurprising,
   because the resultant of $f^n(x)-x$ and $\frac{d}{dx}f^n(x)-\lambda$
   is the determinant of the Sylvester matrix, which has
   $2^{n+1}-1$ rows and columns
   [as $\deg_x f^n(x) = 2^n$],
-  while the matrix in \refeq{xr}
-  is of only $\NB \approx 2^n/n$ [cf. \refeq{necklace}] rows and columns.
+  while the coefficient matrix in \refeq{xr}
+  has only $\NB \approx 2^n/n$ [cf. \refeq{necklace}] rows and columns.
 %Thus, the current algorithm is expected to be faster.
 
 
@@ -1750,9 +1748,8 @@ With $b \rightarrow 0$ and $a \rightarrow R$,
 we recover the logistic map \refeq{logmaps}.
 %
 %
-The second equation of \refeq{henons}
-allows us to replace $y_k$ by $b \, x_{k-1}$,
-  such that we can work with the cyclic polynomials of $x_k$ only.
+We may further eliminate $y_k$ using the second equation of \refeq{henons},
+  and work with the cyclic polynomials of only $x_k$.
 The square-free reduction is now
   ${x_k}^2 \rightarrow a + b \, x_{k-1} - x_{k+1}$.
 
@@ -1848,13 +1845,14 @@ we obtain a variant
 \label{eq:cubic}
 \end{equation}
 %
-which is somewhat simpler for algebraic manipulation.
+which is more suitable for algebraic manipulation.
 %
-Although the boundary polynomials of the two maps are the same,
-  real $\vz{n}$ cycles at negative $r$
-  would be mapped to imaginary $\vx{n}$ cycles.
+This transformation, however, introduces an artifact:
+  a real $\vz{n}$ cycle at a negative $r$
+  corresponds to an imaginary $\vx{n}$ cycle.
 %
-This artifact is ignored below.
+We ignore the artifact below,
+for it does not affect the boundary polynomials.
 %
 %For $n>1$, half of the $L^*_e(n)$ cycles
 %  with negative $r$ are imaginary.
@@ -1864,7 +1862,7 @@ This artifact is ignored below.
 %
 Another related cubic map
   $q_{k+1} = a {q_k}^3 + (1-a) q_k$ \cite{may2, brown3, brown4}
-  can be obtained through $q_k = x_k/\sqrt{r-1}, a = 1-r$.
+  can be studied through $q_k = x_k/\sqrt{r-1}, a = 1-r$.
 
 
 
@@ -1875,10 +1873,10 @@ The new replacement rule
   {x_k}^3 \rightarrow r \, x_k - x_{k+1},
 \label{eq:cubreplace}
 \end{equation}
-however, eliminates only cubes but not squares of $x_k$.
+however, eliminates only cubes instead of squares of $x_k$.
 %
-Consequently, we must extend the basis set of cyclic polynomials
-  from the square-free ones to the cube-free ones,
+Thus, we must extend the basis of simple square-free cyclic polynomials
+  to that of simple cube-free ones
   in listing equations \eqref{eq:xcp}.
 For example,
   $C_{112} = {x_1}^2 x_2 + \dots + {x_n}^2 x_1$
@@ -1894,7 +1892,7 @@ The polynomials of $r$
   at the onset and bifurcation points
 %for some small $n$ are shown in \reftab{cubpolygen} (general $\lambda$)
 %and \reftab{cubpoly} ($\lambda = \pm1$);
-%for larger $n$ up to 9,
+for $n$ up to 9
 %we have saved the data
   are saved on the website in \refsec{end}.
 %
@@ -1961,38 +1959,101 @@ The polynomials of $r$
 %\end{table}
 
 
+The enlarged basis significantly increases the dimension of
+  the coefficient matrix in \refeq{xr}, hence the computation cost.
 %
-The enlarged basis considerably increases the computational cost.
+Below we discuss two techniques to alleviate the problem.
+%by exploiting the certain properties of the map.
+%First the antisymmetry: $f_r(-x) = -f_r(x)$
 %
-The antisymmetry
-  $f_r(-x) = -f_r(x)$
-of the map, however, can help alleviate the burden.
-%
-First, we only need cyclic polynomials
-  of \emph{even} % (or odd, see below for the difference)
-  degrees in $\vx{n}$.
+First, we may include only about half of the simple cyclic polynomials,
+  that is, those of \emph{even} degrees in $\vx{n}$, in the basis.
 %
 This is because \refeq{cubreplace} %contains only linear and cubic terms,
-never reduces even-degree cyclic polynomials
-to odd-degree ones,
-or the other way around.
+  never reduces even-degree cyclic polynomials to odd-degree ones,
+  or the other way around.
 %
-But if applied on odd-degree cyclic polynomials,
-  the algorithm would miss some symmetric cycles (see later).
-%Thus, the matrix $\vct T$ in \refeq{xcp} can be split into two independent blocks
-%  with two separate sets of eigenvalues.
+The characteristic polynomial obtained
+  from the basis of even-degree cyclic polynomials
+  is almost the same as that
+  from the basis of odd-degree cyclic polynomials,
+except that the former admits several symmetric cycles
+  that are absent in the latter.
+
+
+
+We define a \emph{half-cycle} as a solution of $x_{n+1} = -x_1$,
+  with $n$ being the smallest positive integer that satisfies
+  the relation.
+  %see \reffig{halfcycle} for examples.
+%
+Once iterated, an $n$-half-cycle turns into a symmetric $2n$-cycle:
+$x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}, x_1$ \cite{hao}.
+%
+In a symmetric $2n$-cycle,
+  an odd-degree cyclic polynomial formed by the $2n$ points
+  is always zero,
+  e.g., $C_1 = x_1 + \dots + x_n - x_1 - \dots - x_n = 0$.
+%
+Thus, the symmetric cycles may escape the characteristic equation
+  from the basis of odd-degree cyclic polynomials,
+  resulting a different $n$-cycle polynomial from
+  the one derived from the basis of even-degree cyclic polynomials.
+
+
+To be more precise, we first define the $n$-half-cycle polynomial $H_n\rlam$
+  in analogous to $P_n\rlam$.
+%
+It is convenient to exclude the contribution
+  from the trivial fixed point at $x = 0$
+  by defining the \emph{nontrivial} $n$-cycle polynomial
+  $P^*_n\rlam \equiv P_n\rlam/(r-\lambda)^{\delta_{n,1}}$,
+  and %the nontrivial
+  $n$-half-cycle polynomial
+  $H^*_n\rlam \equiv H_n\rlam/(r-\lambda)^{\delta_{n,1}}$.
+%
+%Since a repeated $n$-half-cycle is a $2n$-cycle,
+Dividing the $2n$-cycle polynomial
+  $P^{*}_{2n}(r, \lambda)$
+  by
+  $H^{*}_{n}\big(r, \sqrt \lambda\big)
+   H^{*}_{n}\big(r, -\sqrt \lambda\big)$
+%
+yields the \emph{asymmetric} $n$-cycle polynomial:
+\begin{equation}
+\tilde P^*_n\rlam \equiv
+  %\left.
+  \frac{
+    P^*_n\rlam
+  }
+  %\middle/
+  {
+    \left[
+    \prod_{\sigma = \pm 1}
+      H^*_{n/2}(r, \sigma \sqrt\lambda)
+%      H^*_{n/2}(r, -\sqrt\lambda)
+    \right]^{\even(n)}
+  },
+  %\right.
+\label{eq:Pasym}
+\end{equation}
+%]
+where $\even(n) \equiv 1 - n\bmod 2$.
+%
+One can verify that $\tilde P^*_n\rlam$ coincides with the $n$-cycle polynomial
+  derived from the basis of odd-degree cyclic polynomials.
 %
 
 
 
-
-
-
-
+We now calculate the degrees of the various polynomials
+  to facilitate the polynomial interpolation
+  mentioned in \refsec{end}.
 The number of even-degree cube-free cyclic polynomials
-is equal to that of \emph{even ternary} necklaces
-(each bead assumes 0, 1, or 2, with the total being even),
-which is given by
+is equal to that of \emph{even ternary} necklaces,
+in which each bead represents a number 0, 1, or 2,
+  with the total being even.
+This number is given by
 %
 \begin{equation}
   N_e(n) = 1 +
@@ -2006,12 +2067,12 @@ where
 $\odd(c) \equiv c \bmod 2$.
 %$N_e(n) =$ 2, 4, 6, 14, 26, 68, 158, 424, \dots, from $n = 1$.
 %
-This is roughly half of the number of all (even and odd) ternary necklaces:
-$N_3(n) = \frac{1}{n} \sum_{d|n} \varphi(n/d) 3^d \approx 2 N_e$.
+%This is roughly half of the number of all (even and odd) ternary necklaces:
+%$N_3(n) = \frac{1}{n} \sum_{d|n} \varphi(n/d) 3^d \approx 2 N_e$.
 %
 %
-Since $N_e(n)$ is the degree in $\lambda$ of $A_n\rlam$,
-  half of the cyclic polynomials and their associated equations are spared.
+%Since $N_e(n)$ is the degree in $\lambda$ of $A_n\rlam$,
+%  half of the cyclic polynomials and their associated equations are spared.
 %
 The degree $L_e(n)$ of the $n$-cycle polynomial $P_n\rlam$
   can be obtained from
@@ -2029,11 +2090,8 @@ and
 %
 %The first few values are 2, 2, 4, 10, 24, 60, 156, 410, \ldots, starting from $n = 1$.
 %
-which is also the number of the $n$-cycles \cite{zeng}.
+which is also the number of the $n$-cycles \cite{zeng},
 %
-To exclude the contribution from the trivial fixed point $x = 0$,
-we define
-  $P^*_n\rlam \equiv P_n\rlam/(r-\lambda)^{\delta_{n,1}}$
 and
   $L^*_e(n) \equiv \deg_\lambda P^*_n\rlam = L_e(n) - \delta_{n,1}$.
 %
@@ -2046,78 +2104,45 @@ and
 %shares the same boundary polynomials of $r$ with \refeq{cubic}.
 %
 %
-The degrees in $r$ are
+One can further show that the degrees in $r$ are
   $\deg_r A_n\rlam = n N_e(n)$
   and
   $\deg_r P^{(*)}_n\rlam = n L^{(*)}_e(n)$.
 
 
-
-%\subsection{\label{sec:halfcycle}Half-cycles}
-
-%
-%
-%\begin{figure}[h]
-%  \begin{center}
-%  \begin{minipage}{\linewidth}
-%        \includegraphics[angle=-90, width=\linewidth]{halfcycle.pdf}
-%  \end{minipage}%
-%  \end{center}
-%  \caption{\label{fig:halfcycle}
-%  Half-cycles of the cubic map.}
-%\end{figure}
-%
-%
-
-We call a solution of $x_{n+1} = -x_1$ a \emph{half-cycle}.
-  %see \reffig{halfcycle} for examples.
-The $n$-half-cycle polynomial $H^{*}_n\rlam$
-  can be defined in analogous to $P^*_n\rlam$.
-%
-Once iterated, an $n$-half-cycle turns into a symmetric $2n$-cycle:
-$x_1, \ldots, x_{n}, -x_1, \ldots, -x_{n}, x_1$ \cite{hao}.
-%
-%Since a repeated $n$-half-cycle is a $2n$-cycle,
-Dividing the $2n$-cycle polynomial
-  $P^{*}_{2n}(r, \lambda)$
-  by
-  $H^{*}_{n}\big(r, \sqrt \lambda\big)
-   H^{*}_{n}\big(r, -\sqrt \lambda\big)$
-%
-yields an \emph{asymmetric} $n$-cycle polynomial:
+To find the degrees of $\tilde P^*_n\rlam$ and $H^*_n\rlam$,
+  we consider a quadratic transformation $u_k = {x_k}^2/r$,
+  which converts \refeq{cubic} to
 \begin{equation}
-\hat P^*_n\rlam \equiv
-  %\left.
-  \frac{
-    P^*_n\rlam
-  }
-  %\middle/
-  { \quad
-    \left[
-      H^*_{n/2}(r, \sqrt\lambda)
-      H^*_{n/2}(r, -\sqrt\lambda)
-    \right]^{\even(n)}
-  },
-  %\right.
-\notag
-%\label{eq:Pded}
+  u_{k+1} = F(u_k) = r^2 u_k (1 - u_k)^2
+\label{eq:uk}
 \end{equation}
 %
-where $\even(n)=1-\odd(n)$.
-
-
-Now consider a quadradtic transformation $u_k = {x_k}^2/r$,
-  which converts \refeq{cubic} to
-  $u_{k+1} = F(u_k) = r^2 u_k (1 - u_k)^2$,
-whose $n$-cycles encompass
-  both $n$-half-cycles and asymmetric $n$-cycles of \refeq{cubic}.
+Since the new variable $u_k$ discards the sign of $x_k$,
+  the $n$-cycles of the new map \refeq{uk} encompass
+  both
+  asymmetric $n$-cycles
+  and
+  $n$-half-cycles
+  of the original map \refeq{cubic}.
 %
-The nontrivial $n$-cycle polynomial of $F$,
-  which is an even polynomial of $r$,
-  is the product $\hat P^*_n\rlam H^*_n\rlam$.
+We now note $d u_{n+1} / d u_1 = \sigma d x_{n+1} / d x_1$,
+  with $\sigma \equiv x_{n+1}/x_1$ equal to $+1$ and $-1$
+  in the $n$-cycles
+  and
+  $n$-half-cycles of \refeq{cubic}, respectively.
 %
-From this, we can show that
-  $\deg_\lambda \hat P^*\rlam$ is
+It follows that the nontrivial
+  % (excluding the fixed point $u_k = 0$)
+  $n$-cycle polynomial of \refeq{uk},
+  whose degree in $\lambda$ is $(1/n)\sum_{cd = n} \mu(c) (3^d - 1)$,
+  %which is an even polynomial of $r$,
+  can be written as
+  $\tilde P^*_n\rlam H^*_n(r, -\lambda)$,
+  up to a sign.
+%
+From this and \refeq{Pasym}, we find that
+  $\deg_\lambda \tilde P^*\rlam$ is equal to
 %
 \begin{align*}
   L_o(n) &= %\delta_{n, 1} +
@@ -2130,59 +2155,46 @@ and $\deg_\lambda H^*_n\rlam = \deg_\lambda P^*_n\rlam = L^*_e(n)$.
 %
 
 
-%
-The polynomial $\hat P^*_n\rlam$ is also
-  equivalent to the $n$-cycle polynomial
-  derived from \refeq{xr} using odd-degree cyclic polynomials.
-%
-This is because,
-  in a symmetric $2n$-cycle,
-  an odd-degree cyclic polynomial formed by the $2n$ points
-  is always zero
-  (e.g., $C_1 = x_1 + \dots + x_n - x_1 - \dots - x_n = 0$),
-%
-and thus escapes the characteristic equation.
-%
-%
 
-
-Finally, we can further reduce the computational cost
+We now turn to the second technique,
+  which reduces the computational cost
   by half for an even $n$.
 %
 If a sequence $x_k$ satisfies \refeq{cubic},
-then $y_k \equiv (-)^k i x_k$
-satisfies $y_{k+1} = f_{-r}(y_k)$.
+  then $y_k \equiv (-)^k i x_k$
+  satisfies $y_{k+1} = f_{-r}(y_k)$.
 %
-Thus, for an odd $n$, any $n$-cycle
+Now for an even $n$,
+  an asymmetric $n$-cycle
   $\vx{n} = \{x_1, x_2, \dots, x_n, x_1\}$
   of $f_r$
-  can be mapped isomorphically to
-  an $n$-half-cycle
-  $\vy{n} = \{-i x_1, i x_2, \dots, - i x_n, i x_1\}$
+  can be isomorphically mapped to
+  an asymmetric $n$-cycle
+  $\vy{n} = \{-i x_1, i x_2, \dots, i x_n, - i x_1\}$
   of $f_{-r}$,
-  with $\Lambda_r(\vx{n}) = -\Lambda_{-r}(\vy{n})$.
-%
-So the $n$-half-cycle and $n$-cycle polynomials
-  are related by
-  $H^*_n(r, \lambda) = P^*_n(-r, -\lambda)$
-  for an odd $n$.
-%
-Similarly, if $n$ is even,
-  the $n$-half-cycles and asymmetric $n$-cycles of $f_r$
-  can be isomorphically mapped to the corresponding ones of $f_{-r}$,
   with $\Lambda_r(\vx{n}) = \Lambda_{-r}(\vy{n})$.
 %
-So $H^*_{n}\rlam$,
-  $\hat P^*_{n}\rlam$,
-  and $A_{n}\rlam$
-  are all even polynomials of $r$
-\big[but $\deg_r P^*_{n}\rlam$ is even only if $4|n$,
-  because if $n/2$ is odd, a symmetric $n$-cycle
-  would be mapped to an $(n/2)$-cycle\big].
+So $P^*_n(r, \lambda) = P^*_n(-r, \lambda)$,
+  i.e., the asymmetric $n$-cycle polynomial is an even polynomial of $r$
+  if $n$ is even.
 %
-Thus, these polynomials need to be computed only
+Similarly, the nontrivial $n$-half-cycle polynomial $H^*_n\rlam$
+  also has an even degree in $r$ if $n$ is even.
+%
+Further, $\deg_r P^*_{n}\rlam$ is also even if $4|n$
+  by \refeq{Pasym},
+  but not so if $n/2$ is odd,
+  because a symmetric $n$-cycle % or an $(n/2)$-half-cycle,
+  $\vx{n} = \{x_1, \dots, x_{n/2}, -x_1, \dots, -x_{n/2}, x_1\}$
+  would be mapped to an $(n/2)$-cycle
+  $\vy{n} = \{-i x_1, \dots, - i x_{n/2}, -i x_1, \dots, -i x_{n/2}, -i x_1\}$,
+  breaking the isomorphism.
+%So, for an odd $m = n/2$, we only have
+%  $H^*_m(r, \lambda) = P^*_{m}(-r, -\lambda)$.
+%
+Thus, the above polynomials need to be evaluated only
   at the positive half of the $r$ values
-  in polynomial interpolation.
+  in the polynomial interpolation.
 %
 
 

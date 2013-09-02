@@ -1,136 +1,136 @@
 Dear Editor,
 
-Thank you and the referees for extremely helpful suggestions and 
-comments.  I have carefully modified the manuscript according to your 
-suggestions and the referee reports. Below are the responses to the 
-points raised by the referees. Additionally, the cycle polynomials 
-for the logistic map have been computed for n = 14. 
+Thank you and the referees for extremely helpful suggestions and
+comments.  I have carefully modified the manuscript according to your
+suggestions and the referee reports. Below are the responses to the
+points raised by the referees. Additionally, the cycle polynomials
+for the logistic map have been computed for n = 14.
 
 Regards,
 Cheng
 
 Response to Reviewer 1
 
-Reviewer #1: There are several methods to compute these polynomials 
-already in the literature: Kotsireas and Karamanos's Groebner base 
-approach, Burm and Fishback's resultant approach, and Blackhurst's 
-rational canonical matrix approach. (Bailey and Broadhurst's 
-integer-relation detection approach could also be included, but their 
-motivation was more to push the limits of their algorithm and less to 
-shed light on chaos theory.) Adding one more method to these other 
-methods doesn't hurt, but it's not really clear from the paper what 
-this new approach contributes beyond Burm and Fishback's or 
-Blackhurst's methods. Section 5 has a comparison between this new 
-method and Kotsireas and Karamanos's approach, which is good, but the 
-comparison could be improved. Instead of listing run times---which can 
-be affected by such things as the hardware specifications, the 
-algorithm being used (e.g, Buchburger's versus Faguere's F4 alorithm), 
+Reviewer #1: There are several methods to compute these polynomials
+already in the literature: Kotsireas and Karamanos's Groebner base
+approach, Burm and Fishback's resultant approach, and Blackhurst's
+rational canonical matrix approach. (Bailey and Broadhurst's
+integer-relation detection approach could also be included, but their
+motivation was more to push the limits of their algorithm and less to
+shed light on chaos theory.) Adding one more method to these other
+methods doesn't hurt, but it's not really clear from the paper what
+this new approach contributes beyond Burm and Fishback's or
+Blackhurst's methods. Section 5 has a comparison between this new
+method and Kotsireas and Karamanos's approach, which is good, but the
+comparison could be improved. Instead of listing run times---which can
+be affected by such things as the hardware specifications, the
+algorithm being used (e.g, Buchburger's versus Faguere's F4 alorithm),
 and implementation details---it would be better to
-give computational complexities. Since Groebner base algorithms are 
-doubly exponential in the number of variables, it's not surprising this 
-new method performs better. But how does it compare to Burm and 
-Fishback's and Blackhurst's methods? What are the computational 
-complexities of those methods and this new method? One advantage of 
-Burm and Fishback's method, complexity issues aside, is the ease of 
-programming: most computer algebra system have built-in commands to 
-iterate functions and take resultants, but not to calculate cyclic 
-polynomials. Does this new method also have reasons, beyond complexity 
-issues, to prefer it over other methods?  In summary, section 5 needs 
-to be expanded to more fully compare and contrast this new method with 
-previous methods. At the very least, the computational complexities for 
-this new method, Kotsireas and Karamanos's approach, Burm and 
+give computational complexities. Since Groebner base algorithms are
+doubly exponential in the number of variables, it's not surprising this
+new method performs better. But how does it compare to Burm and
+Fishback's and Blackhurst's methods? What are the computational
+complexities of those methods and this new method? One advantage of
+Burm and Fishback's method, complexity issues aside, is the ease of
+programming: most computer algebra system have built-in commands to
+iterate functions and take resultants, but not to calculate cyclic
+polynomials. Does this new method also have reasons, beyond complexity
+issues, to prefer it over other methods?  In summary, section 5 needs
+to be expanded to more fully compare and contrast this new method with
+previous methods. At the very least, the computational complexities for
+this new method, Kotsireas and Karamanos's approach, Burm and
 Fishback's approach, and Blackurst's approach should be given.
 
 
-Response:  First, I have implemented both the Grobner basis approach by 
-Kotsireas and Karamanos and the resultant approach by Burm and Fishback 
-using both Magma and Mathematica.  The results of two competing methods 
-are compared with the current method in the new Fig. 1 of the current 
-manuscript.  Clearly, for n >= 8, the present method are two orders of 
-magnitudes more efficient than the competitors.  Further, Magma is 
-known to be more optimized than Mathematica, and it is especially 
-famous for its fast Grobner basis routine.  This is supported by Fig. 
-1, the Grobner bases and resultants took much less time to compute 
-using Magma.  Even so, our method, only implemented in a high-level 
-language Mathematica, is still much faster.  This demonstrate the 
-practical efficiency of the method.  Below I will further discuss that 
-the underlying reason for the performance gain is linked to the use of 
+Response:  First, I have implemented both the Grobner basis approach by
+Kotsireas and Karamanos and the resultant approach by Burm and Fishback
+using both Magma and Mathematica.  The results of two competing methods
+are compared with the current method in the new Fig. 1 of the current
+manuscript.  Clearly, for n >= 8, the present method are two orders of
+magnitudes more efficient than the competitors.  Further, Magma is
+known to be more optimized than Mathematica, and it is especially
+famous for its fast Grobner basis routine.  This is supported by Fig.
+1, the Grobner bases and resultants took much less time to compute
+using Magma.  Even so, our method, only implemented in a high-level
+language Mathematica, is still much faster.  This demonstrate the
+practical efficiency of the method.  Below I will further discuss that
+the underlying reason for the performance gain is linked to the use of
 the cyclic structure of the equations.
 
-Secondly,  the current method is expected to outperform the resultant 
-method.  The resultant of two polynomials is defined as the determinant 
-of the Sylvester matrix of the two polynomials.  The side of the 
-Sylvester matrix, which is square, is equal to the sum of the degrees 
-of the two polynomials.  In this case,  the two polynomials are 
+Secondly,  the current method is expected to outperform the resultant
+method.  The resultant of two polynomials is defined as the determinant
+of the Sylvester matrix of the two polynomials.  The side of the
+Sylvester matrix, which is square, is equal to the sum of the degrees
+of the two polynomials.  In this case,  the two polynomials are
 	f^n(x) – x,
 and
             (f^n)'(x) -/+ 1.
-It is easy to see that the matrix roughly has N = 2^(n+1) rows/columns. 
- Now the key step of our method is also the computation of a 
-determinant, but it is the one from the characteristic equation.  Now 
-our matrix only has roughly N = 2^n/n rows/columns.  So, even without 
-specifying the underlying algorithm of computing the determinant, we 
-expect the current method to outperform the resultant method.  This 
-point is now added in Section 2.9 in the revised manuscript.  If we 
-assume the Bareiss algorithm for the determinant, then the run time 
-goes as N^3 ~ N^4, or 8^n ~ 16^n.  This estimate agrees with the 
-results shown in Fig. 1.  However, the underlying routine of computing 
-the determinant used by Mathematica or Magma may differ greatly in 
-algorithm and implementation, therefore the specific algorithms are not 
-discussed in the manuscript for brevity.  In short, the underlying 
-reason for the performance gain is that the current algorithm exploits 
-the cyclic structures of the equations, which greatly reduces the 
+It is easy to see that the matrix roughly has N = 2^(n+1) rows/columns.
+ Now the key step of our method is also the computation of a
+determinant, but it is the one from the characteristic equation.  Now
+our matrix only has roughly N = 2^n/n rows/columns.  So, even without
+specifying the underlying algorithm of computing the determinant, we
+expect the current method to outperform the resultant method.  This
+point is now added in Section 2.9 in the revised manuscript.  If we
+assume the Bareiss algorithm for the determinant, then the run time
+goes as N^3 ~ N^4, or 8^n ~ 16^n.  This estimate agrees with the
+results shown in Fig. 1.  However, the underlying routine of computing
+the determinant used by Mathematica or Magma may differ greatly in
+algorithm and implementation, therefore the specific algorithms are not
+discussed in the manuscript for brevity.  In short, the underlying
+reason for the performance gain is that the current algorithm exploits
+the cyclic structures of the equations, which greatly reduces the
 matrix size.
 
-Thirdly, the Grobner basis method is expected to perform similarly to 
-the resultant method.  This is supported by Fig. 1.  Conceptually, the 
-resultant step can be considered as the construction of the final basic 
-polynomial between x1 and R, after other x2, x3, ..., xn are 
-eliminated.  The conceptual relation is briefly discussed in Section 
-2.1 in the revised manuscript.  For this problem, the computational 
-times of both methods grow exponentially with n, which is fortuitous, 
-as it is expected to have worse scaling for a general problem of n 
+Thirdly, the Grobner basis method is expected to perform similarly to
+the resultant method.  This is supported by Fig. 1.  Conceptually, the
+resultant step can be considered as the construction of the final basic
+polynomial between x1 and R, after other x2, x3, ..., xn are
+eliminated.  The conceptual relation is briefly discussed in Section
+2.1 in the revised manuscript.  For this problem, the computational
+times of both methods grow exponentially with n, which is fortuitous,
+as it is expected to have worse scaling for a general problem of n
 variables as suggested by the referee.
 
-On the other hand, Blackhurst's method, according to my understanding 
-of the cited reference, is not an independent method that computes the 
-cycle polynomials.  Instead, it is a formula that computes the *smaller 
-factors* of the onset polynomial of the n-cycles.  So it needs another 
-method to first compute the onset polynomial of n-cycles itself.  At 
-the onset point, the polynomial of n-cycles can be factorized due to 
-the intersection between the n-cycles and the shorter d-cycles (as 
-discussed in the Section 2.8 of the current version). These 
-intersections contribute smaller factors to the n-cycle polynomial.  
+On the other hand, Blackhurst's method, according to my understanding
+of the cited reference, is not an independent method that computes the
+cycle polynomials.  Instead, it is a formula that computes the *smaller
+factors* of the onset polynomial of the n-cycles.  So it needs another
+method to first compute the onset polynomial of n-cycles itself.  At
+the onset point, the polynomial of n-cycles can be factorized due to
+the intersection between the n-cycles and the shorter d-cycles (as
+discussed in the Section 2.8 of the current version). These
+intersections contribute smaller factors to the n-cycle polynomial.
 For example, in case of n = 4, the onset polynomial is
 	P4(onset)  =  (5-4R) [(4R+1)^2 + 4] [108 – (4R-3)^3],
-and the smaller factors are 5-4R (from the 2-cycles that are about to 
-double their period) and (4R+1)^2 + 4 (from 1-cycles).  In the cited 
-reference, Blackhurst showed a formula of finding the smaller factors 
-in terms of canonical matrices.  The formula requires one to 
-numerically compute the cycle points explicitly.  Alternatively, we 
-show here that the factors can be compactly expressed as a cyclotomic 
-product in the denominator of Eq. (13) of the current manuscript.  The 
-latter approach is easier to use for it does not require the explicit 
-computation of the cycle points at different R values (or the \lambda 
-values in Blackhurst's paper) .  The relation between the two formulas 
-are now pointed out in this version.  It is my understanding that 
-Blackhurst's canonical-matrix formula requires *a priori* the d-cycle 
-and n-cycle polynomials as well as the cycle points, which can be very 
-difficult to obtain for a large n.  There may be, however, some 
-unpublished ongoing work that I am not aware of.  If this is so, I am 
+and the smaller factors are 5-4R (from the 2-cycles that are about to
+double their period) and (4R+1)^2 + 4 (from 1-cycles).  In the cited
+reference, Blackhurst showed a formula of finding the smaller factors
+in terms of canonical matrices.  The formula requires one to
+numerically compute the cycle points explicitly.  Alternatively, we
+show here that the factors can be compactly expressed as a cyclotomic
+product in the denominator of Eq. (13) of the current manuscript.  The
+latter approach is easier to use for it does not require the explicit
+computation of the cycle points at different R values (or the \lambda
+values in Blackhurst's paper) .  The relation between the two formulas
+are now pointed out in this version.  It is my understanding that
+Blackhurst's canonical-matrix formula requires *a priori* the d-cycle
+and n-cycle polynomials as well as the cycle points, which can be very
+difficult to obtain for a large n.  There may be, however, some
+unpublished ongoing work that I am not aware of.  If this is so, I am
 happy to add a reference.
 
 
 Response to Reviewer 2
 
-Reviewer #2: The paper is well written. However, the length could be 
-greatly reduced. Most figures and tables are not so informative, so can 
-be removed. Some examples can also be deleted. Derivations related to 
-cycle counting seem not new, so the author may just give the results 
+Reviewer #2: The paper is well written. However, the length could be
+greatly reduced. Most figures and tables are not so informative, so can
+be removed. Some examples can also be deleted. Derivations related to
+cycle counting seem not new, so the author may just give the results
 with some brief description and relevant references.
 
-Response:  I have removed all previous figures and tables, minimized 
-the derivations on the cycle counting, and simplified the examples.  
-The overall length has been cut over a half, and the article looks more 
+Response:  I have removed all previous figures and tables, minimized
+the derivations on the cycle counting, and simplified the examples.
+The overall length has been cut over a half, and the article looks more
 compact now.  Thank you for the suggestions.
 

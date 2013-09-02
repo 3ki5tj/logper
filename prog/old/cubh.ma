@@ -599,7 +599,8 @@ If [ lambda === 0,
       (* poly = nicefmt[ poly /. {X -> 3^n - 2 r Y}, Y ]; *)
     ][[1]];
     Print["time for primitive polynomial ", tm];
-    xsave["chrX" <> ToString[n] <> pch <> ".txt", poly, False, True];
+    xsave["chr" <> ToString[n] <> "X" <> pch <> ".txt", poly, False, True];
+    If [ n <= 4, Print[ poly // InputForm ] ];
   ],
 
   (* `ch' === 'a' or 'b', numerically compute the onset or bifurcation point *)

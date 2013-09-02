@@ -1,11 +1,11 @@
 # Timing for the Henon map
-# Mathematica time is for a single core
-#n   cub.ls   onset.  bifur.
+# Mathematica 8 time is for a single core
+#n   mat.ls   onset.  bifur.
 4    0.07     0.12    0.13
 5    0.3      2.5     2.6
 6    1.4      30      31
 7    6.6      522     531
 8    34       27890   29040
 9    n/a      n/a     n/a
-10   n/a      n/a     n/a
-
+10   6080*    n/a     n/a
+# data points with `*' are obtained from Mathematica 9
