@@ -1677,6 +1677,14 @@ As shown in \reffig{logtime}, the algorithm
   outperformed the resultant \cite{burm} and
   Gr\"obner basis \cite{kk1} methods.
 %  by at least two orders of magnitudes.
+For the implementation of the resultant method on Magma, we have included a version
+  that uses the polynomial interpolation technique
+  similar to the one described in the previous paragraph.
+This version performed slightly better than the purely symbolic version.
+The small oscillation in the running time is due to that the resultant contains
+  only the $n$th power of the $n$-cycle polynomial $P_n\Rlam$,
+thus, to recover the sign of $P_n\Rlam$ for an even $n$,
+  the number of evaluation points need to be doubled.
 %
 This is unsurprising,
   because the resultant of $f^n(x)-x$ and $\frac{d}{dx}f^n(x)-\lambda$

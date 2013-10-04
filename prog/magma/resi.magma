@@ -1,0 +1,67 @@
+// compute the n-cycle boundary polynomial of the simplified logistic map
+// n is the cycle length
+// lam is 1 for the onset problem, or -1 for the bifurcation problem
+n := 10;
+lam := -1;
+
+// output file name
+fnout := "resval" * IntegerToString(n);
+if lam gt 0 then
+  fnout := fnout * "a";
+else
+  fnout := fnout * "b";
+end if;
+fnout := fnout * ".txt";
+print "Resultant values will be saved to ", fnout;
+
+
+// Compute Lp
+Lp := 0;
+for d in Divisors(n) do
+  c := n div d;
+  Lp +:= MoebiusMu(c) * 2^(d - 1);
+end for;
+// number of points of intepolation
+if n mod 2 eq 0 then
+  Np := 2*Lp + 1;
+else
+  Np := Lp + 1;
+end if;
+Rmin := -(Np div 2);
+Rmax := Rmin + Np - 1;
+print Rmin, Rmax;
+
+Q := RationalField();
+P<x> := PolynomialRing(Q, 1);
+
+function fn(x, n, R)
+  i := 0;
+  y := x;
+  while i lt n do
+    y := R - y^2;
+    i +:= 1;
+  end while;
+  return y;
+end function;
+
+function dfn(x, n, R)
+  i := 0;
+  y := x;
+  der := 1;
+  while i lt n do
+    der *:= -2*y;
+    y := R - y^2;
+    i +:= 1;
+  end while;
+  return der;
+end function;
+
+
+for R := Rmin to Rmax do
+  p1 := fn(x, n, R) - x;
+  p2 := dfn(x, n, R) - lam;
+  time res := Resultant(p1, p2, x);
+  Write(fnout, res);
+end for;
+
+

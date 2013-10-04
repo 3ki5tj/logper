@@ -35,7 +35,7 @@ print "loaded";
 time f := Interpolation(x, y, 1);
 print "interpolation is done";
 Write("fit.txt", f : Overwrite := true);
-time ff := Factorization(f); 
+time ff := Factorization(f);
 print "factorization is done";
 Write("fit.txt", ff : Overwrite := true);
 """ % (lsx, lsy);
