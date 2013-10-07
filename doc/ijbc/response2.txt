@@ -1,0 +1,23 @@
+Dear Editor,
+
+Thank you for accepting the manuscript and I apologize for the late response.  I have changed the manuscript according to the  suggestion from associate editor and reviewers.  Further, I have also made a few improvements and corrections as detailed below.  I apologize for making many changes.  If you find it necessary, please send the revised version to the associate editor and the reviewers for their approval, and sorry for the trouble.  Once again, thank you so much for your time and effort,
+
+Regards,
+Cheng Zhang
+
+
+List of changes
+
+1.	In the Introduction, I have changed the phrase ``we present a simple algorithm to do so'' to ``we present a specialized algorithm, which offers some performance gain.''  The new version is more specific and the performance gain is clearly seen from Fig. 1.
+
+2.	I have updated the maximal n for the cubic map from 8 to 9.  I apologize for the delay but the calculation for n = 9 was finished only after I submitted the first revision.  The resulting polynomials are saved on the same website.
+
+3.	In Fig. 1 for performance comparison, I have added the results from a new competing method, which is the polynomial-interpolation version of the resultant method.  The variant offered a slight improvement over the original symbolic resultant method, but was still much slower than the current method (as show in Fig.1).  Although it seemed to be a bit redundant, I would like to include this variant for the current method was also implemented by a similar polynomial interpolation technique.  So the comparison can be fairer this way.  The idea that the polynomial-interpolation technique can also be applied to the calculation of resultant came to me only recently, and it is somewhat difficult to implement it efficiently.  This was why I failed to include it in the first revision.  But, again, very sorry.
+
+4.	In the Section ``Antisymmetric cubic map,'' I have reordered some paragraphs and changed some phrases to make flow more natural.  I have also added a missing negative sign on the seventh paragraph (as in the new verion) of the section.  The formula ``~Pn*(r, lambda) Hn*(r, lambda)'' should be ``~Pn*(r, lambda) Hn*(r, -lambda).''
+
+5.	I have corrected a mistake in the Section ``Henon map'': ``Jn = J(x1) ... J(xn)'' should be ``Jn = J(xn) ... J(x1).''
+
+6.	In many places, I have added an adjective ``simple'' to cyclic polynomials to denote polynomials of unit coefficients.  This is defined in Section 2.2.
+
+

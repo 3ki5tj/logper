@@ -1,6 +1,8 @@
 
+ijbc = IJBC-D-12-00312R1
+
 #PDF = $(patsubst %.tex,%.pdf, $(wildcard *.tex))
-PDF = pc.pdf pc-ijbc.pdf p3p.pdf
+PDF = pc.pdf pc-ijbc.pdf p3p.pdf $(ijbc).pdf
 #figpng = $(wildcard *.png)
 figpng = cobweb.png cubbulb.png halfcycle.png logbulb.png
 figpdf = $(patsubst %.png,%.pdf, $(figpng))
@@ -12,6 +14,9 @@ $(PDF) : %.pdf : %.tex Makefile $(figpdf)
 
 %.mobi: %.html Makefile
 	kindlegen -c1 -verbose $<
+
+$(ijbc).tex: pc-ijbc.tex
+	python rmcmt.py
 
 # we force the PDF to be made before HTML
 # -i to make mathematical symbols italic
@@ -27,4 +32,5 @@ clean:
 	rm -f $(PDF) *.aux *.log *.bib *.out *~ pc.mobi pc.html
 	rstrip.py -Rv
 
-
+ijbczip: $(ijbc).pdf
+	zip $(ijbc).zip $(ijbc).pdf $(ijbc).tex Fig1.pdf copyright.pdf
