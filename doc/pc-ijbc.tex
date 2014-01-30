@@ -74,7 +74,7 @@ Rice University, Houston, TX 77005, USA}
 
 
 \begin{abstract}
-The onset and bifurcation points of the $n$-cycles of
+The onset and bifurcation points of $n$-cycles of
   several polynomial maps are located
   through a characteristic equation
   connecting cyclic polynomials of the cycle points.
@@ -201,7 +201,7 @@ Our aim is thus to find the two polynomials for a given $n$.
 The problem was tackled either by hand for small $n$
 \cite{brown1, brown2, stephenson1, stephenson2, stephenson3,
       saha, bechhoefer, gordon, burm, zhang}
-or by general computer algebra methods \cite{bailey1, bailey2, kk1, lewis}.
+or by general computer-algebraic methods \cite{bailey1, bailey2, kk1, lewis}.
 %
 Below we present a specialized algorithm, which offers some performance gain.
 %
@@ -243,7 +243,7 @@ and rewrite the map, in terms of $x^{\mathrm{new}}$, as
 %
 %\refeq{logmaps} simplifies \refeq{logmap} as $x_k$ now only occurs once.
 %
-We will solve the cycle boundaries as the zeros of some polynomials of $R$,
+We will solve the cycle boundaries as zeros of some polynomials of $R$,
 and the corresponding polynomials for $r$ can be obtained by $R \rightarrow r(r-2)/4$.
 %
 %the numerical $r$ values can always be obtained from $r = 1 + \sqrt{1 + 4R}$.
@@ -263,7 +263,7 @@ we will first find
   for the fixed points of $f^n$
   (\refsecs{cyclic}-\ref{sec:examples}).
 The polynomials contain
-  extraneous factors contributed by short $d$-cycles with $d|n$,
+  extraneous factors contributed by shorter $d$-cycles with $d|n$,
   which are also fixed points of $f^n$.
 The factors are removed in \refsec{primfac}.
 
@@ -364,7 +364,7 @@ Below we may drop %the subscript ``$_n$'' or even the argument
   ``$(\vx{n})$'' when $n$ is clear from the context.
 In case the cyclic polynomial has several generators,
   we pick the one with the smallest label $p$
-  in the sense of lexicographic order,
+  in lexicographic order,
   e.g., we choose $x_1 x_2$ over $x_2 x_3$ as the generator of $C_{12}(\vx{n})$,
   because ``$12$'' $<$ ``$23$.''
 %
@@ -393,7 +393,7 @@ and its size by $\NB$ [cf. \refeq{necklace} below for the formula].
 % is the number of square-free cyclic polynomials.
 %
 %
-The set of the simple square-free cyclic polynomials
+The set of simple square-free cyclic polynomials
   furnishes a basis for expanding an arbitrary cyclic polynomial:
 
 
@@ -420,7 +420,7 @@ Consider the following square-free reduction.
 %
 Given a cyclic polynomial $K(\vx{n})$,
   we recursively apply \refeq{logmaps} as
-  $x_k^2 \rightarrow R - x_{k+1}$,
+  ${x_k}^2 \rightarrow R - x_{k+1}$,
   until all squares or higher powers of $x_k$ are eliminated.
 The process will not last indefinitely
   for each substitution reduces the degree in $x_k$ %(no matter which $k$)
@@ -443,7 +443,7 @@ ${x_2}^2 \, x_1 = R \, x_1 - R + x_2$.
 
 \reflem{sqrfree}
   shows that any cyclic polynomial can be expanded
-  as a combination of the simple square-free ones.
+  as a combination of simple square-free ones.
 The key step of the solution is to further show that
   at the onset and bifurcation points,
   the $\NB$ simple square-free cyclic polynomials $C_p$ are themselves
@@ -486,8 +486,7 @@ and $p, q \in \Pset$.
 
 By \refeq{der},
   $\Lambda(\vx{n})$ equals $\lambda = +1$ ($-1$)
-  at the onset (bifurcation) point,
-  respectively;
+  at the onset (bifurcation) point;
   so \refeq{xcp0}
   becomes a homogeneous linear equation of
   $C_p(\vx{n})$:
@@ -870,7 +869,7 @@ Thus, it encompasses not just the $n$-cycles,
 Fortunately, contributions from cycles of different periods
   are separate factors of $A_n\Rlam$.
 For a large $n$,
-  the factor $P_n\Rlam$ of $n$-cycles only,
+  the factor $P_n\Rlam$ of the $n$-cycles only,
   or the \emph{$n$-cycle polynomial} below,
   can be recognized
   as the largest irreducible factor of $A_n\Rlam$.
@@ -926,7 +925,7 @@ Despite the radical argument $\lambda^{1/c}$,
   $\lambda \rightarrow e^{2\pi i} \lambda$.
 Also, $\deg_\lambda B_d^c\Rlam = \deg_\lambda A_d\Rlam$.
 For convenience, we will drop the $R$ in ``$\Rlam$'' %or the arguments entirely below
-  till the end the next section.
+  till the end of the next section.
 %
 %\end{remark}
 
@@ -1667,8 +1666,8 @@ As shown in \reffig{logtime}, the algorithm
   outperformed the resultant \cite{burm} and
   Gr\"obner basis \cite{kk1} methods.
 %  by at least two orders of magnitudes.
-For the implementation of the resultant method on Magma, we have included a version
-  that used the polynomial interpolation technique
+In implementing the resultant method on Magma, we have coded a version
+  that used the polynomial-interpolation technique
   similar to the one described in the previous paragraph.
 This version performed slightly better than the purely symbolic version.
 Since the resultant contains
@@ -1956,7 +1955,7 @@ for $n$ up to 9
 
 
 The enlarged basis significantly increases the dimension of
-  the coefficient matrix in \refeq{xr}, hence the computation cost.
+  the coefficient matrix in \refeq{xr}, hence the computational cost.
 %
 Below we discuss two techniques to alleviate the problem.
 %by exploiting the certain properties of the map.
@@ -2002,7 +2001,7 @@ Thus, the symmetric cycles may escape the characteristic equation
 
 
 To be more precise, we first define the $n$-half-cycle polynomial $H_n\rlam$
-  in analogous to $P_n\rlam$.
+  analogous to $P_n\rlam$.
 %
 It is convenient to exclude the contribution
   from the trivial fixed point at $x = 0$
@@ -2090,7 +2089,7 @@ and
 %
 %The first few values are 2, 2, 4, 10, 24, 60, 156, 410, \ldots, starting from $n = 1$.
 %
-which is also the number of the $n$-cycles \cite{zeng},
+which is also the number of $n$-cycles \cite{zeng},
 %
 and
   $L^*_e(n) \equiv \deg_\lambda P^*_n\rlam = L_e(n) - \delta_{n,1}$.

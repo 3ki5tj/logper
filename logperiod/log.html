@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>Cycles of the logistic map</title>
 <script type="text/javascript" src="js/main.js"></script>
-<link type="text/css" rel="stylesheet" href="/css/main.css">
+<link type="text/css" rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
   The two windows boundaries are called the onset and bifurcation points
   of the
   <span class="eq"><i>n</i></span>-cycle.
-  Mathematically, the two points satisfy
+  Particularly, the two points satisfy
   <div class="eq">
    <i>d</i>
    &equiv;
@@ -56,6 +56,9 @@
 
 
 <div class="p">
+  The main objective of the web page is to describe
+  a computational method, which effectively computes
+  the onset and bifurcation points of the logistic map.
   A more detailed discussion of cycles and their stability
   can be found in <a href="/">this</a> page.
 </div>
@@ -139,14 +142,15 @@ With
 </span>
 and
 <span class="eq">
-  <i>c</i> = &minus;<i>R</i>
+  <i>c</i> = &minus;<i>R</i>.
 </span>
 The modified logistic map
   becomes the quadratic map
 <span class="eq">
   <i>z</i><sub><i>k</i>+1</sub>
-  = <i>z</i><sub><i>k</i></sub><sup>2</sup> + <i>c</i>.
+  = <i>z</i><sub><i>k</i></sub><sup>2</sup> + <i>c</i>
 </span>
+that is used to generate the Mandelbrot set.
 
 
 
@@ -171,7 +175,7 @@ or
   <span class="eq"><i>r</i> = 1 + &radic;<span style="text-decoration:overline">8</span></span>
   of the 3-cycle is nonetheless quite simple,
   and hence has been derived in several papers
-  by different methods (see the references).
+  by different methods (see the References).
 </p>
 
 <p>A brief and self-contained derivation
@@ -183,8 +187,8 @@ is presented in the note
 
 <p>As a side note,
 the existence of the 3-cycle in a general map is quite important,
-as it implies the existence of cycles of all other lengths, thus chaos,
-Sharkovskii and Li &amp; Yorke.
+as it implies the existence of cycles of all other lengths, thus chaos
+(Sharkovskii and Li &amp; Yorke).
 
 
 <h3><i>n</i>-cycles</h3>
@@ -199,7 +203,7 @@ Sharkovskii and Li &amp; Yorke.
 
 <div class="p">
   The main objective of this web page and the reference paper (Zhang 2012)
-  is to describe a computational method to find the polynomials
+  is to describe a computational method that finds the polynomials
   by using cyclic polynomials.
 
   An example of a cyclic polynomial is
@@ -256,7 +260,7 @@ Sharkovskii and Li &amp; Yorke.
 </div>
 
 <div class="p">
-  The key of the above method to
+  The key of the above method is to
   establish a set of linear relations
   among cyclic polynomials.
 
@@ -270,10 +274,10 @@ Sharkovskii and Li &amp; Yorke.
 
   Since the linear relations are based on the derivative
     <span class="eq"><i>d</i></span>,
-  they will manifest slightly differently at the onset and bifurcation points.
+  they will appear slightly differently at the onset and bifurcation points.
 
-  Thus, two different polynomials of <span class="eq"><i>R</i></span>
-  are obtained at the two points.
+  Thus, we will obtain two different polynomials of <span class="eq"><i>R</i></span>
+  at the onset and bifurcation points.
 </div>
 
 
@@ -300,7 +304,7 @@ Sharkovskii and Li &amp; Yorke.
 
   The numerical zeros are appended at the end of each file.
 
-  The equivalent <span class="eq"><i>r</i></span> values to the
+  The equivalent <span class="eq"><i>r</i></span> values
     are listed in the files labeled by &ldquo;r values&rdquo;.
 </div>
 
@@ -309,7 +313,7 @@ Sharkovskii and Li &amp; Yorke.
   The coefficient before
   <span class="eq"><i>T</i><sup><i>k</i></sup></span>,
   written in base-256,
-  is represented in grayscale of pixels of <span class="eq"><i>k</i></span>th line from the top.
+  is represented in grayscale of pixels of the <span class="eq"><i>k</i></span>th row from the top.
 </div>
 
 
@@ -510,7 +514,8 @@ Sharkovskii and Li &amp; Yorke.
       &ldquo;<span class="code">X</span>&rdquo;.
       <br>
 
-      For the complex branching polynomial of the intersection
+      For the tupling (which is a generalization of
+      period-doubling in the complex plane) polynomial of the intersection
         of the 5-cycles and 35-cycles, type
       <div class="code">
         math &lt; log.ma 5 x 35
@@ -684,7 +689,7 @@ Sharkovskii and Li &amp; Yorke.
 
       Although it does not run as fast as the
       <span class="code">log.ma</span>,
-      but it is much faster than
+      it is much faster than
       <span class="code">Mathematica</span>&rsquo;s
       routine
       <span class="code">Resultant[]</span>.
