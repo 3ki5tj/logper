@@ -10,10 +10,18 @@
 %\usepackage{times}
 %\usepackage{setspace}
 \usepackage{booktabs}
-\usepackage{calc}
-\usepackage{cancel} % strike out (cancel) in math mode
 %\usepackage{appendix}
-\begin{document}
+
+
+% strike-through style
+%http://tex.stackexchange.com/questions/20609/strikeout-in-math-mode
+%\usepackage{cancel} % strike out (cancel) in math mode
+\usepackage{calc}
+\newsavebox\CBox
+\newcommand\hcancel[2][0.5pt]{%
+  \ifmmode\sbox\CBox{$#2$}\else\sbox\CBox{#2}\fi%
+  \makebox[0pt][l]{\usebox\CBox}%
+  \rule[0.5\ht\CBox-#1/2]{\wd\CBox}{#1}}
 
 
 \newcommand{\odd}{\mathrm{odd}}
@@ -64,8 +72,7 @@
 
 
 
-
-
+\begin{document}
 
 \title{Cycles of the logistic map}
 \author{Cheng Zhang}
@@ -76,10 +83,10 @@ Rice University, Houston, TX 77005}
 \begin{abstract}
 %\abstract{
 %
-The onset and bifurcation points of the $n$-cycles of
-  a polynomial map are located
+The onset and bifurcation points of $n$-cycles of
+  several polynomial maps are located
   through a characteristic equation
-  connecting the cyclic polynomials of the cycle points.
+  connecting cyclic polynomials of the cycle points.
 The polynomials satisfied by the parameters
   of the logistic, H\'enon, and cubic maps
   at the onset and bifurcation points are obtained
@@ -950,16 +957,18 @@ $X^2-X-R$
 2
 &
   $
-  \big[ \cancel{(R-X)^2 - X}\big]
+  \hcancel{
+    \big[ (R-X)^2 - X \big]
+  }
   (R + X - 1)
   $
 \\
 3
 &
 $\begin{aligned}
-\big[\cancel{
-  X^2-(3R+1)X-R^3
-}\big]
+  \hcancel{
+    \big[ X^2-(3R+1)X-R^3 \big]
+  }
   \big[
   (X-1)^2
  + X R
@@ -970,12 +979,12 @@ $\begin{aligned}
 4
 &
 $\begin{aligned}
-\big[ \cancel{
-  (R-1)^2 - X
-} \big]
-\big[ \cancel{
-(R^2+X)^2 -(2R+1)^2 X
-} \big]
+  \hcancel{
+    \big[ (R-1)^2 - X \big]
+  }
+  \hcancel{
+    \big[ (R^2+X)^2 -(2R+1)^2 X \big]
+  }
 \big[
   R^6-3 R^5+(X+3) (R^4 - R^3) -(X+2)(X-1) R^2 - (X-1)^3
 \big]
@@ -986,10 +995,11 @@ $\begin{aligned}
 \begin{minipage}{.97\linewidth}
 \vspace*{2mm}
 $\begin{aligned}
-&\big[ \cancel{
-  X^2-5 X (R^2+R)-X - R^5
-  %R^5+5 X (R^2+R)-X^2+X
-} \big]
+&
+  \hcancel{
+    \big[ X^2-5 X (R^2+R)-X - R^5 \big]
+    %R^5+5 X (R^2+R)-X^2+X
+  }
 \big[
 -R^{15}+8 R^{14}-28 R^{13}+(X+60) R^{12}-(7 X+94) R^{11}
 +(3 X^2 +20 X
@@ -1012,15 +1022,12 @@ $\begin{aligned}
 6
 &
 $\begin{aligned}
-&\big[\cancel {
-  (R-1)^3 + X
-}\big]
-\big[\cancel {
- (R^3 - X)^2 - (3R+1)^2 X
-}\big]
-\big[\cancel {
-\big(R(R-1)^2-1-X\big)^2-(R-2)^2 X
-}\big]
+&
+  \hcancel {
+    \big[ (R-1)^3 + X \big]
+    \big[ (R^3 - X)^2 - (3R+1)^2 X \big]
+    \big[ \big(R(R-1)^2-1-X\big)^2-(R-2)^2 X \big]
+  }
 \big[
 R^{27}-13 R^{26}+78 R^{25}\\
 &+(X-293) R^{24}
@@ -1035,9 +1042,10 @@ R^{27}-13 R^{26}+78 R^{25}\\
 \begin{minipage}{.97\linewidth}
 \vspace{1mm}
 $\begin{aligned}
-&\big[\cancel {
-  -R^7 - 7 X R (R+1)^2 + X^2 - X
-}\big]
+&
+  \hcancel {
+    \big[ -R^7 - 7 X R (R+1)^2 + X^2 - X \big]
+  }
 \big[
 -R^{63}+32 R^{62}-496 R^{61}
 +4976 R^{60} + (X - 36440) R^{59}
@@ -1059,9 +1067,9 @@ $\begin{aligned}
 \multicolumn{2}{p{\textwidth}}{
 $^\dagger$
 $\NB(n) = (1/n) \sum_{d|n} \varphi(n/d) 2^d$ [\refeq{necklace}]
-is the number of the square-free cyclic polynomials.
+is the number of the simple square-free cyclic polynomials.
 %
-The change of variable $\lambda \rightarrow X$ and
+The change of variable $\lambda \rightarrow 2^n X$ and
   the division by $2^{n \NB(n)}$ make the polynomials more compact.
 %
 The irrelevant factors from shorter cycles
@@ -1315,7 +1323,7 @@ $-\T+3$
 \\
 2
 &
-$-(\cancel{3-\T})$
+$-\hcancel{ (3 - \T) }$
 &
 $\T-5$
 \\
@@ -1323,25 +1331,23 @@ $\T-5$
 &
 $\begin{aligned}
 -
-\big( \cancel{
-  \T^2-\T+7
-}\big)
+\hcancel{
+  ( \T^2 - \T + 7 )
+}
   (\T-7)
 \end{aligned}$
 &
 $\begin{aligned}
- - \T^3 + 8\T^2 - 18\T + 81
+ (- \T^3 + 8\T^2 - 18\T + 81 )
 \end{aligned}$
 \\
 4
 &
 $\begin{aligned}
-\big( \cancel{
-  \T - 5
-} \big)
-\big[ \cancel{
-  (\T+1)^2 + 4
-} \big]
+\hcancel{
+  (\T - 5)
+  \big[ (\T+1)^2 + 4 \big]
+}
 \big[
   (\T-3)^3 - 108
 \big]
@@ -1361,9 +1367,10 @@ $
 %\vspace{3mm}
 $\begin{aligned}
 -
-&\big( \cancel{
-\T^4-\T^3+\T^2+9 \T+31
-} \big)
+&
+\hcancel{
+  ( \T^4-\T^3+\T^2+9 \T+31 )
+}
 \big(
 \T^{11}-31 \T^{10} \\
 +&416 \T^9 -3404 \T^8 +20548 \T^7-98258 \T^6 \\
@@ -1396,16 +1403,13 @@ $\begin{aligned}
 \begin{minipage}{.48\linewidth}
 %\vspace{1mm}
 $\begin{aligned}
-&\big( \cancel{
-\T^2-9 \T+21
-} \big)
-\big( \cancel{
-\T^2+3 \T+3
-} \big)
-\big( \cancel{
-\T^3-8\T^2} \\
-+&\cancel{18\T-81
-} \big)
+&
+\hcancel{
+  (\T^2-9 \T+21)
+  (\T^2+3 \T+3)
+  (\T^3-8\T^2} \\
+&
+  \hcancel{ +18\T-81 ) }
 \big(
 \T^{20}-\dots+3063651608241
 \big)
@@ -1433,11 +1437,12 @@ $\begin{aligned}
 %\vspace{1mm}
 $\begin{aligned}
 -
-&\big( \cancel{
-\T^6-\T^5+\T^4-\T^3
+&
+\hcancel{
+  (\T^6-\T^5+\T^4-\T^3
 %\T^3(\T^2+1)(\T-1)
- +15T^2+97 \T+127
-} \big) \\
+ +15T^2+97 \T+127)
+} \\
 &\big(
 \T^{57}
 -127\T^{56}
@@ -1465,26 +1470,85 @@ $\begin{aligned}
 \\
 \vdots & \vdots & \vdots
 \\
-13
+
+%13
+%&
+%
+%\begin{minipage}{.48\linewidth}
+%%\vspace{1mm}
+%$\begin{aligned}
+%-&
+%  \hcancel{
+%  \big(
+%    \T^{12}-\T^{11}+\T^{10}
+%    %-\T^9+\T^8-\T^7+\T^6+25 \T^5+703 \T^4+5121 \T^3+14847 \T^2
+%    -\dots
+%    +18433 \T+8191
+%  \big)
+%} \\
+%\big(
+%&\T^{4083}
+% - 8191\T^{4082}
+%+ 33529856 \T^{4081}
+%- \dots \\
+%-&30826655683291995
+%\dots
+%27828275886475354111
+%\big)
+%\end{aligned}$
+%%\vspace{2mm}
+%\end{minipage}
+%
+%&
+%\begin{minipage}{.49\linewidth}
+%%\vspace{1mm}
+%$\begin{aligned}
+%-&\T^{4095} + 8192 \T^{4094} -33538048 \T^{4093} \\
+%+&\dots
+%-7361199006999 % 0439512081857
+%\dots
+%96207964555264\T
+%\\
+%+&29448390363448812
+%%0567620
+%\dots
+%%1182
+%352154556569141249
+%\end{aligned}$
+%\vspace{2mm}
+\\
+14
 &
 
 \begin{minipage}{.48\linewidth}
 %\vspace{1mm}
 $\begin{aligned}
--&\big(\cancel{
-\T^{12}-\T^{11}+\T^{10}
-%-\T^9+\T^8-\T^7+\T^6+25 \T^5+703 \T^4+5121 \T^3+14847 \T^2
--\dots
-+18433 \T+8191
-}\big) \\
+&
+\hcancel{
+  \big(
+    \T^6 + 3 \T^5 + 9 \T^4 + 27 \T^3 + 67\T^2 + 89 \T + 43
+  \big)
+} \\
+&\hcancel{
+  \big(
+    \T^6 - 25 \T^5 + 261 \T^4 -1457 \T^3 + 4589 \T^2 - 7737 \T +5461
+  \big)
+} \\
+&\hcancel{
+  \big(
+    -\T^{63} + 128 \T^{62} - \dots
+    + 978621573341\dots3892330031361
+    %+ 97862157334118736160267353892330031361
+  \big)
+} \\
 \big(
-&\T^{4083}
- - 8191\T^{4082}
-+ 33529856 \T^{4081}
+&\T^{8052}
+- 16102\T^{8051}
++ 129605001\T^{8050}
 - \dots \\
--&30826655683291995
++&354338440786337482
 \dots
-27828275886475354111
+91101574588267047561
 \big)
 \end{aligned}$
 %\vspace{2mm}
@@ -1495,19 +1559,18 @@ $\begin{aligned}
 \begin{minipage}{.49\linewidth}
 %\vspace{1mm}
 $\begin{aligned}
--&\T^{4095} + 8192 \T^{4094} -33538048 \T^{4093} \\
+-&\T^{8127} + 16252 \T^{8126} - 132031248 \T^{8125} \\
 +&\dots
--7361199006999 % 0439512081857
++234550833883692
 \dots
-96207964555264\T
+06625000000000000\T
 \\
-+&29448390363448812
-%0567620
++&
+93826059892194743
 \dots
-%1182
-352154556569141249
+18759918212890625
 \end{aligned}$
-%\vspace{2mm}
+
 \end{minipage}
 
 
@@ -2686,9 +2749,7 @@ $(\lambda - r) (\lambda + 2 r - 3)$
 2
 &
   $
-  \big[
-  \cancel{\lambda - (2r+3)^2}
-  \big]
+  \hcancel{ [\lambda - (2r+3)^2 ] }
   (\lambda + 2r^2 - 9)
   $
 \\
@@ -2709,10 +2770,13 @@ $\begin{aligned}
 \begin{minipage}{.97\linewidth}
 \vspace*{1mm}
 $\begin{aligned}
-&\big[ \cancel{
-  (\lambda-8r^4+54r^2+81)^2
--4 (r^2-9)^2 \lambda
-} \big]
+&
+\hcancel{
+  \big[
+    (\lambda-8r^4+54r^2+81)^2
+    -4 (r^2-9)^2 \lambda
+  \big]
+}
 \,^\ddagger\,
 \big[
 \lambda^8
@@ -2830,28 +2894,52 @@ $\begin{aligned}
 \\
 \vdots & \vdots & \vdots
 \\
-8
+%8
+%&
+%$\begin{aligned}
+%&-8192 (r^4+1) (2 r^4-18 r^2+41) \\
+%&(8 r^4-48 r^3+108 r^2-108 r+41) \\
+%&(8 r^4+48 r^3+108 r^2+108 r+41) \dots\\
+%%&(16 r^8-216 r^6+410 r^4+2142 r^2+1681) \\
+%%&(8192 r^{32}-\dots-7984925229121) \\
+%%&(16384 r^{36}-\dots-1310720000000000) \\
+%%&(131072 r^{40}-\dots-13422659310152401)^2 \\
+%&(22016722240\dots14954924752896r^{3108} \\
+%&-\dots-180097954\dots2522413056\times 10^{400})
+%\end{aligned}$
+%&
+%$\begin{aligned}
+%-&(17592186044416 r^{80} +\dots+ \\
+%&144564714832407908402064153121600801) \\
+%&(4841528421712030\dots03048551060078592 r^{3200}\\
+%&-\dots-25263420710\dots173884723232001)
+%\end{aligned}$
+%\\
+9
 &
 $\begin{aligned}
-&-8192 (r^4+1) (2 r^4-18 r^2+41) \\
-&(8 r^4-48 r^3+108 r^2-108 r+41) \\
-&(8 r^4+48 r^3+108 r^2+108 r+41) \dots\\
-%&(16 r^8-216 r^6+410 r^4+2142 r^2+1681) \\
-%&(8192 r^{32}-\dots-7984925229121) \\
-%&(16384 r^{36}-\dots-1310720000000000) \\
-%&(131072 r^{40}-\dots-13422659310152401)^2 \\
-&(22016722240\dots14954924752896r^{3108} \\
-&-\dots-180097954\dots2522413056\times 10^{400})
+&(r^6 + r^3 + 1)
+(64 r^6 - 576 r^5 + 2160 r^4 - 4328 r^3 + 4896 r^2 \\
+&- 2970 r + 757)
+(65536 r^{24} + 196608 r^{23} - \dots + 328385156401) \cdots\\
+&(100257396069318593562485\dots27041918452769115602944 r^{9792} \\
+&+\dots+100777071891533412274\dots669779415034840760335533)
 \end{aligned}$
 &
 $\begin{aligned}
--&(17592186044416 r^{80} +\dots+ \\
-&144564714832407908402064153121600801) \\
-&(4841528421712030\dots03048551060078592 r^{3200}\\
-&-\dots-25263420710\dots173884723232001)
+&4205099973631272542535\dots26734123312649890430976 r^{9828} \\
+&-619915838112722198220\dots14445875084684733448192 r^{9826} \\
+&+\dots+186361973456670282\dots45890460766629265408 r^{3} \\
+&+279917391437103331960\dots789652523552928732020736
 \end{aligned}$
 \\
+%
+%
+%
 \hline
+%
+%
+%
 \multicolumn{3}{p{\linewidth}}
 {
 $^\dagger$
@@ -2876,7 +2964,7 @@ it may contain a pre-factor (e.g., $-2$ in the $n=2, \lambda=+1$ case).
 \begin{center}
 %\begin{tabular}{l l l l}
 \begin{tabularx}{\linewidth}{
-  >{\hsize=0.5\hsize\centering\arraybackslash}X
+  >{\hsize=0.5\hsize\raggedright\arraybackslash}X
   >{\hsize=1.6\hsize}X
   >{\hsize=1.6\hsize}X
   >{\hsize=0.3\hsize\raggedright\arraybackslash}X
@@ -2900,6 +2988,7 @@ $7$     & $2.3729872678_{1080}$ &  $2.3732727868_{1092}$  & 156 \\
 $8$     & $2.3525990555_{3108}$ &  $2.3527637793_{3200}$  & 400 \\
 $8'$    & $2.5488312193_{32}$   &  $2.5493247379_{3200}$  & 8   \\
 $8'''$  & $2.2880317545_{32}$   &  $2.2992279397_{3200}$  & 2   \\
+$9$     & $2.3651805877_{9792}$ &  $2.3652188703_{9828}$  & 1092 \\
 \hline
 \multicolumn{4}{p{\linewidth}}{
 $^\dagger$
