@@ -19,6 +19,10 @@ class MainPage(webapp2.RequestHandler):
 <ul>
 <li>Cheng Zhang,
 <i>Cycles of the logistic map</i>,
+<a href="http://www.worldscientific.com/doi/abs/10.1142/S0218127414500059">
+International Journal of Bifurcation and Chaos
+<b>24</b> (2014) 1450005</a>;
+also, an earlier preprint:
 <a href="http://arxiv.org/abs/1204.0546">arXiv:1204.0546</a>, 2012.
 </li>
 </ul>''',
@@ -35,7 +39,7 @@ class MainPage(webapp2.RequestHandler):
         </ul></div>''',
 
         'last_update':
-        '<p>Last updated on June 3rd, 2013.',
+        '<p>Last updated on April 2nd, 2014.',
     }
     self.response.write(template.render(template_values))
 

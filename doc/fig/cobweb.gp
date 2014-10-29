@@ -1,6 +1,6 @@
 unset multiplot
 reset
-set terminal postscript enhanced font "Times, 14" size 7, 10
+set terminal postscript enhanced font "Times, 14" size 8, 12
 set output "cobweb.ps"
 set encoding iso_8859_1
 
@@ -16,8 +16,8 @@ set style arrow 1 head size 0.040, 18, 30 filled lw 1.0 lc rgb arrowcolor
 set style line 10 lt 2 lw 1.5 lc rgb "#808080"
 
 dx = 0.007
-dx2 = 0.0
-dy = 0.030
+dx2 = 0.015
+dy = 0.020
 
 # width of the left and right colums
 wlft = 0.55
@@ -38,7 +38,7 @@ vrtmargin = 0.2
 botmargin = 3.0
 
 
-lbfont = "Times, 20"
+lbfont = "Times, 27"
 titlefont = "Times, 24"
 tcfont = "Times, 17"
 

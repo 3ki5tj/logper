@@ -21,5 +21,6 @@ check: $(htmls)
 
 clean:
 	find . -name "*~" | xargs rm -f
+	find . -name ".*.un~" | xargs rm -f
 	rstrip.py -Rv
 
