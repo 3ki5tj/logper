@@ -500,6 +500,6 @@ if __name__ == "__main__":
             ).replace("{{verbose}}", str(verbose)
             )
   open(fnma, "w").write(src)
-  print "Mathematica script %s, now run\n  math < %s" % (fnma, fnma)
+  print ("Mathematica script %s, now run\n  math < %s" % (fnma, fnma))
 
 

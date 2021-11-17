@@ -1,21 +1,21 @@
-The name of the project is `logperiod'
-3ki5tj@gmail.com
-
 To upload (make upload)
-cd ~/software/google_appengine
-./appcfg.py update logperiod
+```
+gcloud app deploy --project=logperiod app.yaml
+```
 
 To test locally (make local)
-cd ~/software/google_appengine
-./dev_appserver.py logperiod
+```
+dev_appserver.py logperiod
+```
 
 Dashboard
 http://appengine.google.com/
 
-To get tutorial
+The getting started tutorial
 http://code.google.com/appengine/docs/python/gettingstarted/
 
 
 To synchronize
+```
 rsync -avz ../logperiod /media/C3/logper/
-
+```

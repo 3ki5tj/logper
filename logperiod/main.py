@@ -9,12 +9,23 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 class MainPage(webapp2.RequestHandler):
-  def get(self, fnhtml="index.html"):
+
+  def get(self, fnhtml="index.html", title="Homepage"):
     self.response.headers['Content-Type'] = 'text/html'
 
     template = JINJA_ENVIRONMENT.get_template(fnhtml)
 
     template_values = {
+        'header_html': '''<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>%s</title>
+<script type="text/javascript" src="js/main.js?v=0.1.1"></script>
+<link type="text/css" rel="stylesheet" href="/css/main.css?v=0.1.1">
+</head>
+''' % (title),
         'prim_ref': '''<h3>Primary reference</h3>
 <ul>
 <li>Cheng Zhang,
@@ -44,24 +55,29 @@ also, an earlier preprint:
     self.response.write(template.render(template_values))
 
 
+class IndexPage(MainPage):
+  def get(self):
+    MainPage.get(self, "index.html", "Cycles of polynomial maps")
+
+
 class LogisticPage(MainPage):
   def get(self):
-    MainPage.get(self, "log.html")
+    MainPage.get(self, "logistic.html", "Cycles of the logistic map")
 
 
 class CubicPage(MainPage):
   def get(self):
-    MainPage.get(self, "cub.html")
+    MainPage.get(self, "cubic.html", "Cycles of the antisymmetric cubic map")
 
 
 class HenonPage(MainPage):
   def get(self):
-    MainPage.get(self, "hen.html")
+    MainPage.get(self, "henon.html", "Cycles of the Henon map")
 
 
 class ESDPage(MainPage):
   def get(self):
-    MainPage.get(self, "esd.html")
+    MainPage.get(self, "esd.html", "Elementary Symbolic Dynamics")
 
 
 class AboutPage(webapp2.RequestHandler):
@@ -71,15 +87,20 @@ class AboutPage(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication(
-  [('/', MainPage),
-   ('/index', MainPage), # aliases
+  [('/', IndexPage),
+   ('/index', IndexPage), # aliases
+
    ('/logistic', LogisticPage),
    ('/log', LogisticPage), # alias
+
    ('/cubic', CubicPage),
    ('/cub', CubicPage), # alias
+
    ('/henon', HenonPage),
    ('/hen', HenonPage), # alias
+
    ('/esd', ESDPage),
+
    ('/about', AboutPage)],
   debug=True)
 

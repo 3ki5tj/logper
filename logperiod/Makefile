@@ -1,13 +1,10 @@
 prj=~/work/logper/logperiod
 
-local::
-	cd ~/software/google_appengine && \
-	echo "the website can be viewed as localhost:8080" && \
-	./dev_appserver.py $(prj)
-
 upload::
-	cd ~/software/google_appengine && \
-	./appcfg.py update $(prj)
+	gcloud app deploy --project=logperiod app.yaml
+
+local::
+	dev_appserver.py $(prj)
 
 usb::
 	rsync -avz --exclude="*~" --exclude=".*" --exclude="fit.log" \

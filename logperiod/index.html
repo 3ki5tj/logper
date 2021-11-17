@@ -1,18 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<title>Cycles of polynomial maps</title>
-<script type="text/javascript" src="js/main.js"></script>
-<link type="text/css" rel="stylesheet" href="/css/main.css">
-</head>
+{{ header_html }}
 <body>
+<div class="container">
 
-
-<h1><i>n</i>-cycles of polynomial maps</h1>
+<h1>Cycles of polynomial maps</h1>
 
 <div class="p">
-  This page is about an algorithm of computing exact
+  This page is about an algorithm for computing the exact
   <span class="eq"><i>n</i></span>-cycles of some polynomials maps.
 </div>
 
@@ -22,13 +15,25 @@
 <h2>Introduction</h2>
 
 <div class="p">
-  Consider a one dimensional map, as an iteration sequence:
+  Consider a one-dimensional map,
+  <div class="eq">
+    <i>x</i>
+    &srarr;
+    <i>f</i> (<i>x</i>),
+  </div>
+  where <span class="eq"><i>f</i>(<i>x</i>)</span> is some polynomial function.
+</div>
+
+<div class="p">
+  If we iterate the map many time, we would have an iteration sequence:
   <div class="eq">
     <i>x</i><sub><i>k</i>+1</sub>
-    = <i>f</i> (<i>x<sub>k</sub></i>),
+    = <i>f</i> (<i>x<sub>k</sub></i>).
   </div>
-  where <span class="eq"><i>f</i>(<i>x</i>)</span> is some function,
-  which is assumed to be polynomial.
+  Occasionally, this sequence would go back to some previous value after a few iterations,
+  and afterwards, it simply repeats itself.
+  This is what we call a <em>cycle</em>.
+  The mathematical problem we wish to figure out is that when does such a cycle happen.
 </div>
 
 
@@ -46,17 +51,20 @@
   </span>
   such that
   <div class="eq">
-    <i>x</i><sub> <i>n</i></sub>
+    <i>x</i><sub><i>n</i></sub>
     =  <i>x</i><sub>0</sub>.
   </div>
-  More strictly, <span class="eq"><i>n</i></span> has to be the
+  Here, <span class="eq"><i>n</i></span> has to be the
   <em>smallest</em> positive integer that satisfies the relation.
-  It follows that in an <span class="eq"><i>n</i></span>-<em>cycle</em>,
+</div>
+
+<div class="p">
+  After the first cycle, the pattern would repeat itself, and we would have
   <div class="eq">
     <i>x</i><sub> <i>n+k</i></sub>
     =  <i>x</i><sub>k</sub>
   </div>
-  holds for any <span class="eq"><i>k</i></span>.
+  for <span class="eq"><i>k</i></span>.
 </div>
 
 
@@ -68,18 +76,28 @@
   <i>f</i> (<i>x</i><sub>0</sub>)
     =  <i>x</i><sub>0</sub>.
   </div>
+</div>
 
-  On the other hand, any
+<div class="p">
+  Any cycle point
   <span class="eq"><i>x</i><sub><i>k</i></sub></span>
-  in the <span class="eq"><i>n</i></span>-cycle
-  is also be a fixed point of
-  <span class="eq"><i>f<sup> n</sup></i></span>,
-  the <span class="eq"><i>n</i></span>th iterate of <span class="eq"><i>f</i></span>, for
+  in the <span class="eq"><i>n</i></span>-cycle of <span class="eq"><i>f</i></span>
+  is also be a fixed point of the iterated map
+  <span class="eq"><i>f<sup>n</sup></i></span>,
+  (which is called the <span class="eq"><i>n</i></span>th iterate of <span class="eq"><i>f</i></span>) for
   <div class="eq">
   <i>x</i><sub><i>n+k</i></sub>
-  = <i>f<sup> n</sup></i>(<i>x</i><sub><i>k</i> </sub>)
+  = <i>f<sup>n</sup></i>(<i>x</i><sub><i>k</i> </sub>)
   = <i>x</i><sub><i>k</i></sub>.
   </div>
+  However, a fixed point of
+  <span class="eq"><i>f<sup>n</sup></i></span>
+  (<span class="eq"><i>n</i> &gt; 1</span>)
+  is not necessarily a <span class="eq"><i>n</i></span>-cycle point.
+  For example, a fixed point of
+  <span class="eq"><i>f</i></span>
+  is also a fixed point of its <span class="eq"><i>n</i></span>th iterate,
+  but is not qualified as a <span class="eq"><i>n</i></span>cycle point.
 </div>
 
 
@@ -89,10 +107,10 @@
 <div class="p">
   A cycle can be <em>stable</em> or unstable.
   In a stable cycle,
-  a small deviation of <span class="eq"><i>x</i><sub>0</sub></span>
-  from the exact cycle point
+  a small deviation from the exact cycle point
+  <span class="eq"><i>x</i><sub>0</sub></span>
   gets reduced in magnitude after <span class="eq"><i>n</i></span> iterations,
-  such that <span class="eq"><i>x<sub>n</sub></i></span> is closer to the exact cycle point
+  such that <span class="eq"><i>x<sub>n</sub></i></span> becomes closer to the exact cycle point
   than <span class="eq"><i>x</i><sub>0</sub></span>.
   In other words, a stable cycle is attractive in the neighborhood of its cycle points.
 </div>
@@ -103,14 +121,16 @@
   If we start the iteration from a random
   <span class="eq"><i>x</i><sub>0</sub></span>
   it will be converged only to a stable cycle.
+</div>
 
+<div class="p">
   We further note that if
   <span class="eq"><i>x<sub>k</sub></i></span>
   are complex numbers,
   a cycle always exists, for we can always find complex roots
   of the algebraic equation
   <span class="eq">
-    <i>f</i><sup> <i>n</i></sup>(<i>x</i>) = <i>x</i>.
+    <i>f</i><sup><i>n</i></sup>(<i>x</i>) = <i>x</i>.
   </span>
 </div>
 
@@ -395,11 +415,12 @@ See <a href="esd">the ESD page</a> for more about the book.
 
 </ul>
 
-
 {{ prim_ref }}
 
 {{ go_home }}
 {{ last_update }}
+
+</div> <!-- container -->
 
 <script type="text/javascript">var sc_project=7808053; var sc_invisible=1; var sc_security="6c20b472";</script>
 <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>

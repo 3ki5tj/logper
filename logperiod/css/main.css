@@ -1,12 +1,18 @@
-/* Copyright (c) Cheng Zhang 2010-2013 */
+/* Copyright (c) Cheng Zhang 2010-2013, 2021 */
 body {
-  font: 90% "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma',
-    sans-serif;
-  width: 640px; margin: auto;
+  font-family: "MS Trebunchet", "Lucida Grande", 'Verdana', 'Tahoma', "Helvetica", sans-serif;
+  margin: auto;
+  width: 800px;
+  max-width: 100%;
+}
+
+.container {
+  padding: 0 32px;
+  line-height: 1.6;
 }
 
 /* Table-of-contents sidebar
- * `width' is to be adjusted by the javascript */
+ * `width` is to be adjusted by the javascript */
 div#tocbox {
   position: fixed; top: 50px; left: 0px; width: 200px;
   background-color: #ffffff; font: 80%/120% sans-serif;
@@ -42,27 +48,50 @@ p, div.p {
   line-height: 150%;
 }
 div.center { text-align: center; }
+
 code, pre.code, div.code, span.code {
   font: 120% monospace;
   color: #005500;
 }
+
 code, pre.code, div.code {
-  padding: 3px 20px 3px 20px;
-  margin: 7px 0px 7px 0px;
+  padding: 5px 20px;
+  margin: 15px 5px;
   background-color: #f0f0f0;
   border: 1px solid #c0c0c0;
 }
+
 a:visited { color: #808080; font-weight: normal; }
 a:link { color: #000080; text-decoration: none; }
 a:hover { color: #ffffff; background-color: #808080; }
+
 .eq {
   font-family: "Times", "Times New Roman", serif;
   font-variant: normal;
+  letter-spacing: 0.03em;
 }
-div.eq { text-align: center; font-size: 120% }
-span.eq { font-size: 110%; padding: 0px; }
+
+div.eq {
+  text-align: center;
+  font-size: 135%;
+  padding: 0.5em 1.0em;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+
+span.eq {
+  font-size: 115%;
+  letter-spacing: 0.07em;
+  padding: 0px 1px;
+}
+
 .eq sub { font-size: 60%; }
-.eq sup { font-size: 60%; padding: 1px; }
+
+.eq sup {
+  font-size: 60%;
+  padding: 0px 1px 1px 3px;
+}
 
 .linkenv {
   padding: 5px 0px; margin: 25px 0px;
@@ -103,8 +132,15 @@ table.progtable th {
   color: #ffffff;
 }
 
-div.fig { margin: 3px; }
-img.fig { border: 1px solid #C0C0C0; }
+div.fig {
+  margin: 15px 5px;
+}
+
+img.fig {
+  border: 1px solid #C0C0C0;
+  max-width: 100%;
+}
+
 img.demo   { border: 3px ridge #C0C0C0; }  /* boxed image */
 img.float  { float: right; border: 3px ridge #a0a0f0; margin: 10px; }
 

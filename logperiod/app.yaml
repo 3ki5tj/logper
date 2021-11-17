@@ -1,5 +1,3 @@
-application: logperiod
-version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -32,7 +30,13 @@ handlers:
   upload: robots\.txt
 
 - url: /.*
-  script: logperiod.app
+  script: main.app
+
+skip_files:
+- ^(.*/)?data/cub/cr9[ab]\.txt$
+- ^(.*/)?README_for_myself_only\.md$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.swp$
 
 libraries:
 - name: webapp2
